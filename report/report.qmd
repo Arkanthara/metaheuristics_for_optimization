@@ -1,0 +1,129 @@
+---
+title: "Methods and Heuristics for Learning and Optimization"
+subtitle: "Simulated Annealing and Parallel Tempering for the Traveling Salesman Problem"
+courseid: 14X013
+author: "Michel Jean Joseph Donnet"
+# email: "Fitzwilliam.Darcy@blabla.ch"
+# repository: "https://github.com/yourname/your_repository"
+# repositoryName: "Repository Name"
+university: "University of Geneva"
+department: "Department of Informatics"
+# logo: ""
+# logofooter: "./images/unige_csd.png"
+# logofootersize: 1.5cm
+toc: true
+format:
+  pdf:
+    pdf-engine: xelatex
+    pdf-engine-opts: ["--shell-escape"]
+    template: template.tex
+    execute: true # Code execution
+    echo: true    # Code printing in document
+---
+
+\newpage
+
+# Introduction
+
+(0.25)
+
+be specific on
+
+- search space
+- neighborhood
+- fitness
+- TSP
+- greedy
+- SA
+
+
+Human have been always interested in optimization problem to avoid a loss of energy or money or something else.
+In our digital world, the optimization play an important role in most domains.
+For instance, a travel compagny will try to maximise its customer base by proposing the customer to visit a maximum number of cities with minimal cost for him.
+Depending on the optimization of this problem, the compagny will have more customers and will develop more than another compagny in the same domain.
+To deal with theses optimization issues, heuristics and metaheuristics algorithm are created, using different approaches and modelizations of the real problem to propose an optimization.
+For instance, in case of the travel compagny, the problem can be modelized by finding a route that minimizes costs and passes through all the cities before returning to the agency.
+Each city then represents a node in a graph, and each city is connected to the others by an edge weighted by the price of travel between those two cities.
+This modelization of the problem is called Traveling Salesman Problem (TSP) and is known to be a NP-hard (Nondeterministic Polynomial-time hard) problem, that means that we can't find a solution in polynomial time.
+To find a solution that may not necessarily be optimal, we use heuristics and metaheuristics algorithm.
+
+In this work, we will try to find a solution to the TSP problem by a metaheuristic method called Simulated Annealing method.
+
+# Methodology {#sec-met}
+
+(1.5)
+
+First, we will explain some terms and definitions used in the rest of this report.
+
+## Modelization and definitions
+
+The TSP problem can be modelized by $N$ cities to visit, numeroted from $0$ to $N - 1$, with a cost matrix $W$ that gives at the position $i, j$ the cost of the travel between city $i$ and city $j$.
+Each solution can be written as a list of $N$ cities in the order of visit.
+When the last city of the list is reached, the customers returns to the agency in the first city of the list.
+For instance, for $N = 3$ cities, a solution can be $[3, 1, 2]$ that means the customer will first visit city $3$, then city $1$ and finaly city $2$ and then return to agency in city $3$.
+
+#### Search space
+
+The search space gives the set of all possibles solutions for a given problem.
+In specific case of TSP problem, the search space will be the set of all the paths that go through all the cities.
+For instance, for $N$ cities fully connected (fully connected: each city is connected to each others), the search space will be of size $N!$ minus .
+So with a great $N$, the search space becomes astronomic.
+
+#### Neighborhood
+
+The neighborhood returns a set of solutions closest to the given solution by slightly modifying the given solution.
+It depens on the modelization of the problem.
+In our case, each solution is a list of cities in order of visit.
+For instance, the list $[3, 1, 2]$ means that we will visit first the city $3$, then the city $1$, then the city $2$ and then come back to the agency.
+
+### Heuristic vs metaheuristic
+
+#### Heuristic
+
+An heuristic approach to an optimization problem will try to find a good solution in polynomial time.
+It's a deterministic approach, which means that with same input, the method will give always the same output: nothing is given to the hasard.
+However, the heuristic approach is specific to each problem.
+Due to its deterministic nature, the algorithm will tend to be blocked by local optimal solutions, but not global ones.
+
+#### Metaheuristic
+
+A metaheuristic approach
+
+
+Simulated annealing what is it ?? Kind of simulated annealing etc...
+
+# Implementation
+
+(1)
+
+Pseudo-code
+
+# Results
+
+(1)
+
+- circle
+- cities
+- cities2
+- 20
+- 60
+- 80
+- 100
+
+Temperature change execution time
+
+Just show plots and results, not discussion...
+
+# Discussion
+
+(2)
+
+- greedy vs simulated annealing (SA)
+- abrupt temperature change
+
+- diversification
+- intensification
+
+# Conclusion
+
+(0.25)

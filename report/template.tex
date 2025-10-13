@@ -1,0 +1,203 @@
+% university-template.tex
+\documentclass[12pt,a4paper]{article}
+
+% ------------------------------
+% PACKAGES
+% ------------------------------
+\usepackage{graphicx}    % for logo
+\usepackage{geometry}    % margins
+\usepackage{setspace}    % line spacing
+\usepackage{lmodern}     % clean font
+\usepackage{hyperref}    % hyperlinks
+\usepackage{amsmath}
+\usepackage{fancyhdr}    % headers/footers
+\usepackage{lastpage}    % total pages reference
+\usepackage{array}       % layout tables
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calc}
+\usepackage{float}
+% \usepackage{fancyvrb}    % fancy verbatim, needed for Shaded
+% \usepackage{framed}      % provides shaded environment
+% \usepackage{xcolor}
+% \definecolor{shadecolor}{RGB}{240,240,240} % light gray background
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+% ------------------------------
+% VARIABLES
+% ------------------------------
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% Download default logo if YAML logo not provided
+$if(logo)$
+  % YAML logo exists — do nothing
+$else$
+  % Ensure images/ folder exists
+  \immediate\write18{mkdir images}
+  \immediate\write18{curl -L https://github.com/Arkanthara/templates/raw/refs/heads/master/quarto/images/unige.pdf -o images/unige.pdf}
+  \immediate\write18{curl -L https://github.com/Arkanthara/templates/raw/refs/heads/master/quarto/images/unige_informatic.png -o images/unige_informatic.png}
+  \def\defaultlogo{images/unige.pdf}
+  \def\defaultlogofooter{images/unige_informatic.png}
+$endif$
+% ------------------------------
+% Pandoc FIX
+% ------------------------------
+% Fix image size
+\setkeys{Gin}{width=\linewidth,keepaspectratio}
+% Fix Pandoc \tightlist
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Fix Pandoc \pandocbounded for figures
+\providecommand{\pandocbounded}[1]{#1}
+
+% ------------------------------
+% HYPERLINKS STYLE
+% ------------------------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+}
+
+% ------------------------------
+% HEADER & FOOTER STYLE
+% ------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{15pt}
+
+% Header: title left, author(s) right
+\fancyhead[L]{\small\textbf{$title$}}
+\fancyhead[R]{\small $for(author)$$author$$sep$, $endfor$}
+
+% Footer: logo + university (left), page count (right)
+\fancyfoot[L]{%
+  \vspace{-0.3cm}%
+  $if(logofooter)$
+    \raisebox{-0.2\height}{\includegraphics[height=$if(logofootersize)$$logofootersize$$else$1cm$endif$]{$logofooter$}} \enspace
+  $else$
+    $if(logo)$%
+      \raisebox{-0.2\height}{\includegraphics[height=1cm]{$logo$}} \enspace
+      \small $if(university)$$university$$endif$%
+      $if(department)$, $department$$endif$
+    $else$
+      \raisebox{-0.4\height}{\includegraphics[height=1.5cm]{\defaultlogofooter}} \enspace
+    $endif$%
+  $endif$
+}
+\fancyfoot[R]{\small Page \thepage\ of \pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ------------------------------
+% DOCUMENT
+% ------------------------------
+\begin{document}
+\begin{titlepage}
+    \centering
+
+    % --- University logo and name ---
+    $if(university)$
+      \includegraphics[width=$if(logosize)$$logosize$$else$0.35\linewidth$endif$]{$if(logo)$$logo$$else$\defaultlogo$endif$}\\[0.8cm]
+      {\Large\textsc{$university$}}\\
+      $if(department)${\large $department$}\\[1.2cm]$endif$
+    $else$
+      \includegraphics[width=$if(logosize)$$logosize$$else$0.55\linewidth$endif$]{$if(logo)$$logo$$else$\defaultlogo$endif$}\\[2cm]
+    $endif$
+
+    % --- Title of the work ---
+    {$if(titlesize)$$titlesize$$else$\Huge$endif$\bfseries\scshape $title$\par}
+
+    % --- Subtitle: course name ---
+    $if(subtitle)$
+      \vspace{0.6cm}
+      {\Large $subtitle$\par}
+    $endif$
+
+    % --- Course ID ---
+    $if(courseid)$
+      \vspace{0.3cm}
+      {\large $courseid$\par}
+    $endif$
+
+    \vspace{1.2cm}
+
+    % --- Illustration (optional) ---
+    $if(illustration1)$
+      $if(illustration2)$
+        % both defined, print side by side
+        \begin{minipage}{0.48\linewidth}
+          \includegraphics[width=\linewidth]{$illustration1$}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\linewidth}
+          \includegraphics[width=\linewidth]{$illustration2$}
+        \end{minipage}
+      $else$
+        % only illustration1 defined
+        \includegraphics[width=0.7\linewidth]{$illustration1$}\\[1.2cm]
+      $endif$
+    $endif$
+
+    % --- Author(s) ---
+    {\Large $for(author)$$author$$sep$ \\ $endfor$\par}
+
+    % --- Email(s) ---
+    $if(email)$
+      \vspace{0.3cm}
+      \href{mailto:$email$}{\texttt{$email$}}\par
+    $endif$
+
+    % --- Supervisor ---
+    $if(supervisor)$
+      \vspace{0.5cm}
+      {\small Supervisor: \textit{$supervisor$}\par}
+    $endif$
+
+    % --- Repository link ---
+    $if(repository)$
+      \vspace{0.5cm}
+      {\small Repository: \href{$repository$}{$repositoryName$}\par}
+    $endif$
+
+    \vfill
+
+    % --- Date ---
+    $if(date)$
+      {\large $date$\par}
+    $else$
+      {\large \today\par}
+    $endif$
+
+\end{titlepage}
+
+% ------------------------------
+% Optional Table of Contents
+% ------------------------------
+
+$if(toc)$
+{
+  \clearpage
+  \pagestyle{plain} % plain style for TOC pages
+  $if(toc-name)$
+    \renewcommand{\contentsname}{\centering $toc-name$} % center title
+  $else$
+    \renewcommand{\contentsname}{\centering Table of Contents} % center title
+  $endif$
+  \tableofcontents
+  \clearpage
+  \pagestyle{fancy} % restore fancy headers/footers
+}
+$endif$
+
+$body$
+
+\end{document}
