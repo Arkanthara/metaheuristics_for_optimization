@@ -8,14 +8,14 @@ author: "Michel Jean Joseph Donnet"
 # repositoryName: "Repository Name"
 university: "University of Geneva"
 department: "Department of Informatics"
-# logo: ""
-# logofooter: "./images/unige_csd.png"
+logo: "./images/unige.pdf"
+logofooter: "./images/unige_informatic.png"
 # logofootersize: 1.5cm
 toc: true
 format:
   pdf:
     pdf-engine: xelatex
-    pdf-engine-opts: ["--shell-escape"]
+    # pdf-engine-opts: ["--shell-escape"]
     template: template.tex
     execute: true # Code execution
     echo: true    # Code printing in document
@@ -49,6 +49,8 @@ To find a solution that may not necessarily be optimal, we use heuristics and me
 
 In this work, we will try to find a solution to the TSP problem by a metaheuristic method called Simulated Annealing method.
 
+\newpage
+
 # Methodology {#sec-met}
 
 (1.5)
@@ -58,45 +60,131 @@ First, we will explain some terms and definitions used in the rest of this repor
 ## Modelization and definitions
 
 The TSP problem can be modelized by $N$ cities to visit, numeroted from $0$ to $N - 1$, with a cost matrix $W$ that gives at the position $i, j$ the cost of the travel between city $i$ and city $j$.
+Each city is connected to each others, so the graph is fully connected.
+In this work, we assume that the cost of the travel between city $i$ and $j$ is the same in both directions.
+So the cost matrix $W$ is symetric because $W_{ij} = W_{ji} \ \forall \ i, j \ \in \{0, \cdots , N - 1\}$, which implies that $W = W^T$.
 Each solution can be written as a list of $N$ cities in the order of visit.
 When the last city of the list is reached, the customers returns to the agency in the first city of the list.
 For instance, for $N = 3$ cities, a solution can be $[3, 1, 2]$ that means the customer will first visit city $3$, then city $1$ and finaly city $2$ and then return to agency in city $3$.
 
-#### Search space
+### Search space {#sec-search}
 
 The search space gives the set of all possibles solutions for a given problem.
-In specific case of TSP problem, the search space will be the set of all the paths that go through all the cities.
-For instance, for $N$ cities fully connected (fully connected: each city is connected to each others), the search space will be of size $N!$ minus .
+In specific case of TSP problem, the search space will be the set of all the cyclic paths that go through all the cities.
+
+As the paths are cyclic, it means that for instance path $[1, 2, 3]$ is the same that $[3, 1, 2]$.
+For $N$ cities, for a given path, it's possible to perform $N$ cyclic rotations before returning on the given path.
+
+As we have assumed that the cost between city $i$ and $j$ is the same in both directions, it means that for instance path $[1, 2, 3]$ is the same that $[3, 2, 1]$.
+So for $N$ cities, for a given path with its set of cyclic rotations, if we perform an inversion, we will obtain an inversed path with its corresponding set of cyclic rotations.
+
+So a path with a given cost can have $2N$ variants.
+
+So for $N$ cities, the search space will be of size $S$ given by the formula [-@eq-size].
+
+$$
+S = \frac{\text{Number of possible paths}}{\text{Number of variant per path}} = \frac{N!}{2N} = \frac{(N - 1)!}{2}
+$$ {#eq-size}
+
 So with a great $N$, the search space becomes astronomic.
 
-#### Neighborhood
+Example: $N = 15 \ \Longrightarrow \ S = \frac{(15 - 1)!}{2} = 4.3 \times 10^{10}$
+
+### Neighborhood
 
 The neighborhood returns a set of solutions closest to the given solution by slightly modifying the given solution.
 It depens on the modelization of the problem.
 In our case, each solution is a list of cities in order of visit.
-For instance, the list $[3, 1, 2]$ means that we will visit first the city $3$, then the city $1$, then the city $2$ and then come back to the agency.
 
-### Heuristic vs metaheuristic
+We define the neighborhood like a swap of 2 elements of the current solution that gives another solution.
+The neighbor solution obtained must differs from the current solution and also from all cyclic rotations and inversions of the current solution.
 
-#### Heuristic
+So for a solution given with $N$ cities, the size of the neighborhood is borned by the number of unique permutations of 2 elements in a list, like the formula [-@eq-neimax] show us.
+The born is the number of permutations of 2 elements in a list because all the permutations will not be taken since certain permutations can result in a cyclic or inverse rotation of the solution.
+
+$$
+\text{Number of neighbors} \ \leq \ \begin{pmatrix} N \\ 2 \end{pmatrix} = \frac{N!}{2!(N - 2)!} = \frac{N(N - 1)}{2}
+$$ {#eq-neimax}
+
+### Fitness
+
+The fitness, or cost function, returns the total cost of the travel around all the cities, according to the weight matrix $W$.
+As explained above, the cost between city $i$ and city $j$ is given by the element $i, j$ of the cost matrix $W$ which is symetric.
+
+So we can define a fitness function as the sum of the cost of all travel between cities in a given solution $x$, as shown in the formula [-@eq-fitness].
+
+$$
+f(x) = W_{x_Nx_1} + \sum_{i = 2}^N W_{x_{i - 1}x_i}
+$$ {#eq-fitness}
+
+Note that the term $W_{x_Nx_1}$ in the formula [-@eq-fitness] design the cost of returning to the agency.
+
+## Heuristic vs metaheuristic
+
+### Heuristic
 
 An heuristic approach to an optimization problem will try to find a good solution in polynomial time.
 It's a deterministic approach, which means that with same input, the method will give always the same output: nothing is given to the hasard.
 However, the heuristic approach is specific to each problem.
-Due to its deterministic nature, the algorithm will tend to be blocked by local optimal solutions, but not global ones.
+Due to its deterministic nature, the algorithm will tend to be blocked by local optimal solutions in case of complex problems.
 
-#### Metaheuristic
+For instance, an heuristic algorithm that find the minimum of a function will pretty work on simple function like squared functions.
+However, for a complex function that admits a lot of local minimum, the heuristic algorithm will be blocked in a local minimum because for the algorithm, the minimum is found.
 
-A metaheuristic approach
+A greedy algorithm is a heuristic algorithm which make the best choice at each step.
+In this way, we hope to reach the global optimum.
 
+### Metaheuristic
+
+A metaheuristic approach will try to find a good solution for a given problem by exploring the search space [-@sec-search] of the problem.
+It's a stochastic approach, that means that probabilities are integrated to choice a solution for next step, that allow to don't take always the optimum solution.
+The stopping criteria is not the found of a good solution, but it is defined by the user through the guided parameters.
+The guided parameters are customisable by user and indicate in most case how, where and how long the metaheuristic algorithm will search.
+
+Since the algorithm does not stop when it finds a solution and have some non-deterministic mechanism to choose next solution, theses prevent it from being blocked by a local solution, compared to heuristic algorithms.
+
+So metaheuristic algorithms are good for complex problems.
+However, for simple problems, heuristic algorithm are more efficient because they will not make a big exploration of the search space like a metaheuristic algorithm can make, especially if the guided parameters are not properly set.
+
+Metaheuristic algorithms are relatively simple to implement and don't depend on given problem.
+The challenge in metaheuristic algorithms result in the choice of guided parameters, which balance exploring the search space and exploiting the regions already visited.
+
+### Comparison
+
+The table [-@tbl-comparison] describe the differences between heuristic and metaheuristic algorithms.
+
+
+| Feature              | Heuristic                                | Metaheuristic                                    |
+|---------------------|-------------------------------------------|--------------------------------------------------|
+| Method type         | deterministic                             | often stochastic                                 |
+| Approach            | problem-based                          | general                                  |
+| Implementation      | often simple                              | more complex                           |
+| Speed               | fast                                      | slower                                           |
+| Problem type        | well-defined, structured problems          | complex or poorly understood problems            |
+| Stopping criteria   | fixed (e.g. solution found)               | user-defined (e.g. time, iterations, convergence)|
+| Local optima        | often stuck                               | can escape                                       |
+| Use case            | when problem structure is known            | when heuristics are ineffective                  |
+
+: Comparison between heuristic and metaheuristic algorithms {#tbl-comparison}
+
+In our case, we will try to implement both heuristic and metaheuristic algorithms: a greedy algorithm for heuristic and an algorithm that follows the simulated annealing method for metaheuristic.
+Then, we will compare obtained results.
+
+## Simulated Annealing
+
+The simulated annealing is based on the annealing system...
 
 Simulated annealing what is it ?? Kind of simulated annealing etc...
+
+\newpage
 
 # Implementation
 
 (1)
 
 Pseudo-code
+
+\newpage
 
 # Results
 
@@ -114,6 +202,8 @@ Temperature change execution time
 
 Just show plots and results, not discussion...
 
+\newpage
+
 # Discussion
 
 (2)
@@ -123,6 +213,8 @@ Just show plots and results, not discussion...
 
 - diversification
 - intensification
+
+\newpage
 
 # Conclusion
 
