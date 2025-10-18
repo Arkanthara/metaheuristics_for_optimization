@@ -158,7 +158,7 @@ The table [-@tbl-comparison] describe the differences between heuristic and meta
 |---------------------|-------------------------------------------|--------------------------------------------------|
 | Method type         | deterministic                             | often stochastic                                 |
 | Approach            | problem-based                          | general                                  |
-| Implementation      | often simple                              | more complex                           |
+| Implementation      | often simple                              | often simple                           |
 | Speed               | fast                                      | slower                                           |
 | Problem type        | well-defined, structured problems          | complex or poorly understood problems            |
 | Stopping criteria   | fixed (e.g. solution found)               | user-defined (e.g. time, iterations, convergence)|
