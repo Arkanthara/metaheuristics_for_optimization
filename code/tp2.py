@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
+import random
 
 
 class SA:
@@ -74,8 +75,52 @@ class SA:
 
     def simulated_annealing(self) -> np.ndarray:
         path = np.random.permutation(self.num_cities)
-        print(path)
-        return np.array([])
+        current = path
+        delta = []
+        accepted = 0
+        attempted = 0
+        freezing = 0
+        cost_improvment = False
+        best_cost = self._cost(current)
+        best_path = path
+        for i in range(100):
+            neighborhood = self.neighborhood(current)
+            cost = self._cost(neighborhood)
+            index = np.argmin(cost)
+            delta.append(cost[index] - self._cost(current)[0])
+            current = neighborhood[index]
+        T = -np.abs(np.mean(delta)) / np.log(0.5)
+        print(f"Initial temperature T_0: {T}")
+        delta = 0
+        while freezing <= 3:
+            if attempted >= self.num_cities * 100 or accepted >= self.num_cities * 12:
+                if cost_improvment:
+                    freezing = 0
+                else:
+                    freezing += 1
+                attempted = 0
+                accepted = 0
+                T *= 0.9
+            neighborhood = self.neighborhood(current)
+            delta = self._cost(neighborhood) - self._cost(current)[0]
+            if delta.min() <= 0:
+                list_indexes = np.where(delta == delta.min())[0]
+                index = np.random.choice(list_indexes)
+                accepted += 1
+                attempted += 1
+            else:
+                probabilities = np.exp(-delta / T)
+                index = random.choices(
+                    np.arange(len(probabilities)), weights=probabilities
+                )[0]
+                attempted += 1
+            current = neighborhood[index]
+            if self._cost(current) <= best_cost:
+                cost_improvment = True
+                best_cost = self._cost(current)
+                best_path = current
+
+        return best_path
 
     def graph(
         self,
@@ -122,3 +167,4 @@ if __name__ == "__main__":
     if args.benchmark:
         test = SA(benchmark(30), 1)
         test.graph(test.greedy(), isPath=True)
+        test.graph(test.simulated_annealing(), isPath=True)
