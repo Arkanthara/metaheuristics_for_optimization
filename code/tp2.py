@@ -11,25 +11,71 @@ class SA:
         self.cities = cities
         self.num_cities = cities.shape[0]
 
-    def _cost(self, path: np.ndarray) -> float:
-        assert self.num_cities == len(path), (
-            f"length of path must be of same length than number of cities (num_cities: {self.num_cities}    path_len: {len(path)}"
+    def _cost(self, paths: np.ndarray) -> np.ndarray:
+        if len(paths.shape) != 2:
+            paths = np.array([paths])
+        assert len(paths.shape) == 2, (
+            f"path must be list of paths, so 2D ! Actual path_shape: {paths.shape}"
         )
-        shift = np.roll(path, 1)
+        shift = np.roll(paths, 1, axis=1)
+        return np.linalg.norm(self.cities[paths] - self.cities[shift], axis=2).sum(
+            axis=1
+        )
 
-        return np.linalg.norm(self.cities[path] - self.cities[shift], axis=1).sum()
+    def _canonical(self, path: np.ndarray) -> tuple:
+        """
+        Function that put a path on canonical form.
+        It means that all the variantions of the same path will be written in the same way.
+        For that, working with tuple allows to use comparison between lists.
+
+        Parameters
+        ----------
+        path : np.ndarray
+            Path to compute canonical form
+
+        Returns
+        -------
+        tuple
+            Canonical form of the path
+
+        """
+        same = [tuple(np.roll(path, i)) for i in range(len(path))]
+        same += [tuple(np.roll(path[::-1], i)) for i in range(len(path))]
+        return min(same)
+
+    def _swap(self, path: np.ndarray, i: int, j: int) -> np.ndarray:
+        swap_path = path.copy()
+        swap_path[i], swap_path[j] = swap_path[j], swap_path[i]
+        return swap_path
 
     def neighborhood(self, path: np.ndarray) -> np.ndarray:
         n = len(path)
-        neighborhood = np.ones((int(n * (n - 1) / 2), 1)) @ path.reshape(1, -1)
-        print(neighborhood)
-        neighborhood.astype(int)
+        neighborhood = []
+        canonical_form = self._canonical(path)
         for i in range(n - 1):
             for j in range(i + 1, n):
-                neighborhood[i + j, i] = path[j]
-                neighborhood[i + j, j] = path[i]
-        print(neighborhood)
-        return neighborhood
+                new_path = self._canonical(self._swap(path, i, j))
+                if new_path not in neighborhood and new_path != canonical_form:
+                    neighborhood.append(new_path)
+        return np.array(neighborhood).astype(int)
+
+    def greedy(self) -> np.ndarray:
+        current = np.random.permutation(self.num_cities)
+        visited = []
+        delta = 0
+        while delta <= 0:
+            visited.append(current)
+            neighborhood = self.neighborhood(current)
+            cost = self._cost(neighborhood)
+            index = np.argmin(cost)
+            delta = cost[index] - self._cost(current)[0]
+            current = neighborhood[index]
+        return visited[-1]
+
+    def simulated_annealing(self) -> np.ndarray:
+        path = np.random.permutation(self.num_cities)
+        print(path)
+        return np.array([])
 
     def graph(
         self,
@@ -46,7 +92,8 @@ class SA:
                 exit(0)
             path_x = self.cities[path, 0]
             path_y = self.cities[path, 1]
-            plt.plot(path_x, path_y)
+            plt.plot(path_x, path_y, color="green")
+            plt.plot([path_x[-1], path_x[0]], [path_y[-1], path_y[0]], color="green")
         plt.plot(x, y, "ro")
         plt.title(title)
         plt.show()
@@ -74,5 +121,4 @@ if __name__ == "__main__":
 
     if args.benchmark:
         test = SA(benchmark(30), 1)
-        test.graph()
-        test.neighborhood(np.arange(4))
+        test.graph(test.greedy(), isPath=True)
