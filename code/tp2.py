@@ -5,73 +5,76 @@ import random
 
 
 class SA:
-    def __init__(self, cities: np.ndarray, T: float, iter: int = 500) -> None:
-        self.T = T
-        self.frozen = 0
-        self.iter = iter
+    def __init__(self, cities: np.ndarray) -> None:
         self.cities = cities
         self.num_cities = cities.shape[0]
+        # self.swap_matrix = self._build_swap_matrix()
 
-    def _cost(self, paths: np.ndarray) -> np.ndarray:
-        if len(paths.shape) != 2:
-            paths = np.array([paths])
-        assert len(paths.shape) == 2, (
-            f"path must be list of paths, so 2D ! Actual path_shape: {paths.shape}"
-        )
-        shift = np.roll(paths, 1, axis=1)
-        return np.linalg.norm(self.cities[paths] - self.cities[shift], axis=2).sum(
-            axis=1
-        )
+    def _cost(self, path: np.ndarray) -> float:
+        assert len(path.shape) == 1, f"Path must be 1D ! Actual: {path.shape}"
+        shift = np.roll(path, 1)
+        return np.linalg.norm(self.cities[path] - self.cities[shift], axis=1).sum()
 
-    def _canonical(self, path: np.ndarray) -> tuple:
-        """
-        Function that put a path on canonical form.
-        It means that all the variantions of the same path will be written in the same way.
-        For that, working with tuple allows to use comparison between lists.
+    # def _cost(self, paths: np.ndarray) -> np.ndarray:
+    #     if len(paths.shape) != 2:
+    #         paths = np.array([paths])
+    #     assert len(paths.shape) == 2, (
+    #         f"path must be list of paths, so 2D ! Actual path_shape: {paths.shape}"
+    #     )
+    #     shift = np.roll(paths, 1, axis=1)
+    #     return np.linalg.norm(self.cities[paths] - self.cities[shift], axis=2).sum(
+    #         axis=1
+    #     )
+    #
+    # def _canonical(self, path: np.ndarray) -> tuple:
+    #     """
+    #     Function that put a path on canonical form.
+    #     It means that all the variantions of the same path will be written in the same way.
+    #     For that, working with tuple allows to use comparison between lists.
+    #
+    #     Parameters
+    #     ----------
+    #     path : np.ndarray
+    #         Path to compute canonical form
+    #
+    #     Returns
+    #     -------
+    #     tuple
+    #         Canonical form of the path
+    #
+    #     """
+    #     same = [tuple(np.roll(path, i)) for i in range(len(path))]
+    #     same += [tuple(np.roll(path[::-1], i)) for i in range(len(path))]
+    #     return min(same)
 
-        Parameters
-        ----------
-        path : np.ndarray
-            Path to compute canonical form
-
-        Returns
-        -------
-        tuple
-            Canonical form of the path
-
-        """
-        same = [tuple(np.roll(path, i)) for i in range(len(path))]
-        same += [tuple(np.roll(path[::-1], i)) for i in range(len(path))]
-        return min(same)
+    # def _build_swap_matrix(self) -> np.ndarray:
+    #     n = self.num_cities
+    #     init = np.arange(n).astype(int)
+    #     matrix = []
+    #     canonical_form = self._canonical(init)
+    #     for i in range(n - 1):
+    #         for j in range(i + 1, n):
+    #             new_permutation = self._canonical(self._swap(init, i, j))
+    #             if new_permutation not in matrix and new_permutation != canonical_form:
+    #                 matrix.append(new_permutation)
+    #     return np.array(matrix).astype(int)
 
     def _swap(self, path: np.ndarray, i: int, j: int) -> np.ndarray:
         swap_path = path.copy()
         swap_path[i], swap_path[j] = swap_path[j], swap_path[i]
         return swap_path
 
-    def neighborhood(self, path: np.ndarray) -> np.ndarray:
-        n = len(path)
-        neighborhood = []
-        canonical_form = self._canonical(path)
-        for i in range(n - 1):
-            for j in range(i + 1, n):
-                new_path = self._canonical(self._swap(path, i, j))
-                if new_path not in neighborhood and new_path != canonical_form:
-                    neighborhood.append(new_path)
-        return np.array(neighborhood).astype(int)
+    def permute(self, path: np.ndarray) -> np.ndarray:
+        i, j = np.random.choice(len(path), size=2)
+        return self._swap(path, i, j)
 
     def greedy(self) -> np.ndarray:
-        current = np.random.permutation(self.num_cities)
-        visited = []
-        delta = 0
-        while delta <= 0:
-            visited.append(current)
-            neighborhood = self.neighborhood(current)
-            cost = self._cost(neighborhood)
-            index = np.argmin(cost)
-            delta = cost[index] - self._cost(current)[0]
-            current = neighborhood[index]
-        return visited[-1]
+        path = [np.random.choice(np.arange(self.num_cities).astype(int))]
+        for i in range(self.num_cities - 1):
+            distance = np.linalg.norm(self.cities - self.cities[path[i]], axis=1)
+            distance[path] = np.inf
+            path.append(np.argmin(distance))
+        return np.array(path)
 
     def simulated_annealing(self) -> np.ndarray:
         path = np.random.permutation(self.num_cities)
@@ -83,39 +86,51 @@ class SA:
         cost_improvment = False
         best_cost = self._cost(current)
         best_path = path
+
+        # Init temperature
         for i in range(100):
-            neighborhood = self.neighborhood(current)
-            cost = self._cost(neighborhood)
-            index = np.argmin(cost)
-            delta.append(cost[index] - self._cost(current)[0])
-            current = neighborhood[index]
-        T = -np.abs(np.mean(delta)) / np.log(0.5)
+            new_path = self.permute(current)
+            cost = self._cost(new_path)
+            # index = np.argmin(cost)
+            delta.append(cost - self._cost(current))
+            current = new_path
+        T = -np.mean(np.abs(delta)) / np.log(0.5)
         print(f"Initial temperature T_0: {T}")
         delta = 0
-        while freezing <= 3:
+        current = path
+
+        # Stopping condition
+        while freezing < 3:
+            # Equilibrum conditions
             if attempted >= self.num_cities * 100 or accepted >= self.num_cities * 12:
                 if cost_improvment:
                     freezing = 0
                 else:
                     freezing += 1
+                cost_improvment = False
                 attempted = 0
                 accepted = 0
                 T *= 0.9
-            neighborhood = self.neighborhood(current)
-            delta = self._cost(neighborhood) - self._cost(current)[0]
-            if delta.min() <= 0:
-                list_indexes = np.where(delta == delta.min())[0]
-                index = np.random.choice(list_indexes)
+
+            # Choose neighbor
+            new_path = self.permute(current)
+            delta = self._cost(new_path) - self._cost(current)
+            if delta <= 0:
+                current = new_path
                 accepted += 1
-                attempted += 1
+
+            # Metropolis rule
             else:
-                probabilities = np.exp(-delta / T)
-                index = random.choices(
-                    np.arange(len(probabilities)), weights=probabilities
-                )[0]
-                attempted += 1
-            current = neighborhood[index]
-            if self._cost(current) <= best_cost:
+                if np.random.rand() < np.exp(-delta / T):
+                    current = new_path
+                    accepted += 1
+            attempted += 1
+
+            # Update best solution
+            if self._cost(current) < best_cost:
+                # print(
+                #     f"current best fitness: {best_cost} and new best fitness: {self._cost(current)[0]}"
+                # )
                 cost_improvment = True
                 best_cost = self._cost(current)
                 best_path = current
@@ -157,14 +172,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "-b",
         "--benchmark",
-        action="store_true",
-        help="Benchmark problem with human trivial solution (30-vertex polygon)",
+        help="Benchmark problem with human trivial solution (vertex polygon)",
     )
 
     # Parse arguments
     args = parser.parse_args()
 
     if args.benchmark:
-        test = SA(benchmark(30), 1)
+        test = SA(benchmark(int(args.benchmark)))
         test.graph(test.greedy(), isPath=True)
         test.graph(test.simulated_annealing(), isPath=True)
