@@ -198,9 +198,11 @@ The state of equilibrium is in general user defined. In our case, the state of e
 
 ### Algorithm structure
 
-The algorithm can be represented by the graphic bellow.
+The algorithm can be represented by the @fig-diagram in annexe [-@sec-annexe].
 
+### Algorithm variantes
 
+There is a lot of different variants of the simulated annealing algorithm, such as parallel tempering, 
 
 
 Simulated annealing what is it ?? Kind of simulated annealing etc...
@@ -248,3 +250,9 @@ Just show plots and results, not discussion...
 # Conclusion
 
 (0.25)
+
+\newpage
+
+# Annexe {#sec-annexe}
+
+![Simulated Annealing Diagram](./images/diagram.png){#fig-diagram width="50%" fig-pos='H'}
