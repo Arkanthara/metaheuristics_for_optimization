@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+
+start
+
+:Choose initial configuration randomly;
+:Compute initial temperature;
+
+while (State of equilibrium reached?) is (no)
+
+  :Choose configuration randomly;
+
+  if (Improve solution?) then (yes)
+    :Accept configuration;
+  else
+    :Compute probability;
+    :Metropolis rule;
+    if (Is accepted?) then (yes)
+      :Accept configuration;
+    else
+      :Reject configuration;
+    endif
+  endif
+
+  if (Configuration accepted?) then (yes)
+    :Update configuration;
+    :Update best solution;
+  endif
+
+  if (Temperature to update?) then (yes)
+    :Update temperature;
+  endif
+
+endwhile (yes)
+
+:Return best solution;
+stop
+
+@enduml
+
+

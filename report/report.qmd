@@ -172,7 +172,36 @@ Then, we will compare obtained results.
 
 ## Simulated Annealing
 
-The simulated annealing is based on the annealing system...
+The simulated annealing is inspired on the physical annealing process in metallurgy.
+
+### Physical inspiration
+
+In metallurgy, to improve quality and capabilities of a metal, the metal is heated to high temperature and then cooled slowly.
+This is based on the fact that every physical system tends toward a state of equilibrium where energy is minimal.
+So when the metal is heated, the atoms of metal will have enough energy to move inside the metal.
+Then, they will position themselves in such a way as to reduce energy consumption.
+Their new positions will be more ordered than before heating the metal.
+This will create a better structured metal, which will improve quality and capabilities of the metal, like making it less brittle, more flexible or something else.
+
+### Algorithm principe
+
+For the simulated annealing method in algorithmics, it will be the same process.
+
+At the begining of the algorithm, the temperature will be very high, allowing a great exploration of the search space.
+In fact, with a great temperature, the system will have enough energy to make big jumps accross the search space.
+
+Then, the temperature will decrease, which will force the exploitation.
+It's due to the fact that with a smaller temperature, the system is no longer able to achieve big jumps accross the search space.
+
+Finaly, the algorithm will run until a state of equilibrium is reached, with a temperature more and more cold.
+The state of equilibrium is in general user defined. In our case, the state of equilibrium is reached when no improvement of fitness is made during last 3 changes of temperature.
+
+### Algorithm structure
+
+The algorithm can be represented by the graphic bellow.
+
+
+
 
 Simulated annealing what is it ?? Kind of simulated annealing etc...
 
