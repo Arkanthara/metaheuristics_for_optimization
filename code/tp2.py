@@ -188,17 +188,23 @@ class SA:
                 )
             else:
                 result, iter, cost, T = self.parallel_tempering(max_iter, M, type)
-                plt.plot(
-                    [],
-                    [],
-                    " ",
-                    label=f"Nb_iterations to find best fitness: {iter}\nFitness: {cost}\n$T_0$: {T}",
+                plt.table(
+                    [[iter], [cost], [T]],
+                    rowLabels=["Num_iterations", "Best fitness", "Initial temperature"],
+                    loc="lower center",
                 )
+                # plt.plot(
+                #     [],
+                #     [],
+                #     " ",
+                #     label=f"Nb_iterations to find best fitness: {iter}\nFitness: {cost}\n$T_0$: {T}",
+                # )
             path_x = self.cities[result, 0]
             path_y = self.cities[result, 1]
             plt.plot(path_x, path_y, color="green", label="path")
             plt.plot([path_x[-1], path_x[0]], [path_y[-1], path_y[0]], color="green")
         plt.plot(x, y, "ro", label="cities")
+        plt.axis("off")
         plt.title(title)
         plt.legend()
         plt.show()
