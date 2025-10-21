@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import time
 
 
 class SA:
@@ -164,50 +167,183 @@ class SA:
     def graph(
         self,
         path: bool = False,
-        title: str = "Graph",
-        greedy: bool = False,
-        sa: bool = True,
+        title: list[str] = ["Greedy", "Simulated Annealing", "Parallel Tempering"],
         max_iter: int = 10000,
         M: int = 4,
         type: str = "exp",
     ):
+        rounded = 4
         x = self.cities[:, 0]
         y = self.cities[:, 1]
-        plt.figure()
+
+        def plot_cities(fig, x, y, title: str):
+            fig.add_trace(go.Scatter(x=x, y=y, mode="markers", name="cities"))
+            fig.update_layout(
+                title=title, xaxis=dict(scaleanchor="y"), yaxis=dict(scaleanchor="x")
+            )
+            fig.show()
+
         if path:
-            if greedy:
-                result, cost = self.greedy()
-                plt.plot([], [], " ", label=f"Fitness: {cost}")
-            elif sa:
-                result, iter, cost, T = self.simulated_annealing()
-                plt.plot(
-                    [],
-                    [],
-                    " ",
-                    label=f"Number of iterations: {iter}\nFitness: {cost}\n$T_0$: {T}",
+            if len(title) != 3:
+                print("Don't forget to set titles !")
+                title = ["Greedy", "Simulated Annealing", "Parallel Tempering"]
+            start = time.time()
+            greedy_result, greedy_cost = self.greedy()
+            greedy_result = np.append(greedy_result, greedy_result[0])
+            end = time.time()
+            greedy_time = end - start
+            start = time.time()
+            sa_result, sa_iter, sa_cost, sa_T = self.simulated_annealing()
+            sa_result = np.append(sa_result, sa_result[0])
+            end = time.time()
+            sa_time = end - start
+            start = time.time()
+            pt_result, pt_iter, pt_cost, pt_T = self.parallel_tempering(
+                max_iter, M, type
+            )
+            pt_result = np.append(pt_result, pt_result[0])
+            end = time.time()
+            pt_time = end - start
+            pt_type = type
+            fig = make_subplots(
+                rows=1,
+                cols=2,
+                column_widths=[0.3, 0.7],
+                specs=[[{"type": "domain"}, {"type": "xy"}]],
+            )
+            fig.add_trace(
+                go.Table(
+                    header=dict(values=["Attribute", "Value"]),
+                    cells=dict(
+                        values=[
+                            ["Best fitness", "Execution time (s)"],
+                            [
+                                round(greedy_cost, rounded),
+                                round(greedy_time, rounded),
+                            ],
+                        ],
+                        align=["left", "right"],
+                        height=30,
+                    ),
+                ),
+                row=1,
+                col=1,
+            )
+            fig.add_trace(
+                go.Scatter(
+                    x=self.cities[greedy_result, 0],
+                    y=self.cities[greedy_result, 1],
+                    mode="lines",
+                    line=dict(color="plum"),
+                    name="path",
                 )
-            else:
-                result, iter, cost, T = self.parallel_tempering(max_iter, M, type)
-                plt.table(
-                    [[iter], [cost], [T]],
-                    rowLabels=["Num_iterations", "Best fitness", "Initial temperature"],
-                    loc="lower center",
+            )
+            plot_cities(fig, x, y, title=title[0])
+
+            fig = make_subplots(
+                rows=1,
+                cols=2,
+                column_widths=[0.3, 0.7],
+                specs=[[{"type": "domain"}, {"type": "xy"}]],
+            )
+            fig.add_trace(
+                go.Table(
+                    header=dict(values=["Attribute", "Value"]),
+                    cells=dict(
+                        values=[
+                            [
+                                "Best fitness",
+                                "Fitness ratio<br>(vs Greedy)",
+                                "Fitness ratio<br>(vs PT)",
+                                "Number iteration",
+                                "Initial temperature",
+                                "Execution time (s)",
+                                "Execution time ratio<br>(vs Greedy)",
+                                "Execution time ratio<br>(vs PT)",
+                            ],
+                            [
+                                round(sa_cost, rounded),
+                                round((greedy_cost) / sa_cost, rounded),
+                                round((pt_cost) / sa_cost, rounded),
+                                sa_iter,
+                                round(sa_T, rounded),
+                                round(sa_time, rounded),
+                                round((greedy_time) / sa_time, rounded),
+                                round((pt_time) / sa_time, rounded),
+                            ],
+                        ],
+                        align=["left", "right"],
+                        height=30,
+                    ),
+                ),
+                row=1,
+                col=1,
+            )
+            fig.add_trace(
+                go.Scatter(
+                    x=self.cities[sa_result, 0],
+                    y=self.cities[sa_result, 1],
+                    mode="lines",
+                    line=dict(color="plum"),
+                    name="path",
                 )
-                # plt.plot(
-                #     [],
-                #     [],
-                #     " ",
-                #     label=f"Nb_iterations to find best fitness: {iter}\nFitness: {cost}\n$T_0$: {T}",
-                # )
-            path_x = self.cities[result, 0]
-            path_y = self.cities[result, 1]
-            plt.plot(path_x, path_y, color="green", label="path")
-            plt.plot([path_x[-1], path_x[0]], [path_y[-1], path_y[0]], color="green")
-        plt.plot(x, y, "ro", label="cities")
-        plt.axis("off")
-        plt.title(title)
-        plt.legend()
-        plt.show()
+            )
+            plot_cities(fig, x, y, title=title[1])
+
+            fig = make_subplots(
+                rows=1,
+                cols=2,
+                column_widths=[0.3, 0.7],
+                specs=[[{"type": "domain"}, {"type": "xy"}]],
+            )
+            fig.add_trace(
+                go.Table(
+                    header=dict(values=["Attribute", "Value"]),
+                    cells=dict(
+                        values=[
+                            [
+                                "Best fitness",
+                                "Fitness ratio<br>(vs Greedy)",
+                                "Fitness ratio<br>(vs SA)",
+                                "Number iteration",
+                                "Initial temperature",
+                                "Method type",
+                                "Execution time (s)",
+                                "Execution time ratio<br>(vs Greedy)",
+                                "Execution time ratio<br>(vs SA)",
+                            ],
+                            [
+                                round(pt_cost, rounded),
+                                round((greedy_cost) / pt_cost, rounded),
+                                round((sa_cost) / pt_cost, rounded),
+                                pt_iter,
+                                round(pt_T, rounded),
+                                pt_type,
+                                round(pt_time, rounded),
+                                round((greedy_time) / pt_time, rounded),
+                                round((sa_time) / pt_time, rounded),
+                            ],
+                        ],
+                        align=["left", "right"],
+                        height=30,
+                    ),
+                ),
+                row=1,
+                col=1,
+            )
+            fig.add_trace(
+                go.Scatter(
+                    x=self.cities[pt_result, 0],
+                    y=self.cities[pt_result, 1],
+                    mode="lines",
+                    line=dict(color="plum"),
+                    name="path",
+                )
+            )
+            plot_cities(fig, x, y, title=title[2])
+        else:
+            fig = go.Figure()
+            plot_cities(fig, x, y, title=title[0])
 
 
 def benchmark(num_city: int) -> np.ndarray:
@@ -238,32 +374,20 @@ if __name__ == "__main__":
         test = SA(benchmark(int(args.benchmark)))
         test.graph(
             path=True,
-            greedy=True,
-            title=f"Benchmark: greedy for {args.benchmark} cities",
-        )
-        test.graph(
-            path=True,
-            title=f"Benchmark: simulated annealing for {args.benchmark} cities",
-        )
-        test.graph(
-            path=True,
-            sa=False,
-            title=f"Benchmark: parallel tempering for {args.benchmark} cities",
+            title=[
+                f"Benchmark: greedy for {args.benchmark} cities",
+                f"Benchmark: simulated annealing for {args.benchmark} cities",
+                f"Benchmark: parallel tempering for {args.benchmark} cities",
+            ],
         )
 
     if args.random:
         test = SA(np.random.rand(args.random, 2))
         test.graph(
             path=True,
-            greedy=True,
-            title=f"Benchmark: greedy for {args.benchmark} cities",
-        )
-        test.graph(
-            path=True,
-            title=f"Benchmark: simulated annealing for {args.benchmark} cities",
-        )
-        test.graph(
-            path=True,
-            sa=False,
-            title=f"Benchmark: parallel tempering for {args.benchmark} cities",
+            title=[
+                f"Random: greedy for {args.benchmark} cities",
+                f"Random: simulated annealing for {args.benchmark} cities",
+                f"Random: parallel tempering for {args.benchmark} cities",
+            ],
         )
