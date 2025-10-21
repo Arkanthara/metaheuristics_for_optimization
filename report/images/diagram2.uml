@@ -1,0 +1,45 @@
+@startuml
+
+start
+
+:Choose **M** initial configurations randomly;
+:Compute **M** initial temperatures
+**such as** T_1 < ... < T_M;
+
+while (Current iteration < max number of iterations) is (no)
+  fork
+    :Create new configuration
+    for configuration **1** randomly;
+    :Compute probability to accept the configuration
+    according to the **Metropolis rule**;
+    if (Is accepted?) then (yes)
+      :Update configuration;
+    endif
+    if (Best solution to update ?) then (yes)
+      :Update best solution;
+    endif
+  fork again
+    :...;
+  fork again
+    :Create new configuration
+    for configuration **M** randomly;
+    :Compute probability to accept the configuration
+    according to the **Metropolis rule**;
+    if (Is accepted?) then (yes)
+      :Update configuration;
+    endif
+    if (Best solution to update ?) then (yes)
+      :Update best solution;
+    endif
+  end merge
+  :Sort configurations in fitness increasing order
+  (So configuration with smallest fitness
+  will have the lowest temperature);
+endwhile (yes)
+
+:Return best solution;
+stop
+
+@enduml
+
+

@@ -9,20 +9,13 @@ while (State of equilibrium reached?) is (no)
 
   :Choose configuration randomly;
 
-  if (Improve solution?) then (yes)
-    :Accept configuration;
-  else
-    :Compute probability;
-    :Metropolis rule;
-    if (Is accepted?) then (yes)
-      :Accept configuration;
-    else
-      :Reject configuration;
-    endif
+  :Compute probability to accept the configuration
+  according to the **Metropolis rule**;
+  if (Is accepted?) then (yes)
+    :Update configuration;
   endif
 
-  if (Configuration accepted?) then (yes)
-    :Update configuration;
+  if (Best solution to update ?) then (yes)
     :Update best solution;
   endif
 

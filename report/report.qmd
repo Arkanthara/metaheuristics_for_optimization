@@ -19,6 +19,7 @@ format:
     template: template.tex
     execute: true # Code execution
     echo: true    # Code printing in document
+    fig-height: 2
 ---
 
 \newpage
@@ -198,20 +199,115 @@ The state of equilibrium is in general user defined. In our case, the state of e
 
 ### Algorithm structure
 
-The algorithm can be represented by the @fig-diagram in annexe [-@sec-annexe].
+The algorithm can be represented by the @fig-diagram in appendix [-@sec-appendix].
 
-### Algorithm variantes
+It basically works like this:
 
-There is a lot of different variants of the simulated annealing algorithm, such as parallel tempering, 
+- initial configuration and temperature.
+  In general, the initial configuration is choosen randomly and the temperature is a guided parameter defined by users.
+  However, like in our case, the initial temperature can be computed by a small research in the search space.
+- Update configuration according to the metropolis rule given by the formula [-@eq-metropolis].
+  $$
+  P = \begin{cases}1 & \text{if} \ \Delta E < 0 \\ e^{\frac{-\Delta E}{T}} & \text{otherwise}\end{cases}
+  $$ {#eq-metropolis}
+  $\Delta E$ is the fitness difference between the new configuration and the current configuration.
+  So the probability $P$ to choose the given element is always $1$ if this element gives an improvement to the current fitness, and is of $e^{\frac{-\Delta E}{T}}$ otherwise, as described in the formula [-@eq-metropolis].
+  In other words, it means that if the new configuration is an improvement of the current configuration, it will be directly accepted.
+  And if the new configuration is not an improvement of the current configuration, it means that the difference is positive and the new configuration
+  will be accepted with a probability that decrease exponentialy as the difference grows, as shown on @fig-probability.^[For details about impact of temperature on the search, see section [-@sec-temp]]
 
+```{python}
+#| label: fig-probability
+#| fig-cap: "Probability to choose configuration"
+#| fig-pos: 'H'
+#| echo: false
+#| fig-width: 3
+#| fig-height: 2.5
+#| fig-align: center
 
-Simulated annealing what is it ?? Kind of simulated annealing etc...
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-2, 2, 200)
+
+def P(x: np.ndarray, T: float = 1) -> np.ndarray:
+  y = np.ones_like(x)
+  y[x >= 0] = np.exp(-x[x >= 0] / T)
+  return y
+
+plt.figure(figsize=(10, 7), dpi=150)
+for t in [0.01, 0.1, 0.5, 1.]:
+  plt.plot(x, P(x, t), label=f"T = {t}")
+plt.xlabel("Fitness difference between new configuration and current configuration")
+plt.ylabel("Probability to accept new configuration")
+plt.legend()
+plt.show()
+```
+
+- If needed, update temperature.
+  In general, the temperature variation is defined as a sequence.
+  In our case, the temperature variation is defined as follows: $T_{k + 1} = 0.9 \times T_k$.
+  The temperature is usualy not updated at each step: it depends on the user's choice.
+  And for us, temperature is updated when equilibrium is reached for the given temperature, meaning that enough configuration have been used with this temperature.
+  (Note that here, I say used because a configuration can be rejected due to the stochasticity of the method !)
+- Iterate until the halting condition is reached.
+  The halting condition is also user-defined and is given in our case by no improvement of the fitness during last 3 temperature changes.
+  The halting condition could have been the number of iterations or something else.
+- Return the best configuration that gives the best fitness.
+
+As it is easily possible to see, the method depends on a few guided parameters, like the initial temperature, the update of the temperature or the halting condition...
+This represents a challenge to set them correctly, and the quality of the result depends on this guided parameters.
+That's why the main difficulty of the simulated annealing method, like other metaheuristics methods, is to correctly set the parameters.
+
+#### Impact of the temperature {#sec-temp}
+
+The temperature plays a crutial role in the simulated annealing method.
+We speak about high and low temperature, but what is the impact of the temperature on the choice of the next configuration ?
+To answer, we will see 2 cases.
+
+1. *Low temperature*.
+   When the temperature is low, as we can see on the @fig-probability, the probability to accept an element that is worse than the current configuration is very low,
+   so we accept only configurations that are at least as good as the current configuration.
+   The current configuration is therefore exploited since we try to find a better configuration around the given configuration.
+2. High temperature.
+   When the temperature is high, as the @fig-probability show us, the probability to accept worse configurations is high.
+   So we try to explore further the search space to find better configuration by accepting more configurations.
+
+### Algorithm variant: the Parallel Tempering (PT)
+
+There exists different variants of the simulated annealing algorithm, such as parallel tempering.
+
+This variant is based on the same principe, but works quite differently, with different guided parameters.
+The parallel tempering algorithm can be represented by the diagram [-@fig-diagram2] in appendix [-@sec-appendix].
+
+The principle is to explore space in several locations.
+
+- Initial configuration: $M$ random configurations are choosen.
+- Initial temperature: a list of temperature is defined with $T_1 < T_2 < \cdots < T_M$.
+- For each current configuration $i$, choose a new configuration according to the Metropolis rule [-@eq-metropolis] with $T_i$ as temperature.
+- Put new configurations in increase fitness order, such as the lowest fitness be with the lowest temperature, and the highest fitness be with the highest temperature.
+  In this way, as explained in section [-sec-temp], when we have a good configuration, we exploit it,
+  and when we have a bad configuration, we want to explore more the search space to find better configurations.
+- Iterate until halting condition is reached. In our case, the halting condition is the number of iterations.
+
+So this algorithm can be an improvement of the simulated annealing system depending on the problem.
+
+The search in several locations can be an advantage, but can be also a disadvantage because it requiert more computations and depending on the problem, the multiple search can be unusefull.
+For instance, if we have a simple problem of a quadratic curve and we search the minimum.
+One configuration will converge whereas the others will explore more or less the search space, due to the high temperature.
+
+On top of that, the problem to set the temperature is always here, and instead of finding a way to decrease the temperature, we need to define a list of temperatures that make sense for the given problem.
+
+So this method with good parameters can be more efficient than simulated annealing due to search in several locations, but can also be less efficient depending on the problem and the guided parameters.
 
 \newpage
 
 # Implementation
 
 (1)
+
+The implementations of both simulated annealing and parallel tempering are based on the diagrams [-@fig-diagram] and [-@fig-diagram2], included in the appendix [-@sec-appendix].
+
 
 Pseudo-code
 
@@ -253,6 +349,10 @@ Just show plots and results, not discussion...
 
 \newpage
 
-# Annexe {#sec-annexe}
+# Appendix {#sec-appendix}
 
 ![Simulated Annealing Diagram](./images/diagram.png){#fig-diagram width="50%" fig-pos='H'}
+
+\newpage
+
+![Parallel Tempering Diagram](./images/diagram2.png){#fig-diagram2 width="100%" fig-pos='H'}
