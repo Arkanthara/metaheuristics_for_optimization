@@ -59,7 +59,7 @@ class SA:
         current = path
 
         # Stopping condition
-        while freezing < 3:
+        while freezing <= 3:
             # Equilibrum conditions
             if attempted >= self.num_cities * 100 or accepted >= self.num_cities * 12:
                 if cost_improvment:
@@ -199,7 +199,7 @@ class SA:
             sa_time = end - start
             start = time.time()
             pt_result, pt_iter, pt_cost, pt_T = self.parallel_tempering(
-                max_iter, M, type
+                sa_iter, M, type
             )
             pt_result = np.append(pt_result, pt_result[0])
             end = time.time()
@@ -382,7 +382,7 @@ if __name__ == "__main__":
         )
 
     if args.random:
-        test = SA(np.random.rand(args.random, 2))
+        test = SA(np.random.rand(int(args.random), 2))
         test.graph(
             path=True,
             title=[
