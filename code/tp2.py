@@ -60,6 +60,7 @@ class SA:
         best_cost = self._cost(current)
         best_path = path
         iter = 0
+        list_cost = [best_cost]
 
         # Initialize temperature
         T = self.init_temperature(path, threshold)
@@ -86,11 +87,13 @@ class SA:
             if delta <= 0:
                 current = new_path
                 accepted += 1
+                list_cost.append(self._cost(current))
 
             # Metropolis rule
             elif np.random.rand() < np.exp(-delta / T):
                 current = new_path
                 accepted += 1
+                list_cost.append(self._cost(current))
 
             attempted += 1
 
@@ -102,7 +105,7 @@ class SA:
 
             iter += 1
 
-        return best_path, iter, best_cost, T_0
+        return best_path, iter, best_cost, T_0, list_cost
 
     def generate_T_factors(self, M: int = 4, type: str = "linear") -> np.ndarray:
         x = np.arange(1, M + 1)
@@ -153,6 +156,7 @@ class SA:
         best_path = paths[0]
         iter = 0
         T_0 = 0
+        list_cost = [[self._cost(path)] for path in paths]
 
         # Initialize temperature
         T = self.init_temperature(paths[0], threshold) * self.generate_T_factors(
@@ -169,10 +173,12 @@ class SA:
                 delta = self._cost(new_path) - self._cost(paths[j])
                 if delta <= 0:
                     paths[j] = new_path
+                    list_cost[j].append(self._cost(paths[j]))
 
                 # Metropolis rule
                 elif np.random.rand() < np.exp(-delta / T[j]):
                     paths[j] = new_path
+                    list_cost[j].append(self._cost(paths[j]))
 
             # Change temperature according to cost
             if i % swap_frequencie == 0:
@@ -185,7 +191,7 @@ class SA:
                 best_path = paths[np.argmin(cost)]
                 iter = i
 
-        return best_path, iter, best_cost, T_0
+        return best_path, iter, best_cost, T_0, list_cost
 
     def graph(
         self,
@@ -205,10 +211,12 @@ class SA:
                 go.Scatter(
                     x=x,
                     y=y,
-                    mode="markers+text",
                     name="cities",
-                    text=self.cities_names,
-                    marker=dict(size=15, color="plum"),
+                    mode="markers",
+                    # Plot cities name
+                    # mode="markers+text",
+                    # text=self.cities_names,
+                    # marker=dict(size=15, color="plum"),
                 )
             )
             fig.update_layout(
@@ -242,28 +250,112 @@ class SA:
             if len(title) != 3:
                 print("Don't forget to set titles !")
                 title = ["Greedy", "Simulated Annealing", "Parallel Tempering"]
-            start = time.time()
-            greedy_result, greedy_cost = self.greedy()
-            greedy_result = np.append(greedy_result, greedy_result[0])
-            end = time.time()
-            greedy_time = end - start
-            start = time.time()
-            sa_result, sa_iter, sa_cost, sa_T = self.simulated_annealing(
-                threshold=threshold, T_schedule=T_schedule, enhanced_mode=enhanced_mode
+            list_result = []
+            list_cost = []
+            list_time = []
+            for _ in range(10):
+                start = time.time()
+                result, cost = self.greedy()
+                end = time.time()
+                result = np.append(result, result[0])
+                list_result.append(result)
+                list_cost.append(cost)
+                list_time.append(end - start)
+            greedy_result = list_result[np.argmin(list_cost)]
+            greedy_cost = np.mean(list_cost)
+            greedy_time = np.mean(list_time)
+
+            list_result = []
+            list_iter = []
+            list_cost = []
+            list_T = []
+            list_time = []
+            list_trace = []
+            for _ in range(10):
+                start = time.time()
+                result, iter, cost, T, trace = self.simulated_annealing(
+                    threshold=threshold,
+                    T_schedule=T_schedule,
+                    enhanced_mode=enhanced_mode,
+                )
+                end = time.time()
+                result = np.append(result, result[0])
+                list_result.append(result)
+                list_cost.append(cost)
+                list_iter.append(iter)
+                list_T.append(T)
+                list_trace.append(trace)
+                list_time.append(end - start)
+            sa_result = list_result[np.argmin(list_cost)]
+            sa_cost = np.mean(list_cost)
+            sa_iter = np.mean(list_iter)
+            sa_T = np.mean(list_T)
+            sa_time = np.mean(list_time)
+            sa_trace = list_trace[np.argmin(list_cost)]
+
+            list_result = []
+            list_iter = []
+            list_cost = []
+            list_T = []
+            list_time = []
+            list_trace = []
+            for _ in range(10):
+                start = time.time()
+                result, iter, cost, T, trace = self.parallel_tempering(
+                    threshold=threshold,
+                    max_iter=10000,
+                    type=pt_type,
+                    enhanced_mode=enhanced_mode,
+                )
+                end = time.time()
+                result = np.append(result, result[0])
+                list_result.append(result)
+                list_cost.append(cost)
+                list_iter.append(iter)
+                list_T.append(T)
+                list_time.append(end - start)
+                list_trace.append(trace)
+            pt_result = list_result[np.argmin(list_cost)]
+            pt_cost = np.mean(list_cost)
+            pt_iter = np.mean(list_iter)
+            pt_T = np.mean(list_T)
+            pt_time = np.mean(list_time)
+            pt_trace = list_trace[np.argmin(list_cost)]
+
+            fig = make_subplots(
+                rows=1,
+                cols=2,
+                subplot_titles=("Simulated Annealing", "Parallel Tempering"),
+                # column_widths=[0.5, 0.5],
+                # specs=[[{"type": "domain"}, {"type": "xy"}]],
             )
-            sa_result = np.append(sa_result, sa_result[0])
-            end = time.time()
-            sa_time = end - start
-            start = time.time()
-            pt_result, pt_iter, pt_cost, pt_T = self.parallel_tempering(
-                threshold=threshold,
-                max_iter=sa_iter,
-                type=pt_type,
-                enhanced_mode=enhanced_mode,
+            fig.add_trace(
+                go.Scatter(
+                    x=np.arange(len(sa_trace)),
+                    y=sa_trace,
+                    mode="lines",
+                    showlegend=False,
+                ),
+                row=1,
+                col=1,
             )
-            pt_result = np.append(pt_result, pt_result[0])
-            end = time.time()
-            pt_time = end - start
+            fig.update_xaxes(title_text="Number of iterations", row=1, col=1)
+            fig.update_yaxes(title_text="Fitness", row=1, col=1)
+            for i in range(len(pt_trace)):
+                fig.add_trace(
+                    go.Scatter(
+                        x=np.arange(len(pt_trace[i])),
+                        y=pt_trace[i],
+                        mode="lines",
+                        name=f"T<sub>{i}",
+                    ),
+                    row=1,
+                    col=2,
+                )
+            fig.update_xaxes(title_text="Number of iterations", row=2, col=1)
+            fig.update_yaxes(title_text="Fitness", row=2, col=1)
+            fig.show()
+
             fig = subplot(rows=1)
             fig.add_trace(
                 go.Table(
@@ -449,17 +541,29 @@ if __name__ == "__main__":
     parser.add_argument(
         "-b",
         "--benchmark",
-        help="Benchmark problem with human trivial solution (vertex polygon)",
+        help="Benchmark problem of N cities (trivial solution for humans !)",
     )
     parser.add_argument(
         "-r",
         "--random",
-        help="Random problem of n cities",
+        help="Random problem of N cities",
+    )
+    parser.add_argument(
+        "-d",
+        "--datafile",
+        help="Path to data file for problem with given data",
     )
     parser.add_argument(
         "-t",
-        "--taskfile",
-        help="Path to task file",
+        "--threshold",
+        help="Acceptance rate of algorithms. Default is 50%%",
+        default="0.5",
+    )
+    parser.add_argument(
+        "-",
+        "--progression_type",
+        help="Progression type of the sequence of factors for temperature in parallel tempering ('linear', 'quad', 'exp', 'log'). Default is 'quad'",
+        default="quad",
     )
 
     # Parse arguments
@@ -469,8 +573,9 @@ if __name__ == "__main__":
         test = SA(benchmark(int(args.benchmark)))
         test.graph(
             path=True,
-            threshold=0.2,
-            T_schedule=0.95,
+            threshold=float(args.threshold),
+            T_schedule=0.9,
+            pt_type=args.progression_type,
             title=[
                 f"Benchmark: greedy for {args.benchmark} cities",
                 f"Benchmark: simulated annealing for {args.benchmark} cities",
@@ -482,24 +587,26 @@ if __name__ == "__main__":
         test = SA(np.random.rand(int(args.random), 3))
         test.graph(
             path=True,
-            threshold=0.2,
+            threshold=float(args.threshold),
             T_schedule=0.95,
+            pt_type=args.progression_type,
             title=[
                 f"Random: greedy for {args.random} cities",
                 f"Random: simulated annealing for {args.random} cities",
                 f"Random: parallel tempering for {args.random} cities",
             ],
         )
-    if args.taskfile:
-        data = np.genfromtxt(args.taskfile, dtype=str)
+    if args.datafile:
+        data = np.genfromtxt(args.datafile, dtype=str)
         test = SA(data)
         test.graph(
             path=True,
-            threshold=0.2,
+            threshold=float(args.threshold),
             T_schedule=0.95,
+            pt_type=args.progression_type,
             title=[
-                f"{os.path.basename(args.taskfile)}: greedy for {data.shape[0]} cities",
-                f"{os.path.basename(args.taskfile)}: simulated annealing for {data.shape[0]} cities",
-                f"{os.path.basename(args.taskfile)}: parallel tempering for {data.shape[0]} cities",
+                f"{os.path.basename(args.datafile)}: greedy for {data.shape[0]} cities",
+                f"{os.path.basename(args.datafile)}: simulated annealing for {data.shape[0]} cities",
+                f"{os.path.basename(args.datafile)}: parallel tempering for {data.shape[0]} cities",
             ],
         )

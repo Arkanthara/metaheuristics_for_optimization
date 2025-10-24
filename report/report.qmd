@@ -12,6 +12,7 @@ logo: "./images/unige.pdf"
 logofooter: "./images/unige_informatic.png"
 # logofootersize: 1.5cm
 toc: true
+
 format:
   pdf:
     pdf-engine: xelatex
@@ -283,19 +284,19 @@ The parallel tempering algorithm can be represented by the diagram [-@fig-diagra
 
 The principle is to explore space in several locations.
 To achieve this goal, $M$ replicas of the simulated annealing method are made.
-A list of $M$ temperature is set such as $T_1 > \cdots > T_M$.
+A list of $M$ temperature is set such as $T_1 < \cdots < T_M$.
 This list describe the fixed temperature $T_i$ for the simulated annealing replica $i$.
 A swap between adjacent replicas is made at a given frequency.
 
 In more details, the parallel tempering works as follows:
 
 - Initial configuration: $M$ random configurations are choosen. In general, $M = \sqrt{N}$.
-- Initial temperature: a list of temperature is defined with $T_1 > T_2 > \cdots > T_M$.
+- Initial temperature: a list of temperature is defined with $T_1 < T_2 < \cdots < T_M$.
 - For each current configuration $i$, choose a new configuration according to the Metropolis rule [-@eq-metropolis] with $T_i$ as temperature.
 - Each $n$ iterations, swap configurations according to the fitness of theses configurations.
   The swaps are only attempted between configurations with adjacent temperatures.
-  So for instance, configuration $i$ cannot be swapped with configuration $j$ if there exists a configuration $k$ such as $T_i > T_k > T_j$.
-  $\Delta_{ij}$ is then defined as $(fitness_i - fitness_j)(\frac{1}{T_i} - \frac{1}{T_j})$ with $i < j$.
+  So for instance, configuration $i$ cannot be swapped with configuration $j$ if there exists a configuration $k$ such as $T_i < T_k < T_j$.
+  $\Delta_{ij}$ is then defined as $(fitness_j - fitness_i)(\frac{1}{T_j} - \frac{1}{T_i})$ with $i < j$.
   The Metropolis rule is then applied to $\Delta_{ij}$ to decide if the swap is accepted or not, as described in the formula [-@eq-metropolis2].
   $$
   P = \begin{cases}1 & \text{if} \ \Delta_{ij} < 0 \\ e^{-\Delta_{ij}} & \text{otherwise}\end{cases}
@@ -305,16 +306,62 @@ In more details, the parallel tempering works as follows:
 - Iterate until halting condition is reached. In our case, the halting condition is the number of iterations.
 
 So this algorithm can be an improvement of the simulated annealing system depending on the problem, and a parallelization of the method, as its name suggests, is possible to achieve, allowing more exploration of the search space.
-However, like for each metaheuristics, the guided parameters such as $M$, the list of temperatures $T_1 > \cdots > T_M$ and the maximum number of iterations must be properly defined to have a method that works quite well.
+However, like for each metaheuristics, the guided parameters such as $M$, the list of temperatures $T_1 < \cdots < T_M$ and the maximum number of iterations must be properly defined to have a method that works quite well.
 
 \newpage
 
 # Implementation
 
-(1)
-
 The implementations of both simulated annealing and parallel tempering are based on the diagrams [-@fig-diagram] and [-@fig-diagram2], included in the appendix [-@sec-appendix].
 However, some pseudo-code are provided in sections below.
+
+## Requirements and usage
+
+The code is written in python.
+
+The figures are made with the python library [Plotly](https://plotly.com/python/) that allows more control on graphs than `matplotlib.pyplot` library.
+
+The requirements are:
+
+- `python 3`
+- `numpy`: library used to work with arrays
+- `argparse`: library used to manage command line arguments
+- `plotly`: python library used to plot the graphics. Documentation can be found on official website: [https://plotly.com/python/](https://plotly.com/python/)
+- `os`: library that allows to interact with operating system
+- `time`: library used to capture execution time of algorithms
+
+The code works in the command line, according to the following documentation:
+
+```{text}
+usage: tp2.py [-h] [-b BENCHMARK] [-r RANDOM] [-d DATAFILE] [-t THRESHOLD]
+
+TP3 - Traveling Salesman Problem
+
+options:
+  -h, --help            show this help message and exit
+  -b, --benchmark BENCHMARK
+                        Benchmark problem of N cities (trivial solution
+                        for humans !)
+  -r, --random RANDOM   Random problem of N cities
+  -d, --datafile DATAFILE
+                        Path to data file for problem with given data
+  -t, --threshold THRESHOLD
+                        Acceptance rate of algorithms. Default is 50%
+```
+
+The output of the program is some graphics and tables of TSP problem solutions for greedy, simulated annealing and parallel temperin methods.
+
+For instance, to generate benchmark graphs for $30$ cities, use the following command:
+
+```{bash}
+python tp2.py -b 30 -t 0.05
+```
+
+And to generate graphs for `cities.dat` specific problem, use the following command:
+
+```{bash}
+python tp2.py -d /path/to/cities.dat
+```
 
 ## Pseudo-codes
 
@@ -354,8 +401,6 @@ The set of cities is given, and the cost of a travel between $2$ cities is given
 
 The number of replicas of simulated annealing is given by $M$ that is generaly defined like this: $M = \sqrt{N}$
 
-::: {.callout}
-
 1. initial step
 
   choose randomly $M$ paths. If `enhanced_mode` is activate, choose $M$ paths according to an optimization method.
@@ -366,7 +411,7 @@ The number of replicas of simulated annealing is given by $M$ that is generaly d
   - take initial temperature $T_0$ such as $e^{-\frac{\langle | \Delta E | \rangle}{T_0}} = threshold$
       with $threshold$ the acceptance rate of a path in the search space.
   - Get temperature list $T$ multiplying $T_0$ by a sequence of factors that follow a `linear`, `quadratic`, `exponential` or `logarithmic` progression.
-    For instance, for linear progression, we have $T = T_0 > \frac{N - 1}{N}T_0 > \cdots > \frac{1}{N}T_0$
+    For instance, for linear progression, we have $T = \frac{1}{N}T_0 < \frac{2}{N}T_0 < \cdots < T_0$
 
 2. loop until max number of iterations is reached
 
@@ -386,11 +431,37 @@ The number of replicas of simulated annealing is given by $M$ that is generaly d
 
 3. return best path with best fitness
 
-:::
+
 
 \newpage
 
 # Results
+
+To compute the results, each method is runned $10$ times.
+
+The figure with the cities shows the best path during the $10$ runs of the algorithm.
+
+The table give always the average values obtained.
+
+## Benchmark problem
+
+![Benchmark problem of 30 cities for the greedy algorithm](./images/benchmark_greedy_30.png){#fig-bench_greedy fig-pos="H"}
+
+![Benchmark problem of 30 cities for the simulated annealing algorithm](./images/benchmark_sa_30.png){#fig-bench_sa fig-pos="H"}
+
+![Benchmark problem of 30 cities for the parallel tempering algorithm](./images/benchmark_pt_30.png){#fig-bench_pt fig-pos="H"}
+
+## Cities problem
+
+![cities.dat problem of 30 cities for the greedy algorithm](./images/cities_greedy.png){#fig-cities_greedy fig-pos="H"}
+![cities.dat problem of 30 cities for the simulated annealing algorithm](./images/cities_sa.png){#fig-cities_sa fig-pos="H"}
+![cities.dat problem of 30 cities for the parallel tempering algorithm](./images/cities_pt.png){#fig-cities_pt fig-pos="H"}
+
+## Cities2 problem
+
+![cities.dat problem of 30 cities for the greedy algorithm](./images/cities_greedy.png){#fig-bench_greedy fig-pos="H"}
+![cities.dat problem of 30 cities for the simulated annealing algorithm](./images/cities_sa.png){#fig-bench_sa fig-pos="H"}
+![cities.dat problem of 30 cities for the parallel tempering algorithm](./images/cities_pt.png){#fig-bench_pt fig-pos="H"}
 
 (1)
 
@@ -411,6 +482,26 @@ Just show plots and results, not discussion...
 # Discussion
 
 (2)
+
+In this section, we will discuss the results obtained and displayed in the previous section.
+
+## Benchmark problem
+
+### Quality
+
+The benchmark problem defined is $N$ cities distributed equally around a circle of radius $1$.
+In this way, it's easy to know the optimal fitness: it's the path that create the circle and that have a fitness of $2\pi \approx 6.2$.
+
+When we look at the results, we can see that the greedy algorithm find the optimal solution for this benchmark problem, as shown on @fig-bench_greedy.
+It's the expected result, so the algorithm is well implemented.
+
+However, we can constate that on the $10$ executions, the simulated annealing and parallel tempering algorithms don't find always the optimal result
+because the best fitness mean exeeds that of the greedy best fitness mean, as illustrated in @fig-bench_sa and @fig-bench_pt.
+
+### Execution time
+
+If we look at the problem from the perspective of computation time, the greedy algorithm is 
+
 
 - greedy vs simulated annealing (SA)
 - abrupt temperature change
