@@ -32,9 +32,9 @@ while (Current iteration < max number of iterations) is (no)
       :Update best solution;
     endif
   end merge
-  :Sort configurations in fitness increasing order
-  (So configuration with smallest fitness
-  will have the lowest temperature);
+  if (iteration is a multiple of swap_frequency) then (yes)
+    :Swap configurations;
+  endif
 endwhile (yes)
 
 :Return best solution;

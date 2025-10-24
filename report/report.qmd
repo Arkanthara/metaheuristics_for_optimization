@@ -204,8 +204,12 @@ The algorithm can be represented by the @fig-diagram in appendix [-@sec-appendix
 It basically works like this:
 
 - initial configuration and temperature.
-  In general, the initial configuration is choosen randomly and the temperature is a guided parameter defined by users.
-  However, like in our case, the initial temperature can be computed by a small research in the search space.
+  In general, the initial configuration is choosen randomly.
+  The temperature is a guided parameter.
+  In our case, we take $100$ random configurations in the entire search space and compute the mean of the absolute value of the fitness difference $\Delta E$ of theses points with the initial configuration.
+  Then, the initial temperature $T_0$ is defined such as $e^{\frac{-\langle \Delta E \rangle}{T_0}} = 0.5$ with $0.5$ the acceptance rate of a given configuration of the search space.
+  The global search allows to give a global view of the variance of fitness inside the search space.
+
 - Update configuration according to the metropolis rule given by the formula [-@eq-metropolis].
   $$
   P = \begin{cases}1 & \text{if} \ \Delta E < 0 \\ e^{\frac{-\Delta E}{T}} & \text{otherwise}\end{cases}
@@ -244,20 +248,17 @@ plt.legend()
 plt.show()
 ```
 
-- If needed, update temperature.
-  In general, the temperature variation is defined as a sequence.
-  In our case, the temperature variation is defined as follows: $T_{k + 1} = 0.9 \times T_k$.
-  The temperature is usualy not updated at each step: it depends on the user's choice.
-  And for us, temperature is updated when equilibrium is reached for the given temperature, meaning that enough configuration have been used with this temperature.
-  (Note that here, I say used because a configuration can be rejected due to the stochasticity of the method !)
+- If an equilibrium state is reached, update temperature according to the temperature schedule (a guided parameter).
+  In general, the temperature variation is defined as a geometric sequence, that is given in our case by: $T_{k + 1} = 0.9 \times T_k$.
+  The equilibrium state is reached when enough configurations have been accepted of when enough configurations have been visited (configurations accepted + not accepted) with the given temperature.
+  In our case, to reach equilibrium state, $12N$ configurations must be accepted or $100N$ configurations must be visited with $N$ the number of cities.
 - Iterate until the halting condition is reached.
-  The halting condition is also user-defined and is given in our case by no improvement of the fitness during last 3 temperature changes.
-  The halting condition could have been the number of iterations or something else.
+  The halting condition is in general given by no improvement of the fitness during last $X$ temperature changes (in our case, $X = 3$).
 - Return the best configuration that gives the best fitness.
 
-As it is easily possible to see, the method depends on a few guided parameters, like the initial temperature, the update of the temperature or the halting condition...
+As it is easily possible to see, the method depends on a few guided parameters, like the initial temperature and the update of the temperature...
 This represents a challenge to set them correctly, and the quality of the result depends on this guided parameters.
-That's why the main difficulty of the simulated annealing method, like other metaheuristics methods, is to correctly set the parameters.
+That's why the main difficulty of the simulated annealing method, like other metaheuristics methods, is, among other things, to correctly set the guided parameters.
 
 #### Impact of the temperature {#sec-temp}
 
@@ -269,7 +270,7 @@ To answer, we will see 2 cases.
    When the temperature is low, as we can see on the @fig-probability, the probability to accept an element that is worse than the current configuration is very low,
    so we accept only configurations that are at least as good as the current configuration.
    The current configuration is therefore exploited since we try to find a better configuration around the given configuration.
-2. High temperature.
+2. *High temperature*.
    When the temperature is high, as the @fig-probability show us, the probability to accept worse configurations is high.
    So we try to explore further the search space to find better configuration by accepting more configurations.
 
@@ -281,24 +282,30 @@ This variant is based on the same principe, but works quite differently, with di
 The parallel tempering algorithm can be represented by the diagram [-@fig-diagram2] in appendix [-@sec-appendix].
 
 The principle is to explore space in several locations.
+To achieve this goal, $M$ replicas of the simulated annealing method are made.
+A list of $M$ temperature is set such as $T_1 > \cdots > T_M$.
+This list describe the fixed temperature $T_i$ for the simulated annealing replica $i$.
+A swap between adjacent replicas is made at a given frequency.
 
-- Initial configuration: $M$ random configurations are choosen.
-- Initial temperature: a list of temperature is defined with $T_1 < T_2 < \cdots < T_M$.
+In more details, the parallel tempering works as follows:
+
+- Initial configuration: $M$ random configurations are choosen. In general, $M = \sqrt{N}$.
+- Initial temperature: a list of temperature is defined with $T_1 > T_2 > \cdots > T_M$.
 - For each current configuration $i$, choose a new configuration according to the Metropolis rule [-@eq-metropolis] with $T_i$ as temperature.
-- Put new configurations in increase fitness order, such as the lowest fitness be with the lowest temperature, and the highest fitness be with the highest temperature.
-  In this way, as explained in section [-sec-temp], when we have a good configuration, we exploit it,
-  and when we have a bad configuration, we want to explore more the search space to find better configurations.
+- Each $n$ iterations, swap configurations according to the fitness of theses configurations.
+  The swaps are only attempted between configurations with adjacent temperatures.
+  So for instance, configuration $i$ cannot be swapped with configuration $j$ if there exists a configuration $k$ such as $T_i > T_k > T_j$.
+  $\Delta_{ij}$ is then defined as $(fitness_i - fitness_j)(\frac{1}{T_i} - \frac{1}{T_j})$ with $i < j$.
+  The Metropolis rule is then applied to $\Delta_{ij}$ to decide if the swap is accepted or not, as described in the formula [-@eq-metropolis2].
+  $$
+  P = \begin{cases}1 & \text{if} \ \Delta_{ij} < 0 \\ e^{-\Delta_{ij}} & \text{otherwise}\end{cases}
+  $$ {#eq-metropolis2}
+  In this way, as explained in section [-sec-temp], when we have a good configuration, we exploit it by decreasing the temperature,
+  and when we have a bad configuration, we want to explore more the search space to find better configurations by increasing the temperature.
 - Iterate until halting condition is reached. In our case, the halting condition is the number of iterations.
 
-So this algorithm can be an improvement of the simulated annealing system depending on the problem.
-
-The search in several locations can be an advantage, but can be also a disadvantage because it requiert more computations and depending on the problem, the multiple search can be unusefull.
-For instance, if we have a simple problem of a quadratic curve and we search the minimum.
-One configuration will converge whereas the others will explore more or less the search space, due to the high temperature.
-
-On top of that, the problem to set the temperature is always here, and instead of finding a way to decrease the temperature, we need to define a list of temperatures that make sense for the given problem.
-
-So this method with good parameters can be more efficient than simulated annealing due to search in several locations, but can also be less efficient depending on the problem and the guided parameters.
+So this algorithm can be an improvement of the simulated annealing system depending on the problem, and a parallelization of the method, as its name suggests, is possible to achieve, allowing more exploration of the search space.
+However, like for each metaheuristics, the guided parameters such as $M$, the list of temperatures $T_1 > \cdots > T_M$ and the maximum number of iterations must be properly defined to have a method that works quite well.
 
 \newpage
 
@@ -307,9 +314,79 @@ So this method with good parameters can be more efficient than simulated anneali
 (1)
 
 The implementations of both simulated annealing and parallel tempering are based on the diagrams [-@fig-diagram] and [-@fig-diagram2], included in the appendix [-@sec-appendix].
+However, some pseudo-code are provided in sections below.
 
+## Pseudo-codes
 
-Pseudo-code
+We are looking for path that goes across $N$ cities.
+The set of cities is given, and the cost of a travel between $2$ cities is given by distance between theses $2$ cities.
+
+### Greedy
+
+- initial step: choose randomly an initial city and put it in the path
+- loop until each city is in the path:
+  - compute distance between given city and the rest of the cities
+  - choose city with smallest distance
+  - add city to the path
+- return the path
+
+### Simulated annealing
+
+- initial step:
+  - choose randomly a path. If `enhanced_mode` is activate, choose a path according to an optimization method (combination of greedy and simulated annealing)
+  - choose initial temperature:
+    - compute average of fitness change $\langle | \Delta E | \rangle$ for $100$ random paths
+    - take initial temperature $T_0$ such as $e^{-\frac{\langle | \Delta E | \rangle}{T_0}} = threshold$
+      with $threshold$ the acceptance rate of a path in the search space.
+- loop until no improvement of fitness is made during last 3 temperature changes
+  - choose randomly a new path from current path (by swapping 2 cities)
+  - compute probability of acceptance according to Metropolis rule [-@eq-metropolis]
+  - if accepted
+    - update path
+    - if updated path is better than best path found so far
+      - update best path
+      - indicate that an improvement of fitness is made
+  - if number of paths attempted is greater than $100N$ or number of paths accepted is greater than $12N$
+    - update temperature according to `T_schedule` given: $T_{k + 1} = \text{T\_schedule} \times T_k$
+- return best path with best fitness
+
+### Parallel Tempering
+
+The number of replicas of simulated annealing is given by $M$ that is generaly defined like this: $M = \sqrt{N}$
+
+::: {.callout}
+
+1. initial step
+
+  choose randomly $M$ paths. If `enhanced_mode` is activate, choose $M$ paths according to an optimization method.
+
+  choose initial temperature:
+
+  - compute average of fitness change $\langle | \Delta E | \rangle$ for $100$ random paths
+  - take initial temperature $T_0$ such as $e^{-\frac{\langle | \Delta E | \rangle}{T_0}} = threshold$
+      with $threshold$ the acceptance rate of a path in the search space.
+  - Get temperature list $T$ multiplying $T_0$ by a sequence of factors that follow a `linear`, `quadratic`, `exponential` or `logarithmic` progression.
+    For instance, for linear progression, we have $T = T_0 > \frac{N - 1}{N}T_0 > \cdots > \frac{1}{N}T_0$
+
+2. loop until max number of iterations is reached
+
+  for each path in paths
+
+  - choose randomly a new path (by swapping 2 cities)
+  - compute probability of acceptance according to Metropolis rule [-@eq-metropolis]
+  - if accepted
+    - update path
+    - if updated path is better than best path found so far
+      - update best path
+
+  each `swap_frequency` iteration
+
+  - swap adjacent replicas according to their fitness and Metropolis rule [-@eq-metropolis2].
+    For instance, if $fitness_1 < fitness_2$, swap replicas $1$ and $2$.
+
+3. return best path with best fitness
+
+:::
 
 \newpage
 
