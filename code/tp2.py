@@ -1,14 +1,15 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import argparse
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import time
+import os
 
 
 class SA:
     def __init__(self, cities: np.ndarray) -> None:
-        self.cities = cities
+        self.cities = cities[:, 1:].astype(float)
+        self.cities_names = cities[:, 0]
         self.num_cities = cities.shape[0]
 
     def _cost(self, path: np.ndarray) -> float:
@@ -33,8 +34,23 @@ class SA:
             path.append(np.argmin(distance))
         return np.array(path), self._cost(np.array(path))
 
-    def simulated_annealing(self) -> tuple:
-        path = np.random.permutation(self.num_cities)
+    def init_temperature(self, path: np.ndarray, threshold: float = 0.5) -> float:
+        cost = self._cost(path)
+        delta = []
+        for _ in range(100):
+            delta.append(self._cost(np.random.permutation(self.num_cities)) - cost)
+        return -np.mean(np.abs(delta)) / np.log(threshold)
+
+    def simulated_annealing(
+        self,
+        threshold: float = 0.5,
+        T_schedule: float = 0.9,
+        enhanced_mode: bool = False,
+    ) -> tuple:
+        if enhanced_mode:
+            path, _ = self.greedy()
+        else:
+            path = np.random.permutation(self.num_cities)
         current = path
         delta = []
         accepted = 0
@@ -44,16 +60,9 @@ class SA:
         best_cost = self._cost(current)
         best_path = path
         iter = 0
-        T_0 = 0
 
         # Initialize temperature
-        for _ in range(100):
-            new_path = self.permute(current)
-            cost = self._cost(new_path)
-            # index = np.argmin(cost)
-            delta.append(cost - self._cost(current))
-            current = new_path
-        T = -np.mean(np.abs(delta)) / np.log(0.5)
+        T = self.init_temperature(path, threshold)
         T_0 = T
         delta = 0
         current = path
@@ -69,7 +78,7 @@ class SA:
                 cost_improvment = False
                 attempted = 0
                 accepted = 0
-                T *= 0.9
+                T *= T_schedule
 
             # Choose new path
             new_path = self.permute(current)
@@ -113,28 +122,44 @@ class SA:
             print(f"{type} is not a valid type ! Default is 'linear'")
             return x / x.max()
 
+    def swap_temperature(self, paths, T) -> np.ndarray:
+        costs = [self._cost(path) for path in paths]
+        for i in range(len(T) - 1):
+            delta = (costs[i] - costs[i + 1]) * (1 / T[i] - 1 / T[i + 1])
+            if delta < 0:
+                paths[i], paths[i + 1] = paths[i + 1], paths[i]
+                i += 1
+            elif np.random.rand() < np.exp(-delta):
+                paths[i], paths[i + 1] = paths[i + 1], paths[i]
+                i += 1
+        return paths
+
     def parallel_tempering(
-        self, max_iter: int = 10000, M: int = 4, type: str = "linear"
+        self,
+        max_iter: int = 10000,
+        M: int = -1,
+        type: str = "exp",
+        threshold: float = 0.5,
+        swap_frequencie: int = 100,
+        enhanced_mode: bool = False,
     ) -> tuple:
-        paths = np.array([np.random.permutation(self.num_cities) for _ in range(M)])
-        current = paths[np.random.randint(len(paths))]
-        delta = []
-        best_cost = self._cost(current)
-        best_path = current
+        if M == -1:
+            M = int(np.sqrt(self.num_cities))
+        if enhanced_mode:
+            paths = np.array([self.greedy()[0] for _ in range(M)])
+        else:
+            paths = np.array([np.random.permutation(self.num_cities) for _ in range(M)])
+        best_cost = self._cost(paths[0])
+        best_path = paths[0]
         iter = 0
         T_0 = 0
 
         # Initialize temperature
-        for _ in range(100):
-            new_path = self.permute(current)
-            cost = self._cost(new_path)
-            # index = np.argmin(cost)
-            delta.append(cost - self._cost(current))
-            current = new_path
-        T = -np.mean(np.abs(delta)) / np.log(0.5) * self.generate_T_factors(M, type)
+        T = self.init_temperature(paths[0], threshold) * self.generate_T_factors(
+            M, type
+        )
         T_0 = T[-1]
         delta = 0
-        cost = np.array([self._cost(path) for path in paths])
 
         # Stopping condition
         for i in range(max_iter):
@@ -144,18 +169,16 @@ class SA:
                 delta = self._cost(new_path) - self._cost(paths[j])
                 if delta <= 0:
                     paths[j] = new_path
-                    cost[j] = self._cost(new_path)
 
                 # Metropolis rule
                 elif np.random.rand() < np.exp(-delta / T[j]):
                     paths[j] = new_path
-                    cost[j] = self._cost(new_path)
 
             # Change temperature according to cost
-            index = np.argsort(cost, stable=True)
-            cost = cost[index]
-            paths = paths[index]
+            if i % swap_frequencie == 0:
+                paths = self.swap_temperature(paths, T)
 
+            cost = np.array([self._cost(path) for path in paths])
             # Update best solution
             if cost.min() < best_cost:
                 best_cost = cost.min()
@@ -168,20 +191,52 @@ class SA:
         self,
         path: bool = False,
         title: list[str] = ["Greedy", "Simulated Annealing", "Parallel Tempering"],
-        max_iter: int = 10000,
-        M: int = 4,
-        type: str = "exp",
+        pt_type: str = "exp",
+        enhanced_mode: bool = False,
+        threshold: float = 0.5,
+        T_schedule: float = 0.9,
     ):
         rounded = 4
         x = self.cities[:, 0]
         y = self.cities[:, 1]
 
         def plot_cities(fig, x, y, title: str):
-            fig.add_trace(go.Scatter(x=x, y=y, mode="markers", name="cities"))
+            fig.add_trace(
+                go.Scatter(
+                    x=x,
+                    y=y,
+                    mode="markers+text",
+                    name="cities",
+                    text=self.cities_names,
+                    marker=dict(size=15, color="plum"),
+                )
+            )
             fig.update_layout(
                 title=title, xaxis=dict(scaleanchor="y"), yaxis=dict(scaleanchor="x")
             )
             fig.show()
+
+        def subplot(rows: int = 2, cols: int = 2):
+            if rows == 2:
+                specs = [
+                    [{"type": "domain"}, {"type": "xy", "rowspan": 2}],
+                    [{"type": "domain"}, None],
+                ]
+                return make_subplots(
+                    rows=rows,
+                    cols=cols,
+                    column_widths=[0.5, 0.5],
+                    row_heights=[0.72, 0.28],
+                    specs=specs,
+                )
+            else:
+                specs = [[{"type": "domain"}, {"type": "xy"}]]
+                return make_subplots(
+                    rows=rows,
+                    cols=cols,
+                    column_widths=[0.5, 0.5],
+                    specs=specs,
+                )
 
         if path:
             if len(title) != 3:
@@ -193,24 +248,23 @@ class SA:
             end = time.time()
             greedy_time = end - start
             start = time.time()
-            sa_result, sa_iter, sa_cost, sa_T = self.simulated_annealing()
+            sa_result, sa_iter, sa_cost, sa_T = self.simulated_annealing(
+                threshold=threshold, T_schedule=T_schedule, enhanced_mode=enhanced_mode
+            )
             sa_result = np.append(sa_result, sa_result[0])
             end = time.time()
             sa_time = end - start
             start = time.time()
             pt_result, pt_iter, pt_cost, pt_T = self.parallel_tempering(
-                sa_iter, M, type
+                threshold=threshold,
+                max_iter=sa_iter,
+                type=pt_type,
+                enhanced_mode=enhanced_mode,
             )
             pt_result = np.append(pt_result, pt_result[0])
             end = time.time()
             pt_time = end - start
-            pt_type = type
-            fig = make_subplots(
-                rows=1,
-                cols=2,
-                column_widths=[0.3, 0.7],
-                specs=[[{"type": "domain"}, {"type": "xy"}]],
-            )
+            fig = subplot(rows=1)
             fig.add_trace(
                 go.Table(
                     header=dict(values=["Attribute", "Value"]),
@@ -240,12 +294,7 @@ class SA:
             )
             plot_cities(fig, x, y, title=title[0])
 
-            fig = make_subplots(
-                rows=1,
-                cols=2,
-                column_widths=[0.3, 0.7],
-                specs=[[{"type": "domain"}, {"type": "xy"}]],
-            )
+            fig = subplot()
             fig.add_trace(
                 go.Table(
                     header=dict(values=["Attribute", "Value"]),
@@ -253,23 +302,21 @@ class SA:
                         values=[
                             [
                                 "Best fitness",
-                                "Fitness ratio<br>(vs Greedy)",
-                                "Fitness ratio<br>(vs PT)",
                                 "Number iteration",
                                 "Initial temperature",
+                                "Enhanced mode",
+                                "Initial acceptance rate",
+                                "Temperature schedule",
                                 "Execution time (s)",
-                                "Execution time ratio<br>(vs Greedy)",
-                                "Execution time ratio<br>(vs PT)",
                             ],
                             [
                                 round(sa_cost, rounded),
-                                round((greedy_cost) / sa_cost, rounded),
-                                round((pt_cost) / sa_cost, rounded),
                                 sa_iter,
                                 round(sa_T, rounded),
+                                enhanced_mode,
+                                f"{int(100 * threshold)}%",
+                                f"T<sub>k+1</sub> = {T_schedule} T<sub>k</sub>",
                                 round(sa_time, rounded),
-                                round((greedy_time) / sa_time, rounded),
-                                round((pt_time) / sa_time, rounded),
                             ],
                         ],
                         align=["left", "right"],
@@ -277,6 +324,31 @@ class SA:
                     ),
                 ),
                 row=1,
+                col=1,
+            )
+            fig.add_trace(
+                go.Table(
+                    header=dict(values=["Attribute", "Greedy", "PT"]),
+                    cells=dict(
+                        values=[
+                            [
+                                "Execution time ratio",
+                                "Fitness ratio",
+                            ],
+                            [
+                                round((greedy_time) / sa_time, rounded),
+                                round((greedy_cost) / sa_cost, rounded),
+                            ],
+                            [
+                                round((pt_time) / sa_time, rounded),
+                                round((pt_cost) / sa_cost, rounded),
+                            ],
+                        ],
+                        align=["left", "right"],
+                        height=30,
+                    ),
+                ),
+                row=2,
                 col=1,
             )
             fig.add_trace(
@@ -290,12 +362,7 @@ class SA:
             )
             plot_cities(fig, x, y, title=title[1])
 
-            fig = make_subplots(
-                rows=1,
-                cols=2,
-                column_widths=[0.3, 0.7],
-                specs=[[{"type": "domain"}, {"type": "xy"}]],
-            )
+            fig = subplot()
             fig.add_trace(
                 go.Table(
                     header=dict(values=["Attribute", "Value"]),
@@ -303,25 +370,21 @@ class SA:
                         values=[
                             [
                                 "Best fitness",
-                                "Fitness ratio<br>(vs Greedy)",
-                                "Fitness ratio<br>(vs SA)",
                                 "Number iteration",
                                 "Initial temperature",
-                                "Method type",
+                                "Temperature schedule type",
+                                "Enhanced mode",
+                                "Initial acceptance rate",
                                 "Execution time (s)",
-                                "Execution time ratio<br>(vs Greedy)",
-                                "Execution time ratio<br>(vs SA)",
                             ],
                             [
                                 round(pt_cost, rounded),
-                                round((greedy_cost) / pt_cost, rounded),
-                                round((sa_cost) / pt_cost, rounded),
                                 pt_iter,
                                 round(pt_T, rounded),
                                 pt_type,
+                                enhanced_mode,
+                                f"{int(100 * threshold)}%",
                                 round(pt_time, rounded),
-                                round((greedy_time) / pt_time, rounded),
-                                round((sa_time) / pt_time, rounded),
                             ],
                         ],
                         align=["left", "right"],
@@ -329,6 +392,31 @@ class SA:
                     ),
                 ),
                 row=1,
+                col=1,
+            )
+            fig.add_trace(
+                go.Table(
+                    header=dict(values=["Attribute", "Greedy", "SA"]),
+                    cells=dict(
+                        values=[
+                            [
+                                "Execution time ratio",
+                                "Fitness ratio",
+                            ],
+                            [
+                                round((greedy_time) / pt_time, rounded),
+                                round((greedy_cost) / pt_cost, rounded),
+                            ],
+                            [
+                                round((sa_time) / pt_time, rounded),
+                                round((sa_cost) / pt_cost, rounded),
+                            ],
+                        ],
+                        align=["left", "right"],
+                        height=30,
+                    ),
+                ),
+                row=2,
                 col=1,
             )
             fig.add_trace(
@@ -348,7 +436,9 @@ class SA:
 
 def benchmark(num_city: int) -> np.ndarray:
     coordinates = 2 * np.pi * np.arange(num_city) / num_city
-    return np.array([np.cos(coordinates), np.sin(coordinates)]).T
+    return np.array(
+        [np.arange(num_city).astype(int), np.cos(coordinates), np.sin(coordinates)]
+    ).T
 
 
 if __name__ == "__main__":
@@ -366,6 +456,11 @@ if __name__ == "__main__":
         "--random",
         help="Random problem of n cities",
     )
+    parser.add_argument(
+        "-t",
+        "--taskfile",
+        help="Path to task file",
+    )
 
     # Parse arguments
     args = parser.parse_args()
@@ -374,6 +469,8 @@ if __name__ == "__main__":
         test = SA(benchmark(int(args.benchmark)))
         test.graph(
             path=True,
+            threshold=0.2,
+            T_schedule=0.95,
             title=[
                 f"Benchmark: greedy for {args.benchmark} cities",
                 f"Benchmark: simulated annealing for {args.benchmark} cities",
@@ -382,12 +479,27 @@ if __name__ == "__main__":
         )
 
     if args.random:
-        test = SA(np.random.rand(int(args.random), 2))
+        test = SA(np.random.rand(int(args.random), 3))
         test.graph(
             path=True,
+            threshold=0.2,
+            T_schedule=0.95,
             title=[
-                f"Random: greedy for {args.benchmark} cities",
-                f"Random: simulated annealing for {args.benchmark} cities",
-                f"Random: parallel tempering for {args.benchmark} cities",
+                f"Random: greedy for {args.random} cities",
+                f"Random: simulated annealing for {args.random} cities",
+                f"Random: parallel tempering for {args.random} cities",
+            ],
+        )
+    if args.taskfile:
+        data = np.genfromtxt(args.taskfile, dtype=str)
+        test = SA(data)
+        test.graph(
+            path=True,
+            threshold=0.2,
+            T_schedule=0.95,
+            title=[
+                f"{os.path.basename(args.taskfile)}: greedy for {data.shape[0]} cities",
+                f"{os.path.basename(args.taskfile)}: simulated annealing for {data.shape[0]} cities",
+                f"{os.path.basename(args.taskfile)}: parallel tempering for {data.shape[0]} cities",
             ],
         )
