@@ -529,6 +529,16 @@ Algorithms have been runned on benchmark problem with $30$ cities, on `cities.da
 
 ![Random problem of 100 cities, fitness variation](./images/r100_fitness.png){#fig-r100_fitness fig-pos="H"}
 
+## Enhancement tests
+
+![Random problem of 100 cities for the greedy algorithm](./images/enhanced_greedy.png){#fig-enhanced_greedy fig-pos="H"}
+
+![Enhancement for the simulated annealing algorithm](./images/enhanced_sa.png){#fig-enhanced_sa fig-pos="H"}
+
+![Enhancement for the parallel tempering algorithm](./images/enhanced_pt.png){#fig-enhanced_pt fig-pos="H"}
+
+![Fitness variation of enhanced methods](./images/enhanced_fitness.png){#fig-enhanced_fitness fig-pos="H"}
+
 \newpage
 
 # Discussion
@@ -628,22 +638,66 @@ So simulated annealing can give good results, but parallel tempering give consta
 
 ## Random problems
 
-For the $20$ cities random problem, the algorithm that perform the best average performance is the parallel tempering with an average best fitness $10\%$ better than average fitness of both other methods.
-However, the simulated annealing found the best result.
+On the random problem with $20$ cities, the SA algorithm gives the best results.
+However, for all other random problems, we can see that the greedy algorithm is far superior to the others.
+For example, the greedy algorithm is on average $3\times$ better in terms of average best fitness for the problem with $100$ cities, as shown in @fig-r100_greedy, @fig-r100_sa and @fig-r100_pt.
 
+If we look at the fitness average between simulated annealing and parallel tempering, once again, we can see that the variance of the fitness is greater in the case of simulated annealing compared to parallel tempering.
+This result means that in general, results given by parallel tempering are more constant that results given by simulated annealing.
+And the average best fitness of the parallel tempering algorithm is in general smaller than average best fitness of simulated annealing, like for $60$, $80$ and $100$ cities.
 
+So the simulated annealing method gives better results, but is generally less accurate than the parallel tempering method for this kind of problems.
 
-- greedy vs simulated annealing (SA)
-- abrupt temperature change
+To conclude, as optimization method was almost always better than metaheuristics methods, it is preferable to use an optimization method for a problem if any optimization method exist because results are as good as metaheuristics and computation time is by far better than metaheuristics algorithms.
 
-- diversification
-- intensification
+## Enhancement tests
+
+To increase accuracy of methods, heuristic and metaheuristic have been combined.
+The idea is to use an optimization method, like greedy algorithm, to give an initial configuration to the metaheuristic simulated annealing or parallel tempering methods.
+It's possible to make this because as we have seen, the greedy algorithm get fastly a good solution.
+So it allows to guide the search in the search space directly arround a good solution.
+And with the stochasticity of the metaheuristic method, we can escape the potential blockage of the heuristic method in a local solution.
+
+The results obtained (@fig-enhanced_greedy, @fig-enhanced_sa and @fig-enhanced_pt) are globaly better than greedy algorithm because average best fitness is smaller and optimal solution has also a smaller fitness than the greedy algorithm.
+
+However, if we look at the @fig-enhanced_fitness, we can see that for instance, for the simulated annealing method, we begin at low fitness and then the method don't find any enhancement to the greedy fitness.
+And it's the same for parallel tempering.
+
+So the metaheuristics methods don't find a better solution for this problem by starting with a good solution.
+And all the search made to explore the search space was costly in computation time (At least $100\times$ slower than greedy algorithm...)
+So perhaps in this case, it would have been wiser to execute $100$ times more greedy algorithm instead of executing a metaheuristic algorithm that is costly in computation time, or to better set the guided parameters.
 
 \newpage
 
 # Conclusion
 
-(0.25)
+The Traveling Salesman Problem is a NP-Hard problem for which it's difficult to find optimal solutions due to the size of the search space.
+To find solutions, greedy, simulated annealing and parallel tempering methods were implemented.
+The greedy method is an efficient way to have quickly a good solution for the given problem.
+The simulated annealing method, inspired from physical process, is a metaheuristic method that gives good results in term of problem given.
+Indeed, when tested on a given problem, this method yielded the best results for big problems.
+The parallel tempering method is a metaheuristic method based on multiple instance of simulated annealing methods working together.
+Compared to the simulated annealing method, results obtained are more constants because in general, the average of the quality of obtained solution was better than simulated annealing, and sometime than greedy.
+
+Some improvement of both simulated annealing and parallel tempering methods were tested, thus reaching the conclusion that perhaps for the given problem, running several times greedy algorithm could be more promising.
+
+To conclude, results of metaheuristics methods have not performed very well compared to heuristics methods.
+That's why if an optimization method exist for the given problem, it's more interesting to use it instead of a metaheuristic method that performs an intelligent but exhaustive exploration of the search space.
+
+The table @tbl-conclusion summarizes the observations briefly.
+
+| | Greedy | Simulated Annealing | Parallel tempering |
+|:-|:-:|:-:|:-:|
+|Execution time| very fast | slow | very slow |
+|Quality of solution| very good | good | medium |
+|Stability of solutions | medium | medium | good |
+|Guided parameters | None | initial acceptance rate, temperature schedule | initial acceptance rate, temperature progression, number of replicas |
+|Enhanced mode | | good | good |
+| Usage | when possible | when heuristic not possible | when heuristic not possible |
+
+: Comparison between heuristic and metaheuristics methods for Traveling Salesman Problem {#tbl-conclusion}
+
+We may wonder if there exists a more efficient way to properly define guided parameters in metaheuristic methods instead of empiricaly testing values for each of them.
 
 \newpage
 

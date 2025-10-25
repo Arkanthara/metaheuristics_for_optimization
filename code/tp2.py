@@ -13,20 +13,24 @@ class SA:
         self.num_cities = cities.shape[0]
 
     def _cost(self, path: np.ndarray) -> float:
+        # Compute cost of travel between each cities
         assert len(path.shape) == 1, f"Path must be 1D ! Actual: {path.shape}"
         shift = np.roll(path, 1)
         return np.linalg.norm(self.cities[path] - self.cities[shift], axis=1).sum()
 
     def _swap(self, path: np.ndarray, i: int, j: int) -> np.ndarray:
+        # Swap 2 given cities
         swap_path = path.copy()
         swap_path[i], swap_path[j] = swap_path[j], swap_path[i]
         return swap_path
 
     def permute(self, path: np.ndarray) -> np.ndarray:
+        # Permute 2 cities randomly
         i, j = np.random.choice(len(path), size=2)
         return self._swap(path, i, j)
 
     def greedy(self) -> tuple:
+        # Find short path by taking each time the nearest city
         path = [np.random.choice(np.arange(self.num_cities).astype(int))]
         for i in range(self.num_cities - 1):
             distance = np.linalg.norm(self.cities - self.cities[path[i]], axis=1)
@@ -35,6 +39,7 @@ class SA:
         return np.array(path), self._cost(np.array(path))
 
     def init_temperature(self, path: np.ndarray, threshold: float = 0.5) -> float:
+        # Choose initial temperature according to global fitness variance
         cost = self._cost(path)
         delta = []
         for _ in range(100):
@@ -47,6 +52,7 @@ class SA:
         T_schedule: float = 0.9,
         enhanced_mode: bool = False,
     ) -> tuple:
+        # Initialize configuration and variables
         if enhanced_mode:
             path, _ = self.greedy()
         else:
@@ -108,6 +114,7 @@ class SA:
         return best_path, iter, best_cost, T_0, list_cost
 
     def generate_T_factors(self, M: int = 4, type: str = "linear") -> np.ndarray:
+        # Generate factors for temperature list in parallel tempering
         x = np.arange(1, M + 1)
 
         if type == "linear":
@@ -126,6 +133,8 @@ class SA:
             return x / x.max()
 
     def swap_temperature(self, paths, T) -> np.ndarray:
+        # Swap SA replicas according to metropolis rule
+        # Only swap neighbour replicas !
         costs = [self._cost(path) for path in paths]
         for i in range(len(T) - 1):
             delta = (costs[i] - costs[i + 1]) * (1 / T[i] - 1 / T[i + 1])
@@ -146,6 +155,7 @@ class SA:
         swap_frequencie: int = 100,
         enhanced_mode: bool = False,
     ) -> tuple:
+        # Initialize paths and variables
         if M == -1:
             M = int(np.sqrt(self.num_cities))
         if enhanced_mode:
@@ -180,6 +190,7 @@ class SA:
                     paths[j] = new_path
                     list_cost[j].append(self._cost(paths[j]))
 
+                # Update best path
                 cost = self._cost(paths[j])
                 if cost < best_cost:
                     best_cost = cost
@@ -605,6 +616,7 @@ if __name__ == "__main__":
             threshold=float(args.threshold),
             T_schedule=0.95,
             pt_type=args.progression_type,
+            enhanced_mode=True,
             title=[
                 f"Random: greedy for {args.random} cities",
                 f"Random: simulated annealing for {args.random} cities",
