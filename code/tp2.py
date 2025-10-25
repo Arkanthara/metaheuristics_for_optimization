@@ -101,7 +101,7 @@ class SA:
             if self._cost(current) < best_cost:
                 cost_improvment = True
                 best_cost = self._cost(current)
-                best_path = current
+                best_path = current.copy()
 
             iter += 1
 
@@ -152,11 +152,11 @@ class SA:
             paths = np.array([self.greedy()[0] for _ in range(M)])
         else:
             paths = np.array([np.random.permutation(self.num_cities) for _ in range(M)])
-        best_cost = self._cost(paths[0])
-        best_path = paths[0]
+        list_cost = [[self._cost(path)] for path in paths]
+        best_cost = np.min(list_cost)
+        best_path = paths[np.argmin(list_cost)].copy()
         iter = 0
         T_0 = 0
-        list_cost = [[self._cost(path)] for path in paths]
 
         # Initialize temperature
         T = self.init_temperature(paths[0], threshold) * self.generate_T_factors(
@@ -180,16 +180,15 @@ class SA:
                     paths[j] = new_path
                     list_cost[j].append(self._cost(paths[j]))
 
+                cost = self._cost(paths[j])
+                if cost < best_cost:
+                    best_cost = cost
+                    best_path = paths[j].copy()
+                    iter = i
+
             # Change temperature according to cost
             if i % swap_frequencie == 0:
                 paths = self.swap_temperature(paths, T)
-
-            cost = np.array([self._cost(path) for path in paths])
-            # Update best solution
-            if cost.min() < best_cost:
-                best_cost = cost.min()
-                best_path = paths[np.argmin(cost)]
-                iter = i
 
         return best_path, iter, best_cost, T_0, list_cost
 
@@ -303,9 +302,9 @@ class SA:
                 start = time.time()
                 result, iter, cost, T, trace = self.parallel_tempering(
                     threshold=threshold,
-                    max_iter=10000,
                     type=pt_type,
                     enhanced_mode=enhanced_mode,
+                    max_iter=20000,
                 )
                 end = time.time()
                 result = np.append(result, result[0])
@@ -384,6 +383,12 @@ class SA:
                     name="path",
                 )
             )
+
+            fig.update_xaxes(
+                title_text=f"Fitness: {np.round(self._cost(greedy_result[:-1]), 4)}",
+                row=1,
+                col=2,
+            )
             plot_cities(fig, x, y, title=title[0])
 
             fig = subplot()
@@ -451,6 +456,11 @@ class SA:
                     line=dict(color="plum"),
                     name="path",
                 )
+            )
+            fig.update_xaxes(
+                title_text=f"Fitness: {np.round(self._cost(sa_result[:-1]), 4)}",
+                row=1,
+                col=2,
             )
             plot_cities(fig, x, y, title=title[1])
 
@@ -520,6 +530,11 @@ class SA:
                     name="path",
                 )
             )
+            fig.update_xaxes(
+                title_text=f"Fitness: {np.round(self._cost(pt_result[:-1]), 4)}",
+                row=1,
+                col=2,
+            )
             plot_cities(fig, x, y, title=title[2])
         else:
             fig = go.Figure()
@@ -560,7 +575,7 @@ if __name__ == "__main__":
         default="0.5",
     )
     parser.add_argument(
-        "-",
+        "-p",
         "--progression_type",
         help="Progression type of the sequence of factors for temperature in parallel tempering ('linear', 'quad', 'exp', 'log'). Default is 'quad'",
         default="quad",

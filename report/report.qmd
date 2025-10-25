@@ -439,9 +439,23 @@ The number of replicas of simulated annealing is given by $M$ that is generaly d
 
 To compute the results, each method is runned $10$ times.
 
-The figure with the cities shows the best path during the $10$ runs of the algorithm.
+The figure with the cities shows the best path during the $10$ runs of the algorithm, with on $x$ label the fitness of the given path.
 
 The table give always the average values obtained.
+
+Empiricaly, experiments have shown that the sequence of factors that provide best results for parallel tempering is in general the quadratic sequence.
+However, some other sequences progressions proved to be effective.
+So to compute parallel tempering, the quadratic factor sequence is the sequence choosen.
+
+The maximum number of iterations of parallel tempering has been fixed at $20000$ for each experiment.
+
+The initial acceptance rate has been set to $5\%$.
+In fact, due to the paths taken randomly on the entire search space, the initial temperature give an overview of the possible difference of fitness of the problem.
+This difference is quite big, so empiricaly, to have good results (with a temperature not too big, allowing a good convergence of the method around a solution), the initial acceptance rate has been set to $5\%$.
+
+The figure of the fitness variation is obtained by taking the best result and detailing the variations in fitness of this result according to iterations.
+
+Algorithms have been runned on benchmark problem with $30$ cities, on `cities.dat` and `cities2.dat`, and on random problem generated with $20, 60, 80, 100$ cities.
 
 ## Benchmark problem
 
@@ -451,43 +465,100 @@ The table give always the average values obtained.
 
 ![Benchmark problem of 30 cities for the parallel tempering algorithm](./images/benchmark_pt_30.png){#fig-bench_pt fig-pos="H"}
 
+![Benchmark problem of 30 cities, fitness variation](./images/benchmark_fitness.png){#fig-bench_fitness fig-pos="H"}
+
 ## Cities problem
 
-![cities.dat problem of 30 cities for the greedy algorithm](./images/cities_greedy.png){#fig-cities_greedy fig-pos="H"}
-![cities.dat problem of 30 cities for the simulated annealing algorithm](./images/cities_sa.png){#fig-cities_sa fig-pos="H"}
-![cities.dat problem of 30 cities for the parallel tempering algorithm](./images/cities_pt.png){#fig-cities_pt fig-pos="H"}
+![cities.dat problem of 18 cities for the greedy algorithm](./images/cities_greedy.png){#fig-cities_greedy fig-pos="H"}
+
+![cities.dat problem of 18 cities for the simulated annealing algorithm](./images/cities_sa.png){#fig-cities_sa fig-pos="H"}
+
+![cities.dat problem of 18 cities for the parallel tempering algorithm](./images/cities_pt.png){#fig-cities_pt fig-pos="H"}
+
+![cities.dat problem of 18 cities, fitness variation](./images/cities_fitness.png){#fig-cities_fitness fig-pos="H"}
 
 ## Cities2 problem
 
-![cities.dat problem of 30 cities for the greedy algorithm](./images/cities_greedy.png){#fig-bench_greedy fig-pos="H"}
-![cities.dat problem of 30 cities for the simulated annealing algorithm](./images/cities_sa.png){#fig-bench_sa fig-pos="H"}
-![cities.dat problem of 30 cities for the parallel tempering algorithm](./images/cities_pt.png){#fig-bench_pt fig-pos="H"}
+![cities2.dat problem of 49 cities for the greedy algorithm](./images/cities2_greedy.png){#fig-cities2_greedy fig-pos="H"}
 
-(1)
+![cities2.dat problem of 49 cities for the simulated annealing algorithm](./images/cities2_sa.png){#fig-cities2_sa fig-pos="H"}
 
-- circle
-- cities
-- cities2
-- 20
-- 60
-- 80
-- 100
+![cities2.dat problem of 49 cities for the parallel tempering algorithm](./images/cities2_pt.png){#fig-cities2_pt fig-pos="H"}
 
-Temperature change execution time
+![cities2.dat problem of 49 cities, fitness variation](./images/cities2_fitness.png){#fig-cities2_fitness fig-pos="H"}
 
-Just show plots and results, not discussion...
+## Random problem
+
+### 20 cities
+
+![Random problem of 20 cities for the greedy algorithm](./images/r20_greedy.png){#fig-r20_greedy fig-pos="H"}
+
+![Random problem of 20 cities for the simulated annealing algorithm](./images/r20_sa.png){#fig-r20_sa fig-pos="H"}
+
+![Random problem of 20 cities for the parallel tempering algorithm](./images/r20_pt.png){#fig-r20_pt fig-pos="H"}
+
+![Random problem of 20 cities, fitness variation](./images/r20_fitness.png){#fig-r20_fitness fig-pos="H"}
+
+### 60 cities
+
+![Random problem of 60 cities for the greedy algorithm](./images/r60_greedy.png){#fig-r60_greedy fig-pos="H"}
+
+![Random problem of 60 cities for the simulated annealing algorithm](./images/r60_sa.png){#fig-r60_sa fig-pos="H"}
+
+![Random problem of 60 cities for the parallel tempering algorithm](./images/r60_pt.png){#fig-r60_pt fig-pos="H"}
+
+![Random problem of 60 cities, fitness variation](./images/r60_fitness.png){#fig-r60_fitness fig-pos="H"}
+
+### 80 cities
+
+![Random problem of 80 cities for the greedy algorithm](./images/r80_greedy.png){#fig-r80_greedy fig-pos="H"}
+
+![Random problem of 80 cities for the simulated annealing algorithm](./images/r80_sa.png){#fig-r80_sa fig-pos="H"}
+
+![Random problem of 80 cities for the parallel tempering algorithm](./images/r80_pt.png){#fig-r80_pt fig-pos="H"}
+
+![Random problem of 80 cities, fitness variation](./images/r80_fitness.png){#fig-r80_fitness fig-pos="H"}
+
+### 100 cities
+
+![Random problem of 100 cities for the greedy algorithm](./images/r100_greedy.png){#fig-r100_greedy fig-pos="H"}
+
+![Random problem of 100 cities for the simulated annealing algorithm](./images/r100_sa.png){#fig-r100_sa fig-pos="H"}
+
+![Random problem of 100 cities for the parallel tempering algorithm](./images/r100_pt.png){#fig-r100_pt fig-pos="H"}
+
+![Random problem of 100 cities, fitness variation](./images/r100_fitness.png){#fig-r100_fitness fig-pos="H"}
 
 \newpage
 
 # Discussion
 
-(2)
-
 In this section, we will discuss the results obtained and displayed in the previous section.
 
-## Benchmark problem
+## Execution time
 
-### Quality
+First, what's about the execution time of the three algorithms ?
+
+If we look at the problem from the perspective of computation time, the greedy algorithm is $2500\times$ more fast than the simulated annealing and $10000\times$ more fast than the parallel tempering for the benchmark problem for instance, as shown on figures [-@fig-bench_sa] and [-@fig-bench_pt].
+It's logic because the greedy method construct the path whereas the two other algorithms try different paths at each iterations.
+It means that only a computation is necessary for greedy algorithm whereas for the other algorithms, a number of computation at least as big as the number of iterations is necessary.
+So greedy algorithm will be always faster than the others.
+
+According to the comparison @tbl-comparison, it's obviously normal.
+
+The execution time depends among other things on the number of computations to achieve.
+
+So the simulated annealing and the parallel tempering method will have a computation time according to the number of iterations achieved.
+As the parallel tempering applies the simulated annealing on each of the $M$ replica, for a same number of iterations, the method will be slower than the simulated annealing.
+And suppose that the algorithm is perfectly parallelized, it will always be slower for the same number of iterations because at given frequency, the process units must pool their work to make the swaps between replicas, what takes time.
+
+So the parallel tempering algorithm will be always slower than the simulated annealing for a same number of iterations.
+
+However the parallel tempering could prove more effective than simulated annealing.
+
+That's why we will try to see advantages and disadvantages of both methods for different problems.
+
+## Benchmark problem
 
 The benchmark problem defined is $N$ cities distributed equally around a circle of radius $1$.
 In this way, it's easy to know the optimal fitness: it's the path that create the circle and that have a fitness of $2\pi \approx 6.2$.
@@ -495,12 +566,71 @@ In this way, it's easy to know the optimal fitness: it's the path that create th
 When we look at the results, we can see that the greedy algorithm find the optimal solution for this benchmark problem, as shown on @fig-bench_greedy.
 It's the expected result, so the algorithm is well implemented.
 
-However, we can constate that on the $10$ executions, the simulated annealing and parallel tempering algorithms don't find always the optimal result
-because the best fitness mean exeeds that of the greedy best fitness mean, as illustrated in @fig-bench_sa and @fig-bench_pt.
+However, we can constate that on the $10$ executions, the simulated annealing doesn't find always the optimal result
+because the best fitness mean exeeds that of the greedy best fitness mean, as illustrated in @fig-bench_sa.
 
-### Execution time
+And for parallel tempering, the optimal solution is never reached, even with $20000$ iterations.
 
-If we look at the problem from the perspective of computation time, the greedy algorithm is 
+So at first glance, the simulated annealing appears better than the parallel tempering.
+
+If we look at the @fig-bench_fitness that shows the fitness variation depending on iterations, we can see that for the simulated annealing, the fitness start high (around $40$).
+Then, it decrease, with a variation of fitness more and more small, until reaching a solution.
+The solution reached is a good solution, but not the optimal because the solution from parallel tempering method is better.
+
+And if we look at the parallel tempering plot, there is a lot of curves.
+Each curve correspond to a fixed temperature, with $T_0$ the lowest temperature.
+It's possible to see that more high is the temperature, more high is the fitness.
+It's the expected result, because we switch replicas at a given frequency to cool down replicas that have better results to favorise exploitation and we heat up replicas that have worst results to favorise exploration.
+If we look at $T_0$, we can constate that there is only a curve until $2000$ iterations whereas the algorithm runs on $10000$ iterations.
+It's normal because in the implementation, the fitness is captured only when the move is accepted according to Metropolis rule [-@eq-metropolis].
+And with $T_0$, a colder temperature, the Metropolis rule will not accept changes that are worst compared to actual path, as shown on the precedent [-@fig-probability].
+So less changes are accepted than for a higher temperature, so the curve goes only until $2000$ because for this temperature, only $2000$ moves have been accepted.
+
+## Cities problems
+
+### cities.dat
+
+On this problem, all methods have been runned.
+If we look at the results (@fig-cities_greedy, @fig-cities_sa and @fig-cities_pt), we can see that the mean of the best fitness is the greatest for simulated annealing, and the slowest for parallel tempering.
+
+So it means that the parallel tempering method has proven to be more effective on this problem.
+However, all problems have given a good solution because the ratio of the fitness is closest to $1$, as shown on @fig-cities_sa and @fig-cities_pt.
+
+So it basically means that both methods are approximatively equivalent for this given problem in term of solution.
+But in term of computation, the greedy is always the fastest, and the simulated annealing is $25\times$ more fast than the parallel tempering, with only a mean of $5000$ iterations against $10000$ iterations for parallel tempering.
+It could signify that with more iterations on the simulated annealing method, the results could have been better.
+
+And to have more iterations, the temperature schedule or the initial acceptance rate must be changed.
+
+If we take a look on the fitness variation graph [-@fig-cities_fitness], we can see that the simulated annealing method varies a lot and does not stabilize.
+So perhaps for this problem, the guided parameters of the method were not properly initialized, that explain the variance of results because of no good convergence to a solution.
+Or perhaps it's due to stochasticity of the algorithm: it stumbled upon a good solution, making no fitness improvement during temperature changes, which satisfies the halting condition.
+The number of iterations for the best result is only around $2000$ iterations whereas the average of iterations is around $9600$, that's why 
+theses variations are probably more due to stochasticity of the algorithm than to the bad values of guided parameters.
+
+### cities2.dat
+
+On this problem, according to the figures [-@fig-cities2_greedy], [-@fig-cities2_sa] and [-@fig-cities2_pt], the greedy algorithm has the best average fitness but the simulated annealing has found the best solution compared to other algorithms.
+And this time, the time execution of parallel tempering and simulated annealing is approximatively the same, because this time, simulated annealing is only $3.5\times$ more fast than parallel tempering.
+If we look at the fitness average of simulated annealing and parallel tempering, the parallel tempering has always a better fitness average.
+However, the best solution of the simulated annealing method is better.
+In fact, taking a look at the average fitness and the best fitness of boths methods allows us to see that the parallel tempering give always results that have approximatively the same fitness
+because the difference between the best fitness and the average fitness is around $0.2$ whereas for simulated annealing, this difference is arround $2$.
+It basically means that the parallel tempering method give perhaps worst results than simulated annealing, but always gives approximately the same results whereas simulated annealing gives sometimes very good results and sometimes very bad results.
+
+The @fig-cities2_fitness shows us that for simulated annealing, the guided parameters was correctly set to reach the solution because the
+curve decrease more and more until it stabilize around optimal solution.
+In fact, the curve decrease according to the temperature schedule: the temperature is cooled down as time goes by, promoting exploitation of solutions more than exploration.
+It's the expected behaviour and the solution obtained is very good, so for this problem and this execution, the simulated annealing worked quite well.
+However, for another execution with the same parameters, the simulated annealing method worked badly because the average best fitness is worst than the average best fitness of parallel tempering.
+
+So simulated annealing can give good results, but parallel tempering give constant results.
+
+## Random problems
+
+For the $20$ cities random problem, the algorithm that perform the best average performance is the parallel tempering with an average best fitness $10\%$ better than average fitness of both other methods.
+However, the simulated annealing found the best result.
+
 
 
 - greedy vs simulated annealing (SA)
