@@ -1,0 +1,4 @@
+
+ For 18 cities:
+Greedy: Best Path = [11  3  9 13  1  0  2  7  5  8 16  6 15 12 14 10 17  4], Minimum Fitness = 29.15685658510051, Mean Fitness= 33.22809062338935, Std Fitness= 1.9060974674855824, Mean exec_time= 0.0007410287857055664, Std exec_time= 0.00017524014072573573
+AS: Best Path = [np.int64(5), np.int64(7), np.int64(4), np.int64(2), np.int64(0), np.int64(8), np.int64(13), np.int64(12), np.int64(15), np.int64(16), np.int64(11), np.int64(6), np.int64(17), np.int64(10), np.int64(14), np.int64(9), np.int64(3), np.int64(1)], Minimum Fitness = 48.1088492266901, Mean Fitness= 62.43618641262418, Std Fitness= 8.00922497107729, Mean exec_time= 3.21220121383667, Std exec_time= 0.18805535063598464
