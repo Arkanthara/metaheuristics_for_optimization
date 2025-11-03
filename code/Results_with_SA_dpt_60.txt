@@ -1,0 +1,20 @@
+
+ For 60 cities:
+Greedy: Best Path = [ 3 34 44 24 33 31  5 52 29 26  7  4 41 38 32 47 39  0 49 56 23 57 35 20
+  8 36 46 18 10 30 15 25 11 19  2 21 28 37 50  1 59 45  9 53 27 13 17 12
+ 40 51  6 14 54 42 43 22 58 55 16 48], Minimum Fitness = 7.046996168310068, Mean Fitness= 7.443922426993386, Std Fitness= 0.3106856285771624, Mean exec_time= 0.000601959228515625, Std exec_time= 7.989137442245366e-06
+AS: Best Path = [np.int64(15), np.int64(30), np.int64(10), np.int64(46), np.int64(18), np.int64(36), np.int64(8), np.int64(20), np.int64(35), np.int64(57), np.int64(23), np.int64(49), np.int64(0), np.int64(39), np.int64(56), np.int64(6), np.int64(51), np.int64(40), np.int64(13), np.int64(27), np.int64(53), np.int64(3), np.int64(34), np.int64(22), np.int64(43), np.int64(59), np.int64(45), np.int64(9), np.int64(37), np.int64(28), np.int64(21), np.int64(2), np.int64(19), np.int64(11), np.int64(25), np.int64(54), np.int64(42), np.int64(14), np.int64(17), np.int64(12), np.int64(38), np.int64(41), np.int64(32), np.int64(47), np.int64(7), np.int64(26), np.int64(4), np.int64(29), np.int64(52), np.int64(5), np.int64(31), np.int64(33), np.int64(24), np.int64(44), np.int64(55), np.int64(16), np.int64(58), np.int64(48), np.int64(1), np.int64(50)], Minimum Fitness = 7.5563495035933474, Mean Fitness= 7.850266199378596, Std Fitness= 0.3849746293265727, Mean exec_time= 8.994627857208252, Std exec_time= 0.07672831853699325
+AS: Best Path = [14 23 36 54 42 17 13 53 27 50 18 10  2 11 25 15 19 21 30 46 32 47 12 16
+ 33 52  5 26 51 38 41 45  3  9 59 43 22 34 48 58 31 24  1 28 37 20  8 35
+ 57  6 56 39  0 49 29  4  7 55 44 40], Minimum Fitness = 14.206586588773412, Mean Fitness= 19.194292420142403, Std Fitness= 3.2904212026370177, Mean exec_time= 0.7074071884155273, Std exec_time= 0.5844449477718706
+
+ For 60 cities:
+Greedy: Best Path = [ 0 25 23 43 47 44 58  9 30 34 12 53 20 35  7 22 24 56 13 37 45 39 15 42
+ 29 59 31  4 16 26 33 28 51 32 19 54 55  8  6 48 17 10 27 36 49 14  5  2
+ 57 50 21 11 52 18 41 38  3  1 40 46], Minimum Fitness = 7.233390775151938, Mean Fitness= 7.564775242116428, Std Fitness= 0.2601547631255011, Mean exec_time= 0.0004090547561645508, Std exec_time= 6.6587159651822625e-06
+AS: Best Path = [51 32 28 33 26 16  4 31 15 42 29 59 14 36 49 17 54 55  8  6 50 57 21 11
+ 52 40  3  1 46 18 41 38  9 44 43 47 58  2  5 23 25  0 53 20 35  7 22 24
+ 12 34 30 56 45 39 37 13 27 10 19 48], Minimum Fitness = 7.870031592654681, Mean Fitness= 7.9625609000361095, Std Fitness= 0.06735662208409654, Mean exec_time= 8.990226554870606, Std exec_time= 0.048315141181376156
+SA: Best Path = [38  1 46 40  3 41  9 30 34  7 20 24 22 35 53 12  0 25 56 45 13 37 39 59
+ 49 36 14 29 42 15 31  4 16 26 33 51 28 32 27 10 17 54 19 55  8 48  6 50
+ 57  2  5 23 47 43 44 58 21 52 11 18], Minimum Fitness = 7.132629726406748, Mean Fitness= 15.347765234469081, Std Fitness= 6.77358819013371, Mean exec_time= 2.3456427097320556, Std exec_time= 2.859465003724476

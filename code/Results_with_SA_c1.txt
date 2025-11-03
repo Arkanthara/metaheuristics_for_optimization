@@ -1,0 +1,10 @@
+
+ For 18 cities:
+Greedy: Best Path = [ 4  9  3 11 16  8  5  7  2  0  1 13  6 15 12 14 10 17], Minimum Fitness = 31.473019657246983, Mean Fitness= 33.58646958273663, Std Fitness= 1.1926352943250689, Mean exec_time= 0.00010759830474853516, Std exec_time= 3.0229380297979853e-05
+AS: Best Path = [np.int64(16), np.int64(8), np.int64(5), np.int64(7), np.int64(2), np.int64(0), np.int64(1), np.int64(13), np.int64(9), np.int64(3), np.int64(11), np.int64(4), np.int64(17), np.int64(10), np.int64(14), np.int64(6), np.int64(12), np.int64(15)], Minimum Fitness = 28.05049831658492, Mean Fitness= 28.964411164949137, Std Fitness= 0.5544058457978508, Mean exec_time= 4.738034391403199, Std exec_time= 0.46762626008233754
+AS: Best Path = [ 7  9  3 11 16  8 12 15  6 14 10 17  4  1 13  0  2  5], Minimum Fitness = 30.389352958792497, Mean Fitness= 33.97004233658868, Std Fitness= 3.348890160633446, Mean exec_time= 0.2374588966369629, Std exec_time= 0.1940034127953848
+
+ For 18 cities:
+Greedy: Best Path = [11  3  9 13  1  0  2  7  5  8 16  6 15 12 14 10 17  4], Minimum Fitness = 29.15685658510051, Mean Fitness= 33.521743747663436, Std Fitness= 2.1672786347393855, Mean exec_time= 0.00010571479797363281, Std exec_time= 2.9147412111488565e-05
+AS: Best Path = [ 8  5  7  2  0  1 13  9  3 16 11  4 17 10 14  6 15 12], Minimum Fitness = 27.51536256342535, Mean Fitness= 29.976350651730524, Std Fitness= 1.3861541432973712, Mean exec_time= 4.744203662872314, Std exec_time= 0.5218283122157867
+SA: Best Path = [ 6 15 12  8 16  5  7  2  0  1 13  9  3 11  4 17 10 14], Minimum Fitness = 27.897328574675456, Mean Fitness= 32.64444820165927, Std Fitness= 3.0910316723730573, Mean exec_time= 0.33239097595214845, Std exec_time= 0.3586867382308278

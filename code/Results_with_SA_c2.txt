@@ -1,0 +1,20 @@
+
+ For 49 cities:
+Greedy: Best Path = [26 29 31 33 35 39 41 37 22 24 20 16 18 27 30 32 23 25 36 38 28 15 19  8
+ 12  5  6  9 11 14 17 13  7 10 34 42 46 44 43 40 45 48 47  4  3  1  2  0
+ 21], Minimum Fitness = 3.096252827423652, Mean Fitness= 3.3316655121524543, Std Fitness= 0.20187850788370507, Mean exec_time= 0.0003698825836181641, Std exec_time= 3.3985442032469703e-05
+AS: Best Path = [np.int64(6), np.int64(9), np.int64(11), np.int64(14), np.int64(16), np.int64(18), np.int64(23), np.int64(25), np.int64(32), np.int64(30), np.int64(27), np.int64(20), np.int64(24), np.int64(22), np.int64(33), np.int64(35), np.int64(31), np.int64(29), np.int64(26), np.int64(10), np.int64(7), np.int64(13), np.int64(17), np.int64(37), np.int64(39), np.int64(41), np.int64(44), np.int64(36), np.int64(38), np.int64(28), np.int64(15), np.int64(19), np.int64(40), np.int64(43), np.int64(8), np.int64(5), np.int64(12), np.int64(3), np.int64(4), np.int64(47), np.int64(48), np.int64(45), np.int64(1), np.int64(0), np.int64(2), np.int64(21), np.int64(34), np.int64(42), np.int64(46)], Minimum Fitness = 3.2340897288190606, Mean Fitness= 3.346065572649305, Std Fitness= 0.10468601399539862, Mean exec_time= 6.181945753097534, Std exec_time= 0.01707885333162638
+AS: Best Path = [46 32 38  9 29 10 21 34  2  7 31 39 42 13 20 24 17 22 35 33 44 37 41 18
+  0  1  5  3  4 12 43 40  8 15 19 45 48 47 16 26 25 23 30 36 28  6 11 14
+ 27], Minimum Fitness = 4.627191306167654, Mean Fitness= 5.118199531655556, Std Fitness= 0.4787412939986307, Mean exec_time= 0.37115254402160647, Std exec_time= 0.1655091896022316
+
+ For 49 cities:
+Greedy: Best Path = [34 42 46 44 41 39 35 33 31 29 26 17 22 24 20 16 18 27 30 32 23 25 36 38
+ 28 15 19  8 12  5  6  9 11 14 13  7 10 37 43 40 45 48 47  4  3  1  2  0
+ 21], Minimum Fitness = 3.016198553317413, Mean Fitness= 3.4442872671613025, Std Fitness= 0.2890064906735072, Mean exec_time= 0.00038204193115234377, Std exec_time= 7.740592891005879e-05
+AS: Best Path = [26 29 31 33 35 27 32 30 18 16 14 11  9 10  7 17 13 24 20 22 23 25 36 38
+ 28 15 19  8 12  5  6 37 39 41 42 34 21 46 44 43 40 45 48 47  4  3  1  0
+  2], Minimum Fitness = 3.3067264095019344, Mean Fitness= 3.349400445355792, Std Fitness= 0.038786799829945276, Mean exec_time= 6.17311201095581, Std exec_time= 0.019154511591727333
+SA: Best Path = [45  8 19 15 32 23 25 35 26 42 21 34 10  7  2  0  1  5 20 11 16 18 29 17
+ 13 22 39 37 24 31 33  9  6 28 38 14 30 36 27 44 41 46 40 43 12  3  4 47
+ 48], Minimum Fitness = 3.794239251514859, Mean Fitness= 4.263685202698911, Std Fitness= 0.5323239000582685, Mean exec_time= 0.7224271774291993, Std exec_time= 0.35408976205627335
