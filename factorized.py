@@ -470,7 +470,7 @@ def plot_population_program_combinations(all_results):
     sample_count = next(iter(all_results.values()))['num_samples']
     
     # Define specific population sizes and program lengths to compare
-    target_pop_sizes = [20, 50, 100, 150]
+    target_pop_sizes = [20, 50, 80, 100, 150]
     target_prog_lengths = [10, 15, 20, 25]
     
     # Color map for better visualization
