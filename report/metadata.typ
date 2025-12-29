@@ -31,7 +31,7 @@
   //     width: 10cm,
   //   ),
   // ),
-  project-name: "Digital Forensics",
+  project-name: "Metaheuristics for Optimization",
   date: none,
 
   // Document options
