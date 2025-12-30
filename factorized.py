@@ -564,12 +564,14 @@ configurations = [
     {"name": "Population 200", "prog_length": 20, "pop_size": 200, "k": 2, "p_c": 0.6, "p_m": 0.1},
     
     # Program length variations
-    {"name": "Length 10", "prog_length": 10, "pop_size": 100, "k": 2, "p_c": 0.6, "p_m": 0.1},
-    {"name": "Length 12", "prog_length": 12, "pop_size": 100, "k": 2, "p_c": 0.6, "p_m": 0.1},
-    {"name": "Length 15", "prog_length": 15, "pop_size": 100, "k": 2, "p_c": 0.6, "p_m": 0.1},
-    {"name": "Length 20", "prog_length": 20, "pop_size": 100, "k": 2, "p_c": 0.6, "p_m": 0.1},
-    {"name": "Length 25", "prog_length": 25, "pop_size": 100, "k": 2, "p_c": 0.6, "p_m": 0.1},
-    {"name": "Length 30", "prog_length": 30, "pop_size": 100, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 5", "prog_length": 5, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 8", "prog_length": 8, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 10", "prog_length": 10, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 12", "prog_length": 12, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 15", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 20", "prog_length": 20, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 25", "prog_length": 25, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
+    {"name": "Length 30", "prog_length": 30, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
     
     # Specific combinations for the combination plot
     {"name": "Combination_P20_L10", "prog_length": 10, "pop_size": 20, "k": 2, "p_c": 0.6, "p_m": 0.1},
@@ -603,6 +605,8 @@ configurations = [
     {"name": "4-tournament", "prog_length": 15, "pop_size": 80, "k": 4, "p_c": 0.6, "p_m": 0.1},
     {"name": "6-tournament", "prog_length": 15, "pop_size": 80, "k": 6, "p_c": 0.6, "p_m": 0.1},
     {"name": "8-tournament", "prog_length": 15, "pop_size": 80, "k": 8, "p_c": 0.6, "p_m": 0.1},
+    {"name": "10-tournament", "prog_length": 15, "pop_size": 80, "k": 10, "p_c": 0.6, "p_m": 0.1},
+    {"name": "20-tournament", "prog_length": 15, "pop_size": 80, "k": 20, "p_c": 0.6, "p_m": 0.1},
     
     # Crossover probability variations
     {"name": "Crossover 0.0", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 0.0, "p_m": 0.1},
