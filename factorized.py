@@ -106,7 +106,7 @@ def randomProg(length,functionSet,terminalSet):
 def computeFitness(prog,cpu,dataSet):
     if execute(prog, cpu, dataSet[0]) == None:
         # invalid program
-        return 0
+        return -1
     fitness = 0
     for data in dataSet:
         res = execute(prog, cpu, data)
@@ -202,39 +202,129 @@ print("-------------")
 
 def evaluate_population(gen: list, cpu: CPU, dataSet: list) -> tuple:
     """Evaluate population and return statistics"""
-    fitness_list = [computeFitness(i, cpu, dataSet) for i in gen]
-    return max(fitness_list), np.mean(fitness_list), np.std(fitness_list), fitness_list
+    fitness_list = np.array([computeFitness(i, cpu, dataSet) for i in gen])
+    best_individual = gen[np.argmax(fitness_list)]
+    # Clean fitness from invalid expressions
+    valid_fitness_list = fitness_list[fitness_list != -1]
+    if len(valid_fitness_list) == 0:
+        valid_fitness_list = np.array([0])
+    return (float(max(valid_fitness_list)), 
+            float(np.mean(valid_fitness_list)), 
+            float(np.std(valid_fitness_list)), 
+            valid_fitness_list.tolist(),  # Convert to list for consistency
+            best_individual)
 
-def ga(gen: list, cpu: CPU, dataSet: list, max_generations: int = 200, k: int = 2, p_c: float = 0.6, p_m: float = 0.1) -> tuple:
-    """Enhanced GA with more statistics"""
+def ga(gen: list, cpu: CPU, dataSet: list, max_generations: int = 200, k: int = 2, p_c: float = 0.6, p_m: float = 0.1, verbose: bool = True) -> tuple:
     best = []
     mean = []
     std = []
     percent_max = []  # Track percentage reaching maximum fitness
     max_possible_fitness = len(dataSet)  # 16 for this problem
     
+    # Track the best solution found throughout evolution
+    overall_best_fitness = -1
+    overall_best_solution = None
+    solution_found_generation = None
+    
+    if verbose:
+        print("Starting Genetic Algorithm Evolution")
+        print("=" * 50)
+        print(f"Population size: {len(gen)}")
+        print(f"Max generations: {max_generations}")
+        print(f"Tournament size (k): {k}")
+        print(f"Crossover probability: {p_c}")
+        print(f"Mutation probability: {p_m}")
+        print("=" * 50)
+    
     for generation in range(max_generations):
         # Get current population stats
-        best_fit, mean_fit, std_fit, fitness_list = evaluate_population(gen, cpu, dataSet)
+        best_fit, mean_fit, std_fit, fitness_list, best_individual = evaluate_population(gen, cpu, dataSet)
         best.append(best_fit)
         mean.append(mean_fit)
         std.append(std_fit)
         
+        # Track the best solution found so far
+        if best_fit > overall_best_fitness:
+            overall_best_fitness = best_fit
+            # Clean the solution by converting numpy strings to regular strings
+            if isinstance(best_individual, list):
+                overall_best_solution = [str(item) for item in best_individual]
+            else:
+                overall_best_solution = best_individual
+            
+        # Update solution found generation
+        if best_fit == max_possible_fitness and solution_found_generation is None:
+            solution_found_generation = generation
+        
         # Calculate percentage reaching maximum
         count_max = sum(1 for f in fitness_list if f == max_possible_fitness)
         percent_max.append((count_max / len(gen)) * 100)
+        
+        # Print progress every 10 generations or last generation
+        if verbose and (generation % 10 == 0 or generation == max_generations - 1):
+            status = "🎉" if solution_found_generation is not None and generation >= solution_found_generation else "  "
+            print(f"Gen {generation:3d}: Best={best_fit:6.2f}, Mean={mean_fit:6.2f}, Std={std_fit:6.2f}, Max%={percent_max[-1]:5.1f}% {status}")
         
         # Evolution steps
         gen = selection(gen, cpu, dataSet, k=k)
         gen = crossover(gen, p_c)
         gen = mutation(gen, p_m, terminalSet, functionSet)
     
-    return best, mean, std, percent_max
+    # Clean the final solution for printing
+    clean_solution = None
+    if overall_best_solution is not None:
+        if isinstance(overall_best_solution, list):
+            clean_solution = [str(item) for item in overall_best_solution]
+        else:
+            clean_solution = str(overall_best_solution)
+    
+    # Final report
+    if verbose:
+        print("\n" + "=" * 50)
+        if solution_found_generation is not None:
+            print(f"🎉 SOLUTION FIRST FOUND at generation {solution_found_generation}!")
+            print(f"Final best fitness: {overall_best_fitness}/{max_possible_fitness}")
+        else:
+            print("❌ No perfect solution found within max generations")
+            print(f"Best fitness achieved: {overall_best_fitness}/{max_possible_fitness}")
+        
+        print("Final solution:")
+        print(f"  Fitness:  {overall_best_fitness}")
+        print(f"  Solution: {clean_solution}")
+        print("\nConfiguration: iterations/k, pc, p_m")
+        print(f"            {max_generations}/{k}, {p_c}, {p_m}")
+        
+        # Print final statistics summary
+        print("\n📊 Evolution Summary:")
+        print(f"  Initial best fitness: {best[0]:.2f}")
+        print(f"  Final best fitness:   {overall_best_fitness:.2f}")
+        print(f"  Improvement:          {overall_best_fitness - best[0]:.2f}")
+        print(f"  Average fitness:      {np.mean(mean):.2f} ± {np.mean(std):.2f}")
+        
+        if percent_max:
+            peak_performance = max(percent_max)
+            peak_gen = percent_max.index(peak_performance)
+            print(f"  Peak performance:     {peak_performance:.1f}% at gen {peak_gen}")
+        
+        if solution_found_generation is not None:
+            print(f"  Solution generation:  {solution_found_generation}")
+    
+    # Return additional convergence statistics and best solution
+    return best, mean, std, percent_max, solution_found_generation, overall_best_solution, overall_best_fitness
+
+
+def run_single_experiment(sample_index, prog_length, pop_size, k, p_c, p_m, max_generations, dataSet, functionSet, terminalSet):
+    """Run a single experiment"""
+    population = [randomProg(prog_length, functionSet, terminalSet) for _ in range(pop_size)]
+    result = ga(population, CPU(), dataSet, max_generations, k, p_c, p_m, verbose=False)
+    return result
 
 def run_experiments(configurations, num_samples=100, max_generations=100, show_variance=True):
-    """Run experiments with configurable number of samples"""
+    """Run experiments with configurable number of samples - PARALLELIZED"""
     # Store results for all configurations
     all_results = {}
+    convergence_stats = {}  # New: Store convergence statistics
+    best_solutions = {}     # New: Store best solutions found
 
     for config in configurations:
         print(f"Running {config['name']} with {num_samples} samples...")
@@ -247,12 +337,29 @@ def run_experiments(configurations, num_samples=100, max_generations=100, show_v
         
         # Run multiple samples in parallel
         results = Parallel(n_jobs=-1)(
-            delayed(ga)([randomProg(prog_length, functionSet, terminalSet) for _ in range(pop_size)], 
-                       CPU(), dataSet, max_generations, k, p_c, p_m) 
-            for _ in range(num_samples)
+            delayed(run_single_experiment)(sample, prog_length, pop_size, k, p_c, p_m, max_generations, dataSet, functionSet, terminalSet)
+            for sample in range(num_samples)
         )
         
-        # Extract and process results
+        # Track convergence statistics
+        generations_to_solution = []
+        success_count = 0
+        all_best_solutions = []  # Store best solutions from all runs
+        
+        # Process results
+        for result in results:
+            # Extract convergence info
+            solution_gen = result[4]  # solution_found_generation
+            best_solution = result[5]  # overall_best_solution
+            best_fitness = result[6]   # overall_best_fitness
+            
+            if solution_gen is not None:
+                generations_to_solution.append(solution_gen)
+                success_count += 1
+                
+            all_best_solutions.append((best_solution, best_fitness))
+        
+        # Extract and process results (excluding convergence stats for plotting arrays)
         best_results = np.array([r[0] for r in results])
         mean_results = np.array([r[1] for r in results])
         std_results = np.array([r[2] for r in results])
@@ -269,8 +376,27 @@ def run_experiments(configurations, num_samples=100, max_generations=100, show_v
             'config': config,  # Store configuration for plotting
             'num_samples': num_samples  # Store sample count
         }
+        
+        # Store convergence statistics for this configuration
+        convergence_stats[config['name']] = {
+            'success_rate': (success_count / num_samples) * 100,
+            'avg_generations': np.mean(generations_to_solution) if generations_to_solution else max_generations,
+            'std_generations': np.std(generations_to_solution) if generations_to_solution else 0,
+            'median_generations': np.median(generations_to_solution) if generations_to_solution else max_generations,
+            'min_generations': min(generations_to_solution) if generations_to_solution else max_generations,
+            'max_generations': max(generations_to_solution) if generations_to_solution else max_generations,
+            'total_successes': success_count,
+            'config': config
+        }
+        
+        # Store best solutions for this configuration
+        best_solutions[config['name']] = {
+            'solutions': all_best_solutions,
+            'best_ever': max(all_best_solutions, key=lambda x: x[1]) if all_best_solutions else None,
+            'config': config
+        }
     
-    return all_results
+    return all_results, convergence_stats, best_solutions  # Return all three
 
 def plot_metric_subplot(ax, all_results, config_names, metric_key, metric_std_key, title, ylabel, color_map=None, show_variance=True, always_show_variance=False, label_func=None):
     """Generic function to plot a metric subplot"""
@@ -547,6 +673,152 @@ def plot_population_program_combinations(all_results):
     plt.tight_layout()
     plt.show()
 
+def plot_convergence_statistics(convergence_stats, show_variance=True):
+    """Plot convergence statistics including success rates and generations to solution"""
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 12))
+    
+    # Sort configurations by success rate for better visualization
+    sorted_configs = sorted(convergence_stats.items(), key=lambda x: x[1]['success_rate'], reverse=True)
+    config_names = [name for name, _ in sorted_configs]
+    success_rates = [convergence_stats[name]['success_rate'] for name in config_names]
+    avg_gens = [convergence_stats[name]['avg_generations'] for name in config_names]
+    med_gens = [convergence_stats[name]['median_generations'] for name in config_names]
+    
+    # Plot 1: Success Rate by Configuration
+    bars1 = ax1.bar(range(len(config_names)), success_rates, color='green', alpha=0.7)
+    ax1.set_xlabel('Configuration')
+    ax1.set_ylabel('Success Rate (%)')
+    ax1.set_title('Success Rate by Configuration')
+    ax1.set_xticks(range(len(config_names)))
+    ax1.set_xticklabels(config_names, rotation=45, ha='right')
+    
+    # Add value labels on bars
+    for i, (bar, rate) in enumerate(zip(bars1, success_rates)):
+        ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1, 
+                f'{rate:.1f}%', ha='center', va='bottom', fontsize=8)
+    
+    # Plot 2: Average Generations to Solution (only for successful runs)
+    successful_configs = [name for name in config_names if convergence_stats[name]['success_rate'] > 0]
+    avg_gens_success = [convergence_stats[name]['avg_generations'] for name in successful_configs]
+    
+    bars2 = ax2.bar(range(len(successful_configs)), avg_gens_success, color='blue', alpha=0.7)
+    ax2.set_xlabel('Configuration')
+    ax2.set_ylabel('Average Generations to Solution')
+    ax2.set_title('Average Generations to Find Solution (Successful Runs Only)')
+    ax2.set_xticks(range(len(successful_configs)))
+    ax2.set_xticklabels(successful_configs, rotation=45, ha='right')
+    
+    # Add value labels on bars
+    for i, (bar, gen) in enumerate(zip(bars2, avg_gens_success)):
+        ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1, 
+                f'{gen:.1f}', ha='center', va='bottom', fontsize=8)
+    
+    # Plot 3: Success Rate vs Average Generations (Scatter plot)
+    success_rates_all = [convergence_stats[name]['success_rate'] for name in config_names]
+    avg_gens_all = [convergence_stats[name]['avg_generations'] for name in config_names]
+    
+    # Color code by success rate
+    scatter = ax3.scatter(success_rates_all, avg_gens_all, 
+                         c=success_rates_all, cmap='viridis', s=100, alpha=0.7)
+    ax3.set_xlabel('Success Rate (%)')
+    ax3.set_ylabel('Average Generations to Solution')
+    ax3.set_title('Success Rate vs Speed of Convergence')
+    
+    # Add colorbar
+    plt.colorbar(scatter, ax=ax3, label='Success Rate (%)')
+    
+    # Label points
+    for i, name in enumerate(config_names):
+        ax3.annotate(name.split()[0], (success_rates_all[i], avg_gens_all[i]), 
+                    xytext=(5, 5), textcoords='offset points', fontsize=8)
+    
+    # Plot 4: Median vs Mean Generations (for successful runs)
+    if successful_configs:
+        med_gens_success = [convergence_stats[name]['median_generations'] for name in successful_configs]
+        avg_gens_success = [convergence_stats[name]['avg_generations'] for name in successful_configs]
+        
+        x_pos = range(len(successful_configs))
+        ax4.bar([x - 0.2 for x in x_pos], med_gens_success, 0.4, label='Median', alpha=0.7, color='orange')
+        ax4.bar([x + 0.2 for x in x_pos], avg_gens_success, 0.4, label='Mean', alpha=0.7, color='red')
+        ax4.set_xlabel('Configuration')
+        ax4.set_ylabel('Generations')
+        ax4.set_title('Median vs Mean Generations to Solution')
+        ax4.set_xticks(x_pos)
+        ax4.set_xticklabels(successful_configs, rotation=45, ha='right')
+        ax4.legend()
+    
+    plt.tight_layout()
+    plt.show()
+
+def plot_success_rate_comparison(convergence_stats):
+    """Create detailed success rate comparison plots"""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+    
+    # Group configurations by type
+    population_configs = {k: v for k, v in convergence_stats.items() if 'Population' in k and 'tournament' not in k.lower()}
+    length_configs = {k: v for k, v in convergence_stats.items() if 'Length' in k and 'tournament' not in k.lower() and 'Crossover' not in k and 'Mutation' not in k}
+    crossover_configs = {k: v for k, v in convergence_stats.items() if 'Crossover' in k}
+    mutation_configs = {k: v for k, v in convergence_stats.items() if 'Mutation' in k}
+    selection_configs = {k: v for k, v in convergence_stats.items() if any(str(t) + '-tournament' in k for t in [2, 4, 6, 8])}
+    
+    # Plot 1: Success rates by parameter type
+    categories = ['Population Size', 'Program Length', 'Crossover Rate', 'Mutation Rate', 'Selection Method']
+    category_data = [population_configs, length_configs, crossover_configs, mutation_configs, selection_configs]
+    category_colors = ['blue', 'green', 'red', 'orange', 'purple']
+    
+    x_pos = []
+    x_labels = []
+    success_rates = []
+    colors = []
+    
+    for i, (category, data, color) in enumerate(zip(categories, category_data, category_colors)):
+        rates = [v['success_rate'] for v in data.values()]
+        labels = list(data.keys())
+        
+        for j, (rate, label) in enumerate(zip(rates, labels)):
+            x_pos.append(i + j*0.1 - len(rates)*0.05)  # Spread points within category
+            x_labels.append(label)
+            success_rates.append(rate)
+            colors.append(color)
+    
+    bars = ax1.bar(x_pos, success_rates, color=colors, alpha=0.7)
+    ax1.set_xlabel('Configuration Categories')
+    ax1.set_ylabel('Success Rate (%)')
+    ax1.set_title('Success Rate by Configuration Type')
+    ax1.set_ylim(0, 100)
+    
+    # Add category labels
+    category_positions = [i for i in range(len(categories))]
+    ax1.set_xticks(category_positions)
+    ax1.set_xticklabels(categories, rotation=45, ha='right')
+    
+    # Plot 2: Speed of convergence for successful configurations
+    successful_configs = {k: v for k, v in convergence_stats.items() if v['success_rate'] > 0}
+    
+    if successful_configs:
+        names = list(successful_configs.keys())
+        avg_gens = [v['avg_generations'] for v in successful_configs.values()]
+        success_rates = [v['success_rate'] for v in successful_configs.values()]
+        
+        # Create scatter plot
+        scatter = ax2.scatter(success_rates, avg_gens, s=100, alpha=0.7, c=avg_gens, cmap='plasma')
+        ax2.set_xlabel('Success Rate (%)')
+        ax2.set_ylabel('Average Generations to Solution')
+        ax2.set_title('Convergence Speed vs Success Rate (Successful Configurations)')
+        
+        # Add colorbar
+        plt.colorbar(scatter, ax=ax2, label='Generations')
+        
+        # Label some key points
+        for i, name in enumerate(names):
+            if i % 3 == 0:  # Label every 3rd point to avoid clutter
+                ax2.annotate(name.split()[0] + ('...' if len(name.split()) > 1 else ''), 
+                           (success_rates[i], avg_gens[i]), 
+                           xytext=(5, 5), textcoords='offset points', fontsize=8)
+    
+    plt.tight_layout()
+    plt.show()
+
 # Define comprehensive configurations including combinations
 configurations = [
     # Standard configurations
@@ -617,6 +889,7 @@ configurations = [
     {"name": "Crossover 1.0", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 1.0, "p_m": 0.1},
     
     # Mutation rate variations
+    {"name": "Mutation 0.01", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.0},
     {"name": "Mutation 0.01", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.01},
     {"name": "Mutation 0.05", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.05},
     {"name": "Mutation 0.1", "prog_length": 15, "pop_size": 80, "k": 2, "p_c": 0.6, "p_m": 0.1},
@@ -625,11 +898,16 @@ configurations = [
 
 # Run experiments with your chosen parameters
 num_samples = 1000   # ← CHANGE THIS TO YOUR DESIRED NUMBER OF SAMPLES
-max_generations = 100  # ← CHANGE THIS TO YOUR DESIRED NUMBER OF GENERATIONS
+max_generations = 200  # ← CHANGE THIS TO YOUR DESIRED NUMBER OF GENERATIONS
 show_variance = False   # ← SET TO False TO HIDE VARIANCE BANDS
 
+# Create a population of programs
+population_size = 80
+population = [randomProg(12, functionSet, terminalSet) for _ in range(population_size)]
+ga(population, CPU(), dataSet, max_generations=500, k=6, p_c=0.4, p_m=0.1)
+
 # Run the experiments
-all_results = run_experiments(configurations, num_samples, max_generations, show_variance)
+all_results, convergence_stats, best_solutions = run_experiments(configurations, num_samples, max_generations, show_variance)
 
 # Create individual analysis plots
 plot_single_analysis(all_results, show_variance, "population")
@@ -643,3 +921,17 @@ plot_convergence_analysis(all_results, show_variance)
 
 # Create combination plot
 plot_population_program_combinations(all_results)
+
+# NEW: Create convergence statistics plots
+plot_convergence_statistics(convergence_stats)
+plot_success_rate_comparison(convergence_stats)
+
+# Print best solutions found
+print("\n" + "="*50)
+print("BEST SOLUTIONS FOUND BY CONFIGURATION")
+print("="*50)
+for config_name, solution_data in best_solutions.items():
+    best_ever = solution_data['best_ever']
+    if best_ever:
+        solution, fitness = best_ever
+        print(f"{config_name}: Fitness={fitness}, Solution={solution}")

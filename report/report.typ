@@ -280,14 +280,24 @@ The adjusted parameters are as follows:
 - *k-tournament selection*. During the selection step, selection by k-tournament is performed as described in @selection-sec. The parameter $k$, which determines the number of individuals chosen for the tournament, controls the balance between exploration and exploitation.
   Indeed, with $k$ equal to the population size, the best individual will always be chosen, while a small $k$ corresponds to a random selection.
   The tests performed are as follows: 2-tournament, 4-tournament, 6-tournament, 8-tournament, 10-tournament and 20-tournament selection.
-- *Crossover probability `p_c`*.
-- *Mutation probability `p_m`*. As indicated in @mutation, `p_m` describes the probability of performing a mutation on an element of the population individual.
-  Mutation helps maintain a certain diversity in the population, which is why this parameter must be defined with care.
-  In order to define this parameter correctly, several experiments were conducted with mutation probabilities of 0.05, 0.01, 0.1, and 0.3.
+- *Crossover probability `p_c`*. As used in @crossover, `p_c` indicates the probability of performing a crossover on a group of two parents.
+  The crossover applied is a single-point crossover, well illustrated by @single-point.
+  Tests on the crossover probability are performed for values of 0, meaning no crossover, but also for values of 0.2, 0.4, 0.6, 0.8, and 1.
+- *Mutation probability `p_m`*. As used in @mutation, `p_m` describes the probability of performing a mutation on an element of an individual in the population.
+  Mutation helps maintain a level of diversity in the population, which is why this parameter must be defined carefully.
+  In order to define this parameter correctly, several experiments were conducted with mutation probabilities of 0, i.e., no mutation, but also with probabilities of 0.05, 0.01, 0.1, and 0.3.
+
+Some tests were also carried out on the combined length of the program and the size of the population in order to find the best parameters.
+
+For fitness, all completely invalid expressions are simply ignored in order to avoid a situation where fitness does not increase due to certain individuals having a fitness of 0 because of invalid expressions.
 
 #pagebreak()
 
 = Results <results>
+
+Best solution: ['X2', 'X1', 'AND', 'X3', 'X2', 'XOR', 'OR', 'NOT', 'X4', 'AND']
+
+Length 10: Fitness=16.0, Solution=['X1', 'X2', 'AND', 'X2', 'X3', 'XOR', 'OR', 'NOT', 'X4', 'AND']
 
 // (1.0)
 // Explored variations of parameters
