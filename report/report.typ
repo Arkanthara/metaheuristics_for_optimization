@@ -165,7 +165,7 @@ In this way, a level of diversity is always maintained by the mutation step.
 
 #pagebreak()
 
-= Implementation
+= Implementation <implementation>
 
 // (1.5)
 // - What are you doing to do with the parameters ?
@@ -326,14 +326,7 @@ The results obtained from the various tests performed are shown in the following
   image("img/benchmark.png", width: 70%),
 ) <benchmark>
 
-== Population size & program length
-
-=== Population size
-
-#figure(
-  caption: "Population size parameter variations",
-  image("img/pop_size.png", width: image_size),
-) <pop-size>
+== Program length & population size
 
 === Program length
 
@@ -341,6 +334,13 @@ The results obtained from the various tests performed are shown in the following
   caption: "Program length parameter variations",
   image("img/prg_length.png", width: image_size),
 ) <prg_length>
+
+=== Population size
+
+#figure(
+  caption: "Population size parameter variations",
+  image("img/pop_size.png", width: image_size),
+) <pop-size>
 
 === Population size combined with program length
 
@@ -400,17 +400,29 @@ As shown in the figures, all results obtained are the average of 1,000 runs.
 Indeed, since genetic programming is a metaheuristic, it involves some stochastic components that cause results to vary from one run to another.
 Repeating the experiment provides the average behavior of the genetic programming algorithm.
 
+The default configuration used for each experiment is:
+- program length of 20
+- population size of 100
+- 8-tournament selection
+- crossover probability of 0.2
+- mutation probability of 0.1
+- number of iterations of 200
+Only the parameters specified in the plots are modified.
+
+
 == Benchmark
 
 First, a few experiments were conducted on the target expression $X 1 and X 2 and X 3 and X 4$, as indicated in @benchmark.
 This means that the corresponding binary table has 16 entries due to the combinations of the 4 variables ($4 times 4 = 16$).
 In this way, the dataset provided to find the target function also has 16 entries, so that the maximum fitness searched for is 16.
 
-On the @benchmark, the best fitness average is around 15 for all the different parameters.
+On the @benchmark, the best fitness average is around 15.5 for all the different parameters.
+Note that the standard configuration for the benchmark test is a configuration with a crossover probability of 0.2, a mutation probability of 0.1, two-tournament selection, a population size of 100, a program length of 20 and a number of 200 iterations.
 This means that for all the parameters tested, the genetic programming algorithm performs well.
 In addition, the fitness average is around 13, which is not far from the optimal solution.
 In fact, 13 is only 80% away from the optimal solution.
-And the success rate shows that, on average, 80% of the experiments performed found the optimal solution in around 30 generations.
+And the success rate shows that, on average, 70% of the experiments performed found the optimal solution in around 20 generations.
+This means that for the benchmark test, the genetic programming algorithm converges quickly to the optimal solution with a very high success rate.
 
 The results obtained on the simple case of the target expression $X 1 and X 2 and X 3 and X 4$ therefore show that the genetic programming algorithm is able to find good solutions for this kind of problem and that the implementation is good enough to get good results.
 
@@ -419,10 +431,44 @@ The target expression searched for is not unique.
 In fact, there are different variants of this expression that give the same binary table, such as reversing the positions of the variables $X 1$ and $X 2$ inside the parentheses, etc.
 However, as before, the dataset contains 16 entries for a binary table obtained with all combinations of 4 variables, giving an optimal fitness of 16.
 
-== Population size and program length
+== Program length & population size
 
 
-Some experiments have been performed on both population size and program length to study the impact of these two parameters on the genetic programming algorithm.
+As explained in @implementation, some experiments have been performed on both population size and program length to study the impact of these two parameters on the genetic programming algorithm.
+
+=== Program length <res-prg-length>
+
+Program length must be set correctly, as it can determine whether or not the algorithm will find a solution.
+Let's imagine, for instance, that the target expression has a length of 16.
+If the program length is set to 10, the genetic programming algorithm will never be able to reach the optimal solution, making it impossible to converge on the optimal solution.
+
+The @prg_length shows in the success rate graph that with a program length of less than 10, the optimal solution is never achieved, as 0% of experiments with a program length of 8 and 9 found the target expression.
+This means that the target expression has a length of 10.
+
+In addition, the success rate increases as the length of the program increases: a success rate of 3% for a program length of 10 and 56% for a program length of 20.
+This is because with a minimum program length, only optimal expressions can be found, while with a greater program length, other expressions with redundancies that can be simplified can be found.
+These longer expressions are also correct, which means that with a bigger program length, the algorithm accepts more solutions.
+In addition, a bigger program length allows the algorithm to have some margin with expressions that are only partially correct, thanks to the way expression correction is handled, as explained in @validity.
+Indeed, partially correct expressions may be sufficient to find the target expression if the program length is greater than the optimal length.
+
+=== Population size
+
+Population size has an impact on computation time, even though the study of execution time was not explicitly performed.
+Indeed, a larger population requires more calculations, as it is necessary, for instance, to compute the fitness of each individual in the population.
+
+However, analysis of @pop-size shows that population size also has an impact on the quality of the solution.
+Indeed, the graph of the success rate by configuration shows that the success rate increases as the population increases.
+This makes perfect sense, since when the number of individuals increases, the probability of having an individual who finds the solution increases, as there are more individuals moving around in the search space.
+This is why the evolution of best fitness is higher and closer to optimal fitness (approximately 15.5 with a best fitness overall of 16) for larger populations.
+
+The graph showing the change in average fitness value therefore shows that all changes in average fitness value for each population remain approximately the same.
+This can be explained by the fact that larger populations may have more high-performing individuals, but also more low-performing individuals, creating a balance around an average fitness value of 12.
+
+Finally, with a larger population, the optimal solution is found more quickly than with smaller populations, as shown in the graph indicating the average number of generations needed to reach the optimal solution based on population size.
+This is explained by the size of the population, which introduces more high-performing individuals, increasing the chances of reaching the optimal solution more quickly.
+
+The default population size chosen is 100, which gives a success rate of over 50% and a reasonable computational effort for the given problem: the population size is only 10 times greater than the length of the optimal target expression, as explained in <res-prg-length>.
+In this way, for another target expression whose length is known, the population size can be chosen automatically in order to hopefully obtain a well-initialized parameter directly.
 
 #pagebreak()
 
