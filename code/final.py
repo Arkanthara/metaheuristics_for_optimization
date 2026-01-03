@@ -7,10 +7,9 @@ import hashlib
 import os
 
 # Cache file path
-CACHE_FILE = "experiment_cache.json"
+CACHE_FILE = "experiment_cache_1000.json"
 
 # This is the machine on which programs are executed
-# The output is the value on top of the pile. 
 class CPU:
     def __init__(self):
         self.stack=[]
@@ -173,32 +172,16 @@ def mutation(Population,p_m,terminalSet,functionSet):
 # LOOK-UP TABLE YOU HAVE TO REPRODUCE.
 nbVar = 4
 dataSet=[[0,0,0,0,0],[0,0,0,1,1],[0,0,1,0,0],[0,0,1,1,0],[0,1,0,0,0],[0,1,0,1,0],[0,1,1,0,0],[0,1,1,1,1],[1,0,0,0,0],[1,0,0,1,1],[1,0,1,0,0],[1,0,1,1,0],[1,1,0,0,0],[1,1,0,1,0],[1,1,1,0,0],[1,1,1,1,0]]
-print("Original Dataset (Complex function):")
-print(dataSet)
 
 # New benchmark dataset: X1 AND X2 AND X3 AND X4
 benchmarkDataSet = [[x1, x2, x3, x4, x1 and x2 and x3 and x4] 
                    for x1 in [0,1] for x2 in [0,1] for x3 in [0,1] for x4 in [0,1]]
-print("\nBenchmark Dataset (X1 AND X2 AND X3 AND X4):")
-print(benchmarkDataSet)
 
 cpu=CPU()
 
 # Function and terminal sets.
 functionSet=["AND", "OR", "NOT", "XOR"]
 terminalSet=["X1", "X2","X3", "X4"]
-
-# Example of program.
-progLength = 5
-prog=randomProg(progLength,functionSet,terminalSet)
-print("\nExample Program:")
-print(prog)
-
-# Execute a program on one row of the data set.
-data = dataSet[0]
-output=execute(prog,cpu,data)
-print(f"\nExample Execution Result: {output}")
-print("-------------")
 
 def evaluate_population(gen: list, cpu: CPU, dataSet: list) -> tuple:
     """Evaluate population and return statistics"""
@@ -257,7 +240,7 @@ def ga(gen: list, cpu: CPU, dataSet: list, max_generations: int = 200, k: int = 
     return best, mean, std, percent_max, solution_found_generation, overall_best_solution, overall_best_fitness
 
 # =============================================================================
-# CACHE MANAGEMENT SYSTEM
+# IMPROVED CACHE MANAGEMENT SYSTEM
 # =============================================================================
 
 def get_experiment_hash(config, num_samples):
@@ -283,8 +266,11 @@ def load_cache():
     if os.path.exists(CACHE_FILE):
         try:
             with open(CACHE_FILE, 'r') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, IOError):
+                cache = json.load(f)
+                print(f"Loaded cache with {len(cache)} experiments")
+                return cache
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"Warning: Cache file corrupted, starting fresh: {e}")
             return {}
     return {}
 
@@ -300,37 +286,40 @@ def check_cached_result(config, num_samples):
     """Check if an experiment result is already in the cache"""
     cache = load_cache()
     exp_hash = get_experiment_hash(config, num_samples)
-    return cache.get(exp_hash), exp_hash
+    
+    if exp_hash in cache:
+        cached_data = cache[exp_hash]
+        # Ensure the cached data has the expected structure
+        if ('all_results' in cached_data and 'num_samples' in cached_data and 
+            'convergence_stats' in cached_data and 'best_solutions' in cached_data):
+            return cached_data, exp_hash
+    
+    return None, exp_hash
 
-def cache_result(config, num_samples, results):
-    """Cache the results of an experiment"""
+def cache_single_result(config, num_samples, all_results_config, convergence_stats_config, best_solutions_config):
+    """Cache a single experiment result"""
     cache = load_cache()
     exp_hash = get_experiment_hash(config, num_samples)
     
-    # Prepare results for caching (convert numpy arrays to lists)
-    cached_results = {
+    # Convert numpy arrays to lists for JSON serialization
+    cached_data = {
         'config': config,
         'num_samples': num_samples,
-        'results': {
-            'all_results': {},
-            'convergence_stats': results[1].get(config['name'], {}),
-            'best_solutions': results[2].get(config['name'], {})
-        }
+        'all_results': {
+            'best_mean': all_results_config['best_mean'].tolist() if isinstance(all_results_config['best_mean'], np.ndarray) else all_results_config['best_mean'],
+            'best_std': all_results_config['best_std'].tolist() if isinstance(all_results_config['best_std'], np.ndarray) else all_results_config['best_std'],
+            'mean_mean': all_results_config['mean_mean'].tolist() if isinstance(all_results_config['mean_mean'], np.ndarray) else all_results_config['mean_mean'],
+            'mean_std': all_results_config['mean_std'].tolist() if isinstance(all_results_config['mean_std'], np.ndarray) else all_results_config['mean_std'],
+            'percent_mean': all_results_config['percent_mean'].tolist() if isinstance(all_results_config['percent_mean'], np.ndarray) else all_results_config['percent_mean'],
+            'percent_std': all_results_config['percent_std'].tolist() if isinstance(all_results_config['percent_std'], np.ndarray) else all_results_config['percent_std'],
+            'generations': all_results_config['generations'].tolist() if isinstance(all_results_config['generations'], np.ndarray) else all_results_config['generations'],
+            'config': all_results_config['config']
+        },
+        'convergence_stats': convergence_stats_config,
+        'best_solutions': best_solutions_config
     }
     
-    # Convert numpy arrays to lists for JSON serialization
-    all_results_data = results[0].get(config['name'], {})
-    for key in ['best_mean', 'best_std', 'mean_mean', 'mean_std', 'percent_mean', 'percent_std']:
-        if key in all_results_data:
-            if isinstance(all_results_data[key], np.ndarray):
-                cached_results['results']['all_results'][key] = all_results_data[key].tolist()
-            else:
-                cached_results['results']['all_results'][key] = all_results_data[key]
-    
-    if 'generations' in all_results_data:
-        cached_results['results']['all_results']['generations'] = all_results_data['generations'].tolist()
-    
-    cache[exp_hash] = cached_results
+    cache[exp_hash] = cached_data
     save_cache(cache)
     return exp_hash
 
@@ -338,10 +327,22 @@ def get_config_value(config, key, default):
     """Helper to get configuration value"""
     return config.get(key, default)
 
+# =============================================================================
+# PLOTTING FUNCTIONS (UNCHANGED)
+# =============================================================================
+
 def plot_detailed_analysis(all_results, convergence_stats, show_variance=True, analysis_type="population"):
     """Create detailed plots with 4 subplots for each analysis type"""
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
-    sample_count = next(iter(all_results.values()))['num_samples']
+    
+    # Get sample count safely from the first result
+    if all_results:
+        first_key = next(iter(all_results.keys()))
+        sample_count = all_results[first_key].get('num_samples', 100)
+    else:
+        sample_count = 100
+        print("Warning: No results to plot")
+        return
 
     # Define analysis configurations
     analysis_configs = {
@@ -538,7 +539,7 @@ def plot_detailed_analysis(all_results, convergence_stats, show_variance=True, a
         else:
             ax4.text(0.5, 0.5, 'No successful runs', ha='center', va='center', 
                     transform=ax4.transAxes, fontsize=12)
-            ax4.set_title(f'{config_info['title']} - Average Generations (Successful Runs)')
+            ax4.set_title(f'{config_info["title"]} - Average Generations (Successful Runs)')
     
     plt.tight_layout()
     plt.show()
@@ -546,7 +547,15 @@ def plot_detailed_analysis(all_results, convergence_stats, show_variance=True, a
 def plot_program_length_pop_size_combination(all_results, convergence_stats):
     """Plot ALL combinations of population size and program length"""
     fig, ((ax1, ax2)) = plt.subplots(1, 2, figsize=(20, 8))
-    sample_count = next(iter(all_results.values()))['num_samples']
+    
+    # Get sample count safely
+    if all_results:
+        first_key = next(iter(all_results.keys()))
+        sample_count = all_results[first_key].get('num_samples', 100)
+    else:
+        sample_count = 100
+        print("Warning: No results to plot")
+        return
     
     # Filter configs for combination experiments - now includes ALL combinations
     configs = [
@@ -632,7 +641,15 @@ def plot_program_length_pop_size_combination(all_results, convergence_stats):
 def plot_crossover_mutation_combinations(all_results, convergence_stats):
     """Plot ALL combinations of crossover and mutation rates"""
     fig, ((ax1, ax2)) = plt.subplots(1, 2, figsize=(20, 8))
-    sample_count = next(iter(all_results.values()))['num_samples']
+    
+    # Get sample count safely
+    if all_results:
+        first_key = next(iter(all_results.keys()))
+        sample_count = all_results[first_key].get('num_samples', 100)
+    else:
+        sample_count = 100
+        print("Warning: No results to plot")
+        return
 
     # Filter configs for crossover-mutation combinations - now includes ALL combinations
     configs_cx_mut = [
@@ -737,56 +754,37 @@ MUTATION_RATES = [0.0, 0.05, 0.1, 0.2, 0.3]
 TOURNAMENT_SIZES = [2, 4, 6, 8, 10]
 ITERATIONS = [20, 50, 100, 150, 200]
 
-# Cache to track which configurations have been run
-config_cache = set()
-
-def get_config_signature(config):
-    """Generate a unique signature for a configuration to avoid duplicates"""
-    signature_items = {
-        'prog_length': config.get('prog_length', DEFAULT_CONFIG['prog_length']),
-        'pop_size': config.get('pop_size', DEFAULT_CONFIG['pop_size']),
-        'k': config.get('k', DEFAULT_CONFIG['k']),
-        'p_c': config.get('p_c', DEFAULT_CONFIG['p_c']),
-        'p_m': config.get('p_m', DEFAULT_CONFIG['p_m']),
-        'max_generations': config.get('max_generations', DEFAULT_CONFIG['max_generations']),
-        'dataset_id': 'benchmark' if config.get('dataset', DEFAULT_CONFIG['dataset']) is benchmarkDataSet else 'original'
-    }
-    return frozenset(signature_items.items())
-
 def create_configurations():
-    """Create unique configurations without duplicates, but with ALL combinations"""
+    """Create unique configurations with ALL combinations"""
     configurations = []
-    config_cache.clear()
+    config_cache = set()
     
     # Standard configuration
     standard_config = DEFAULT_CONFIG.copy()
     standard_config['name'] = "Standard"
-    sig = get_config_signature(standard_config)
+    sig = json.dumps(standard_config, sort_keys=True)
     if sig not in config_cache:
         config_cache.add(sig)
         configurations.append(standard_config)
     
-    # Single parameter variations (avoid combinations that are same as DEFAULT_CONFIG)
-    
-    # Population size variations
+    # Single parameter variations
     for pop_size in POP_SIZES:
         config = DEFAULT_CONFIG.copy()
         config.update({"name": f"Population {pop_size}", "pop_size": pop_size})
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
     
-    # Program length variations
     for prog_length in PROG_LENGTHS:
         config = DEFAULT_CONFIG.copy()
         config.update({"name": f"Length {prog_length}", "prog_length": prog_length})
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
     
-    # Population-Program length combinations (ALL COMBINATIONS)
+    # Population-Program length combinations
     for pop_size in POP_SIZES:
         for prog_length in PROG_LENGTHS:
             config = DEFAULT_CONFIG.copy()
@@ -795,7 +793,7 @@ def create_configurations():
                 "pop_size": pop_size, 
                 "prog_length": prog_length
             })
-            sig = get_config_signature(config)
+            sig = json.dumps(config, sort_keys=True)
             if sig not in config_cache:
                 config_cache.add(sig)
                 configurations.append(config)
@@ -804,7 +802,7 @@ def create_configurations():
     for k in TOURNAMENT_SIZES:
         config = DEFAULT_CONFIG.copy()
         config.update({"name": f"{k}-tournament", "k": k})
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
@@ -813,7 +811,7 @@ def create_configurations():
     for p_c in CROSSOVER_RATES:
         config = DEFAULT_CONFIG.copy()
         config.update({"name": f"Crossover {p_c}", "p_c": p_c})
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
@@ -822,12 +820,12 @@ def create_configurations():
     for p_m in MUTATION_RATES:
         config = DEFAULT_CONFIG.copy()
         config.update({"name": f"Mutation {p_m}", "p_m": p_m})
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
     
-    # Crossover-Mutation combinations (ALL COMBINATIONS)
+    # Crossover-Mutation combinations
     for p_c in CROSSOVER_RATES:
         for p_m in MUTATION_RATES:    
             config = DEFAULT_CONFIG.copy()
@@ -836,7 +834,7 @@ def create_configurations():
                 "p_c": p_c, 
                 "p_m": p_m
             })
-            sig = get_config_signature(config)
+            sig = json.dumps(config, sort_keys=True)
             if sig not in config_cache:
                 config_cache.add(sig)
                 configurations.append(config)
@@ -845,220 +843,197 @@ def create_configurations():
     for max_gens in ITERATIONS:
         config = DEFAULT_CONFIG.copy()
         config.update({"name": f"Iterations {max_gens}", "max_generations": max_gens})
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
     
-    # Benchmark tests - only add if they're different from regular configurations
+    # Benchmark tests
     benchmark_config = DEFAULT_CONFIG.copy()
-    benchmark_config.update({"dataset": benchmarkDataSet})
-    
-    # Only add benchmark if it's different from standard
-    benchmark_sig = get_config_signature(benchmark_config)
-    if benchmark_sig not in config_cache:
-        config_cache.add(benchmark_sig)
-        benchmark_config['name'] = "Benchmark Standard"
+    benchmark_config.update({"dataset": benchmarkDataSet, "name": "Benchmark Standard"})
+    sig = json.dumps(benchmark_config, sort_keys=True)
+    if sig not in config_cache:
+        config_cache.add(sig)
         configurations.append(benchmark_config)
     
-    # Benchmark variations that are meaningfully different (ALL COMBINATIONS)
+    # Benchmark variations
     benchmark_variations = [
-        {"name": "Benchmark Population 50", "pop_size": 50},
-        {"name": "Benchmark Population 150", "pop_size": 150},
-        {"name": "Benchmark Length 12", "prog_length": 12},
-        {"name": "Benchmark Length 25", "prog_length": 25},
+        {"name": "Benchmark Population 30", "pop_size": 30},
+        {"name": "Benchmark Population 150", "pop_size": 50},
+        {"name": "Benchmark Length 12", "prog_length": 7},
+        {"name": "Benchmark Length 25", "prog_length": 10},
         {"name": "Benchmark 4-tournament", "k": 4},
         {"name": "Benchmark 8-tournament", "k": 8},
         {"name": "Benchmark Crossover 0.4", "p_c": 0.4},
         {"name": "Benchmark Crossover 0.8", "p_c": 0.8},
         {"name": "Benchmark Mutation 0.05", "p_m": 0.05},
         {"name": "Benchmark Mutation 0.2", "p_m": 0.2},
-        {"name": "Benchmark Iterations 50", "max_generations": 50},
-        {"name": "Benchmark Iterations 150", "max_generations": 150},
     ]
     
     for variation in benchmark_variations:
         config = benchmark_config.copy()
         config.update(variation)
-        sig = get_config_signature(config)
+        sig = json.dumps(config, sort_keys=True)
         if sig not in config_cache:
             config_cache.add(sig)
             configurations.append(config)
     
-    # Add benchmark combinations (ALL COMBINATIONS)
-    for pop_size in POP_SIZES:
-        for prog_length in PROG_LENGTHS:
-            config = benchmark_config.copy()
-            config.update({
-                "name": f"Benchmark Combination_P{pop_size}_L{prog_length}", 
-                "pop_size": pop_size, 
-                "prog_length": prog_length
-            })
-            sig = get_config_signature(config)
-            if sig not in config_cache:
-                config_cache.add(sig)
-                configurations.append(config)
-    
-    for p_c in CROSSOVER_RATES:
-        for p_m in MUTATION_RATES:   
-            config = benchmark_config.copy()
-            config.update({
-                "name": f"Benchmark Crossover_{p_c}_Mutation_{p_m}", 
-                "p_c": p_c, 
-                "p_m": p_m
-            })
-            sig = get_config_signature(config)
-            if sig not in config_cache:
-                config_cache.add(sig)
-                configurations.append(config)
-    
-    print(f"Created {len(configurations)} unique configurations (all combinations, avoided duplicates)")
+    print(f"Created {len(configurations)} unique configurations")
     return configurations
 
 # =============================================================================
-# OPTIMIZED EXPERIMENT EXECUTION WITH CACHING
+# IMPROVED EXPERIMENT EXECUTION WITH PROPER CACHING
 # =============================================================================
 
 def run_single_experiment(sample_index, prog_length, pop_size, k, p_c, p_m, max_generations, dataSet, functionSet, terminalSet):
-    """Run a single experiment with memoization for identical configurations"""
-    # Create a signature for this specific run to potentially cache results
-    run_signature = (prog_length, pop_size, k, p_c, p_m, max_generations, 
-                    tuple(tuple(row) for row in dataSet))  # Convert dataset to tuple for hashing
-    
-    # In a more advanced version, you could cache results here
-    # For now, we'll just run the experiment
+    """Run a single experiment"""
     population = [randomProg(prog_length, functionSet, terminalSet) for _ in range(pop_size)]
     result = ga(population, CPU(), dataSet, max_generations, k, p_c, p_m, verbose=False)
     return result
 
-def run_experiments(configurations, num_samples=100, max_generations=100, show_variance=True):
-    """Run experiments with configurable number of samples - OPTIMIZED VERSION WITH CACHING"""
+def run_experiments(configurations, num_samples=100, max_generations=200):
+    """Run experiments with proper caching - ALL configurations will be plotted"""
     all_results = {}
     convergence_stats = {}
     best_solutions = {}
 
-    print(f"Running {len(configurations)} unique configurations with {num_samples} samples each")
+    cached_count = 0
+    computed_count = 0
     
-    for config in configurations:
+    print(f"Processing {len(configurations)} configurations with {num_samples} samples each")
+    print("=" * 60)
+    
+    for i, config in enumerate(configurations):
         config_name = config['name']
+        print(f"[{i+1}/{len(configurations)}] Processing {config_name}...")
         
         # Check if this experiment is already cached
         cached_result, exp_hash = check_cached_result(config, num_samples)
         
         if cached_result:
-            print(f"Loading cached results for {config_name} (hash: {exp_hash[:8]}...)")
-            # Load results from cache
-            cached_all_results = cached_result['results']['all_results']
-            cached_convergence_stats = cached_result['results']['convergence_stats']
-            cached_best_solutions = cached_result['results']['best_solutions']
+            print(f"   ✓ Loading from cache (hash: {exp_hash[:8]}...)")
+            cached_count += 1
+            
+            # Extract data from cache
+            all_results_config = cached_result['all_results']
+            convergence_stats_config = cached_result['convergence_stats']
+            best_solutions_config = cached_result['best_solutions']
             
             # Convert lists back to numpy arrays
             for key in ['best_mean', 'best_std', 'mean_mean', 'mean_std', 'percent_mean', 'percent_std']:
-                if key in cached_all_results:
-                    cached_all_results[key] = np.array(cached_all_results[key])
+                if key in all_results_config:
+                    all_results_config[key] = np.array(all_results_config[key])
             
-            if 'generations' in cached_all_results:
-                cached_all_results['generations'] = np.array(cached_all_results['generations'])
+            if 'generations' in all_results_config:
+                all_results_config['generations'] = np.array(all_results_config['generations'])
             
-            all_results[config_name] = cached_all_results
-            convergence_stats[config_name] = cached_convergence_stats
-            best_solutions[config_name] = cached_best_solutions
-            continue
-        
-        print(f"Running {config_name}... (not found in cache)")
-        
-        prog_length = config.get('prog_length', DEFAULT_CONFIG['prog_length'])
-        pop_size = config.get('pop_size', DEFAULT_CONFIG['pop_size'])
-        k = config.get('k', DEFAULT_CONFIG['k'])
-        p_c = config.get('p_c', DEFAULT_CONFIG['p_c'])
-        p_m = config.get('p_m', DEFAULT_CONFIG['p_m'])
-        max_gens = config.get('max_generations', max_generations)
-        dataset_to_use = config.get('dataset', DEFAULT_CONFIG['dataset'])
-        
-        # Use parallel processing for samples
-        results = Parallel(n_jobs=-1)(
-            delayed(run_single_experiment)(sample, prog_length, pop_size, k, p_c, p_m, max_gens, 
-                                         dataset_to_use, functionSet, terminalSet)
-            for sample in range(num_samples)
-        )
-        
-        # Process results (same as before)
-        generations_to_solution = []
-        success_count = 0
-        all_best_solutions = []
-        
-        for result in results:
-            solution_gen = result[4]
-            best_solution = result[5]
-            best_fitness = result[6]
+            # Ensure num_samples is properly set
+            all_results_config['num_samples'] = cached_result['num_samples']
+            all_results_config['config'] = cached_result['config']
             
-            if solution_gen is not None:
-                generations_to_solution.append(solution_gen)
-                success_count += 1
+            all_results[config_name] = all_results_config
+            convergence_stats[config_name] = convergence_stats_config
+            best_solutions[config_name] = best_solutions_config
+            
+        else:
+            print(f"   → Computing new experiment...")
+            computed_count += 1
+            
+            prog_length = config.get('prog_length', DEFAULT_CONFIG['prog_length'])
+            pop_size = config.get('pop_size', DEFAULT_CONFIG['pop_size'])
+            k = config.get('k', DEFAULT_CONFIG['k'])
+            p_c = config.get('p_c', DEFAULT_CONFIG['p_c'])
+            p_m = config.get('p_m', DEFAULT_CONFIG['p_m'])
+            max_gens = config.get('max_generations', max_generations)
+            dataset_to_use = config.get('dataset', DEFAULT_CONFIG['dataset'])
+            
+            # Use parallel processing for samples
+            results = Parallel(n_jobs=-1)(
+                delayed(run_single_experiment)(sample, prog_length, pop_size, k, p_c, p_m, max_gens, 
+                                             dataset_to_use, functionSet, terminalSet)
+                for sample in range(num_samples)
+            )
+            
+            # Process results
+            generations_to_solution = []
+            success_count = 0
+            all_best_solutions = []
+            
+            for result in results:
+                solution_gen = result[4]
+                best_solution = result[5]
+                best_fitness = result[6]
                 
-            all_best_solutions.append((best_solution, best_fitness))
-        
-        best_results = np.array([r[0] for r in results])
-        mean_results = np.array([r[1] for r in results])
-        std_results = np.array([r[2] for r in results])
-        percent_results = np.array([r[3] for r in results])
-        
-        all_results_config = {
-            'best_mean': np.mean(best_results, axis=0),
-            'best_std': np.std(best_results, axis=0),
-            'mean_mean': np.mean(mean_results, axis=0),
-            'mean_std': np.std(mean_results, axis=0),
-            'percent_mean': np.mean(percent_results, axis=0),
-            'percent_std': np.std(percent_results, axis=0),
-            'generations': np.arange(len(best_results[0])),
-            'config': config,
-            'num_samples': num_samples
-        }
-        
-        convergence_stats_config = {
-            'success_rate': (success_count / num_samples) * 100,
-            'avg_generations': np.mean(generations_to_solution) if generations_to_solution else max_gens,
-            'std_generations': np.std(generations_to_solution) if generations_to_solution else 0,
-            'median_generations': np.median(generations_to_solution) if generations_to_solution else max_gens,
-            'min_generations': min(generations_to_solution) if generations_to_solution else max_gens,
-            'max_generations': max(generations_to_solution) if generations_to_solution else max_gens,
-            'total_successes': success_count,
-            'config': config
-        }
-        
-        best_solutions_config = {
-            'solutions': all_best_solutions,
-            'best_ever': max(all_best_solutions, key=lambda x: x[1]) if all_best_solutions else None,
-            'config': config
-        }
-        
-        all_results[config_name] = all_results_config
-        convergence_stats[config_name] = convergence_stats_config
-        best_solutions[config_name] = best_solutions_config
-        
-        # Cache the results
-        cache_hash = cache_result(config, num_samples, (all_results, convergence_stats, best_solutions))
-        print(f"Cached results for {config_name} (hash: {cache_hash[:8]}...)")
+                if solution_gen is not None:
+                    generations_to_solution.append(solution_gen)
+                    success_count += 1
+                    
+                all_best_solutions.append((best_solution, best_fitness))
+            
+            best_results = np.array([r[0] for r in results])
+            mean_results = np.array([r[1] for r in results])
+            std_results = np.array([r[2] for r in results])
+            percent_results = np.array([r[3] for r in results])
+            
+            all_results_config = {
+                'best_mean': np.mean(best_results, axis=0),
+                'best_std': np.std(best_results, axis=0),
+                'mean_mean': np.mean(mean_results, axis=0),
+                'mean_std': np.std(mean_results, axis=0),
+                'percent_mean': np.mean(percent_results, axis=0),
+                'percent_std': np.std(percent_results, axis=0),
+                'generations': np.arange(len(best_results[0])),
+                'config': config,
+                'num_samples': num_samples
+            }
+            
+            convergence_stats_config = {
+                'success_rate': (success_count / num_samples) * 100,
+                'avg_generations': np.mean(generations_to_solution) if generations_to_solution else max_gens,
+                'std_generations': np.std(generations_to_solution) if generations_to_solution else 0,
+                'median_generations': np.median(generations_to_solution) if generations_to_solution else max_gens,
+                'min_generations': min(generations_to_solution) if generations_to_solution else max_gens,
+                'max_generations': max(generations_to_solution) if generations_to_solution else max_gens,
+                'total_successes': success_count,
+                'config': config
+            }
+            
+            best_solutions_config = {
+                'solutions': all_best_solutions,
+                'best_ever': max(all_best_solutions, key=lambda x: x[1]) if all_best_solutions else None,
+                'config': config
+            }
+            
+            all_results[config_name] = all_results_config
+            convergence_stats[config_name] = convergence_stats_config
+            best_solutions[config_name] = best_solutions_config
+            
+            # Cache this result
+            cache_single_result(config, num_samples, all_results_config, convergence_stats_config, best_solutions_config)
+            print(f"   ✓ Cached result (hash: {exp_hash[:8]}...)")
+    
+    print("=" * 60)
+    print(f"COMPLETED: {cached_count} cached + {computed_count} computed = {len(configurations)} total")
     
     return all_results, convergence_stats, best_solutions
 
 # =============================================================================
-# MAIN EXECUTION WITH ALL COMBINATIONS AND CACHING
+# MAIN EXECUTION WITH IMPROVED CACHING
 # =============================================================================
 
 # Create configurations with ALL combinations
 configurations = create_configurations()
 
 # Run experiments with your chosen parameters
-num_samples = 1000  # Reduced for faster testing
+num_samples = 1000  # Adjust as needed
 max_generations = 200
 show_variance = False
 
-print(f"Running {len(configurations)} configurations with ALL combinations...")
+print(f"Running {len(configurations)} configurations...")
 
 # Run the experiments (will use cache if available)
 all_results, convergence_stats, best_solutions = run_experiments(
-    configurations, num_samples, max_generations, show_variance
+    configurations, num_samples, max_generations
 )
 
 # Create detailed analysis plots
@@ -1078,16 +1053,16 @@ print("\n" + "="*50)
 print("BEST SOLUTIONS FOUND BY CONFIGURATION")
 print("="*50)
 for config_name, solution_data in best_solutions.items():
-    best_ever = solution_data['best_ever']
+    best_ever = solution_data.get('best_ever')
     if best_ever:
         solution, fitness = best_ever
-        print(f"{config_name}: Fitness={fitness}, Solution={solution}")
+        print(f"{config_name}: Fitness={fitness}/16, Solution={solution}")
 
 # Print configuration summary
 print("\n" + "="*50)
 print("CONFIGURATION SUMMARY")
 print("="*50)
-print(f"Total unique configurations run: {len(configurations)}")
+print(f"Total unique configurations: {len(configurations)}")
 print(f"Default Parameters:")
 for key, value in DEFAULT_CONFIG.items():
     if key != 'dataset':

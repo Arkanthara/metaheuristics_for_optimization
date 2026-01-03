@@ -180,13 +180,17 @@ The genetic programming algorithm implemented follows the genetic algorithm @gen
     + population = `generate_initial_population`(population_size = 80)
     + max_iterations = 100
     + current_iteration = 0
+    + max_fitness = 0
+    + solution = []
     + *while* current_iteration < max_iterations
+      + *if* best_fitness(population) > max_fitness:
+        + *update* max_fitness and solution
       + population = `selection`(population, tournament_size = k)
       + population = `crossover`(population, `p_c` = 0.6)
       + population = `mutation`(population, `p_m` = 0.1)
       + current_iteration ++
     + *end*
-    + *return* population, best_individu
+    + *return* population, solution
   ],
 ) <genetic-algorithm>
 
@@ -291,24 +295,134 @@ Some tests were also carried out on the combined length of the program and the s
 
 For fitness, all completely invalid expressions are simply ignored in order to avoid a situation where fitness does not increase due to certain individuals having a fitness of 0 because of invalid expressions.
 
+The implementation of the genetic programming algorithm framework and the functions used by this algorithm, such as expression execution or k-tournament selection, was performed manually.
+The extraction of information from the genetic programming algorithm was performed by qwen3-coder:480b-cloud in order to facilitate the generation of graphs by qwen3-coder:480b-cloud.
+
+All implementations for managing the tested configurations, parallelizing executions, caching results, and generating relevant graphs were implemented using qwen3-coder:480b-cloud and deepseek-v3.1:671b-cloud.
+
+Benchmark tests were created based on the target expressions $X 1 and X 2 and X 3 and X 4$.
+This allows the correctness of the algorithm to be tested using a simple expression whose result is already known.
+
 #pagebreak()
 
 = Results <results>
 
-Best solution: ['X2', 'X1', 'AND', 'X3', 'X2', 'XOR', 'OR', 'NOT', 'X4', 'AND']
+// Best solution: ['X2', 'X1', 'AND', 'X3', 'X2', 'XOR', 'OR', 'NOT', 'X4', 'AND']
 
-Length 10: Fitness=16.0, Solution=['X1', 'X2', 'AND', 'X2', 'X3', 'XOR', 'OR', 'NOT', 'X4', 'AND']
+// Length 10: Fitness=16.0, Solution=['X1', 'X2', 'AND', 'X2', 'X3', 'XOR', 'OR', 'NOT', 'X4', 'AND']
+
 
 // (1.0)
 // Explored variations of parameters
 
+The results obtained from the various tests performed are shown in the following figures.
+
+== Benchmark
+
+#let image_size = 90%
+
+#figure(
+  caption: "Benchmark tests on Genetic Programming algorithm",
+  image("img/benchmark.png", width: 70%),
+) <benchmark>
+
+== Population size & program length
+
+=== Population size
+
+#figure(
+  caption: "Population size parameter variations",
+  image("img/pop_size.png", width: image_size),
+) <pop-size>
+
+=== Program length
+
+#figure(
+  caption: "Program length parameter variations",
+  image("img/prg_length.png", width: image_size),
+) <prg_length>
+
+=== Population size combined with program length
+
+#figure(
+  caption: "Success rate test for population size combined with program length",
+  image("img/combined_length.png", width: image_size),
+) <combined_length>
+
+== Iteration & selection
+
+=== Iteration
+
+#figure(
+  caption: "Iteration variation",
+  image("img/iterations.png", width: image_size),
+) <iteration>
+
+=== Selection
+
+#figure(
+  caption: "Impact of k-tournament selection",
+  image("img/selection.png", width: image_size),
+) <k-tournament>
+
+== Crossover & mutation
+
+=== Crossover
+
+#figure(
+  caption: "Variation in the probability of applying the crossover",
+  image("img/crossover.png", width: image_size),
+) <cross>
+
+=== Mutation
+
+#figure(
+  caption: "Variation in the probability of applying the mutation",
+  image("img/mutation.png", width: image_size),
+) <mut>
+
+=== Crossover combined with mutation
+
+#figure(
+  caption: "Success rate test for crossover combined with mutation",
+  image("img/mutation_crossover.png", width: image_size),
+) <combined_crossover>
+
 #pagebreak()
 
 = Discussion
-(2.0)
-- Pm, Pc, Iterations
-- Population Size, Tournament Size
-- Program length, variable length (what must we change if program is not fixed size ??? theoretical... No need to implement it...)
+// (2.0)
+// - Pm, Pc, Iterations
+// - Population Size, Tournament Size
+// - Program length, variable length (what must we change if program is not fixed size ??? theoretical... No need to implement it...)
+
+As shown in the figures, all results obtained are the average of 1,000 runs.
+Indeed, since genetic programming is a metaheuristic, it involves some stochastic components that cause results to vary from one run to another.
+Repeating the experiment provides the average behavior of the genetic programming algorithm.
+
+== Benchmark
+
+First, a few experiments were conducted on the target expression $X 1 and X 2 and X 3 and X 4$, as indicated in @benchmark.
+This means that the corresponding binary table has 16 entries due to the combinations of the 4 variables ($4 times 4 = 16$).
+In this way, the dataset provided to find the target function also has 16 entries, so that the maximum fitness searched for is 16.
+
+On the @benchmark, the best fitness average is around 15 for all the different parameters.
+This means that for all the parameters tested, the genetic programming algorithm performs well.
+In addition, the fitness average is around 13, which is not far from the optimal solution.
+In fact, 13 is only 80% away from the optimal solution.
+And the success rate shows that, on average, 80% of the experiments performed found the optimal solution in around 30 generations.
+
+The results obtained on the simple case of the target expression $X 1 and X 2 and X 3 and X 4$ therefore show that the genetic programming algorithm is able to find good solutions for this kind of problem and that the implementation is good enough to get good results.
+
+For the remainder of the study, all tests are performed on the provided dataset representing the target expression `[“X2”, “X1”, “AND,” “X3,” “X2,” “XOR,” “OR,” “NOT,” “X4,” “AND”]`, which can be expressed in logical form as $not ((X 1 and X 2) or (X 3 xor X 2)) and X 4$.
+The target expression searched for is not unique.
+In fact, there are different variants of this expression that give the same binary table, such as reversing the positions of the variables $X 1$ and $X 2$ inside the parentheses, etc.
+However, as before, the dataset contains 16 entries for a binary table obtained with all combinations of 4 variables, giving an optimal fitness of 16.
+
+== Population size and program length
+
+
+Some experiments have been performed on both population size and program length to study the impact of these two parameters on the genetic programming algorithm.
 
 #pagebreak()
 
