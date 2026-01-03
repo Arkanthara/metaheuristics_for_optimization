@@ -598,8 +598,8 @@ def plot_program_length_pop_size_combination(all_results, convergence_stats):
         avg_generations[i, j] = convergence_stats[name]['avg_generations']
     
     # Plot 1: Success Rate Heatmap
-    im1 = ax1.imshow(success_rates, cmap='viridis', aspect='auto')
-    ax1.set_title(f'Success Rate (%) - ALL Combinations (mean over {sample_count} runs)')
+    im1 = ax1.imshow(success_rates, cmap='plasma', aspect='auto')
+    ax1.set_title(f'Success Rate (mean over {sample_count} runs)')
     ax1.set_xlabel('Program Length')
     ax1.set_ylabel('Population Size')
     ax1.set_xticks(range(len(program_length_values)))
@@ -612,13 +612,13 @@ def plot_program_length_pop_size_combination(all_results, convergence_stats):
         for j in range(len(program_length_values)):
             if not np.isnan(success_rates[i, j]):
                 text = ax1.text(j, i, f'{success_rates[i, j]:.1f}%',
-                               ha="center", va="center", color="w" if success_rates[i, j] > 50 else "black")
+                               ha="center", va="center", color="w" if success_rates[i, j] < 2 * np.max(success_rates) / 3 else "black")
     
     plt.colorbar(im1, ax=ax1)
     
     # Plot 2: Average Generations Heatmap
     im2 = ax2.imshow(avg_generations, cmap='plasma', aspect='auto')
-    ax2.set_title(f'Average Generations - ALL Combinations (mean over {sample_count} runs)')
+    ax2.set_title(f'Average Generations (mean over {sample_count} runs)')
     ax2.set_xlabel('Program Length')
     ax2.set_ylabel('Population Size')
     ax2.set_xticks(range(len(program_length_values)))
@@ -631,7 +631,7 @@ def plot_program_length_pop_size_combination(all_results, convergence_stats):
         for j in range(len(program_length_values)):
             if not np.isnan(avg_generations[i, j]):
                 text = ax2.text(j, i, f'{avg_generations[i, j]:.1f}',
-                               ha="center", va="center", color="w" if avg_generations[i, j] < 100 else "black")
+                               ha="center", va="center", color="w" if avg_generations[i, j] < 2 * np.max(avg_generations) / 3 else "black")
     
     plt.colorbar(im2, ax=ax2)
     
@@ -691,8 +691,8 @@ def plot_crossover_mutation_combinations(all_results, convergence_stats):
         avg_generations[i, j] = convergence_stats[name]['avg_generations']
     
     # Plot 1: Success Rate Heatmap
-    im1 = ax1.imshow(success_rates, cmap='viridis', aspect='auto')
-    ax1.set_title(f'Success Rate (%) - ALL Combinations (mean over {sample_count} runs)')
+    im1 = ax1.imshow(success_rates, cmap='plasma', aspect='auto')
+    ax1.set_title(f'Success Rate (mean over {sample_count} runs)')
     ax1.set_xlabel('Mutation Rate')
     ax1.set_ylabel('Crossover Rate')
     ax1.set_xticks(range(len(mutation_values)))
@@ -705,13 +705,13 @@ def plot_crossover_mutation_combinations(all_results, convergence_stats):
         for j in range(len(mutation_values)):
             if not np.isnan(success_rates[i, j]):
                 text = ax1.text(j, i, f'{success_rates[i, j]:.1f}%',
-                               ha="center", va="center", color="w" if success_rates[i, j] > 50 else "black")
+                               ha="center", va="center", color="w" if success_rates[i, j] < 2 * np.max(success_rates) / 3 else "black")
     
     plt.colorbar(im1, ax=ax1)
     
     # Plot 2: Average Generations Heatmap
     im2 = ax2.imshow(avg_generations, cmap='plasma', aspect='auto')
-    ax2.set_title(f'Average Generations - ALL Combinations (mean over {sample_count} runs)')
+    ax2.set_title(f'Average Generations (mean over {sample_count} runs)')
     ax2.set_xlabel('Mutation Rate')
     ax2.set_ylabel('Crossover Rate')
     ax2.set_xticks(range(len(mutation_values)))
@@ -724,7 +724,7 @@ def plot_crossover_mutation_combinations(all_results, convergence_stats):
         for j in range(len(mutation_values)):
             if not np.isnan(avg_generations[i, j]):
                 text = ax2.text(j, i, f'{avg_generations[i, j]:.1f}',
-                               ha="center", va="center", color="w" if avg_generations[i, j] < 100 else "black")
+                               ha="center", va="center", color="w" if avg_generations[i, j] < 2 * np.max(avg_generations) / 3 else "black")
     
     plt.colorbar(im2, ax=ax2)
     
@@ -739,8 +739,8 @@ def plot_crossover_mutation_combinations(all_results, convergence_stats):
 DEFAULT_CONFIG = {
     'prog_length': 20,
     'pop_size': 100,
-    'k': 2,
-    'p_c': 0.6,
+    'k': 8,
+    'p_c': 0.2,
     'p_m': 0.1,
     'max_generations': 200,
     'dataset': dataSet
@@ -748,7 +748,7 @@ DEFAULT_CONFIG = {
 
 # Parameter ranges for experiments
 POP_SIZES = [20, 50, 80, 100, 150]
-PROG_LENGTHS = [8, 10, 15, 20, 30]
+PROG_LENGTHS = [8, 9, 10, 15, 20, 30]
 CROSSOVER_RATES = [0.0, 0.2, 0.4, 0.6, 0.8]
 MUTATION_RATES = [0.0, 0.05, 0.1, 0.2, 0.3]
 TOURNAMENT_SIZES = [2, 4, 6, 8, 10]
@@ -860,8 +860,8 @@ def create_configurations():
     benchmark_variations = [
         {"name": "Benchmark Population 30", "pop_size": 30},
         {"name": "Benchmark Population 150", "pop_size": 50},
-        {"name": "Benchmark Length 12", "prog_length": 7},
-        {"name": "Benchmark Length 25", "prog_length": 10},
+        {"name": "Benchmark Length 7", "prog_length": 7},
+        {"name": "Benchmark Length 10", "prog_length": 10},
         {"name": "Benchmark 4-tournament", "k": 4},
         {"name": "Benchmark 8-tournament", "k": 8},
         {"name": "Benchmark Crossover 0.4", "p_c": 0.4},
