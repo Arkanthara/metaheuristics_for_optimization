@@ -275,21 +275,25 @@ The adjusted parameters are as follows:
 - *Population size*. It is very important to define the population size correctly, as this has a considerable impact on computation time.
   Indeed, having a large population is not useful if it does not improve the results, as it requires more calculations.
   However, a population that is too small will make the algorithm less effective.
-  That is why certain tests were carried out on populations of 10, 20, 40, 50, 80, 100, 120, 150, and 200 individuals in order to obtain an overview of the impact of population size on genetic programming.
+  That is why certain tests were carried out on populations of 20, 50, 80, 100 and 150 individuals in order to obtain an overview of the impact of population size on genetic programming.
 - *Program length*. The program length must be correctly defined.
   If the program length is too small, the target expression will never be found if it requires an expression larger than the program length.
   Conversely, if the program length is too large, which is not a problem in our case thanks to the management of expression validity as described in @validity,
   the computational effort will be greater than necessary and the effectiveness of the algorithm could be reduced.
-  The parameters tested are the following program lengths: 5, 8, 10, 12, 15, 20, 25, and 30.
+  The parameters tested are the following program lengths: 8, 9, 10, 15, 20 and 30.
+- *Number of iterations*. The number of iterations defines the number of generations available to the algorithm to refine the solution.
+  If the number of iterations is too low, the algorithm will not have enough time to find the optimal solution, while if the number of iterations is too high, the computing power used to refine the solution will be too high in relation to the quality of the refined solution.
+  This is why the number of iterations must be correctly defined in order to balance the quality of the solution and the computational effort.
+  The values tested are 10, 50, 80, 100, and 150 iterations.
 - *k-tournament selection*. During the selection step, selection by k-tournament is performed as described in @selection-sec. The parameter $k$, which determines the number of individuals chosen for the tournament, controls the balance between exploration and exploitation.
   Indeed, with $k$ equal to the population size, the best individual will always be chosen, while a small $k$ corresponds to a random selection.
-  The tests performed are as follows: 2-tournament, 4-tournament, 6-tournament, 8-tournament, 10-tournament and 20-tournament selection.
+  The tests performed are as follows: 2-tournament, 4-tournament, 6-tournament, 8-tournament and 10-tournament selection.
 - *Crossover probability `p_c`*. As used in @crossover, `p_c` indicates the probability of performing a crossover on a group of two parents.
   The crossover applied is a single-point crossover, well illustrated by @single-point.
-  Tests on the crossover probability are performed for values of 0, meaning no crossover, but also for values of 0.2, 0.4, 0.6, 0.8, and 1.
+  Tests on the crossover probability are performed for values of 0, meaning no crossover, but also for values of 0.2, 0.4, 0.6, 0.8.
 - *Mutation probability `p_m`*. As used in @mutation, `p_m` describes the probability of performing a mutation on an element of an individual in the population.
   Mutation helps maintain a level of diversity in the population, which is why this parameter must be defined carefully.
-  In order to define this parameter correctly, several experiments were conducted with mutation probabilities of 0, i.e., no mutation, but also with probabilities of 0.05, 0.01, 0.1, and 0.3.
+  In order to define this parameter correctly, several experiments were conducted with mutation probabilities of 0, i.e., no mutation, but also with probabilities of 0.05, 0.1, 0.2 and 0.3.
 
 Some tests were also carried out on the combined length of the program and the size of the population in order to find the best parameters.
 
@@ -319,7 +323,7 @@ The results obtained from the various tests performed are shown in the following
 
 == Benchmark
 
-#let image_size = 90%
+#let image_size = 96%
 
 #figure(
   caption: "Benchmark tests on Genetic Programming algorithm",
@@ -570,4 +574,30 @@ Since genetic programming is based on a genetic algorithm with selection, mutati
 #pagebreak()
 
 = Conclusion
-(0.25)
+// (0.25)
+
+The metaheuristic genetic programming algorithm works well for searching Boolean expressions thanks to the evolution of generations achieved through selection, crossover, and mutation.
+However, like any metaheuristic, the genetic programming algorithm requires all parameters to be correctly defined in order to achieve a good balance between exploration and exploitation.
+In fact, a poorly defined parameter can lead to a loss of performance: a program length of 8 or the absence of mutation results in a zero success rate.
+
+The balance between exploration and exploitation is essential for a high-performance algorithm, as illustrated by the size of the tournament in the selection: a small tournament size that favors exploration gives poorer results than a larger tournament size.
+
+Finally, correctly adjusting the parameters remains a challenge, as they can impact performance in terms of both the solution and the computation time.
+In fact, a small change to a parameter can result in a noticeable difference in the quality of the solution, as shown by the adjustment of the mutation and crossover probability.
+Similarly, adjusting the population size affects both the quality of the solution and the calculation time.
+This is why it is necessary to adjust the parameters correctly in order to find a balance between solution quality and computational effort.
+
+We may wonder whether another way of managing the crossover or the validity of the expression could lead to better performance, or whether the genetic programming algorithm will always perform well in searching for symbolic expressions for unknown functions, such as in the fields of physics or finance.
+
+== Note on the usage of AI
+
+=== Report
+
+- #link("https://deepl.com")[DeepL] for correctness of English
+
+=== Code
+
+- qwen3-coder:480b-cloud (available on #link("https://ollama.com")[ollama]) for parallelizing experiments, executing configurations, and creating graphs
+- deepseek-v3:671b-cloud (available on #link("https://ollama.com")[ollama]) for cache management system
+
+

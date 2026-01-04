@@ -21,11 +21,12 @@
   // subtitle: "Report Subtitle",
   course-name: "Metaheuristics for Optimization",
   course-id: "14x013",
-  // illustrations: (
-  //   (
-  //     path: "./img/full_msg.png",
-  //     width: 10cm,
-  //   ),
+  illustrations: (
+    (
+      path: "./img/mutation.png",
+      width: 11cm,
+    ),
+  ),
   //   (
   //     path: "./img/full_hist_R.png",
   //     width: 10cm,
