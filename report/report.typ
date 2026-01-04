@@ -451,6 +451,18 @@ These longer expressions are also correct, which means that with a bigger progra
 In addition, a bigger program length allows the algorithm to have some margin with expressions that are only partially correct, thanks to the way expression correction is handled, as explained in @validity.
 Indeed, partially correct expressions may be sufficient to find the target expression if the program length is greater than the optimal length.
 
+The default length chosen for the program is 20, because for this value, the success rate is greater than 50%, which means that the genetic programming algorithm finds the optimal solution more than 50% of the time with an average of 78 populations, representing a relatively rapid convergence towards the optimal solution.
+And this default length is only twice as long as the optimal length.
+
+In the implementation carried out, the length of the program was fixed.
+However, it is possible not to fix it, which reduces the number of constraints to be optimized.
+In this way, both small and larger expressions can be handled.
+To do this, the initial population must generate expressions of different lengths.
+The crossover function must also be updated.
+The crossover value k must be chosen according to the length of the program in order to avoid cutting outside the length.
+The rest can remain the same since selection and mutation are not based on program length.
+The way invalid expressions are handled could be changed to remove all invalid parts of the expression, but it could also remain unchanged.
+
 === Population size
 
 Population size has an impact on computation time, even though the study of execution time was not explicitly performed.
@@ -467,8 +479,93 @@ This can be explained by the fact that larger populations may have more high-per
 Finally, with a larger population, the optimal solution is found more quickly than with smaller populations, as shown in the graph indicating the average number of generations needed to reach the optimal solution based on population size.
 This is explained by the size of the population, which introduces more high-performing individuals, increasing the chances of reaching the optimal solution more quickly.
 
-The default population size chosen is 100, which gives a success rate of over 50% and a reasonable computational effort for the given problem: the population size is only 10 times greater than the length of the optimal target expression, as explained in <res-prg-length>.
+The default population size chosen is 100, which gives a success rate of over 50% and a reasonable computational effort for the given problem: the population size is only 10 times greater than the length of the optimal target expression, as explained in @res-prg-length.
 In this way, for another target expression whose length is known, the population size can be chosen automatically in order to hopefully obtain a well-initialized parameter directly.
+
+=== Population size combined with program length
+
+The @combined_length confirms what was explained earlier: a larger population and a longer program length produce better results.
+Indeed, a population size of 150 with a program length of 30 is successfull 75% of the times to find optimal solution, which is very good.
+However, this requires more computations.
+The average number of generations needed to find the optimal solution is always similar to that of the success rate.
+It decreases as the population size and program length increase, but this is less noticeable.
+In fact, in the case of a success rate for a program length greater than 10 (a program length less than 10 never reaches the optimal solution, as explained previously in @res-prg-length), the values range from 0% to 75%, while for the average number of generations needed to reach the optimum, the values only range from 63 to 105, giving a standard deviation of only 40% compared to 75%...
+The program length and population size therefore have less impact on the speed of convergence than on the success rate.
+
+== Iteration & selection
+
+The number of iterations and the way in which selection is performed are important to define correctly in order to ensure a good success rate for the genetic programming algorithm.
+Note that with each iteration, a new generation is created, so that the term “iteration” can be used similarly to the term “generation”: the maximum number of iterations corresponds to the maximum number of generations.
+
+=== Iteration
+
+The @iteration shows that increasing the maximum number of generations increases the success rate.
+This result comes as expected.
+Indeed, if more generations are allowed, the genetic programming algorithm will have more time to find the optimal solution.
+This is why the curve showing the best fitness evolution is an ascending curve, as the algorithm has more time to refine the solution.
+However, for both the best evolution of fitness and the average evolution of fitness, the curves follow a process of diminishing returns.
+This is because growth is very rapid at first, then slows down progressively.
+This means that a good solution is quickly reached, but then, in order to increase the quality of the solution, the computational effort increases considerably.
+
+The default value for the number of iterations (or number of generations) has been set to 200 to allow the algorithm to reach a state of equilibrium where no significant changes are made to the final solution.
+
+=== Selection
+
+The @selection illustrates the balance between exploration and exploitation in genetic programming.
+Indeed, a small tournament favors exploration, while a large tournament favors exploitation, as explained in the @selection-sec.
+On the graphs representing the evolution of the best fitness and average fitness, the smallest tournament gives the worst results, as in all cases the curve is well below the others.
+In addition, the success rate is much lower for the smallest tournament size compared to the others, which are approximately equivalent.
+This means that too much exploration does not give good results for this specific problem.
+
+Conversely, other tournament sizes produce good results with a success rate of over 50%.
+Indeed, the average fitness is the same, but the best fitness is better for larger tournaments.
+This can be explained by the selection process: if a larger number of individuals contribute to the selection, there is a greater chance of selecting high-performing individuals, which translates into a better average best fitness.
+
+Since the average number of generations needed to reach the solution was lowest for a tournament size of 8, this value was chosen as the default, which is reasonable since it represents less than 10% of the total population (reminder: 100 individuals), so that the elitism process is not too strong with a tournament size of 8 and the balance between exploration and exploitation seems correct.
+
+== Crossover & mutation
+
+Crossover and mutation are the elements that are mostly responsible for the power of the genetic programming algorithm if they are properly defined.
+
+=== Crossover
+
+The @cross shows that adding crossover reduces the performance of the algorithm, such as the success rate, the average number of generations needed to reach the optimum, and the best fitness.
+However, the average fitness remains the same for all values.
+This is not the expected result.
+In fact, we expected the crossover to improve the algorithm's performance rather than decrease it...
+I think that the way the crossover is performed (explained in @crossover-sec) does not increase the algorithm's performance, because the crossover breaks some valid (or partially valid) expressions by mixing the genetic material of both parents.
+The result can give rise to invalid expressions that reduce the best fitness.
+Indeed, if the best individual is mixed with another individual, the expression of this best individual may be broken, making it less good.
+This is why crossover does not improve the best fitness and success rate for this specific problem.
+In general, allowing local degradation of fitness through crossover improves overall fitness and convergence speed, but this is not the case here, perhaps due to the implementation of crossover or the evaluation of fitness and management of expression validity.
+
+The default value chosen is a crossover probability of 0.2, as the results are good and some crossovers are applied.
+This value was determined through the combined study on crossover and mutation performed on @combined_crossover.
+
+=== Mutation
+
+The @mut shows that mutation significantly improves the performance of the genetic programming algorithm.
+In fact, the absence of mutation results in a success rate of 0%, compared to a success rate of over 40% when mutations are applied, and the evolution of best fitness seems to be stuck at a value with no further evolution.
+This means that mutation, by maintaining a certain diversity in the population, allows for further exploration and prevents the algorithm from getting stuck in a suboptimal solution.
+However, if the diversity of the population is too high, performance may decline.
+In fact, a mutation probability of 0.3 gives worse results than a mutation probability of 0.1, with slower convergence.
+
+The graph showing the evolution of the best fitness, for instance, shows that a mutation probability of 0.1 gives better fitness, whereas on the average fitness graph, this probability does not give better average fitness.
+This means that introducing a certain amount of diversity into the population increases the variance of the results obtained.
+
+The default value chosen is a probability of 0.1 in order to achieve a good balance between convergence speed and success rate.
+
+=== Crossover combined with mutation
+
+The @combined_crossover shows that small variations in parameters can lead to different algorithm performances.
+For example, for a crossover probability of 0.4, a mutation probability that differs by only 0.05 results in a success rate that differs by 5%.
+Conversely, for the same crossover probability, a mutation of 0.1 and 0.2 results in a difference of only 0.3%.
+This means that these two parameters have an impact on the performance of the algorithm, and that setting them correctly is a challenge that determines the effectiveness of the algorithm, due to their sensitivity to the values used.
+
+The @combined_crossover was used to correctly adjust the crossover probability and the mutation probability.
+Since genetic programming is based on a genetic algorithm with selection, mutation, and crossover, the absence of crossover is not taken into account, and the final decision was for a crossover of 0.2 and a mutation of 0.1 in order to try to optimize the convergence speed and success rate.
+
+
 
 #pagebreak()
 
