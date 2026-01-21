@@ -1,0 +1,42 @@
+project:
+  type: website
+  title: "ISS"
+  output-dir: ../_site/fr
+
+website:
+  # Language switching setup
+
+  navbar:
+    # background: primary
+    search: true
+    # Right side for language selector
+    right:
+      - text: Langage
+        icon: globe
+        menu:
+          - text: "Anglais"
+            href: ../index.html
+          - text: "Français"
+            href: index.html
+
+  sidebar:
+    style: docked
+    search: true
+    
+    contents:
+      - section: "Cours"
+        contents: "ch*.qmd"
+      - text: "Exercices"
+        file: exercices.qmd
+      - text: "Présentations"
+        file: presentations.qmd
+
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    toc: true
+  pdf:
+    toc: true

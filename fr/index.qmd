@@ -1,0 +1,8 @@
+---
+title: "Redirection..."
+---
+
+<meta http-equiv="refresh" content="0; url=ch1.html" />
+
+Si vous n'êtes pas redirigés automatiquement,  
+[cliquez ici pour aller au Cours](ch1.html).
