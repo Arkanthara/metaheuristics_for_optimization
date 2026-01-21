@@ -1,0 +1,317 @@
+# La méthode des colonies de fourmis et l'intelligence en essaim
+
+## Motivations
+
+L'**Ant Colony Optimization** (ACO, optimisation par colonie de fourmis) a été introduite par Marco Dorigo en 1991.
+
+Cette métaheuristique s'inspire de l'entomologie (science des insectes) et de l'éthologie (science du comportement animal).
+
+Les fourmis sont collectivement capables de résoudre des problèmes d'optimisation complexes, comme trouver le plus court chemin entre le nid et une source de nourriture. Le succès et l'importance des fourmis sur Terre peuvent être mesurés par leur biomasse stupéfiante, comparable à celle des humains (environ $10^{16}$ fourmis).
+
+***
+
+### Le concept d'Intelligence en Essaim
+
+En français : "Intelligence d'essaim".
+
+**Capacités individuelles limitées** : de la simplicité émerge la complexité.
+
+La **collaboration/coopération** peut résoudre des problèmes hors de portée de tout individu seul : "le tout est plus que la somme de ses parties".
+
+Ce concept ne se limite pas aux fourmis : abeilles, guêpes, termites, vol d'oiseaux, bancs de poissons, etc.
+
+C'est un système **distribué de traitement de l'information**.
+
+***
+
+#### Auto-organisation et systèmes complexes
+
+- **Absence de contrôleur central** :
+  - Opérations décentralisées.
+  - L'action locale de chaque fourmi, combinée à ses interactions avec les autres, produit un résultat global.
+  - Ces comportements collectifs sont des **propriétés émergentes**.
+  - Cette auto-organisation est paradigmatique des **systèmes complexes**.
+
+***
+
+#### Robustesse, Évolutivité et Adaptabilité
+
+**Robustesse** :
+
+- Le processus collectif continue de fonctionner efficacement malgré : (i) la perte d'une fraction des agents, (ii) la présence d'erreurs individuelles.
+- Cette **tolérance aux fautes** est un sous-produit de l'auto-organisation.
+
+**Évolutivité** :
+
+- La performance collective évolue avec le nombre d'agents.
+- **Parallélisation** efficace.
+
+**Adaptabilité** : Le système peut s'ajuster et continuer à fonctionner en présence de nouvelles contraintes ou de changements dynamiques.
+
+***
+
+### La méthode d'optimisation par colonie de fourmis
+
+Introduite par Dorigo et al. en 1991.
+
+C'est un système **multi-agent** adapté pour résoudre une gamme de problèmes d'optimisation combinatoire : QAP (*Quadratic Assignment Problem*), routage, tri, etc.
+
+Ingrédient clé : les **phéromones fictives** qui favorisent une exploration plus profonde de certaines régions prometteuses de l'espace de recherche par les "fourmis".
+
+Les comportements collectifs d'insectes ont inspiré plusieurs autres métaheuristiques : colonie d'abeilles, *Particle Swarm Optimization* (PSO), etc.
+
+***
+
+## Piste de phéromones : Optimisation naturelle
+
+Pour réaliser toute action collective, les fourmis doivent avoir des moyens de communication.
+
+L'interaction inter-agents se fait, pour certaines espèces, indirectement via des pistes de **phéromones** (substances chimiques) déposées sur le sol.
+
+Les niveaux de phéromone peuvent augmenter (resp. diminuer) via des boucles de rétroaction positive (resp. négative).
+
+Note : certaines espèces de fourmis présentent des interactions directes par contact antennaire.
+
+***
+
+### Stigmergie et chimiotaxie
+
+Ce processus d'interaction spécifique est appelé **stigmergie** : coordination indirecte entre agents. Une piste laissée dans l'environnement par une action passée peut déclencher de futures actions.
+
+**Chimiotaxie** : les fourmis perçoivent l'intensité de l'odeur (concentration en phéromone) et se déplacent vers la zone de concentration plus élevée.
+
+Un élément central est le **temps d'évaporation**, qui limite la durée d'action de ces pistes de phéromone, effaçant ainsi un chemin qui n'est plus entretenu par de nouvelles fourmis.
+
+***
+
+### Comportement observé
+
+**Initialement** : les deux chemins sont utilisés au hasard, car les niveaux de phéromone sont faibles et à peu près égaux.
+
+**Après un court instant** : le chemin le plus court commence à recevoir plus de trafic. Ce n'est pas parce que les fourmis optimisent consciemment la distance, mais parce que :
+- Les fourmis qui terminent le trajet le plus court reviennent au nid plus vite.
+- Elles renforcent donc ce chemin avec des phéromones plus tôt et plus fréquemment, créant une **boucle de rétroaction positive**.
+
+**Finalement** : presque toutes les fourmis n'utilisent que le chemin le plus court, tandis que la phéromone sur le chemin le plus long s'évapore par manque de renforcement.
+
+***
+
+### Modèle mathématique
+
+Hypothèse clé : la probabilité de choisir une branche donnée dépend de la quantité totale de phéromone déposée par toutes les fourmis ayant parcouru cette branche depuis le début de l'expérience.
+
+Soit $m$ le nombre de fourmis ayant déjà traversé le système, et $U_{m}$ (resp. $L_{m}$) le nombre de fourmis ayant choisi la branche supérieure (resp. inférieure).
+
+Nous émettons l'hypothèse que la probabilité pour la $(m + 1)$-ème fourmi de choisir la branche supérieure est :
+
+$$ P_{U}(m + 1) = \frac{(U_{m} + k)^{h}}{(U_{m} + k)^{h} + (L_{m} + k)^{h}} $$
+
+où $k$ et $h$ sont des paramètres à ajuster.
+
+Par conséquent, la probabilité que cette $(m + 1)$-ème fourmi choisisse la branche inférieure est :
+
+$$ P_{L}(m + 1) = \frac{(L_{m} + k)^{h}}{(U_{m} + k)^{h} + (L_{m} + k)^{h}} $$
+
+telle que $P_{U}(m + 1) + P_{L}(m + 1) = 1$.
+
+***
+
+Les mesures expérimentales de Deneubourg & Goss sont cohérentes avec les probabilités proposées en prenant :
+
+$$ k = 20, \qquad h = 2 $$
+
+Comprendre les paramètres $k$ et $h$ :
+
+- Si $U_{m} \ll k$ ou $L_{m} \ll k$, alors $P(m) \approx 1 / 2$. Ainsi, $k$ peut être vu comme le nombre de fourmis traversant un chemin donné pour le rendre sélectif.
+- $h$ est indicatif de la sensibilité des fourmis à la quantité de phéromone déposée. Le fait que $h \neq 1$ suggère une sensibilité non linéaire.
+
+***
+
+## Métaheuristique des colonies de fourmis
+
+Proposée par Dorigo et al. en 1992 : **Ant System (AS)**. D'abord formulée dans le contexte du TSP et du QAP.
+
+Plusieurs versions ont ensuite été introduites pour surmonter certaines limitations, notamment l'**Ant Colony System (ACS)**.
+
+***
+
+### Le problème du voyageur de commerce (TSP)
+
+Classiquement : $n$ villes avec $d_{ij}$ la distance entre toute paire de villes. Nous cherchons le chemin le plus court qui passe par les $n$ villes une fois et une seule.
+
+Dans certaines instances du TSP, nous incluons dans la distance parcourue (fitness) la distance pour retourner à la ville d'origine.
+
+C'est un problème d'optimisation combinatoire (de type affectation).
+
+***
+
+### L'algorithme Ant System (AS)
+
+Éléments constitutifs :
+
+**Visibilité** :
+
+$$ \eta_{ij} = \frac{1}{d_{ij}} $$
+
+Une ville $j$ proche de la ville $i$ sera considérée comme "visible", tandis qu'une ville plus éloignée ne le sera pas.
+
+Nous considérons $m$ fourmis virtuelles.
+
+À chaque itération, les fourmis exploreront un chemin possible passant par les $n$ villes.
+
+Les $m$ fourmis choisissent leur chemin en fonction de l'intensité de phéromone d'un chemin donné $\tau_{ij}$ : quantité de phéromone sur le lien $(i,j)$.
+
+D'autres paramètres seront inclus plus tard : dépôt et évaporation des phéromones.
+
+***
+
+#### Principes de l'algorithme AS
+
+Les idées clés sous-tendant l'algorithme AS sont :
+
+- Le chemin pris par chaque fourmi est contrôlé par la **visibilité** et l'**intensité de phéromone**.
+- L'intensité de phéromone est affectée globalement par les actions combinées de toutes les fourmis (**stigmergie**).
+- Les mauvaises solutions disparaissent grâce au processus d'**évaporation** des phéromones.
+
+***
+
+#### Processus dans la boucle principale
+
+À chaque itération $t$, nous "sémons" le système avec les $m$ fourmis une par une.
+
+Considérons le chemin de la fourmi $k$ au moment où elle atteint la ville $i$.
+
+Soit $J$ l'ensemble des villes qui n'ont pas encore été visitées.
+
+La fourmi sélectionne la prochaine ville $j \in J$ avec une probabilité $p_{ij}$ qui dépend de $\eta_{ij}$ et de $\tau_{ij}(t-1)$ :
+
+$$ p_{ij} = \begin{cases} \frac{[\tau_{ij}(t-1)]^\alpha [\eta_{ij}]^\beta}{\sum_{l \in J} [\tau_{il}(t-1)]^\alpha [\eta_{il}]^\beta} & \text{si } j \in J \\ 0 & \text{sinon} \end{cases} $$
+
+Une fourmi ne peut pas passer par la même ville deux fois lors d'une itération $t$.
+
+***
+
+#### Paramètres de contrôle
+
+- $\alpha$ et $\beta$ sont des paramètres contrôlés qui doivent être soigneusement spécifiés (paramètres de guidage).
+- $\alpha$ favorise les liens avec une intensité de phéromone élevée : **intensification** ou **exploitation**.
+- $\beta$ favorise l'information géographique indépendamment de la qualité du lien : **diversification** ou **exploration**.
+
+***
+
+#### Mise à jour des phéromones
+
+$T_{k}(t)$ désigne le tour complet effectué par la fourmi $k$ à l'itération $t$, $k = 1\dots m$.
+
+Une fois que les $m$ tours $T_{k}$ sont réalisés, l'intensité de phéromone $\tau_{ij}$ de l'arête $(i,j)$ est mise à jour selon :
+
+$$ \tau_{ij}(t + 1) = (1 - \rho)\tau_{ij}(t) + \Delta \tau_{ij}(t) $$
+
+- $\rho \in [0,1]$ est le facteur d'**évaporation** qui sert à éliminer les solutions sous-optimales.
+- $\Delta \tau_{ij}(t)$ est le dépôt de phéromone ajouté à la piste après l'ensemble des $m$ tours à l'itération $t$.
+
+***
+
+#### Dépôt de phéromone : $\Delta \tau_{ij}$
+
+Seules les arêtes $(i, j)$ parcourues par une fourmi sont renforcées :
+
+$$ \Delta \tau_{ij}(t) = \sum_{k=1}^{m} \Delta \tau_{ij}^{(k)} $$
+
+avec
+
+$$ \Delta \tau_{ij}^{(k)} = \begin{cases} \frac{Q}{L_k} & \text{si } (i, j) \in T_k \\ 0 & \text{sinon} \end{cases} $$
+
+- $Q$ est un autre paramètre de contrôle.
+- $L_k$ est la longueur du tour $T_k$ associé à la fourmi $k$.
+- Plus $L_k$ est court, plus le renforcement est fort.
+
+***
+
+#### Initialisation et sélection des paramètres
+
+L'algorithme AS n'est pas défini pour $\tau_{ij} = 0$.
+
+Intensité initiale de phéromone dépendant de la distance :
+
+$$ \tau_{ij}(t = 0) = 1 / (nL) $$
+
+où $L$ est une estimation de la longueur du tour.
+
+Empiriquement, les valeurs suivantes donnent des résultats satisfaisants :
+
+$$ m = n, \quad \alpha = 1, \quad \beta = 5, \quad \rho = 0.5, \quad Q = 1 $$
+
+***
+
+### L'algorithme Ant Colony System (ACS)
+
+L'AS a obtenu la meilleure solution pour un problème TSP spécifique (le benchmark Oliver30) avec un temps CPU inférieur ou égal à d'autres approches.
+
+Cependant, pour des problèmes plus grands, l'AS échoue à trouver le cycle optimal connu.
+
+L'ACS est une variante de l'AS basée sur le changement du choix de la prochaine ville visitée et la mise à jour de la piste de phéromone.
+
+***
+
+#### Spécificités de l'algorithme ACS
+
+Chaque fourmi ajoute une quantité $\phi \tau_{0}$ de phéromone au lien $(i,j)$ qu'elle vient de prendre.
+
+La fraction $1 - \phi$ de la phéromone précédemment présente s'évapore.
+
+L'intensité de phéromone est donnée par :
+
+$$ \tau_{ij} = (1 - \phi)\tau_{ij}(t) + \phi \tau_0 $$
+
+Ensuite, nous ajoutons la quantité $\Delta \tau = 1 / L_{min}$ **UNIQUEMENT** aux liens $(i,j)$ correspondant au meilleur cycle $T_{best}$ parmi les $m$ cycles de l'itération courante $t$ :
+
+$$ \tau_{ij}(t + 1) = (1 - \rho)\tau_{ij} + \rho \Delta \tau $$
+
+***
+
+## Performance de la recherche par colonie de fourmis
+
+**Avantage** : algorithme très simple, mais la performance doit être évaluée.
+
+Espace de recherche : $S = \{0,1\}^{N}$, visité selon une structure arborescente, composante par composante.
+
+Les trajectoires peuvent être renforcées (par l'ajout de phéromone).
+
+***
+
+### Évaluation statistique
+
+Après toutes les $m$ pistes, une quantité $\tau = f(x_{i})$ est ajoutée à toutes les branches prises par la fourmi $i$, $i = 1, \ldots , m$.
+
+Initialement, chaque branche contient $\pi_{0}$ phéromone (sinon, un chemin sans phéromone ne serait jamais pris).
+
+À chaque intersection (nœud), une fourmi choisit avec probabilité $q$ la branche la plus marquée. Avec probabilité $1 - q$, la fourmi choisit l'une des deux branches avec une probabilité proportionnelle à l'intensité de la phéromone sur elles :
+
+$$ p_{gauche} = \pi_{gauche} / (\pi_{gauche} + \tau_{droite}) \qquad p_{droite} = 1 - p_{gauche} $$
+
+***
+
+#### Résultats
+
+Performance statistique après 10 répétitions, chacune avec 6 fourmis et après 6 itérations.
+
+Effort de calcul : $6 \times 6 = 36$ évaluations.
+Taux de succès : $7/10$.
+Taux de succès à moins de 3% de l'optimum : $9/10$.
+
+Il y a une probabilité $p = 1 / 64$ de trouver aléatoirement l'optimum. Après 36 essais, la probabilité d'avoir trouvé au moins une fois l'optimum est :
+
+$$ 1 - (1 - p)^{36} = 0.43 $$
+
+C'est 1 moins la probabilité de ne jamais le trouver sur 36 essais. L'ACS surpasse donc la marche aléatoire.
+
+***
+
+### Probabilité d'atteindre chaque point
+
+Probabilité d'atteindre chacun des 64 points de $S$ après 100 itérations.
+
+Ici, $m = 6'400$ fourmis sur 100 itérations. Les valeurs indiquées (barres) montrent la fraction de $m$ fourmis qui ont atteint chaque point $x$ après 100 itérations.
+
+**30% des fourmis ont trouvé l'optimum global**.

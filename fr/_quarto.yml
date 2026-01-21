@@ -26,10 +26,6 @@ website:
     contents:
       - section: "Cours"
         contents: "ch*.qmd"
-      - text: "Exercices"
-        file: exercices.qmd
-      - text: "Présentations"
-        file: presentations.qmd
 
 
 format:

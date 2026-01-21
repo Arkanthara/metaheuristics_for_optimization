@@ -1,0 +1,724 @@
+# Programmation Génétique (Chapitre 7) et Performance des Métaheuristiques (Chapitre 8)
+
+# Programmation Génétique (Genetic Programming - GP)
+
+## Introduction
+
+La **Programmation Génétique** (Genetic Programming - GP) a été introduite et développée par John Koza au début des années 1990.
+
+L'objectif est de :
+
+- Appliquer les concepts évolutionnistes à des programmes informatiques plutôt qu'à un ensemble de valeurs numériques.
+- Faire évoluer un programme pour qu'il puisse résoudre un problème donné de manière optimale.
+- Ouvrir la voie à la robotique évolutionnaire.
+
+Pour ce faire :
+
+- On considère une population de programmes et on applique une sélection et une recombination (incluant le crossover) pour obtenir le programme désiré.
+- Au lieu d'optimiser des paramètres numériques, la GP fait évoluer les programmes eux-mêmes jusqu'à ce qu'ils réalisent la tâche souhaitée.
+
+## Que doit-on attendre d'un tel programme ?
+
+Il doit produire une sortie correcte pour toute entrée possible.
+
+Il doit découvrir la fonction à partir des données de sortie correspondant aux données d'entrée.
+
+Capable de réaliser : l'ajustement de courbes algébriques, la régression symbolique, des tâches de classification, etc.
+
+Applicable à : la conception de modèles de trading en finance, la détermination de conditions aux limites à partir de données empiriques, la détermination du mouvement de robots dans des environnements complexes, etc.
+
+Ceci est typique d'un processus d'apprentissage automatique (Machine Learning - ML).
+
+Mais cela peut aussi être vu comme une tâche d'optimisation : minimiser la différence entre la sortie spécifiée et celle obtenue par la GP.
+
+Cela montre la frontière ténue entre ML et optimisation... C'est maintenant un sujet qui appartient à l'IA et au ML.
+
+## Régression Symbolique (Symbolic Regression - SR)
+
+### But de la régression symbolique
+
+- Construire un programme qui relie les données d'entrée aux données de sortie sans pré-définir la forme fonctionnelle.
+- La SR explore le vaste espace de toutes les expressions symboliques possibles construites à partir d'un ensemble de fonctions et de variables.
+
+- Un premier ensemble de données : l'ensemble d'apprentissage (training set) composé de données d'entrée et de sortie, est sélectionné pour générer des programmes.
+- Le but est qu'un programme construit sur cet ensemble d'apprentissage soit capable de généralisation, c'est-à-dire qu'il ait détecté la relation sous-jacente entre les données d'entrée et de sortie.
+- Cette généralisation est testée avec un autre ensemble de données, l'ensemble de test (test set), qui ne fait PAS partie de l'ensemble d'apprentissage.
+- Il y a un risque de sur-ajustement (overfitting) : un excellent ajustement sur les données de l'ensemble d'apprentissage mais un résultat (très) médiocre avec l'ensemble de test.
+
+### Pourquoi la SR est puissante
+
+- Aucune structure de modèle prédéfinie - La GP peut découvrir : des polynômes, des expressions rationnelles, des exponentielles, des compositions imbriquées, des modèles hybrides mélangeant des termes algébriques et transcendants.
+- Interprétabilité : Contrairement aux réseaux de neurones ou aux forêts aléatoires, la GP produit des formules explicites et lisibles par l'homme.
+- Construction automatique de caractéristiques (feature construction) : La GP découvre des expressions intermédiaires utiles (sous-arbres), créant effectivement de nouvelles caractéristiques.
+- Flexibilité et non-linéarité : La GP explore naturellement des mappings non linéaires, produisant parfois des modèles comparables aux approches d'apprentissage automatique.
+
+## Inférence de Comportement (Behavior Inference)
+
+- Lorsque le but est de déterminer le comportement d'un robot (ou d'un groupe de robots) à partir de sa perception de l'environnement.
+- On peut simuler le comportement induit par la GP et voir comment il se comporte dans des environnements générés aléatoirement.
+- Taux de succès ou d'échec pour les tâches attendues.
+- Apprentissage par Renforcement (Reinforcement Learning - RL).
+
+## Codage des Programmes
+
+Défi clé : le codage des programmes. Comment coder un programme pour appliquer des opérateurs évolutionnistes, tout en générant des individus valides (c'est-à-dire des programmes syntaxiquement corrects et exécutables) ?
+
+Deux approches distinctes sont introduites et considérées :
+
+- Les arbres (Trees)
+- Les programmes linéaires basés sur une pile (Stack-based linear programs)
+
+Dans tous les cas, l'espace de recherche (c'est-à-dire l'espace de tous les programmes possibles) est limité par la nature des langages de programmation informatique existants.
+
+### Calcul de la Fitness : Régression Symbolique
+
+Soit $p$ un programme tel que
+
+$$
+y = p(x)
+$$
+
+est la sortie générée par $p$ avec l'entrée $x$. Notez que $x$ et $y$ peuvent être des structures de données (pas seulement des valeurs numériques).
+
+Soit $A = \{\langle x_1, y_1 \rangle, \ldots, \langle x_k, y_k \rangle\}$ un **ensemble d'apprentissage** (training set) composé de $k$ paires $\langle \text{entrée}, \text{sortie} \rangle$.
+
+La fitness $f$ (ou fonction de perte) du programme $p$ est définie comme :
+
+$$
+f(p) = \sum_{i=1}^{k} d(y_i - p(x_i)) = \sum_{i=1}^{k} |y_i - p(x_i)|
+$$
+
+C'est la capacité du programme $p$ à générer la sortie attendue en fonction de l'entrée donnée.
+
+Dans la majorité des cas de GP, le but est d'avoir une **représentation algébrique** d'une expression booléenne ou arithmétique.
+
+Par exemple, on peut avoir une série d'observations $\{(x_{i},y_{i})\}$ et on cherche une relation $y = g(x)$ où $g$ est donnée algébriquement par $g(x) = 2x^{2} - 3x + 1$ ou $g(x) = x\sin x + 2$.
+
+Note importante : Essayer de faire évoluer des programmes écrits en C, Java, Python, etc., en utilisant des opérations de crossover et de mutation est sans espoir !
+
+La plupart des recombinaisons produiraient des programmes qui ne sont pas syntaxiquement valides.
+
+### Codage des Programmes avec des S-expressions
+
+Koza a proposé de :
+
+Coder ces programmes avec un langage fonctionnel (similaire à Lisp) construit sur des instructions appelées S-expressions (expressions symboliques).
+
+Par exemple, $(+x2)$ signifie $x + 2$.
+
+Basé sur ces concepts, l'expression $2x^{2} + 3x + 1$ devient
+
+$$
+(+(*(*x x)2)(+(*3x)1))
+$$
+
+Si on remplace un opérateur dans une S-expression par une autre S-expression, on s'attend à une commande valide.
+
+On peut donc définir des opérateurs génétiques (crossover et mutation) sur les S-expressions.
+
+Note : Plusieurs S-expressions peuvent représenter la même fonction. Par exemple : $2x^{2} + 3x + 1$ peut aussi être exprimée comme :
+
+$$
+(+1(+(*2(*x x))(*3x)))
+$$
+
+### Codage par Arbre (Tree-based Coding)
+
+C'est équivalent à une S-expression, mais plus facilement compréhensible.
+
+Voici deux exemples :
+
+````{mermaid}
+graph TD
+    subgraph "Exemple 1: (+ (* x 2) 3)"
+        A1[+] --> B1[*]
+        A1 --> C1[3]
+        B1 --> D1[x]
+        B1 --> E1[2]
+    end
+    subgraph "Exemple 2: (IF (>= A B) C D)"
+        A2[IF] --> B2[>=]
+        A2 --> C2[C]
+        A2 --> D2[D]
+        B2 --> E2[A]
+        B2 --> F2[B]
+    end
+````
+
+### Ensemble de Fonctions (Function Set) et Ensemble de Terminaux (Terminal Set)
+
+Formellement, l'espace de recherche des GP est spécifié par un ensemble $F$ de fonctions et un ensemble $T$ de terminaux.
+
+- $F$ contient toutes les opérations possibles dans cet espace.
+- $T$ contient toutes les variables et constantes possibles.
+
+Par exemple, on peut avoir l'ensemble de fonctions suivant :
+
+$$
+F = \{+, -, *, / \}
+$$
+
+et l'ensemble de terminaux suivant :
+
+$$
+T = \{A,B,C,D\} ,
+$$
+
+où $A$, $B$, $C$ et $D$ sont les noms des variables qui prennent des valeurs spécifiées pour chaque instance dans l'ensemble de test.
+
+Pour les fonctions booléennes :
+
+$$
+F = \{\text{AND, OR, NO}\}
+$$
+
+avec des terminaux qui pourraient inclure des booléens et des constantes :
+
+$$
+T = \{b_1, b_2, b_3, \dots, \text{TRUE, FALSE}\}.
+$$
+
+#### Opérateur IF
+
+On peut définir des opérateurs IF dans l'**ensemble de fonctions**.
+
+Par exemple, (If A B C D) est une fonction de 4 arguments :
+
+- Si A==B alors C est retourné.
+- Sinon D est retourné.
+- D'autres formes plus simples de IF peuvent être considérées.
+
+### Propriété de Clôture (Closure Property)
+
+Chaque fonction doit être capable d'accepter comme argument :
+
+- Toutes les valeurs retournées par d'autres fonctions.
+- Toutes les valeurs de l'ensemble de terminaux $T$.
+
+La division, les opérateurs unaires et certains autres opérateurs peuvent avoir besoin d'être augmentés pour accepter n'importe quelle paire d'arguments.
+
+L'espace de tous les programmes admissibles est constitué de toutes les compositions de fonctions disponibles de $F$ avec des éléments terminaux de $T$.
+
+Cet espace a potentiellement une dimension infinie et la taille des individus est arbitraire.
+
+Il apparaît pratiquement nécessaire de limiter leur taille.
+
+Certains morceaux de programmes peuvent ne rien faire : par exemple, $(- x x)$ et peuvent donc être simplifiés par la constante 0.
+
+C'est le problème dit de "gonflement" (bloat).
+
+La propriété de clôture est une contrainte fondamentale pour la GP.
+
+Exemples :
+
+- Division par zéro.
+- Incompatibilité de type (Type mismatch).
+- Erreurs de domaine (Domain errors).
+- Structures de contrôle : ( if x y z ) avec x numérique et non booléen.
+
+### Population Initiale
+
+En partant de l'ensemble de fonctions et de l'ensemble de terminaux, on peut générer une population initiale de programmes valides.
+
+- Chaque nœud est tiré aléatoirement de $F$ ou $T$.
+- Si c'est un terminal, alors la branche se termine.
+- Sinon, il est nécessaire de tirer autant d'éléments que requis par l'opérateur $F$.
+
+On peut biaiser le choix entre $F$ et $T$ en fonction de la profondeur :
+
+- Vers la racine, il y aura une plus grande probabilité de choisir une fonction, puis une plus grande probabilité de tirer un terminal.
+- Ces probabilités définissent la profondeur moyenne des programmes.
+
+### Crossover (à la Koza)
+
+L'opération de crossover peut être réalisée en choisissant aléatoirement un lien dans l'arbre représentant chaque parent et en échangeant les branches inférieures correspondantes.
+
+Les points de crossover sont typiquement choisis avec une probabilité non uniforme **pour favoriser les nœuds plus internes** par opposition aux nœuds des feuilles et branches basses.
+
+### Mutation (à la Koza)
+
+L'opérateur de mutation est effectué en sélectionnant aléatoirement un sous-arbre du programme, et en le remplaçant par un autre sous-arbre.
+
+Le sous-arbre de substitution est généré aléatoirement à partir de $F$ et $T$.
+
+## Exemple : Recherche de Modèles de Trading Optimaux
+
+But : Faire évoluer un programme qui formulerait des recommandations d'investissement sur le marché des changes (forex).
+
+Nous avons à notre disposition des indicateurs de marché $\{I_{k}(t)\}$ $k = 1,\ldots ,m$ qui sont typiquement des moyennes mobiles des taux de change à différentes échelles de temps.
+
+Nous cherchons un programme qui prend les $\{I_{k}(t)\}$ comme entrées et qui produit trois sorties possibles : 0 (ne rien faire), -1 (vendre), et 1 (acheter).
+
+La fitness est définie comme le rendement moyen généré par ce modèle s'il avait été utilisé au cours des années passées. À cette valeur, on soustrait le risque associé mesuré par sa variance.
+
+### Exemple de Stratégie de Trading Obtenue
+
+Dans cet arbre, $I_{1}$, $I_{2}$, $I_{3}$ et $I_{4}$ sont des indicateurs complexes basés sur les moyennes mobiles de longues séries temporelles du forex. Les valeurs numériques sont des constantes empiriques.
+
+Le rendement est bon, mais pas exceptionnel...
+
+## GP Linéaires Basés sur une Pile (Stack-based Linear GPs)
+
+Pour suivre l'approche des langages procéduraux : coder les GP avec une série d'instructions exécutées séquentiellement.
+
+Cependant, pour garantir la validité syntaxique du programme après crossover/mutation, on peut utiliser une approche basée sur une pile.
+
+### GP Linéaires
+
+Par exemple :
+
+- L'instruction A place la valeur de la variable $A$ dans la pile.
+- L'instruction B place la valeur de la variable $B$ dans la pile.
+- L'instruction ADD retire les deux éléments les plus hauts de la pile, et y ajoute un nouvel élément qui est la somme.
+
+Ainsi le programme
+
+```
+A B ADD C MUL 2 sqrt DIV
+```
+
+correspond à
+
+$$
+\frac{(A + B) \times C}{\sqrt{2}}
+$$
+
+#### Contraintes
+
+Les opérations doivent être adaptées pour tolérer le manque d'argument dans la pile.
+
+L'espace des programmes est donc défini par l'ensemble de toutes les instructions possibles qui contiennent les variables, constantes et opérations.
+
+### Crossover pour les GP Linéaires
+
+On peut utiliser le crossover de manière similaire à ce qui est fait avec une chaîne de bits.
+
+Considérons 2 programmes et notons le point de crossover par le symbole |.
+
+```
+P1: A B ADD | C MUL 2 sqrt DIV
+P2: 1 B SUB | A A MUL ADD 3
+```
+
+On obtient donc les deux programmes descendants suivants :
+
+```
+P1': A B ADD A A MUL ADD 3
+P2': 1 B SUB C MUL 2 sqrt DIV
+```
+
+- P1' laisse dans la pile 2 valeurs : $A + B + A^2$ et 3.
+- P2' laisse dans la pile 1 seule valeur : $(1 - B) * C / (\sqrt{2})$.
+
+### Mutation pour les GP Linéaires
+
+Une mutation peut être réalisée en changeant aléatoirement une instruction par une autre.
+
+Considérons 1 programme :
+
+```
+P1: A B ADD C MUL 2 sqrt DIV
+```
+
+On effectue une mutation sur la fonction ADD :
+
+```
+P1': A B MUL C MUL 2 sqrt DIV
+```
+
+P1' laisse dans la pile 2 valeurs : $(A * B) * C / \sqrt{2}$.
+
+### Exemple de GP Linéaire
+
+Nous cherchons l'**expression algébrique** de la fonction booléenne $f$ de 3 variables $x_0, x_1, x_2$ donnée par la table :
+
+| $x_0$ | $x_1$ | $x_2$ | $f(x_0, x_1, x_2)$ |
+|-------|-------|-------|-------------------|
+| 0     | 0     | 0     | 0                 |
+| 0     | 0     | 1     | 0                 |
+| 0     | 1     | 0     | 0                 |
+| 0     | 1     | 1     | 0                 |
+| 1     | 0     | 0     | 0                 |
+| 1     | 0     | 1     | 0                 |
+| 1     | 1     | 0     | 0                 |
+| 1     | 1     | 1     | 1                 |
+
+La solution est évidente à l'œil humain :
+
+$$
+f(x_0, x_1, x_2) = x_0 \text{ AND } x_1 \text{ AND } x_2
+$$
+
+Nous considérons l'ensemble de terminaux :
+
+$$
+T = \{X_0, X_1, X_2\}
+$$
+
+et l'ensemble de fonctions :
+
+$$
+F = \{\text{AND, OR, NOT}\}
+$$
+
+Considérons un programme avec 5 instructions. Avec 6 choix par instruction, on peut construire $6^5 = 7,776$ programmes (recherche exhaustive).
+
+La sortie est le sommet de la pile après exécution.
+
+### Résultats pour une Exécution
+
+Considérons une population de 12 programmes de longueur 5, que nous faisons évoluer sur 50 générations (sélection, crossover, mutation).
+
+La fitness compte combien de lignes dans la table sont correctement calculées. Ainsi, la fitness optimale est 8.
+
+**Population initiale :**
+
+- `['OR', 'NOT', 'X2', 'OR', 'X0']` fitness= 5
+- `['X1', 'X2', 'OR', 'X0', 'OR']` fitness= 2
+- `['OR', 'X2', 'OR', 'X0', 'X0']` fitness= 5
+- `['OR', 'X2', 'X2', 'X1', 'X1']` fitness= 5
+- `['X2', 'X0', 'X0', 'OR', 'X0']` fitness= 5
+- `['OR', 'OR', 'AND', 'X1', 'X0']` fitness= 5
+- `['X0', 'X0', 'X1', 'X2', 'X0']` fitness= 5
+- `['X0', 'OR', 'X2', 'X0', 'OR']` fitness= 3
+- `['AND', 'X2', 'NOT', 'OR', 'X0']` fitness= 5
+- `['OR', 'AND', 'X2', 'X1', 'AND']` fitness= 7
+- `['X0', 'AND', 'AND', 'X0', 'NOT']` fitness= 3
+- `['X2', 'X2', 'X2', 'X0', 'X0']` fitness= 5
+
+**Population finale :**
+
+- `['X2', 'OR', 'X1', 'X0', 'AND']` fitness= 7
+- `['X2', 'X2', 'NOT', 'X2', 'AND']` fitness= 7
+- `['X1', 'X2', 'AND', 'X0', 'AND']` fitness= 8
+- `['X2', 'OR', 'X1', 'X0', 'AND']` fitness= 7
+- `['X2', 'OR', 'X1', 'X0', 'AND']` fitness= 7
+- `['X2', 'OR', 'X1', 'X0', 'AND']` fitness= 7
+- `['X2', 'OR', 'X0', 'OR', 'AND']` fitness= 3
+- `['X2', 'OR', 'NOT', 'X2', 'AND']` fitness= 7
+- `['X2', 'OR', 'AND', 'X0', 'AND']` fitness= 7
+- `['X2', 'OR', 'AND', 'X0', 'AND']` fitness= 7
+- `['X2', 'X0', 'X0', 'OR', 'AND']` fitness= 7
+- `['X2', 'OR', 'NOT', 'X2', 'AND']` fitness= 7
+
+NB : L'optimum n'est pas systématiquement trouvé à chaque exécution. La fonction (x0 and x1) or x2 est intéressante car plus difficile à trouver puisque x2 est un attracteur de fitness 7.
+
+### Exemple : Fonction Arithmétique $F(x_0, x_1) = (x_0 + x_1)^2$
+
+Soit A = TrainingSet = $[( x^{(1)}_0 , x^{(1)}_1 , F(x^{(1)}_0 , x^{(1)}_1) \ldots]$.
+
+Minimiser la fitness = $\sum_{(x_0,x_1)\in A} |F(x_0, x_1) - p(x_0, x_1)|$.
+
+Ensemble de fonctions : `["ADD", "MUL", "DUP", "SUB"]`.
+
+Ensemble de terminaux : `["X0", "X1"]`.
+
+Ensemble d'apprentissage : `[(1, 1, 4), (1, 3, 16), (1, 1, 4), (1, 2, 9), (2, 1, 9), (2, 3, 25), (2, 1, 9), (2, 2, 16), (3, 1, 16), (3, 3, 36), (3, 1, 16), (3, 2, 25), (4, 1, 25), (4, 3, 49), (4, 1, 25), (4, 2, 36)]`.
+
+**Population initiale (15 individus) :**
+
+- `['X1', 'X1', 'MUL', 'X0', 'X1']` fitness= 34
+- `['MUL', 'DUP', 'X1', 'MUL', 'X1']` fitness= 34
+- `['X0', 'X1', 'X0', 'X1', 'X1']` fitness= 34
+- `['X0', 'X0', 'X1', 'ADD', 'X0']` fitness= 32
+- `['X1', 'X0', 'X1', 'X0', 'DUP']` fitness= 32
+- `['X0', 'X1', 'DUP', 'X0', 'X1']` fitness= 34
+- `['X1', 'DUP', 'X1', 'X0', 'X1']` fitness= 34
+- `['X0', 'X1', 'X1', 'X1', 'MUL']` fitness= 32
+- `['DUP', 'X1', 'X1', 'DUP', 'X1']` fitness= 34
+- `['ADD', 'DUP', 'ADD', 'MUL', 'DUP']` fitness= 1600* (pénalité, le programme ne fait rien)
+- `['X0', 'X1', 'X1', 'X1', 'X1']` fitness= 34
+- `['X0', 'X1', 'X1', 'X1', 'ADD']` fitness= 32
+- `['MUL', 'X1', 'DUP', 'X1', 'X0']` fitness= 32
+- `['X1', 'X1', 'ADD', 'DUP', 'MUL']` fitness= 20
+- `['X1', 'X1', 'MUL', 'X0', 'X0']` fitness= 32
+
+**Population finale (100 générations) :**
+
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X1', 'ADD', 'DUP', 'MUL']` fitness= 20
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X1', 'ADD', 'DUP', 'MUL']` fitness= 20
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+- `['X1', 'X0', 'ADD', 'DUP', 'MUL']` fitness= 0
+
+## Contrôle de Flux (Flow Control)
+
+On peut aussi définir des structures de contrôle telles que des instructions conditionnelles IF ou des boucles.
+
+On peut imaginer que l'instruction IF prend l'élément du sommet $\alpha$ de la pile et le compare à 0.
+
+- Si $\alpha \geq 0$, les instructions qui suivent IF sont normalement exécutées.
+- Si $\alpha < 0$, les instructions cessent d'être exécutées jusqu'à ce qu'une instruction ENDIF soit rencontrée.
+
+$\Rightarrow$ Il est donc nécessaire d'ajouter un drapeau 0 ou 1 qui indique si les instructions doivent être exécutées ou non.
+
+### Boucles (Loop)
+
+Nous avons la pile de données et une nouvelle pile : la pile de contrôle pour les boucles.
+
+- Cette pile de contrôle contient la position de l'instruction LOOP dans le programme et le nombre d'itérations, pris du sommet de la pile de données.
+- Dès que END-LOOP est rencontré, on décrémente le nombre d'itérations et on retourne à la position de LOOP, sauf si le nombre d'itérations est NULL. Dans ce cas, on retire le sommet de la pile de contrôle.
+- Nous travaillons avec le sommet de la pile de contrôle, de sorte que des boucles imbriquées sont possibles.
+- Cette construction de programme est robuste même lorsque les paires LOOP-END-LOOP ne sont pas équilibrées ou que le nombre d'itérations n'est pas défini.
+
+#### Exemple
+
+Nous considérons le programme suivant : Étant donné une valeur d'entrée X0 et un compte de répétition X1, calculer :
+
+$$
+\text{somme} = \text{X0} + \text{X0} + \ldots + \text{X0} \text{ (X1 fois)}
+$$
+
+En mathématiques : $\text{somme} = \text{X0} \times \text{X1}$.
+
+Avec GP : `[ X1, LOOP, X0, ADD, END-LOOP ]` avec 2 piles : pile de données et pile de contrôle.
+
+Comment cela fonctionne-t-il ? Supposons les entrées X0=3 et X1=2.
+
+Nous attendons 3+3=6.
+
+- Instruction 1 : Empiler X1 (2). Pile de données : [2] & pile de contrôle : [].
+- Instruction 2 : LOOP : Pile de données : [] & pile de contrôle : [(2, position_de_LOOP)] → le programme itérera son corps 2 fois.
+- Instruction 3 : Empiler X0 (3) dans la pile de données : [3].
+- Instruction 4 : ADD : opérandes insuffisantes → initialiser l'accumulateur et dans la pile de données : [3].
+- Instruction 5 : END-LOOP :
+  - Regarde le sommet de la pile de contrôle : (restant = 1, start_position = LOOP_index).
+  - Décrémente restant : maintenant 1.
+  - Puisque restant > 0, sauter au début de LOOP.
+  - Pile de contrôle : [(1, LOOP_index)].
+  - Pile de données inchangée : [3].
+
+- Deuxième itération :
+  - Instruction 3 (à nouveau) : Empiler X0 (3) dans la pile de données : [3, 3].
+  - Instruction 4 : ADD : dans la pile de données : [6].
+  - Instruction 5 : END-LOOP :
+    - Regarde le sommet de la pile de contrôle : (restant = 0, start_position = LOOP_index) et retire (0, LOOP_index) de la pile de contrôle.
+
+- Programme terminé : la sortie est ce qui reste dans la pile de données : [6].
+
+# Performance des Métaheuristiques (Chapitre 8)
+
+## Introduction
+
+### Défis :
+
+Contrairement aux algorithmes classiques (ex: tri), une analyse de complexité traditionnelle est simplement **IMPOSSIBLE** avec les métaheuristiques.
+
+Elles ne donnent pas une réponse temporelle prédictible.
+
+Pour certaines, nous avons des résultats de convergence, mais malheureusement limités à des cas particuliers d'intérêt pratique limité.
+
+Par conséquent, les analyses de performance des métaheuristiques :
+
+- sont principalement empiriques.
+- nécessitent une approche statistique puisque les métaheuristiques ne sont pas déterministes (elles ont toutes de multiples composantes stochastiques).
+
+### Une Liste Non Exhaustive des Défis
+
+1. **Stochasticité et variance entre les exécutions**.
+2. **Manque d'indicateurs de performance universels**.
+3. **Dépendance aux paramètres de réglage**.
+4. **Dépendance au problème et manque de généralité**.
+5. **Difficulté de mesurer la convergence et l'effort computationnel**.
+6. **Évolutivité (scalability) et sensibilité à la dimensionnalité**.
+7. **Interaction complexe entre exploration et exploitation**.
+
+## Exemple : TSP avec Recuit Simulé (Simulated Annealing - SA)
+
+### Complexité algorithmique moyenne
+
+Pour $N$ villes distribuées aléatoirement dans un domaine 2D carré, de taille $2 \times 2$ :
+
+La charge de calcul (approximation du temps de calcul) croît pratiquement linéairement avec $N$ dans la plage 20-2000 :
+
+$$
+T(N) = 7100\times N^{1.14}
+$$
+
+- $T(N)$ est mesuré en termes de nombre d'itérations SA : nombre total de configurations (acceptées/rejetées) tout au long du plan de refroidissement.
+- C'est effectivement le nombre d'évaluations de la fitness.
+
+Pour $N$ dans la plage 5'000-50'000 : taux de croissance plus élevé.
+
+Cela révèle donc un changement de régime de complexité entre les petits et les grands problèmes.
+
+### Qualité de la Solution pour un Optimum Connu
+
+Qualité de SA : TSP-50 (50 villes) pour laquelle une solution de référence est connue (villes régulièrement distribuées sur un cercle). Nous faisons varier l'effort computationnel en modifiant le plan de refroidissement.
+
+- Erreur relative moyenne, sur 100 exécutions, de la meilleure solution trouvée par rapport à la fitness optimale de 6.27905.
+- Comme prévu, la précision augmente si on est prêt à consacrer plus de ressources computationnelles.
+
+### Qualité de la Solution : Probabilité de Succès
+
+$$
+P_{\epsilon} = \frac{\text{nombre de solutions dans une borne d'erreur } \epsilon}{\text{nombre d'exécutions}}
+$$
+
+Courbe bleue : taux de succès $P_{\epsilon}$ avec précision $\epsilon = 0.05$ en faisant varier l'effort de calcul (c'est-à-dire le nombre d'évaluations de fitness).
+
+### Comparaison pour 500 villes
+
+- **Optimum** : longueur de cycle $L = 33.0015$.
+- **2-Opt (Recuit Simulé)** : fitness trouvée $f=34.628$, temps de calcul $T=0.00111707$ seconde (CPU: moins d'une seconde).
+- **Concorde** : fitness optimale $f=33.0015$, temps de calcul environ 30 secondes.
+
+### L'Algorithme Concorde
+
+Depuis le début des années 2000, l'algorithme Concorde peut générer des solutions exactes pour des problèmes de type TSP avec des tailles considérablement grandes.
+
+C'est un algorithme significativement complexe (surtout comparé aux métaheuristiques !). Il est basé sur une formulation par programmation linéaire du problème, combinée avec la méthode des plans coupants (cutting plane) et du Branch&Bound.
+
+Il consiste en environ 130 000 lignes de code en C.
+
+Le temps de calcul de Concorde peut être prohibitif pour des cas grands et/ou complexes. Par exemple, en 2006, un cas avec 85 900 villes a nécessité l'équivalent de 136 années CPU.
+
+Le temps de calcul ne dépend pas uniquement de la taille du problème. Certaines configurations spatiales peuvent être beaucoup plus difficiles que d'autres. Par exemple, le ts225 avec 225 villes nécessite 439 secondes, tandis que le problème pr1002 avec 1 002 villes ne nécessite que 95 secondes.
+
+Concorde utilise la programmation linéaire avec une complexité algorithmique croissant exponentiellement avec la taille du problème dans le pire des cas. Concorde ne réfute pas que le TSP est NP-difficile.
+
+Dans de nombreux cas pratiques, nous ne sommes pas confrontés à des villes positionnées pour générer des cas complexes. Cela est particulièrement vrai pour plusieurs cas de référence dans la bibliothèque TSPLIB.
+
+Certains auteurs ont suggéré des cas TSP très difficiles pour Concorde. Ceci est principalement réalisé avec des géométries "exotiques" : par exemple, basées sur les systèmes de Lindenmeyer (L-Systems) générant des structures fractales qui conduisent à des temps de calcul prohibitifs.
+
+### Notes sur le TSP
+
+- L'utilisation d'une métaheuristique pour le TSP est pleinement justifiée lorsqu'on traite de tels cas pathologiques, ou plus généralement avec de grandes tailles de problèmes, tant qu'une solution "suffisamment bonne" est acceptable.
+- Il existe des métaheuristiques spécifiques au TSP offrant des performances élevées en termes de précision ou de temps de calcul, selon les exigences.
+  - Par exemple, certains chercheurs travaillent sur des méthodes capables de traiter 1 million de villes en moins d'1 minute de temps de calcul, dans une plage de précision de 5%.
+
+## Exemple : Paysage $NK$ (NK-landscape)
+
+### Complexité moyenne pour un AG
+
+Problèmes $NK$ avec $N$ variant de 8 à 20 et $K = 5$, résolus avec un algorithme génétique de 100 individus. Statistiques obtenues à partir de 500 échantillons générés aléatoirement. Solutions exactes obtenues par recherche exhaustive.
+
+Courbe noire : Complexité temporelle moyenne sur 500 problèmes.
+
+Courbe bleue : Fraction du nombre de problèmes dont l'optimum global n'a pas été trouvé après le temps maximum alloué (ici 80 générations).
+
+NB : nous notons que pour ces instances difficiles, augmenter le nombre de générations ne change rien.
+
+### Performance d'un AG pour résoudre des problèmes $NK$
+
+La performance est évaluée en fonction de l'effort computationnel. Ce dernier est ajusté en faisant varier le critère d'arrêt : aucune amélioration de la fitness sur $m$ générations, $m \in \{3, \ldots , 15\}$. Une fois le plateau de fitness atteint, nous analysons la meilleure solution trouvée.
+
+Graphiques :
+
+- **Gauche** : $K = 5$.
+- **Droite** : $K = 7$.
+- En bleu : Probabilité de succès pour deux valeurs différentes de la précision $\epsilon = 0.1$ et $\epsilon = 0.01$.
+- En noir : erreur relative moyenne.
+
+### Taux de Succès vs. Nombre d'Évaluations
+
+Tableau : Taux de succès pour K = 2, 4, 8, 16 étant donné un nombre d'évaluations fixe de la fonction fitness. Taux de succès obtenu pour N = 1 000 exécutions.
+
+| Nombre d'Évaluations | $10^{3}$ | $10^{4}$ | $10^{5}$ |
+|----------------------|----------|----------|----------|
+| K = 2                | 0.107    | 0.925    | 1.000    |
+| K = 4                | 0.038    | 0.567    | 0.861    |
+| K = 8                | 0.015    | 0.284    | 0.875    |
+| K = 16               | 0.002    | 0.032    | 0.332    |
+
+## Évaluations de Performance : Concepts Généraux
+
+Les métaheuristiques sont testées sur la base de problèmes de référence (benchmarks).
+
+Ces benchmarks permettent :
+
+- L'évaluation des performances.
+- La comparaison entre métaheuristiques.
+
+Certains benchmarks peuvent être basés sur :
+
+- Des problèmes réels.
+- Des problèmes synthétiques.
+
+Les problèmes synthétiques peuvent être construits (manuellement ou aléatoirement) pour accommoder des espaces de recherche avec des niveaux de complexité croissants (ex: paysages $NK$).
+
+### Métriques de Performance
+
+Les métriques clés utilisées pour évaluer les performances des métaheuristiques sont :
+
+- **Effort de calcul**.
+- **Qualité de la solution**.
+- **Croissance du temps de calcul avec la taille du problème** (c'est-à-dire l'évolutivité, en espérant qu'elle ne soit pas exponentielle).
+
+Pour déterminer la valeur de ces métriques, une moyenne sur $N \in [100, 1'000]$ exécutions est typiquement requise.
+
+### Métrique d'Effort Computationnel
+
+L'effort computationnel peut simplement être mesuré comme le temps écoulé (wall-clock time).
+
+- **Avantages** : extrêmement facile à obtenir.
+- **Inconvénients** : dépendant de la machine.
+
+Alternativement :
+
+L'effort computationnel peut être pris comme le décompte des opérations (c'est-à-dire le nombre total d'opérations requises par les évaluations de fitness).
+
+- **Avantages** : permet des comparaisons absolues entre métaheuristiques et machines.
+- **Inconvénients** : non applicable aux problèmes réels lorsque la fitness n'est pas mathématiquement connue.
+
+### Métrique de Qualité de la Solution
+
+- Nous estimons statistiquement la probabilité de trouver une solution en fonction de l'effort computationnel.
+- Cette probabilité est donnée par le taux de succès (c'est-à-dire le nombre de fois que la solution a été trouvée à travers les $\mathcal{N}$ exécutions).
+- **Notes** :
+  - Cette approche nécessite la connaissance de l'optimum global, ce qui est souvent le cas avec les problèmes de référence.
+  - Sinon, on peut utiliser les meilleures solutions connues.
+  - Alternativement, on peut estimer la probabilité de trouver une solution dont la fitness est à $x\%$ de la fitness optimale.
+
+### Remarques
+
+- Pour comparer deux métaheuristiques appliquées au même problème, il est impératif d'utiliser des tests statistiques (ex: Kolmogorov-Smirnov) pour s'assurer que la différence de performance obtenue est statistiquement significative.
+- **Robustesse** : cette propriété des métaheuristiques est critique : il s'agit de l'efficacité générale de l'approche pour une large classe de problèmes plutôt que d'être excellente pour seulement 1 ou 2 problèmes spécifiques.
+
+## Le Théorème "No Free Lunch" (NFL)
+
+Considérons la question suivante : Si la métaheuristique A donne de meilleurs résultats que la métaheuristique B pour un problème donné, pouvons-nous toujours conclure que A sera toujours meilleure ?
+
+De nombreux auteurs ont tiré de telles conclusions.
+
+Le théorème NFL (David Wolpert & William Macready, 1997) donne une réponse définie.
+
+"No Free Lunch" fait allusion au dicton "il n'y a pas de repas gratuit", c'est-à-dire qu'il n'y a pas de raccourcis faciles vers le succès.
+
+### Formulation Verbale
+
+- Une métaheuristique, quelle qu'elle soit, ne peut pas surpasser une autre sur tout le spectre de tous les problèmes.
+- Pour toute mesure de performance, aucun algorithme de recherche n'est meilleur qu'un autre lorsqu'ils sont comparés sur toutes les fonctions discrètes possibles.
+- Si la méthode $A$ surpasse la méthode $B$ pour une classe de problèmes donnée, alors il existe une autre classe de problèmes pour laquelle $B$ surpasse $A$.
+
+### Cadre Formel
+
+1. Nous considérons un espace de recherche de dimension finie $S$, de taille $|S|$.
+2. Nous considérons des fonctions de fitness $f:S\to Y$ où $Y$ est un sous-ensemble de $\mathbb{R}$ qui est fini.
+3. Tous les problèmes possibles dans $S$ sont spécifiés par une fitness parmi les $|Y|^{|S|}$ possibles (à tout point dans $S$, on doit associer un point dans $Y$).
+4. Nous considérons en outre que l'effort de calcul est $m$, de sorte que la trajectoire exploratoire est une séquence $d_{m}$ qui contient $m$ couples $(x_{i},f(x_{i}))$, pour $i = 1,\ldots ,m$.
+
+### Énoncé du Théorème
+
+Soit $P(d_{m}|f,m,A)$ la probabilité que la séquence $d_{m}$ générée par l'algorithme $A$ contienne l'optimum de $f$. Le résultat principal du théorème NFL s'énonce comme :
+
+$$
+\sum_{f}P(d_{m}|f,m,A_{1}) = \sum_{f}P(d_{m}|f,m,A_{2})
+$$
+
+Ainsi la performance moyenne de **N'IMPORTE QUEL** algorithme de recherche sur **TOUS** les problèmes est identique.
+
+- **En pratique** :
+  - Tous les problèmes ne sont pas équiprobables et les problèmes "pathologiques" sont moins fréquents.
+  - Par conséquent, nous pouvons espérer que pour certaines classes de problèmes, certaines métaheuristiques surpassent les autres.

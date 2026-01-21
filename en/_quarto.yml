@@ -22,11 +22,6 @@ website:
     contents:
       - section: "Course"
         contents: "ch*.qmd"
-      - text: "Exercises"
-        file: exercices.qmd
-      - text: "Presentations"
-        file: presentations.qmd
-
 format:
   html:
     theme:
