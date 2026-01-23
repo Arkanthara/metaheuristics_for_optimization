@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ch2 – ISS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9ee82e006983bafa07c9ac29a901142c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ISS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-langage" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Langage</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-langage">    
+        <li>
+    <a class="dropdown-item" href="./../index.html">
+ <span class="dropdown-text">Anglais</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./index.html">
+ <span class="dropdown-text">Français</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch2.html">Recherche Tabu (Tabu Search)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cours</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction aux Métaheuristiques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Recherche Tabu (Tabu Search)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulated Annealing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">La méthode des colonies de fourmis et l’intelligence en essaim</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Algorithmes évolutionnaires</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Genetic Programming - GP)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Chapitre 7) et Performance des Métaheuristiques (Chapitre 8)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapitre 9 : Transitions de Phase en Optimisation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#recherche-tabu-tabu-search" id="toc-recherche-tabu-tabu-search" class="nav-link active" data-scroll-target="#recherche-tabu-tabu-search">Recherche Tabu (Tabu Search)</a>
+  <ul class="collapse">
+  <li><a href="#principes-de-base-de-la-recherche-tabu" id="toc-principes-de-base-de-la-recherche-tabu" class="nav-link" data-scroll-target="#principes-de-base-de-la-recherche-tabu">Principes de Base de la Recherche Tabu</a>
+  <ul class="collapse">
+  <li><a href="#introduction-et-idée-générale" id="toc-introduction-et-idée-générale" class="nav-link" data-scroll-target="#introduction-et-idée-générale">Introduction et idée générale</a></li>
+  <li><a href="#principes-de-base-23" id="toc-principes-de-base-23" class="nav-link" data-scroll-target="#principes-de-base-23">Principes de base (2/3)</a></li>
+  <li><a href="#principes-de-base-33" id="toc-principes-de-base-33" class="nav-link" data-scroll-target="#principes-de-base-33">Principes de base (3/3)</a></li>
+  <li><a href="#pourquoi-la-liste-tabu-ne-peut-elle-pas-être-permanente" id="toc-pourquoi-la-liste-tabu-ne-peut-elle-pas-être-permanente" class="nav-link" data-scroll-target="#pourquoi-la-liste-tabu-ne-peut-elle-pas-être-permanente">Pourquoi la liste tabu ne peut-elle pas être permanente ?</a></li>
+  <li><a href="#diagramme-de-flux-de-la-recherche-tabu-ts" id="toc-diagramme-de-flux-de-la-recherche-tabu-ts" class="nav-link" data-scroll-target="#diagramme-de-flux-de-la-recherche-tabu-ts">Diagramme de flux de la Recherche Tabu (TS)</a></li>
+  <li><a href="#exemple-14-approche-par-force-brute" id="toc-exemple-14-approche-par-force-brute" class="nav-link" data-scroll-target="#exemple-14-approche-par-force-brute">Exemple (1/4) : Approche par force brute</a></li>
+  <li><a href="#exemple-24-recherche-aléatoire-random-search" id="toc-exemple-24-recherche-aléatoire-random-search" class="nav-link" data-scroll-target="#exemple-24-recherche-aléatoire-random-search">Exemple (2/4) : Recherche aléatoire (Random Search)</a></li>
+  <li><a href="#exemple-34-recherche-tabu-ts" id="toc-exemple-34-recherche-tabu-ts" class="nav-link" data-scroll-target="#exemple-34-recherche-tabu-ts">Exemple (3/4) : Recherche Tabu (TS)</a></li>
+  <li><a href="#exemple-44-recherche-tabu-ts" id="toc-exemple-44-recherche-tabu-ts" class="nav-link" data-scroll-target="#exemple-44-recherche-tabu-ts">Exemple (4/4) : Recherche Tabu (TS)</a></li>
+  <li><a href="#convergence-de-ts-13" id="toc-convergence-de-ts-13" class="nav-link" data-scroll-target="#convergence-de-ts-13">Convergence de TS (1/3)</a></li>
+  <li><a href="#convergence-de-ts-23" id="toc-convergence-de-ts-23" class="nav-link" data-scroll-target="#convergence-de-ts-23">Convergence de TS (2/3)</a></li>
+  <li><a href="#convergence-de-ts-33-illustration" id="toc-convergence-de-ts-33-illustration" class="nav-link" data-scroll-target="#convergence-de-ts-33-illustration">Convergence de TS (3/3) : Illustration</a></li>
+  </ul></li>
+  <li><a href="#liste-tabu-a.k.a.-liste-dexclusion" id="toc-liste-tabu-a.k.a.-liste-dexclusion" class="nav-link" data-scroll-target="#liste-tabu-a.k.a.-liste-dexclusion">Liste Tabu (a.k.a. Liste d’Exclusion)</a>
+  <ul class="collapse">
+  <li><a href="#objectifs-et-construction" id="toc-objectifs-et-construction" class="nav-link" data-scroll-target="#objectifs-et-construction">Objectifs et construction</a></li>
+  <li><a href="#plus-sur-les-mouvements-interdits-12" id="toc-plus-sur-les-mouvements-interdits-12" class="nav-link" data-scroll-target="#plus-sur-les-mouvements-interdits-12">Plus sur les mouvements interdits (1/2)</a></li>
+  <li><a href="#plus-sur-les-mouvements-interdits-22" id="toc-plus-sur-les-mouvements-interdits-22" class="nav-link" data-scroll-target="#plus-sur-les-mouvements-interdits-22">Plus sur les mouvements interdits (2/2)</a></li>
+  <li><a href="#mise-à-jour-et-gestion-de-la-liste-tabu" id="toc-mise-à-jour-et-gestion-de-la-liste-tabu" class="nav-link" data-scroll-target="#mise-à-jour-et-gestion-de-la-liste-tabu">Mise à jour et gestion de la liste tabu</a></li>
+  <li><a href="#mémoire-à-court-terme-de-taille-limitée-m" id="toc-mémoire-à-court-terme-de-taille-limitée-m" class="nav-link" data-scroll-target="#mémoire-à-court-terme-de-taille-limitée-m">Mémoire à court terme de taille limitée M</a></li>
+  <li><a href="#mémoire-à-court-terme-avec-temps-dinterdiction-k" id="toc-mémoire-à-court-terme-avec-temps-dinterdiction-k" class="nav-link" data-scroll-target="#mémoire-à-court-terme-avec-temps-dinterdiction-k">Mémoire à court terme avec temps d’interdiction k</a></li>
+  <li><a href="#exemple-de-mémoire-à-court-terme-12" id="toc-exemple-de-mémoire-à-court-terme-12" class="nav-link" data-scroll-target="#exemple-de-mémoire-à-court-terme-12">Exemple de mémoire à court terme (1/2)</a></li>
+  <li><a href="#exemple-de-mémoire-à-court-terme-22" id="toc-exemple-de-mémoire-à-court-terme-22" class="nav-link" data-scroll-target="#exemple-de-mémoire-à-court-terme-22">Exemple de mémoire à court terme (2/2)</a></li>
+  <li><a href="#mémoire-à-long-terme-long-term-memory" id="toc-mémoire-à-long-terme-long-term-memory" class="nav-link" data-scroll-target="#mémoire-à-long-terme-long-term-memory">Mémoire à long terme (Long-term Memory)</a></li>
+  <li><a href="#utilisation-de-la-mémoire" id="toc-utilisation-de-la-mémoire" class="nav-link" data-scroll-target="#utilisation-de-la-mémoire">Utilisation de la mémoire</a></li>
+  <li><a href="#exploration-vs.-exploitation" id="toc-exploration-vs.-exploitation" class="nav-link" data-scroll-target="#exploration-vs.-exploitation">Exploration vs.&nbsp;Exploitation</a></li>
+  </ul></li>
+  <li><a href="#problème-daffectation-quadratique-qap" id="toc-problème-daffectation-quadratique-qap" class="nav-link" data-scroll-target="#problème-daffectation-quadratique-qap">Problème d’Affectation Quadratique (QAP)</a>
+  <ul class="collapse">
+  <li><a href="#définition-du-qap-12" id="toc-définition-du-qap-12" class="nav-link" data-scroll-target="#définition-du-qap-12">Définition du QAP (1/2)</a></li>
+  <li><a href="#définition-du-qap-22" id="toc-définition-du-qap-22" class="nav-link" data-scroll-target="#définition-du-qap-22">Définition du QAP (2/2)</a></li>
+  <li><a href="#exemple-minimiser-la-longueur-des-connexions" id="toc-exemple-minimiser-la-longueur-des-connexions" class="nav-link" data-scroll-target="#exemple-minimiser-la-longueur-des-connexions">Exemple : Minimiser la longueur des connexions</a></li>
+  <li><a href="#exemple-avec-4-objets-et-4-emplacements" id="toc-exemple-avec-4-objets-et-4-emplacements" class="nav-link" data-scroll-target="#exemple-avec-4-objets-et-4-emplacements">Exemple avec 4 objets et 4 emplacements</a></li>
+  <li><a href="#matrices-de-flux-et-de-distance" id="toc-matrices-de-flux-et-de-distance" class="nav-link" data-scroll-target="#matrices-de-flux-et-de-distance">Matrices de flux et de distance</a></li>
+  <li><a href="#code-pour-calculer-la-fitness-qap" id="toc-code-pour-calculer-la-fitness-qap" class="nav-link" data-scroll-target="#code-pour-calculer-la-fitness-qap">Code pour calculer la fitness QAP</a></li>
+  <li><a href="#solution-par-tabu-search" id="toc-solution-par-tabu-search" class="nav-link" data-scroll-target="#solution-par-tabu-search">Solution par Tabu Search</a></li>
+  <li><a href="#voisinages-standards" id="toc-voisinages-standards" class="nav-link" data-scroll-target="#voisinages-standards">Voisinages standards</a></li>
+  <li><a href="#évaluation-du-voisinage" id="toc-évaluation-du-voisinage" class="nav-link" data-scroll-target="#évaluation-du-voisinage">Évaluation du voisinage</a></li>
+  <li><a href="#liste-tabu-et-mémoire-à-court-terme" id="toc-liste-tabu-et-mémoire-à-court-terme" class="nav-link" data-scroll-target="#liste-tabu-et-mémoire-à-court-terme">Liste tabu et mémoire à court terme</a></li>
+  <li><a href="#implémentation-de-la-liste-tabu-12" id="toc-implémentation-de-la-liste-tabu-12" class="nav-link" data-scroll-target="#implémentation-de-la-liste-tabu-12">Implémentation de la liste tabu (1/2)</a></li>
+  <li><a href="#implémentation-de-la-liste-tabu-22" id="toc-implémentation-de-la-liste-tabu-22" class="nav-link" data-scroll-target="#implémentation-de-la-liste-tabu-22">Implémentation de la liste tabu (2/2)</a></li>
+  <li><a href="#le-problème-de-référence-nug5" id="toc-le-problème-de-référence-nug5" class="nav-link" data-scroll-target="#le-problème-de-référence-nug5">Le problème de référence NUG5</a></li>
+  <li><a href="#application-de-tabu-search-sur-nug5" id="toc-application-de-tabu-search-sur-nug5" class="nav-link" data-scroll-target="#application-de-tabu-search-sur-nug5">Application de Tabu Search sur NUG5</a></li>
+  <li><a href="#itération-1" id="toc-itération-1" class="nav-link" data-scroll-target="#itération-1">Itération #1</a></li>
+  <li><a href="#liste-tabu-à-litération-1-12" id="toc-liste-tabu-à-litération-1-12" class="nav-link" data-scroll-target="#liste-tabu-à-litération-1-12">Liste tabu à l’itération #1 (1/2)</a></li>
+  <li><a href="#liste-tabu-à-litération-1-22" id="toc-liste-tabu-à-litération-1-22" class="nav-link" data-scroll-target="#liste-tabu-à-litération-1-22">Liste tabu à l’itération #1 (2/2)</a></li>
+  <li><a href="#itération-2" id="toc-itération-2" class="nav-link" data-scroll-target="#itération-2">Itération #2</a></li>
+  <li><a href="#liste-tabu-à-litération-2" id="toc-liste-tabu-à-litération-2" class="nav-link" data-scroll-target="#liste-tabu-à-litération-2">Liste tabu à l’itération #2</a></li>
+  <li><a href="#itération-3" id="toc-itération-3" class="nav-link" data-scroll-target="#itération-3">Itération #3</a></li>
+  <li><a href="#liste-tabu-à-litération-3" id="toc-liste-tabu-à-litération-3" class="nav-link" data-scroll-target="#liste-tabu-à-litération-3">Liste tabu à l’itération #3</a></li>
+  <li><a href="#itération-4" id="toc-itération-4" class="nav-link" data-scroll-target="#itération-4">Itération #4</a></li>
+  <li><a href="#liste-tabu-à-litération-4" id="toc-liste-tabu-à-litération-4" class="nav-link" data-scroll-target="#liste-tabu-à-litération-4">Liste tabu à l’itération #4</a></li>
+  <li><a href="#itérations-suivantes" id="toc-itérations-suivantes" class="nav-link" data-scroll-target="#itérations-suivantes">Itérations suivantes</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch2.html">Recherche Tabu (Tabu Search)</a></li></ol></nav></header>
+
+
+
+
+
+<section id="recherche-tabu-tabu-search" class="level1">
+<h1>Recherche Tabu (Tabu Search)</h1>
+<section id="principes-de-base-de-la-recherche-tabu" class="level2">
+<h2 class="anchored" data-anchor-id="principes-de-base-de-la-recherche-tabu">Principes de Base de la Recherche Tabu</h2>
+<section id="introduction-et-idée-générale" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-et-idée-générale">Introduction et idée générale</h3>
+<p>Introduite par <strong>Fred Glover en 1986</strong>.</p>
+<p><strong>Idée générale :</strong></p>
+<p>→ Conçue pour guider les recherches locales au-delà des optima locaux en évitant de revenir vers des solutions précédemment visitées.</p>
+<p><strong>La recherche Tabu (TS) :</strong></p>
+<ul>
+<li>Est essentiellement <strong>non-markovienne</strong></li>
+<li>S’appuie sur les méthodes de recherche locale (comme le <strong>hill climbing</strong>), en se déplaçant itérativement d’une solution vers une meilleure solution voisine</li>
+<li>Utilise une <strong>structure de mémoire</strong> pour : (i) échapper aux optima locaux et (ii) éviter de revisiter les solutions récemment explorées</li>
+<li>Explore l’espace de recherche de manière plus large et “intelligente”</li>
+</ul>
+</section>
+<section id="principes-de-base-23" class="level3">
+<h3 class="anchored" data-anchor-id="principes-de-base-23">Principes de base (2/3)</h3>
+<p>Bien adaptée aux problèmes d’optimisation combinatoire, tels que les <strong>quadratic assignment problems</strong> (QAPs).</p>
+<p>Comme la plupart des métaheuristiques, les principes fondamentaux sont plutôt simples :</p>
+<ul>
+<li>Explorer l’espace de recherche de voisin en voisin : <span class="math inline">\(x_n \to x_{n+1} \in V(x_n)\)</span></li>
+<li>L’opération d’exploration cherche le “meilleur” <span class="math inline">\(x_{n+1} \in V(x_n)\)</span></li>
+<li>“Meilleur” signifie :
+<ul>
+<li>Solution non-tabu</li>
+<li>Fitness optimale dans <span class="math inline">\(V(x_n) \setminus \{x_n\}\)</span> (indépendamment de la valeur de <span class="math inline">\(f(x_n)\)</span>, la fitness peut être dégradée)</li>
+<li>Si plusieurs points donnent la même fitness optimale : sélection aléatoire</li>
+</ul></li>
+</ul>
+</section>
+<section id="principes-de-base-33" class="level3">
+<h3 class="anchored" data-anchor-id="principes-de-base-33">Principes de base (3/3)</h3>
+<p><strong>Spécificité clé :</strong></p>
+<p>→ Existence de points ou mouvements <strong>interdits</strong>, ou <strong>tabu</strong>.</p>
+<p><strong>Objectif de cette liste tabu :</strong></p>
+<p>→ Empêcher l’opérateur de recherche de revenir vers des configurations précédemment explorées.</p>
+<p><strong>L’attribut tabu n’est pas permanent :</strong></p>
+<p>→ Les points/mouvements interdits sont stockés dans une <strong>mémoire à court terme</strong>.</p>
+<p>→ La méthode tabu opère sur la base d’une <strong>mise à jour constante</strong> de la liste tabu pendant le processus d’exploration.</p>
+</section>
+<section id="pourquoi-la-liste-tabu-ne-peut-elle-pas-être-permanente" class="level3">
+<h3 class="anchored" data-anchor-id="pourquoi-la-liste-tabu-ne-peut-elle-pas-être-permanente">Pourquoi la liste tabu ne peut-elle pas être permanente ?</h3>
+<p>Comme montré ci-dessous (marcheur dans <span class="math inline">\(\mathbb{Z}^2\)</span> avec voisinage NEWS), la liste tabu pourrait bloquer le processus si elle était permanente.</p>
+<p>En effet, si on interdit définitivement tous les points visités, on peut se retrouver dans une situation où tous les voisins du point actuel sont interdits, bloquant ainsi la progression de l’algorithme.</p>
+</section>
+<section id="diagramme-de-flux-de-la-recherche-tabu-ts" class="level3">
+<h3 class="anchored" data-anchor-id="diagramme-de-flux-de-la-recherche-tabu-ts">Diagramme de flux de la Recherche Tabu (TS)</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Choisir configuration initiale x0&lt;br/&gt;Liste Tabu vide] --&gt; B[Générer les voisins de x0]
+    B --&gt; C[Sélectionner le meilleur&lt;br/&gt;voisin non-tabu x1]
+    C --&gt; D[Mettre à jour la&lt;br/&gt;meilleure solution]
+    D --&gt; E{Condition&lt;br/&gt;d'arrêt ?}
+    E --&gt;|Non| F[Mettre à jour la liste tabu&lt;br/&gt;avec le mouvement x0 vers x1]
+    F --&gt; G[Mettre à jour la solution&lt;br/&gt;courante: x0 = x1]
+    G --&gt; B
+    E --&gt;|Oui| H[Sortie: Meilleure solution&lt;br/&gt;Stop]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>→ L’élément central est la <strong>gestion de la liste tabu</strong>.</p>
+</section>
+<section id="exemple-14-approche-par-force-brute" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-14-approche-par-force-brute">Exemple (1/4) : Approche par force brute</h3>
+<p>Deux extrema, dans un domaine de taille <span class="math inline">\(20 \times 20\)</span> : en <span class="math inline">\((6, 6)\)</span> et <span class="math inline">\((10, 10)\)</span>, respectivement. Celui en <span class="math inline">\((10, 10)\)</span> est le max global.</p>
+<p>Une recherche exhaustive nécessite d’explorer <span class="math inline">\(400 = 20 \times 20\)</span> points.</p>
+</section>
+<section id="exemple-24-recherche-aléatoire-random-search" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-24-recherche-aléatoire-random-search">Exemple (2/4) : Recherche aléatoire (Random Search)</h3>
+<p><strong>Trajectoire de recherche aléatoire (50 étapes)</strong></p>
+<p>En bleu, le point initial, en gris le second max et en noir le max global.</p>
+<p>→ Une recherche par marche aléatoire trouve, par chance, le second minimum. En 50 étapes d’exploration, seule une petite portion de <span class="math inline">\(S\)</span> est explorée car les mêmes points sont souvent ré-explorés ⇒ Inefficace !</p>
+</section>
+<section id="exemple-34-recherche-tabu-ts" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-34-recherche-tabu-ts">Exemple (3/4) : Recherche Tabu (TS)</h3>
+<p><strong>Trajectoire Tabu (50 étapes) avec taille de mémoire tabu = 4</strong></p>
+<p><strong>Trajectoire Tabu (50 étapes) avec taille de mémoire tabu = 10</strong></p>
+<p>Avec une liste tabu de taille 4, la recherche se déplace autour du second maximum car elle oublie qu’il a déjà été visité. Avec une mémoire de taille 10, la recherche doit s’éloigner de cet extremum local et entrer dans le bassin d’attraction de l’extremum global. La trajectoire finit par se déplacer autour du max avec un chemin de longueur 10. ⇒ La recherche est réussie !</p>
+</section>
+<section id="exemple-44-recherche-tabu-ts" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-44-recherche-tabu-ts">Exemple (4/4) : Recherche Tabu (TS)</h3>
+<p><strong>Trajectoire Tabu (167 étapes) avec taille de mémoire tabu = 200</strong></p>
+<p>Si la taille de la liste tabu continue d’augmenter, on visite de manière plutôt exhaustive l’espace de recherche. Mais on peut se retrouver bloqué (point rouge, atteint après 167 étapes).</p>
+</section>
+<section id="convergence-de-ts-13" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-de-ts-13">Convergence de TS (1/3)</h3>
+<p><strong>Convergence du processus de recherche :</strong> plusieurs définitions possibles.</p>
+<p>TS trouve-t-elle l’optimum global dans un paysage de fitness donné ?</p>
+<p>TS trouve-t-elle une solution “suffisamment bonne” dans un paysage de fitness donné selon un critère donné ?</p>
+<p><strong>La convergence dépend évidemment d’un certain nombre de facteurs :</strong> principalement</p>
+<ul>
+<li>Longueur de la mémoire (i.e., taille de la liste tabu)</li>
+<li>Taille/structure du voisinage</li>
+<li>Condition initiale</li>
+<li>Critère d’arrêt (s’il y en a un)</li>
+</ul>
+<p>et bien sûr, elle dépend du paysage de fitness !</p>
+</section>
+<section id="convergence-de-ts-23" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-de-ts-23">Convergence de TS (2/3)</h3>
+<p>Pour TS, nous avons le résultat mathématique suivant :</p>
+<p><strong>SI</strong> l’espace de recherche <span class="math inline">\(S\)</span> est fini, et</p>
+<p><strong>SI</strong> le voisinage est symétrique (<span class="math inline">\(s \in V(t) \Rightarrow t \in V(s)\)</span>), et</p>
+<p><strong>SI</strong> tout <span class="math inline">\(s' \in S\)</span> est atteignable depuis tout <span class="math inline">\(s \in S\)</span> en un nombre fini d’étapes</p>
+<p><strong>ALORS</strong> une TS qui stocke tous les points visités, et qui est également autorisée à revisiter le point le plus ancien de la liste, visitera tout l’espace de recherche, et trouvera donc l’optimum avec certitude.</p>
+<p><strong>Ce résultat mathématique a peu de pertinence pratique car :</strong></p>
+<ul>
+<li>Il ne dit rien sur le temps nécessaire pour une telle exploration (il prédit un temps de recherche exponentiel étant donné la taille de <span class="math inline">\(S\)</span>)</li>
+<li>Il nécessite une mémoire arbitrairement longue pour stocker la liste tabu</li>
+</ul>
+</section>
+<section id="convergence-de-ts-33-illustration" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-de-ts-33-illustration">Convergence de TS (3/3) : Illustration</h3>
+<p><strong>Trajectoire Tabu (400 étapes)</strong></p>
+<p><strong>Trajectoire Tabu (600 étapes)</strong></p>
+<p>Lorsque la recherche se bloque, elle peut redémarrer depuis le point tabu le plus ancien. Cela peut prendre plus d’étapes que la taille de l’espace car de nombreux points tabu ont tous leurs voisins également tabu. On a souvent besoin de visiter une grande partie de la liste tabu avant de trouver une “sortie”.</p>
+</section>
+</section>
+<section id="liste-tabu-a.k.a.-liste-dexclusion" class="level2">
+<h2 class="anchored" data-anchor-id="liste-tabu-a.k.a.-liste-dexclusion">Liste Tabu (a.k.a. Liste d’Exclusion)</h2>
+<section id="objectifs-et-construction" class="level3">
+<h3 class="anchored" data-anchor-id="objectifs-et-construction">Objectifs et construction</h3>
+<p><strong>Objectifs :</strong></p>
+<ul>
+<li>Éviter de ré-échantillonner des configurations précédemment visitées</li>
+<li>Améliorer l’efficacité du processus d’exploration de <span class="math inline">\(S\)</span></li>
+</ul>
+<p><strong>Comment construire la liste tabu ? Que faut-il y inclure ?</strong></p>
+<ul>
+<li>Configurations précédemment visitées</li>
+<li>Attributs des configurations précédemment visitées (par exemple, fitness, etc.)</li>
+<li>Souvent, <strong>mouvements interdits</strong> <span class="math inline">\(m_j\)</span> parmi ceux définissant le voisinage</li>
+</ul>
+<p><span class="math display">\[V(s) = \{s' \in S \mid s' = m_i(s), \, i = 1, \ldots, \ell\}\]</span></p>
+<p>où les mouvements <span class="math inline">\(m_i\)</span> sont donnés</p>
+<ul>
+<li>Ou mouvements précédemment utilisés pour explorer l’espace de recherche</li>
+</ul>
+</section>
+<section id="plus-sur-les-mouvements-interdits-12" class="level3">
+<h3 class="anchored" data-anchor-id="plus-sur-les-mouvements-interdits-12">Plus sur les mouvements interdits (1/2)</h3>
+<p><strong>À inclure dans la liste tabu :</strong></p>
+<p>→ <strong>Mouvement inverse</strong> d’un mouvement précédemment effectué.</p>
+<p>Pour une transposition <span class="math inline">\((i, j)\)</span>, la même transposition est interdite (puisqu’elle est son propre inverse).</p>
+<p>Pour un marcheur 2D discret dans <span class="math inline">\(\mathbb{Z}^2\)</span> avec voisinage NEWS :</p>
+<p>→ Après un mouvement <strong>N</strong>, on interdit un mouvement <strong>S</strong></p>
+<p>→ Après un mouvement <strong>E</strong>, on interdit un mouvement <strong>W</strong></p>
+<p>De telles stratégies empêchent les cycles simples qui ont le potentiel de bloquer le processus de recherche.</p>
+</section>
+<section id="plus-sur-les-mouvements-interdits-22" class="level3">
+<h3 class="anchored" data-anchor-id="plus-sur-les-mouvements-interdits-22">Plus sur les mouvements interdits (2/2)</h3>
+<p><strong>Pourquoi les mouvements interdits sont-ils importants ?</strong></p>
+<ul>
+<li><strong>Prévenir les cycles :</strong> éviter les mouvements triviaux d’aller-retour</li>
+<li><strong>Encourager l’exploration :</strong> force l’algorithme à considérer des mouvements non améliorants, l’aidant à échapper aux minima locaux</li>
+<li><strong>Équilibre exploitation vs.&nbsp;exploration :</strong> le mécanisme tabu maintient une mémoire de l’activité récente, poussant la recherche vers des régions inexplorées</li>
+</ul>
+</section>
+<section id="mise-à-jour-et-gestion-de-la-liste-tabu" class="level3">
+<h3 class="anchored" data-anchor-id="mise-à-jour-et-gestion-de-la-liste-tabu">Mise à jour et gestion de la liste tabu</h3>
+<p><strong>Exigence stricte :</strong></p>
+<p>→ La liste tabu ne peut pas être permanente.</p>
+<p>⇒ Des mécanismes sont nécessaires pour effacer/vider les éléments tabu.</p>
+<p><strong>Deux types de mémoire peuvent être considérés :</strong></p>
+<p>→ <strong>Mémoire à court terme</strong> (Short-term memory)</p>
+<p>→ <strong>Mémoire à long terme</strong> (Long-term memory)</p>
+</section>
+<section id="mémoire-à-court-terme-de-taille-limitée-m" class="level3">
+<h3 class="anchored" data-anchor-id="mémoire-à-court-terme-de-taille-limitée-m">Mémoire à court terme de taille limitée M</h3>
+<p>La mémoire à court terme obéit à l’une des deux approches suivantes :</p>
+<ol type="1">
+<li><p>Utiliser une liste tabu de taille finie et ne conserver que les exclusions les plus récentes (<strong>FIFO</strong> : First In, First Out)</p></li>
+<li><p>Associer aux données dans la liste tabu une durée d’exclusion (temps d’interdiction <span class="math inline">\(k\)</span>)</p></li>
+</ol>
+<p>Seuls les derniers <span class="math inline">\(M\)</span> éléments tabu sont conservés (les plus récents).</p>
+</section>
+<section id="mémoire-à-court-terme-avec-temps-dinterdiction-k" class="level3">
+<h3 class="anchored" data-anchor-id="mémoire-à-court-terme-avec-temps-dinterdiction-k">Mémoire à court terme avec temps d’interdiction k</h3>
+<p><strong>Approche la plus courante :</strong></p>
+<p>La mémoire à court terme est une <strong>map</strong> avec les mouvements comme entrées, et la valeur associée est le temps pendant lequel ce mouvement est tabu.</p>
+<p>Les mouvements tabu sont conservés pendant <span class="math inline">\(k\)</span> itérations : <span class="math inline">\(k\)</span> est le <strong>temps d’interdiction</strong> ou <strong>tenure time</strong>, ou <strong>tabu tenure</strong>.</p>
+<p>La valeur optimale du temps d’interdiction <span class="math inline">\(k\)</span> n’est pas connue :</p>
+<p>→ Paramètre de guidage</p>
+<p>→ Il est typiquement choisi aléatoirement avec une distribution de probabilité donnée dont les paramètres sont déterminés empiriquement.</p>
+</section>
+<section id="exemple-de-mémoire-à-court-terme-12" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-de-mémoire-à-court-terme-12">Exemple de mémoire à court terme (1/2)</h3>
+<p><strong>La liste tabu est :</strong></p>
+<ul>
+<li>Construite comme un tableau <span class="math inline">\(T\)</span> de taille <span class="math inline">\(M\)</span></li>
+<li>Construite sur un attribut <span class="math inline">\(h(x)\)</span> des solutions <span class="math inline">\(x \in S\)</span> (<span class="math inline">\(h(x)\)</span> est une fonction entière positive)</li>
+</ul>
+<p>Soit <span class="math inline">\(x\)</span> la solution à l’itération <span class="math inline">\(t\)</span>. Nous stockons :</p>
+<p><span class="math display">\[t + k \to T[h(x) \mod M]\]</span></p>
+<p>(<span class="math inline">\(k\)</span> étant le temps d’interdiction)</p>
+<p>La configuration <span class="math inline">\(x'\)</span> sera tabu à l’itération <span class="math inline">\(t'\)</span> si :</p>
+<p><span class="math display">\[t' &lt; T[h(x') \mod M]\]</span></p>
+<p>→ Avec ce mécanisme, les points ayant l’attribut <span class="math inline">\(h(x')\)</span> seront interdits pendant les <span class="math inline">\(k\)</span> prochaines itérations.</p>
+<p><strong>Question importante :</strong> quelles sont les valeurs optimales de <span class="math inline">\(M\)</span> et <span class="math inline">\(k\)</span> ?</p>
+<p>Voir le cas de la liste tabu pour le problème QAP.</p>
+</section>
+<section id="exemple-de-mémoire-à-court-terme-22" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-de-mémoire-à-court-terme-22">Exemple de mémoire à court terme (2/2)</h3>
+<p>Marcheur aléatoire dans <span class="math inline">\(\mathbb{Z}^2\)</span> avec voisinage défini par les 4 mouvements NEWS : North, East, South et West.</p>
+<p><strong>Exemple de liste tabu (initialisée avec des zéros partout)</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 39%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mouvement</th>
+<th>Tenure time<br>(mémoire à court terme)</th>
+<th>Fréquence de mouvement<br>(mémoire à long terme)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>North</td>
+<td>0</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>East</td>
+<td>0</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>South</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>West</td>
+<td>5</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>À la première itération, <span class="math inline">\(t = 1\)</span>, <strong>North</strong> est sélectionné pour se déplacer le long de la trajectoire exploratoire. Le mouvement inverse <strong>South</strong> devient donc tabu (pour éviter de revenir en arrière), disons pour <span class="math inline">\(k = 2\)</span> itérations. On met <span class="math inline">\(t + k = 3\)</span> dans la colonne “tenure time” pour l’entrée South (mouvement interdit pour les itérations #2 et #3).</p>
+<p>À la seconde itération, <span class="math inline">\(t = 2\)</span>, le mouvement <strong>East</strong> est sélectionné avec <span class="math inline">\(k = 3\)</span> → <span class="math inline">\(t + k = 5\)</span> dans “tenure time” pour West (mouvement interdit pour les itérations #3 à #5).</p>
+<p>Avec un grand tenure time <span class="math inline">\(k\)</span> : exploration biaisée vers North et East.</p>
+<p>→ D’où le besoin d’une mémoire à long terme.</p>
+</section>
+<section id="mémoire-à-long-terme-long-term-memory" class="level3">
+<h3 class="anchored" data-anchor-id="mémoire-à-long-terme-long-term-memory">Mémoire à long terme (Long-term Memory)</h3>
+<p><strong>Observation :</strong></p>
+<p>→ Utiliser le même mouvement de manière répétée peut être acceptable à court terme, mais pas à long terme.</p>
+<p><strong>Remède :</strong></p>
+<p>→ Il est essentiel d’éviter les biais dans les sélections de mouvements.</p>
+<p><strong>Implémentation :</strong></p>
+<ul>
+<li>Collecter des informations sur la trajectoire d’exploration complète depuis le début</li>
+<li>Générer des statistiques sur les mouvements/attributs/solutions passés</li>
+<li>Pénaliser les mouvements ayant une fréquence trop élevée, pour favoriser les moins fréquents (promouvoir l’exploration)</li>
+<li>Ce système bonus-malus peut être encore modulé par la valeur de la fitness (équilibre exploration vs.&nbsp;exploitation)</li>
+</ul>
+</section>
+<section id="utilisation-de-la-mémoire" class="level3">
+<h3 class="anchored" data-anchor-id="utilisation-de-la-mémoire">Utilisation de la mémoire</h3>
+<p>On peut combiner et/ou alterner l’utilisation des mémoires à court et long terme.</p>
+<p>Il est nécessaire d’introduire des <strong>paramètres de contrôle</strong> pour les deux types de mémoire.</p>
+<p>→ Paramètres de guidage</p>
+<p>Encore une fois, les valeurs optimales pour ces paramètres de guidage sont inconnues (inconvénient des métaheuristiques).</p>
+<p>Ces paramètres de contrôle de la mémoire doivent être ajoutés à d’autres paramètres de guidage inconnus : <span class="math inline">\(M\)</span> et <span class="math inline">\(k\)</span>.</p>
+</section>
+<section id="exploration-vs.-exploitation" class="level3">
+<h3 class="anchored" data-anchor-id="exploration-vs.-exploitation">Exploration vs.&nbsp;Exploitation</h3>
+<p>Le nombre d’entrées tabu ou de mouvements tabu influence le processus d’exploration.</p>
+<p>Plus le nombre de mouvements interdits est grand, plus on choisit comme voisins des solutions avec une fitness plus faible.</p>
+<p>→ <strong>exploration</strong> ou <strong>diversification</strong></p>
+<p>Si ce nombre est petit, on sera libre d’utiliser des solutions à haute fitness.</p>
+<p>→ <strong>exploitation</strong> ou <strong>intensification</strong></p>
+<p>Un autre ingrédient pourrait être intégré, le soi-disant <strong>“aspiration”</strong> : si un point dans le voisinage a une fitness supérieure à celles rencontrées auparavant, ce point est sélectionné, même si le mouvement est interdit (tabu contourné).</p>
+</section>
+</section>
+<section id="problème-daffectation-quadratique-qap" class="level2">
+<h2 class="anchored" data-anchor-id="problème-daffectation-quadratique-qap">Problème d’Affectation Quadratique (QAP)</h2>
+<section id="définition-du-qap-12" class="level3">
+<h3 class="anchored" data-anchor-id="définition-du-qap-12">Définition du QAP (1/2)</h3>
+<p>Appartient à une classe importante et difficile de problèmes d’optimisation combinatoire. <strong>Étant donné :</strong></p>
+<ul>
+<li><span class="math inline">\(n\)</span> objets et <span class="math inline">\(n\)</span> emplacements possibles pour ces objets</li>
+<li>Distances <span class="math inline">\(d_{rs}\)</span> entre les emplacements <span class="math inline">\(r\)</span> et <span class="math inline">\(s\)</span></li>
+<li>Poids ou flux <span class="math inline">\(f_{ij}\)</span> entre les paires <span class="math inline">\((i, j)\)</span> d’objets</li>
+</ul>
+<p><strong>Objectif :</strong></p>
+<p>Trouver le placement optimal <span class="math inline">\(i \to r_i\)</span> pour les <span class="math inline">\(n\)</span> objets aux <span class="math inline">\(n\)</span> emplacements (= permutation) de manière à minimiser la fitness suivante :</p>
+<p><span class="math display">\[f = \sum_{i,j} f_{ij} d_{r_i r_j} = \sum_{r,s} f_{i_r i_s} d_{rs}\]</span></p>
+<p>où <span class="math inline">\(r_i\)</span> dénote la position de l’objet <span class="math inline">\(i\)</span>. Une autre notation courante est <span class="math inline">\(i_s\)</span> dénotant l’objet à l’emplacement <span class="math inline">\(s\)</span>.</p>
+<p>L’espace de recherche <span class="math inline">\(S\)</span> est donc celui des permutations de <span class="math inline">\(n\)</span> objets.</p>
+</section>
+<section id="définition-du-qap-22" class="level3">
+<h3 class="anchored" data-anchor-id="définition-du-qap-22">Définition du QAP (2/2)</h3>
+<p>Le problème QAP consiste à trouver l’affectation optimale d’objets à des emplacements, en tenant compte à la fois des flux entre objets et des distances entre emplacements.</p>
+<p><strong>Exemples d’applications :</strong></p>
+<ul>
+<li>Placement de composants électroniques sur un circuit</li>
+<li>Agencement d’installations industrielles</li>
+<li>Organisation spatiale de services dans un hôpital</li>
+<li>Tout problème où l’on doit minimiser les “coûts d’interaction” entre entités placées à différents emplacements</li>
+</ul>
+</section>
+<section id="exemple-minimiser-la-longueur-des-connexions" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-minimiser-la-longueur-des-connexions">Exemple : Minimiser la longueur des connexions</h3>
+<p><span class="math inline">\(n\)</span> composants électroniques <span class="math inline">\(i\)</span> (ou modules) qui doivent être affectés aux nœuds d’un réseau régulier.</p>
+<p><strong>Distances de Manhattan</strong> entre les nœuds <span class="math inline">\(d_{rs}\)</span></p>
+<p><span class="math inline">\(f_{ij}\)</span> : nombre de fils/connexions entre <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span></p>
+<p>Cela pourrait également représenter le flux de personnes entre les bâtiments.</p>
+<p><strong>Autre exemple :</strong> problème du voyageur de commerce (TSP)</p>
+<p>→ Les emplacements sont les villes à visiter, les objets sont l’ordre de visite, et les flux sont booléens <span class="math inline">\(f_{i,i+1} = 1\)</span> ou <span class="math inline">\(0\)</span>.</p>
+</section>
+<section id="exemple-avec-4-objets-et-4-emplacements" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-avec-4-objets-et-4-emplacements">Exemple avec 4 objets et 4 emplacements</h3>
+<p><strong>Distances :</strong> <span class="math inline">\(d_{AB} = 4\)</span>, <span class="math inline">\(d_{AC} = 3\)</span>, <span class="math inline">\(d_{AD} = 5\)</span>, <span class="math inline">\(d_{BC} = 5\)</span>, <span class="math inline">\(d_{BD} = 3\)</span>, <span class="math inline">\(d_{CD} = 4\)</span></p>
+<p><strong>Configuration de gauche :</strong></p>
+<p>Objets : 3, 2, 0, 1 aux emplacements A, B, C, D</p>
+<p>La configuration de gauche a la fitness suivante :</p>
+<p><span class="math display">\[f = \sum_{i,j} f_{ij} d_{r_i r_j}\]</span></p>
+<p><span class="math display">\[= f_{01} d_{CD} + f_{03} d_{CA} + f_{13} d_{DA} + f_{23} d_{BA}\]</span></p>
+<p><span class="math display">\[= 1 \times 4 + 1 \times 3 + 2 \times 5 + 3 \times 4 = 29\]</span></p>
+<p><strong>Et pour la configuration de droite :</strong></p>
+<p>Objets : 3, 1, 2, 0 aux emplacements A, B, C, D</p>
+<p><span class="math display">\[f = f_{01} d_{DB} + f_{03} d_{DA} + f_{13} d_{BA} + f_{23} d_{CA}\]</span></p>
+<p><span class="math display">\[= 1 \times 3 + 1 \times 5 + 2 \times 4 + 3 \times 3 = 25\]</span></p>
+</section>
+<section id="matrices-de-flux-et-de-distance" class="level3">
+<h3 class="anchored" data-anchor-id="matrices-de-flux-et-de-distance">Matrices de flux et de distance</h3>
+<p><strong>Matrice de flux :</strong></p>
+<p><span class="math display">\[\text{Flow} = \begin{pmatrix}
+0 &amp; 1 &amp; 0 &amp; 1 \\
+1 &amp; 0 &amp; 0 &amp; 2 \\
+0 &amp; 0 &amp; 0 &amp; 3 \\
+1 &amp; 2 &amp; 3 &amp; 0
+\end{pmatrix}\]</span></p>
+<p><strong>Matrice de distance :</strong></p>
+<p><span class="math display">\[\text{Distance} = \begin{pmatrix}
+0 &amp; 4 &amp; 3 &amp; 5 \\
+4 &amp; 0 &amp; 5 &amp; 3 \\
+3 &amp; 5 &amp; 0 &amp; 4 \\
+5 &amp; 3 &amp; 4 &amp; 0
+\end{pmatrix}\]</span></p>
+</section>
+<section id="code-pour-calculer-la-fitness-qap" class="level3">
+<h3 class="anchored" data-anchor-id="code-pour-calculer-la-fitness-qap">Code pour calculer la fitness QAP</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> QAP_Fitness(permutation, Flow, Dist):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(F)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    fitness <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(r, n):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            fitness <span class="op">+=</span> Dist[r][s] <span class="op">*</span> Flow[permutation[r]][permutation[s]]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fitness</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>permutation <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># permutation[r] = objet placé à l'emplacement r</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Emplacements A, B, C, D - Exemples de fitness :</strong></p>
+<ul>
+<li>[0, 1, 2, 3] fitness = 27</li>
+<li>[1, 0, 2, 3] fitness = 29</li>
+<li>[2, 0, 1, 3] fitness = 31</li>
+<li>[0, 2, 1, 3] fitness = 25</li>
+<li>[1, 2, 0, 3] fitness = 26</li>
+<li>[2, 1, 0, 3] fitness = 30</li>
+<li>[3, 1, 0, 2] fitness = 31</li>
+<li>[1, 3, 0, 2] fitness = 25</li>
+<li>[0, 3, 1, 2] fitness = 26</li>
+<li>[3, 0, 1, 2] fitness = 30</li>
+<li>[1, 0, 3, 2] fitness = 27</li>
+<li>[0, 1, 3, 2] fitness = 29</li>
+<li>[0, 2, 3, 1] fitness = 31</li>
+<li>[2, 0, 3, 1] fitness = 25</li>
+<li>[3, 0, 2, 1] fitness = 26</li>
+<li>[0, 3, 2, 1] fitness = 30</li>
+<li>[2, 3, 0, 1] fitness = 27</li>
+<li>[3, 2, 0, 1] fitness = 29</li>
+<li>[3, 2, 1, 0] fitness = 27</li>
+<li>[2, 3, 1, 0] fitness = 29</li>
+<li>[1, 3, 2, 0] fitness = 31</li>
+<li>[3, 1, 2, 0] fitness = 25</li>
+<li>[2, 1, 3, 0] fitness = 26</li>
+<li>[1, 2, 3, 0] fitness = 30</li>
+</ul>
+</section>
+<section id="solution-par-tabu-search" class="level3">
+<h3 class="anchored" data-anchor-id="solution-par-tabu-search">Solution par Tabu Search</h3>
+<p><strong>Espace de recherche :</strong> toutes les permutations</p>
+<p><span class="math display">\[p = (i_1, i_2, \ldots, i_n)\]</span></p>
+<p>où <span class="math inline">\(i_k\)</span> est l’indice de l’objet à l’emplacement <span class="math inline">\(k\)</span>.</p>
+<p>→ Alternativement, on pourrait prendre <span class="math inline">\(p = (r_1, r_2, \ldots, r_n)\)</span> où <span class="math inline">\(r_i\)</span> est l’emplacement sélectionné pour l’objet <span class="math inline">\(i\)</span>.</p>
+<p><strong>Voisinage :</strong> choisir les transformations/mouvements le construisant.</p>
+</section>
+<section id="voisinages-standards" class="level3">
+<h3 class="anchored" data-anchor-id="voisinages-standards">Voisinages standards</h3>
+<p><strong>Échanger deux objets contigus :</strong></p>
+<p><span class="math display">\[(i_1, i_2, \ldots, i_k, i_{k+1}, \ldots, i_n) \to (i_1, i_2, \ldots, i_{k+1}, i_k, \ldots, i_n)\]</span></p>
+<p><span class="math inline">\(n - 1\)</span> mouvements possibles dans ce voisinage.</p>
+<p><strong>Échanger deux objets quelconques :</strong></p>
+<p><span class="math display">\[(i_1, i_2, \ldots, i_k, \ldots, i_\ell, \ldots, i_n) \to (i_1, i_2, \ldots, i_\ell, \ldots, i_k, \ldots, i_n)\]</span></p>
+<p><span class="math inline">\(n(n - 1)/2\)</span> mouvements possibles dans ce voisinage.</p>
+<p><strong>En déplaçant et insérant un objet :</strong></p>
+<p><span class="math display">\[(i_1, i_2, \ldots, i_k, i_{k+1}, \ldots, i_\ell, i_{\ell+1}, \ldots, i_n) \to (i_1, i_2, \ldots, i_k, i_\ell, i_{k+1}, \ldots, i_{\ell-1}, i_{\ell+1}, \ldots, i_n)\]</span></p>
+<p>On peut montrer que ce voisinage admet <span class="math inline">\(n(n - 2) + 1\)</span> voisins.</p>
+</section>
+<section id="évaluation-du-voisinage" class="level3">
+<h3 class="anchored" data-anchor-id="évaluation-du-voisinage">Évaluation du voisinage</h3>
+<p>Plus le nombre de mouvements <span class="math inline">\(m_i\)</span> est important, plus il faudra de temps pour évaluer la fitness de tous les voisins.</p>
+<p>→ Voisinage plus grand = exploration plus élevée</p>
+<p>À partir de la configuration courante <span class="math inline">\(p\)</span>, nous devons calculer :</p>
+<p><span class="math display">\[\Delta_i = f(m_i(p)) - f(p)\]</span></p>
+<p>→ Pour un processus de minimisation, nous cherchons <span class="math inline">\(\Delta_i &lt; 0\)</span> dans le voisinage.</p>
+<p>En pratique, nous choisissons entre les stratégies d’échange et d’insertion : <span class="math inline">\(|V| \in O(n^2)\)</span>.</p>
+<p>Si seulement 2 objets sont déplacés, la plupart des termes dans la fitness n’ont pas besoin d’être modifiés.</p>
+<p>Seulement <span class="math inline">\(O(n)\)</span> termes doivent être calculés pour obtenir <span class="math inline">\(\Delta_i\)</span>.</p>
+</section>
+<section id="liste-tabu-et-mémoire-à-court-terme" class="level3">
+<h3 class="anchored" data-anchor-id="liste-tabu-et-mémoire-à-court-terme">Liste tabu et mémoire à court terme</h3>
+<p>Le mouvement dénoté par <span class="math inline">\((r, s)\)</span> correspond à l’échange d’objets aux emplacements <span class="math inline">\(r\)</span> et <span class="math inline">\(s\)</span> :</p>
+<p><span class="math display">\[(\ldots, i_r, \ldots, i_s, \ldots) \xrightarrow{(r,s)} (\ldots, i_s, \ldots, i_r, \ldots)\]</span></p>
+<p>Si, par le mouvement sélectionné, l’objet <span class="math inline">\(i\)</span> a quitté l’emplacement <span class="math inline">\(r\)</span> et l’objet <span class="math inline">\(j\)</span> a quitté l’emplacement <span class="math inline">\(s\)</span>, alors il est interdit de replacer <span class="math inline">\(i\)</span> en <span class="math inline">\(r\)</span> <strong>ET</strong> <span class="math inline">\(j\)</span> en <span class="math inline">\(s\)</span> pendant les <span class="math inline">\(t\)</span> prochaines itérations.</p>
+</section>
+<section id="implémentation-de-la-liste-tabu-12" class="level3">
+<h3 class="anchored" data-anchor-id="implémentation-de-la-liste-tabu-12">Implémentation de la liste tabu (1/2)</h3>
+<p>La liste tabu est représentée comme une <strong>matrice carrée</strong> <span class="math inline">\(n \times n\)</span> <span class="math inline">\(T\)</span>.</p>
+<p>L’entrée <span class="math inline">\(T_{ir}\)</span> correspond à l’itération à laquelle l’objet <span class="math inline">\(i\)</span> a quitté l’emplacement <span class="math inline">\(r\)</span> pour la dernière fois, à laquelle on ajoute le temps d’interdiction <span class="math inline">\(k\)</span>.</p>
+<p>Le mouvement <span class="math inline">\((r, s)\)</span> est interdit si <span class="math inline">\(T_{i_s r}\)</span> et <span class="math inline">\(T_{i_r s}\)</span> contiennent tous deux une valeur supérieure au compteur d’itération actuel.</p>
+<p>Ceci est un exemple de liste tabu basée sur les <strong>attributs de la solution</strong>.</p>
+</section>
+<section id="implémentation-de-la-liste-tabu-22" class="level3">
+<h3 class="anchored" data-anchor-id="implémentation-de-la-liste-tabu-22">Implémentation de la liste tabu (2/2)</h3>
+<p><strong>En pratique :</strong></p>
+<p>Nous tirons uniformément et aléatoirement le temps d’interdiction <span class="math inline">\(k\)</span> dans l’intervalle :</p>
+<p><span class="math display">\[k \in [0.9 \times n, \, 1.1 \times n + 4]\]</span></p>
+<p>(les bornes sont sélectionnées empiriquement et correspondent au réglage de la métaheuristique. La valeur <span class="math inline">\(k\)</span> ne peut pas être trop grande sinon elle bloquerait tous les mouvements).</p>
+</section>
+<section id="le-problème-de-référence-nug5" class="level3">
+<h3 class="anchored" data-anchor-id="le-problème-de-référence-nug5">Le problème de référence NUG5</h3>
+<p><strong>NUG5</strong> consiste en un problème de référence (<strong>benchmark</strong>) pour la classe QAP.</p>
+<p>C’est un problème de taille <span class="math inline">\(n = 5\)</span> (d’où son nom) défini par la matrice de flux <span class="math inline">\(f_{ij}\)</span> et la matrice de distance <span class="math inline">\(d_{rs}\)</span> suivantes :</p>
+<p><span class="math display">\[F = \begin{pmatrix}
+0 &amp; 5 &amp; 2 &amp; 4 &amp; 1 \\
+5 &amp; 0 &amp; 3 &amp; 0 &amp; 2 \\
+2 &amp; 3 &amp; 0 &amp; 0 &amp; 0 \\
+4 &amp; 0 &amp; 0 &amp; 0 &amp; 5 \\
+1 &amp; 2 &amp; 0 &amp; 5 &amp; 0
+\end{pmatrix} \quad D = \begin{pmatrix}
+0 &amp; 1 &amp; 1 &amp; 2 &amp; 3 \\
+1 &amp; 0 &amp; 2 &amp; 1 &amp; 2 \\
+1 &amp; 2 &amp; 0 &amp; 1 &amp; 2 \\
+2 &amp; 1 &amp; 1 &amp; 0 &amp; 1 \\
+3 &amp; 2 &amp; 2 &amp; 1 &amp; 0
+\end{pmatrix}\]</span></p>
+<p><strong>Problème de référence conçu de sorte que :</strong></p>
+<p>→ Le problème a un <strong>optimum global unique</strong></p>
+<p>→ Il est suffisamment petit pour être résolu exactement (utilisé pour la validation)</p>
+<p>→ Il capture la structure quadratique typique des problèmes de type affectation</p>
+</section>
+<section id="application-de-tabu-search-sur-nug5" class="level3">
+<h3 class="anchored" data-anchor-id="application-de-tabu-search-sur-nug5">Application de Tabu Search sur NUG5</h3>
+<p><strong>Solution initiale</strong> représentée par la permutation :</p>
+<p><span class="math display">\[p_1 = (2, 4, 1, 5, 3)\]</span></p>
+<p>→ dont la fitness <span class="math inline">\(f(p_1) = 72\)</span> peut être facilement calculée à partir des matrices <span class="math inline">\(F\)</span> et <span class="math inline">\(D\)</span> :</p>
+<p><span class="math display">\[f = \sum_{r,s} f_{i_r, i_s} d_{rs}\]</span></p>
+<p>La liste tabu est initialisée avec des zéros : <span class="math inline">\(T_{ir} = 0\)</span>, <span class="math inline">\(\forall i, r\)</span>.</p>
+</section>
+<section id="itération-1" class="level3">
+<h3 class="anchored" data-anchor-id="itération-1">Itération #1</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(m_i\)</span></th>
+<th>(1,2)</th>
+<th>(1,3)</th>
+<th>(1,4)</th>
+<th>(1,5)</th>
+<th>(2,3)</th>
+<th>(2,4)</th>
+<th>(2,5)</th>
+<th>(3,4)</th>
+<th>(3,5)</th>
+<th>(4,5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Delta_i\)</span></td>
+<td>2</td>
+<td>-12</td>
+<td>-12</td>
+<td>2</td>
+<td>0</td>
+<td>-10</td>
+<td>-12</td>
+<td>4</td>
+<td>8</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Nous remarquons que les 3 mouvements <span class="math inline">\((1, 3)\)</span>, <span class="math inline">\((1, 4)\)</span> et <span class="math inline">\((2, 5)\)</span> donnent la meilleure réduction de la fitness.</p>
+<p>L’un de ces 3 mouvements est choisi aléatoirement, par exemple :</p>
+<p><span class="math display">\[m_2 = (1, 3)\]</span></p>
+<p>Étant donné la solution courante <span class="math inline">\(p_1 = (2, 4, 1, 5, 3)\)</span>, le mouvement <span class="math inline">\(m_2\)</span> donne la nouvelle configuration suivante :</p>
+<p><span class="math display">\[p_2 = (1, 4, 2, 5, 3)\]</span></p>
+<p>avec fitness <span class="math inline">\(f(p_2) = f(p_1) + \Delta = 72 - 12 = 60\)</span>.</p>
+</section>
+<section id="liste-tabu-à-litération-1-12" class="level3">
+<h3 class="anchored" data-anchor-id="liste-tabu-à-litération-1-12">Liste tabu à l’itération #1 (1/2)</h3>
+<p>Le mouvement sélectionné <span class="math inline">\(m_2 = (1, 3)\)</span> a fait que l’objet 1 quitte la position 3 et l’objet 2 quitte la position 1 :</p>
+<p>→ Les entrées <span class="math inline">\(T_{13}\)</span> et <span class="math inline">\(T_{21}\)</span> de la matrice tabu doivent être mises à jour.</p>
+<p>Nous tirons uniformément et aléatoirement le temps d’interdiction <span class="math inline">\(k\)</span> dans l’intervalle :</p>
+<p><span class="math display">\[k \in [0.9 \times n, \, 1.1 \times n + 4]\]</span></p>
+<p>La matrice tabu admet <span class="math inline">\(n \times n\)</span> entrées, mais à chaque itération seules deux entrées sont ajoutées/mises à jour.</p>
+</section>
+<section id="liste-tabu-à-litération-1-22" class="level3">
+<h3 class="anchored" data-anchor-id="liste-tabu-à-litération-1-22">Liste tabu à l’itération #1 (2/2)</h3>
+<p>Supposons que nous tirions aléatoirement <span class="math inline">\(k = 9\)</span>. Puisque nous sommes à l’itération #1, le tabu de replacer l’objet 1 (resp. 2) à l’emplacement 3 (resp. 1) durera jusqu’à l’itération <span class="math inline">\(1 + k = 10\)</span>.</p>
+<p>La matrice tabu mise à jour est :</p>
+<p><span class="math display">\[T = \begin{pmatrix}
+0 &amp; 0 &amp; 10 &amp; 0 &amp; 0 \\
+10 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{pmatrix}\]</span></p>
+</section>
+<section id="itération-2" class="level3">
+<h3 class="anchored" data-anchor-id="itération-2">Itération #2</h3>
+<p>Nous avons maintenant le tableau suivant pour tous les mouvements possibles :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(m_i\)</span></th>
+<th>(1,2)</th>
+<th>(1,3)</th>
+<th>(1,4)</th>
+<th>(1,5)</th>
+<th>(2,3)</th>
+<th>(2,4)</th>
+<th>(2,5)</th>
+<th>(3,4)</th>
+<th>(3,5)</th>
+<th>(4,5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Delta_i\)</span></td>
+<td>14</td>
+<td>12</td>
+<td>-8</td>
+<td>10</td>
+<td>0</td>
+<td>10</td>
+<td>8</td>
+<td>12</td>
+<td>12</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Le mouvement <span class="math inline">\((1, 3)\)</span> est <strong>tabu</strong> car c’est l’inverse du mouvement précédemment accepté !</p>
+<p>Le mouvement <span class="math inline">\(m_3 = (1, 4)\)</span> donne la plus grande réduction de fitness, donc il est sélectionné.</p>
+<p>Ce mouvement donne la nouvelle configuration suivante :</p>
+<p><span class="math display">\[p_3 = (5, 4, 2, 1, 3)\]</span></p>
+<p>avec fitness <span class="math inline">\(f(p_3) = 60 - 8 = 52\)</span>.</p>
+</section>
+<section id="liste-tabu-à-litération-2" class="level3">
+<h3 class="anchored" data-anchor-id="liste-tabu-à-litération-2">Liste tabu à l’itération #2</h3>
+<p>Le mouvement <span class="math inline">\(m_3 = (1, 4)\)</span> affecte les entrées <span class="math inline">\(T_{11}\)</span> (objet 1 à l’emplacement 1) et <span class="math inline">\(T_{54}\)</span> (objet 5 à l’emplacement 4).</p>
+<p>En supposant un tirage aléatoire de <span class="math inline">\(k = 6\)</span>, le temps d’interdiction s’étend jusqu’à l’itération <span class="math inline">\(2 + 6 = 8\)</span>, et nous avons :</p>
+<p><span class="math display">\[T = \begin{pmatrix}
+8 &amp; 0 &amp; 10 &amp; 0 &amp; 0 \\
+10 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 8 &amp; 0
+\end{pmatrix}\]</span></p>
+</section>
+<section id="itération-3" class="level3">
+<h3 class="anchored" data-anchor-id="itération-3">Itération #3</h3>
+<p>Nous avons maintenant le tableau suivant pour tous les mouvements possibles :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(m_i\)</span></th>
+<th>(1,2)</th>
+<th>(1,3)</th>
+<th>(1,4)</th>
+<th>(1,5)</th>
+<th>(2,3)</th>
+<th>(2,4)</th>
+<th>(2,5)</th>
+<th>(3,4)</th>
+<th>(3,5)</th>
+<th>(4,5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Delta_i\)</span></td>
+<td>24</td>
+<td>10</td>
+<td>8</td>
+<td>10</td>
+<td>0</td>
+<td>22</td>
+<td>20</td>
+<td>8</td>
+<td>8</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<p>À ce stade, le mouvement <span class="math inline">\((1, 4)\)</span> est tabu mais plus <span class="math inline">\((1, 3)\)</span> qui déplacerait l’objet 5 en position 3, ce qui est possible puisque <span class="math inline">\(T_{53} = 0\)</span> (l’objet 5 n’a jamais été en position 3).</p>
+<p>Le mouvement <span class="math inline">\(m_5 = (2, 3)\)</span> est le mouvement à coût minimal bien qu’il n’améliore pas la fitness étant donné <span class="math inline">\(\Delta_5 = 0\)</span>. C’est néanmoins celui sélectionné pour générer la configuration suivante :</p>
+<p><span class="math display">\[p_4 = (5, 2, 4, 1, 3)\]</span></p>
+<p>avec <span class="math inline">\(f(p_4) = 52\)</span>.</p>
+</section>
+<section id="liste-tabu-à-litération-3" class="level3">
+<h3 class="anchored" data-anchor-id="liste-tabu-à-litération-3">Liste tabu à l’itération #3</h3>
+<p>Le mouvement <span class="math inline">\(m_5 = (2, 3)\)</span> affecte les entrées <span class="math inline">\(T_{23}\)</span> (objet 2 quittant l’emplacement 3) et <span class="math inline">\(T_{42}\)</span> (objet 4 a quitté l’emplacement 2).</p>
+<p>En supposant un tirage aléatoire de <span class="math inline">\(k = 8\)</span>, le temps d’interdiction s’étend jusqu’à l’itération <span class="math inline">\(3 + 8 = 11\)</span>, et nous avons :</p>
+<p><span class="math display">\[T = \begin{pmatrix}
+8 &amp; 0 &amp; 10 &amp; 0 &amp; 0 \\
+10 &amp; 0 &amp; 11 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 11 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 8 &amp; 0
+\end{pmatrix}\]</span></p>
+</section>
+<section id="itération-4" class="level3">
+<h3 class="anchored" data-anchor-id="itération-4">Itération #4</h3>
+<p>Nous avons maintenant le tableau suivant pour tous les mouvements possibles :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(m_i\)</span></th>
+<th>(1,2)</th>
+<th>(1,3)</th>
+<th>(1,4)</th>
+<th>(1,5)</th>
+<th>(2,3)</th>
+<th>(2,4)</th>
+<th>(2,5)</th>
+<th>(3,4)</th>
+<th>(3,5)</th>
+<th>(4,5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Delta_i\)</span></td>
+<td>24</td>
+<td>10</td>
+<td>8</td>
+<td>10</td>
+<td>0</td>
+<td>8</td>
+<td>8</td>
+<td>22</td>
+<td>20</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<p>Nous avons maintenant 2 mouvements tabu (en italique ci-dessus) : <span class="math inline">\(m_3 = (1, 4)\)</span> et <span class="math inline">\(m_5 = (2, 3)\)</span>.</p>
+<ul>
+<li>Pour le mouvement <span class="math inline">\(m_5\)</span>, ce n’est pas surprenant car il inverserait le mouvement précédent et ramènerait les objets dans leur configuration précédente</li>
+<li>Pour le mouvement <span class="math inline">\(m_3 = (1, 4)\)</span>, il est encore interdit car il ramènerait les objets 5 et 1 dans des configurations précédemment occupées</li>
+</ul>
+<p>Les mouvements “optimaux” autorisés sont <span class="math inline">\(m_6 = (2, 4)\)</span> et <span class="math inline">\(m_7 = (2, 5)\)</span>, tous deux donnant une dégradation de la fitness de 8 unités pendant cette itération.</p>
+<p>Nous supposons que <span class="math inline">\(m_6 = (2, 4)\)</span> est sélectionné comme prochain mouvement donnant la configuration suivante :</p>
+<p><span class="math display">\[p_5 = (5, 1, 4, 2, 3)\]</span></p>
+<p>avec fitness <span class="math inline">\(f(p_5) = 60 = 52 + 8\)</span>.</p>
+</section>
+<section id="liste-tabu-à-litération-4" class="level3">
+<h3 class="anchored" data-anchor-id="liste-tabu-à-litération-4">Liste tabu à l’itération #4</h3>
+<p>Le mouvement <span class="math inline">\(m_6 = (2, 4)\)</span> affecte les entrées <span class="math inline">\(T_{22}\)</span> (objet 2 quittant l’emplacement 2) et <span class="math inline">\(T_{14}\)</span> (objet 1 a quitté l’emplacement 4).</p>
+<p>En supposant un tirage aléatoire de <span class="math inline">\(k = 5\)</span>, le temps d’interdiction s’étend jusqu’à l’itération <span class="math inline">\(4 + 5 = 9\)</span>, et nous avons :</p>
+<p><span class="math display">\[T = \begin{pmatrix}
+8 &amp; 0 &amp; 10 &amp; 9 &amp; 0 \\
+10 &amp; 9 &amp; 11 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 11 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 8 &amp; 0
+\end{pmatrix}\]</span></p>
+</section>
+<section id="itérations-suivantes" class="level3">
+<h3 class="anchored" data-anchor-id="itérations-suivantes">Itérations suivantes</h3>
+<p>Ce processus est itéré jusqu’à ce qu’un critère d’arrêt donné soit atteint.</p>
+<p>À l’itération #5, vous pouvez vérifier que le mouvement sélectionné est <span class="math inline">\((1, 3)\)</span> donnant une réduction de la fitness de 10 unités et avec la nouvelle configuration suivante :</p>
+<p><span class="math display">\[p_6 = (4, 1, 5, 2, 3)\]</span></p>
+<p>avec fitness <span class="math inline">\(f(p_6) = 50\)</span>.</p>
+<p>Cela en fait la <strong>solution optimale jusqu’à présent</strong>, ce qui montre qu’accepter une dégradation de fitness à l’itération précédente a effectivement été bénéfique pour atteindre de “meilleures” régions de l’espace de recherche.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

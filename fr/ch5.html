@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ch5 – ISS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9ee82e006983bafa07c9ac29a901142c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ISS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-langage" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Langage</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-langage">    
+        <li>
+    <a class="dropdown-item" href="./../index.html">
+ <span class="dropdown-text">Anglais</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./index.html">
+ <span class="dropdown-text">Français</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cours</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction aux Métaheuristiques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recherche Tabu (Tabu Search)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulated Annealing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">La méthode des colonies de fourmis et l’intelligence en essaim</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch5.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Algorithmes évolutionnaires</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Genetic Programming - GP)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Chapitre 7) et Performance des Métaheuristiques (Chapitre 8)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapitre 9 : Transitions de Phase en Optimisation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou" id="toc-optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou" class="nav-link active" data-scroll-target="#optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#principes-fondateurs-du-pso" id="toc-principes-fondateurs-du-pso" class="nav-link" data-scroll-target="#principes-fondateurs-du-pso">Principes fondateurs du PSO</a></li>
+  </ul></li>
+  <li><a href="#algorithme-pso" id="toc-algorithme-pso" class="nav-link" data-scroll-target="#algorithme-pso">Algorithme PSO</a>
+  <ul class="collapse">
+  <li><a href="#meilleur-local-particle-best" id="toc-meilleur-local-particle-best" class="nav-link" data-scroll-target="#meilleur-local-particle-best">Meilleur local (Particle-best)</a></li>
+  <li><a href="#meilleur-global-global-best" id="toc-meilleur-global-global-best" class="nav-link" data-scroll-target="#meilleur-global-global-best">Meilleur global (Global-best)</a></li>
+  <li><a href="#troisième-tendance-inertie" id="toc-troisième-tendance-inertie" class="nav-link" data-scroll-target="#troisième-tendance-inertie">Troisième tendance : Inertie</a></li>
+  <li><a href="#règles-de-mouvement-des-particules" id="toc-règles-de-mouvement-des-particules" class="nav-link" data-scroll-target="#règles-de-mouvement-des-particules">Règles de mouvement des particules</a></li>
+  <li><a href="#remarques-générales" id="toc-remarques-générales" class="nav-link" data-scroll-target="#remarques-générales">Remarques générales</a></li>
+  </ul></li>
+  <li><a href="#exemples" id="toc-exemples" class="nav-link" data-scroll-target="#exemples">Exemples</a>
+  <ul class="collapse">
+  <li><a href="#exemple-1-problème-jouet-1d" id="toc-exemple-1-problème-jouet-1d" class="nav-link" data-scroll-target="#exemple-1-problème-jouet-1d">Exemple #1 : Problème jouet 1D</a></li>
+  <li><a href="#exemple-2-recherche-2d-avec-un-optimum-unique" id="toc-exemple-2-recherche-2d-avec-un-optimum-unique" class="nav-link" data-scroll-target="#exemple-2-recherche-2d-avec-un-optimum-unique">Exemple #2 : Recherche 2D avec un optimum unique</a></li>
+  <li><a href="#exemple-3-recherche-2d-avec-une-fitness-multimodale" id="toc-exemple-3-recherche-2d-avec-une-fitness-multimodale" class="nav-link" data-scroll-target="#exemple-3-recherche-2d-avec-une-fitness-multimodale">Exemple #3 : Recherche 2D avec une fitness multimodale</a></li>
+  <li><a href="#notes-sur-le-pso" id="toc-notes-sur-le-pso" class="nav-link" data-scroll-target="#notes-sur-le-pso">Notes sur le PSO</a></li>
+  </ul></li>
+  <li><a href="#lalgorithme-des-lucioles-firefly-algorithm" id="toc-lalgorithme-des-lucioles-firefly-algorithm" class="nav-link" data-scroll-target="#lalgorithme-des-lucioles-firefly-algorithm">L’algorithme des lucioles (Firefly Algorithm)</a>
+  <ul class="collapse">
+  <li><a href="#inspiration-biologique" id="toc-inspiration-biologique" class="nav-link" data-scroll-target="#inspiration-biologique">Inspiration biologique :</a></li>
+  <li><a href="#principes-de-base-de-lalgorithme-des-lucioles" id="toc-principes-de-base-de-lalgorithme-des-lucioles" class="nav-link" data-scroll-target="#principes-de-base-de-lalgorithme-des-lucioles">Principes de base de l’algorithme des lucioles</a></li>
+  </ul></li>
+  <li><a href="#marches-aléatoires-mouvement-brownien-et-vols-de-lévy" id="toc-marches-aléatoires-mouvement-brownien-et-vols-de-lévy" class="nav-link" data-scroll-target="#marches-aléatoires-mouvement-brownien-et-vols-de-lévy">Marches aléatoires : Mouvement brownien et vols de Lévy</a>
+  <ul class="collapse">
+  <li><a href="#vols-de-lévy" id="toc-vols-de-lévy" class="nav-link" data-scroll-target="#vols-de-lévy">Vols de Lévy</a></li>
+  </ul></li>
+  <li><a href="#recherche-du-coucou-cuckoo-search" id="toc-recherche-du-coucou-cuckoo-search" class="nav-link" data-scroll-target="#recherche-du-coucou-cuckoo-search">Recherche du coucou (Cuckoo search)</a>
+  <ul class="collapse">
+  <li><a href="#principes-de-base-de-la-recherche-du-coucou" id="toc-principes-de-base-de-la-recherche-du-coucou" class="nav-link" data-scroll-target="#principes-de-base-de-la-recherche-du-coucou">Principes de base de la recherche du coucou</a></li>
+  <li><a href="#exemple-jouet-de-la-recherche-du-coucou" id="toc-exemple-jouet-de-la-recherche-du-coucou" class="nav-link" data-scroll-target="#exemple-jouet-de-la-recherche-du-coucou">Exemple jouet de la recherche du coucou</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch5.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</a></li></ol></nav></header>
+
+
+
+
+
+<section id="optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou" class="level1">
+<h1>Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>L’<strong>Optimisation par essaim de particules</strong> (Particle Swarm Optimization, PSO) a été initialement introduite par Eberhart et Kennedy en 1995.</p>
+<p>Cette approche d’optimisation est adaptée aux problèmes d’optimisation continue (par exemple, <span class="math inline">\(S \subset \mathbb{R}^n\)</span>, borné). Un essaim de particules explore l’espace de recherche à la recherche de l’optimum global.</p>
+<hr>
+<section id="principes-fondateurs-du-pso" class="level3">
+<h3 class="anchored" data-anchor-id="principes-fondateurs-du-pso">Principes fondateurs du PSO</h3>
+<p><strong>Intelligence en essaim</strong> :</p>
+<p>Le PSO s’inspire du comportement collectif d’animaux sociaux (par exemple, les vols d’oiseaux, les bancs de poissons, les insectes), où des agents simples se coordonnent pour réaliser un comportement de groupe complexe.</p>
+<p>C’est une métaheuristique <strong>basée sur une population</strong> (comme AS et ACS).</p>
+<p>Elle cherche un équilibre entre deux comportements concurrents :</p>
+<ul>
+<li>D’une part, les “animaux” suivent le meilleur individu du groupe : celui qui connaît un chemin vers l’optimum (source de nourriture).</li>
+<li>D’autre part, les “animaux” suivent leur “instinct” et adaptent leur mouvement en fonction de leur propre connaissance du point optimal.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="algorithme-pso" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-pso">Algorithme PSO</h2>
+<p>Nous partons d’une population de <span class="math inline">\(N\)</span> particules (ou agents).</p>
+<p>D’un point de vue mécanique :</p>
+<ul>
+<li>Notons <span class="math inline">\(\mathbf{x}_i(t) \in S\)</span> la position de la particule <span class="math inline">\(i\)</span> à l’itération <span class="math inline">\(t\)</span>.</li>
+<li>Chaque <span class="math inline">\(\mathbf{x}_i\)</span> est une solution possible avec une fitness <span class="math inline">\(f(x_i)\)</span>.</li>
+<li>L’espace de recherche <span class="math inline">\(S\)</span> est l’espace physique de déplacement des particules.</li>
+<li>D’une itération à la suivante, les particules se déplacent dans l’espace de recherche selon une vitesse donnée <span class="math inline">\(\mathbf{v}_i\)</span>.</li>
+</ul>
+<hr>
+<section id="meilleur-local-particle-best" class="level3">
+<h3 class="anchored" data-anchor-id="meilleur-local-particle-best">Meilleur local (Particle-best)</h3>
+<p>Première tendance : Expérience personnelle → Attraction vers le meilleur local :</p>
+<p>À chaque itération <span class="math inline">\(t\)</span>, nous mettons à jour le <strong>meilleur local</strong> (particle-best) <span class="math inline">\(\mathbf{x}_i^{\mathrm{best}}(t)\)</span>. Cette valeur correspond à la meilleure fitness visitée par la particule/individu <span class="math inline">\(i\)</span> depuis le début du processus de recherche.</p>
+<p><span class="math display">\[
+x_{i}^{\mathrm{best}}(t) = \left\{ \begin{array}{cc}x_{i}(t) &amp; \mathrm{si~}f(x_{i})\mathrm{~meilleure~que~}f(x_{i}^{\mathrm{best}})\\ x_{i}^{\mathrm{best}}(t - 1) &amp; \mathrm{sinon} \end{array} \right.
+\]</span></p>
+<hr>
+</section>
+<section id="meilleur-global-global-best" class="level3">
+<h3 class="anchored" data-anchor-id="meilleur-global-global-best">Meilleur global (Global-best)</h3>
+<p>Deuxième tendance : <strong>Expérience sociale</strong> → Attraction vers le <strong>meilleur global</strong> :</p>
+<ul>
+<li>Nous considérons également le <strong>meilleur global</strong> <span class="math inline">\(B(t)\)</span>, également mis à jour à chaque itération.</li>
+<li>Cette valeur correspond à la meilleure fitness globale trouvée jusqu’à l’itération <span class="math inline">\(t\)</span> par l’ensemble de la population de particules.</li>
+</ul>
+<p><span class="math display">\[
+B(t) = \arg\max_{\mathbf{x}_i^{\text{best}}(t)} f(\mathbf{x}_i^{\text{best}}(t))
+\]</span></p>
+<ul>
+<li>Pourquoi un <strong>comportement social</strong> ? À cause du <strong>partage d’information</strong> :
+<ul>
+<li>Les particules partagent des informations <em>indirectement</em> en diffusant leurs meilleures solutions trouvées.</li>
+<li>Cela permet à l’essaim de converger vers des régions prometteuses.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="troisième-tendance-inertie" class="level3">
+<h3 class="anchored" data-anchor-id="troisième-tendance-inertie">Troisième tendance : Inertie</h3>
+<p>Les trois forces agissant sur une particule PSO sont : 1. L’inertie de son mouvement précédent. 2. L’attraction vers sa meilleure position personnelle (meilleur local). 3. L’attraction vers la meilleure position globale de l’essaim.</p>
+<hr>
+</section>
+<section id="règles-de-mouvement-des-particules" class="level3">
+<h3 class="anchored" data-anchor-id="règles-de-mouvement-des-particules">Règles de mouvement des particules</h3>
+<p>Les règles de mise à jour pour le mouvement des particules sont :</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{v}_i(t+1) &amp;= \omega \mathbf{v}_i(t) + c_1 r_1(t+1)[\mathbf{x}_i^{\text{best}}(t) - \mathbf{x}_i(t)] \\
+&amp;\quad + c_2 r_2(t+1)[\mathbf{B}(t) - \mathbf{x}_i(t)] \\
+\mathbf{x}_i(t+1) &amp;= \mathbf{x}_i(t) + \mathbf{v}_i(t+1)
+\end{aligned}
+\]</span></p>
+<p>Notes :</p>
+<ul>
+<li>Ces équations sont des <strong>équations vectorielles</strong> (chaque composante est mise à jour en 2D ou 3D).</li>
+<li><strong>Initialisation aléatoire</strong> : les particules sont typiquement uniformément réparties dans l’espace de recherche <span class="math inline">\(S\)</span> avec une vitesse initiale nulle.</li>
+</ul>
+<hr>
+<section id="paramètres-de-lalgorithme" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-de-lalgorithme">Paramètres de l’algorithme</h4>
+<ul>
+<li><span class="math inline">\(\omega\)</span>, <span class="math inline">\(c_{1}\)</span> et <span class="math inline">\(c_{2}\)</span> sont des paramètres constants à spécifier.</li>
+<li><span class="math inline">\(r_{1}\)</span> et <span class="math inline">\(r_{2}\)</span> sont des nombres aléatoires uniformément tirés de l’intervalle <span class="math inline">\([0,1[\)</span> → introduisent la stochasticité. En général, des nombres aléatoires différents sont tirés pour chaque composante directionnelle de la vitesse.</li>
+</ul>
+<hr>
+</section>
+<section id="interprétation-et-sélection-des-paramètres-de-guidage" class="level4">
+<h4 class="anchored" data-anchor-id="interprétation-et-sélection-des-paramètres-de-guidage">Interprétation et sélection des paramètres de guidage</h4>
+<ul>
+<li>Le paramètre <span class="math inline">\(c_1\)</span> est le <strong>coefficient cognitif</strong>, intégrant la perception individuelle de chaque particule par rapport à la position optimale.</li>
+<li>Le paramètre <span class="math inline">\(c_2\)</span> est le <strong>coefficient social</strong>, intégrant l’évaluation collective (groupe) de la recherche de l’optimum.</li>
+<li>Classiquement, <span class="math inline">\(c_1 \approx c_2 \approx 2\)</span>.</li>
+<li><span class="math inline">\(\omega\)</span> se réfère à l’inertie au changement et est typiquement choisi légèrement inférieur à 1.</li>
+</ul>
+<hr>
+</section>
+<section id="contrôle-des-vitesses-et-positions" class="level4">
+<h4 class="anchored" data-anchor-id="contrôle-des-vitesses-et-positions">Contrôle des vitesses et positions</h4>
+<p>Il est courant d’imposer des limites à la valeur absolue de chaque composante de la vitesse <span class="math inline">\(\mathbf{v}_i\)</span> pour éviter qu’elles ne deviennent trop grandes.</p>
+<p>Une valeur de coupure <span class="math inline">\(\mathbf{v}_{\mathrm{max}}\)</span> est prescrite.</p>
+<p>De même, une limite <span class="math inline">\(\mathbf{x}_{\mathrm{max}}\)</span> est imposée à chaque position <span class="math inline">\(\mathbf{x}_i\)</span> pour s’assurer que la particule reste dans les limites du domaine.</p>
+<p>Il est nécessaire de travailler dans un espace de recherche où les opérations arithmétiques de somme et de produit ont un sens. Que faire si les variables du problème sont booléennes ? Le PSO peut-il traiter des problèmes combinatoires ?</p>
+<hr>
+</section>
+</section>
+<section id="remarques-générales" class="level3">
+<h3 class="anchored" data-anchor-id="remarques-générales">Remarques générales</h3>
+<p>Comme l’Ant System (AS) :</p>
+<ul>
+<li>Le PSO est une métaheuristique basée sur une population : à chaque itération, <span class="math inline">\(N\)</span> solutions candidates sont générées et cet ensemble de solutions est utilisé pour construire la génération suivante.</li>
+<li>Le PSO admet de nombreuses variantes bâties sur le squelette de cet algorithme.</li>
+<li>Dans certaines variantes, la position du meilleur global <span class="math inline">\(B(t)\)</span> peut être définie/restreinte à une sous-population dans un voisinage donné de l’agent <span class="math inline">\(i\)</span>. Cela reviendrait à avoir le voisinage social intégré dans l’espace. Dans ce cas, <span class="math inline">\(B = B_i\)</span> varie d’un agent à l’autre.</li>
+</ul>
+<p><strong>Convergence</strong> : Le PSO est caractérisé par une vitesse de convergence rapide.</p>
+<p><strong>Implémentation</strong> : Des implémentations simples !</p>
+<p><strong>Équilibre entre exploration et exploitation</strong> :</p>
+<ul>
+<li>Le caractère aléatoire et l’inertie dans les mises à jour de vitesse équilibrent l’exploration (recherche de nouvelles régions) et l’exploitation (affinement des bonnes régions connues).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exemples" class="level2">
+<h2 class="anchored" data-anchor-id="exemples">Exemples</h2>
+<section id="exemple-1-problème-jouet-1d" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-1-problème-jouet-1d">Exemple #1 : Problème jouet 1D</h3>
+<p>Intuition sur le fonctionnement interne du PSO :</p>
+<p>Considérons un problème jouet avec un paysage de fitness assez régulier dans un espace de recherche unidimensionnel (1D) <span class="math inline">\(S = [a,b] \in \mathbf{R}\)</span>. Nous considérons une petite population de particules : <span class="math inline">\(N = 2\)</span> particules ! Cela nous permet d’analyser comment elles interagissent socialement pour s’approcher mutuellement de l’optimum (ici un maximum).</p>
+<p>Paramètres : <span class="math inline">\(\omega = 0.9\)</span>, <span class="math inline">\(S = [- 1, 8]\)</span>, positions initiales aléatoires, vitesse initiale nulle.</p>
+<ul>
+<li>Initialement, les deux particules ont une vitesse nulle.</li>
+<li>Leur meilleur local <span class="math inline">\(b_i(t = 0)\)</span> est leur position actuelle.</li>
+<li>Le meilleur global <span class="math inline">\(B(t = 0)\)</span> est la position de la particule la plus proche du maximum (ici la noire).</li>
+</ul>
+<p>Ensuite, nous résolvons le système suivant pour <span class="math inline">\(i = 1, 2\)</span> :</p>
+<p><span class="math display">\[
+\begin{aligned}
+v_i(t + 1) &amp;= 0.9v_i(t) + [b_i(t) - x_i(t)] + [B(t) - x_i(t)] \\
+x_i(t + 1) &amp;= x_i(t) + 0.2v_i(t + 1)
+\end{aligned}
+\]</span></p>
+<p>Ici : <span class="math inline">\(c_1 = c_2 = 1\)</span>.</p>
+<hr>
+<section id="dynamique-observée" class="level4">
+<h4 class="anchored" data-anchor-id="dynamique-observée">Dynamique observée</h4>
+<ul>
+<li>La particule grise est attirée par la noire, tandis que cette dernière ne bouge pas puisqu’elle est déjà à la position du meilleur global.</li>
+<li>Comme la particule grise augmente sa fitness, son meilleur local reste sa position courante, ce qui ne modifie pas son attraction vers la particule noire.</li>
+<li>En raison de son élan, la particule grise dépasse la noire et atteint une valeur de fitness plus élevée.</li>
+<li>Elle devient le nouveau meilleur global et s’arrête progressivement.</li>
+<li>D’autre part, la particule noire est maintenant mise en mouvement par le nouveau statut de la particule grise.</li>
+<li>Et ce processus continue au fur et à mesure des itérations.</li>
+</ul>
+<p>Note : Nous montrons les particules se déplaçant sur la courbe de fitness à des fins d’illustration ! Elles se déplacent le long de l’axe <span class="math inline">\(x\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="exemple-2-recherche-2d-avec-un-optimum-unique" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-2-recherche-2d-avec-un-optimum-unique">Exemple #2 : Recherche 2D avec un optimum unique</h3>
+<p>Un cas “légèrement” plus réaliste :</p>
+<p>Nous rendons progressivement le problème d’optimisation plus difficile. Nous considérons maintenant un espace de recherche bidimensionnel <span class="math inline">\([0,80] \times [0,60] \subset \mathbb{R}^{2}\)</span> avec un seul optimum.</p>
+<p>Nous discrétisons l’espace de recherche pour travailler dans <span class="math inline">\(\mathbb{Z}^2\)</span>.</p>
+<p>Nous répartissons aléatoirement <span class="math inline">\(N = 5\)</span> particules dans <span class="math inline">\(S\)</span> avec une vitesse initiale nulle.</p>
+<p>Optimum global : position (75, 36) et fitness 0.436.</p>
+<p>Recherche exhaustive : <span class="math inline">\(80 \times 60 = 4'800\)</span> évaluations (en supposant des positions limitées à <span class="math inline">\(\mathbb{Z}^2\)</span>).</p>
+<p>Avec 5 particules et 50 itérations, la meilleure solution trouvée en un seul run (correspondant à la figure précédente) est :</p>
+<p><span class="math display">\[ \mathbf{B} = (75,39) \qquad f(\mathbf{B}) = 0.384 \]</span></p>
+<p>Avec 20 particules et 100 itérations, l’optimum global est trouvé à chaque exécution. On remarque le regroupement des particules autour du maximum. Ici, <span class="math inline">\(r_1 = r_2 = 1\)</span>, et les particules rebondissent sur les bords du domaine.</p>
+<hr>
+</section>
+<section id="exemple-3-recherche-2d-avec-une-fitness-multimodale" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-3-recherche-2d-avec-une-fitness-multimodale">Exemple #3 : Recherche 2D avec une fitness multimodale</h3>
+<p>Nous continuons à complexifier le problème d’optimisation. Même espace de recherche 2D <span class="math inline">\(S = [0,80] \times [0,60]\)</span> mais maintenant avec une fonction de fitness multimodale.</p>
+<p>Nous considérons 10 particules sur 200 itérations.</p>
+<p>Cela correspond à un effort de calcul de <span class="math inline">\(10 \times 200 = 2000\)</span> évaluations, inférieur à ce qui est requis pour une recherche exhaustive, avec <span class="math inline">\(60 \times 80 = 4800\)</span> points à explorer.</p>
+<p>Optimum global : position (22, 7) et fitness correspondante 0.754.</p>
+<p>Avec 10 particules sur 200 itérations, la meilleure solution identifiée en 1 run est :</p>
+<p><span class="math display">\[ B = (23, 7) \quad f(B) = 0.74 \]</span></p>
+<hr>
+</section>
+<section id="notes-sur-le-pso" class="level3">
+<h3 class="anchored" data-anchor-id="notes-sur-le-pso">Notes sur le PSO</h3>
+<ul>
+<li>Pour appliquer la méthode PSO, les vitesses doivent être calculées. Elle se prête donc naturellement mieux aux problèmes d’optimisation continue.</li>
+<li>Cependant, une extension aux problèmes d’optimisation discrète peut être obtenue avec des méthodes d’arrondi, y compris pour les espaces de recherche booléens.</li>
+<li>Un certain nombre de variantes pour traiter spécifiquement les problèmes d’optimisation combinatoire ont été développées.</li>
+</ul>
+<p>La méthode PSO a une convergence rapide, et sa capacité à trouver un optimum global est équivalente à celle des algorithmes de colonie de fourmis et des algorithmes génétiques (à venir).</p>
+<p>Évidemment, c’est une méthode basée sur une population : de nombreuses solutions tentatives <span class="math inline">\(\mathbf{x}_i\)</span> sont générées au cours de chaque itération, et ces solutions sont utilisées pour construire l’itération suivante.</p>
+<hr>
+</section>
+</section>
+<section id="lalgorithme-des-lucioles-firefly-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="lalgorithme-des-lucioles-firefly-algorithm">L’algorithme des lucioles (Firefly Algorithm)</h2>
+<p>L’<strong>algorithme des lucioles</strong> (Firefly Optimization) a été introduit par Xin-She Yang en 2009.</p>
+<p>Il s’inspire largement du comportement collectif des lucioles et du PSO.</p>
+<p>Cette métaheuristique gagne beaucoup d’attention et de succès pour les problèmes d’optimisation difficiles.</p>
+<section id="inspiration-biologique" class="level3">
+<h3 class="anchored" data-anchor-id="inspiration-biologique">Inspiration biologique :</h3>
+<ul>
+<li>Comportement de clignotement des lucioles, où l’intensité lumineuse de chaque luciole attire les autres : imitation de la communication naturelle et des signaux d’accouplement.</li>
+<li>Les lucioles émettent de la lumière pour attirer des partenaires ou des proies, et le degré d’attraction est proportionnel à l’intensité de la source lumineuse.</li>
+</ul>
+<p>Nous considérons une formulation pour l’optimisation continue, mais une version discrète existe.</p>
+<hr>
+</section>
+<section id="principes-de-base-de-lalgorithme-des-lucioles" class="level3">
+<h3 class="anchored" data-anchor-id="principes-de-base-de-lalgorithme-des-lucioles">Principes de base de l’algorithme des lucioles</h3>
+<p>Chaque luciole <span class="math inline">\(i\)</span> représente une solution candidate dans l’espace de recherche <span class="math inline">\(S\)</span> :</p>
+<p>elle occupe à l’itération <span class="math inline">\(t\)</span> la position <span class="math inline">\(x_{i}(t)\)</span> dans <span class="math inline">\(S\)</span> (par exemple, <span class="math inline">\(S \subset \mathbb{R}^{d}\)</span>, <span class="math inline">\(d\)</span> étant la dimension spatiale de l’espace).</p>
+<section id="signification-de-la-fonction-de-fitness" class="level4">
+<h4 class="anchored" data-anchor-id="signification-de-la-fonction-de-fitness">Signification de la fonction de fitness :</h4>
+<p>Chaque luciole <span class="math inline">\(i\)</span> émet de la lumière avec une intensité <span class="math inline">\(I_{i}\)</span> qui dépend de la valeur <span class="math inline">\(f(x_{i})\)</span> de la fonction de fitness à son emplacement.</p>
+<p>Pour un problème de maximisation, nous considérons typiquement :</p>
+<p><span class="math display">\[ I_{i}(t) = f(x_{i}(t)) \]</span></p>
+<hr>
+</section>
+<section id="attractivité-proportionnelle-à-la-luminosité" class="level4">
+<h4 class="anchored" data-anchor-id="attractivité-proportionnelle-à-la-luminosité">Attractivité proportionnelle à la luminosité :</h4>
+<p>Les lucioles sont attirées par celles qui sont plus brillantes (meilleures solutions). L’attractivité diminue avec la distance et avec l’absorption de la lumière dans le milieu.</p>
+<p>À chaque itération <span class="math inline">\(t\)</span>, nous inspectons toutes les paires de lucioles <span class="math inline">\((i,j)\)</span>, avec <span class="math inline">\(1 \leq i \leq n\)</span> et <span class="math inline">\(i &lt; j \leq n\)</span>, étant donné une population de <span class="math inline">\(n\)</span> lucioles. Si <span class="math inline">\(I_i &lt; I_j\)</span>, alors la luciole <span class="math inline">\(i\)</span> se déplace vers la luciole <span class="math inline">\(j\)</span> selon l’attractivité perçue.</p>
+<hr>
+</section>
+<section id="définition-de-lattractivité" class="level4">
+<h4 class="anchored" data-anchor-id="définition-de-lattractivité">Définition de l’attractivité</h4>
+<p>L’attractivité de la luciole <span class="math inline">\(i\)</span> envers la luciole <span class="math inline">\(j\)</span>, qui a une luminosité plus élevée, est donnée par :</p>
+<p><span class="math display">\[ \beta = \beta_{0}\exp (-\gamma r_{ij}^{2}) \]</span></p>
+<ul>
+<li><span class="math inline">\(\beta_{0}\)</span> est l’attractivité de base.</li>
+<li><span class="math inline">\(r_{ij}\)</span> est la distance (euclidienne ou autre) entre <span class="math inline">\(x_{i}\)</span> et <span class="math inline">\(x_{j}\)</span>.</li>
+</ul>
+<p>Ce terme sera ensuite relié à la fraction de la distance parcourue par <span class="math inline">\(i\)</span> vers <span class="math inline">\(j\)</span>.</p>
+<hr>
+</section>
+<section id="signification-de-gamma" class="level4">
+<h4 class="anchored" data-anchor-id="signification-de-gamma">Signification de <span class="math inline">\(\gamma\)</span></h4>
+<p><span class="math display">\[ \exp (-\gamma r_{ij}^2) \in [0,1] \]</span></p>
+<p>L’attractivité décroît exponentiellement avec la distance inter-luciole : liée à la réduction de l’intensité lumineuse perçue (diminue avec la distance et avec l’absorption de la lumière dans le milieu).</p>
+<p><span class="math inline">\(\gamma\)</span> peut être vu comme un paramètre permettant d’ajuster l’équilibre entre exploration et exploitation :</p>
+<ul>
+<li>Un petit <span class="math inline">\(\gamma\)</span> signifie que la lumière voyage loin : il augmente l’attractivité des lucioles lointaines et favorise l’<strong>exploration</strong>.</li>
+<li>Un grand <span class="math inline">\(\gamma\)</span> signifie que la lumière est rapidement absorbée et tend à favoriser une attraction plus forte vers la luciole ayant la meilleure solution, c’est-à-dire l’<strong>exploitation</strong>.</li>
+</ul>
+<hr>
+</section>
+<section id="règle-de-mouvement-des-lucioles" class="level4">
+<h4 class="anchored" data-anchor-id="règle-de-mouvement-des-lucioles">Règle de mouvement des lucioles</h4>
+<p>Le déplacement de la luciole <span class="math inline">\(i\)</span> attirée par <span class="math inline">\(j\)</span> est la superposition d’un terme d’attraction déterministe et d’un terme aléatoire :</p>
+<p><span class="math display">\[ x_{i}^{new} = x_{i} + \beta_{0}\exp (-\gamma r_{ij}^{2})(x_{j} - x_{i}) + \alpha \epsilon \]</span></p>
+<p>Les positions sont mises à jour séquentiellement !</p>
+<ul>
+<li><span class="math inline">\(\beta_{0} = 1\)</span> est la valeur par défaut courante.</li>
+<li><span class="math inline">\(\alpha\)</span> est le paramètre de randomisation constant : classiquement <span class="math inline">\(\alpha \in [0,1]\)</span>.</li>
+<li>Le terme <span class="math inline">\(\epsilon\)</span> est la distribution stochastique :
+<ul>
+<li>Distribution uniforme : <span class="math inline">\(\epsilon = \mathrm{rand}_d()\)</span> est un vecteur aléatoire <span class="math inline">\(d\)</span>-dimensionnel avec des composantes dans <span class="math inline">\([0,1[\)</span> qui donne de petits déplacements aléatoires uniformément répartis.</li>
+<li>Distribution normale : <span class="math inline">\(\epsilon = \mathcal{N}(0,1)\)</span> : utilisée pour une exploration stochastique douce, surtout en optimisation continue.</li>
+<li>Distribution de Lévy : <span class="math inline">\(\epsilon = \mathrm{Lévy}(\lambda)\)</span> (plus tard).</li>
+</ul></li>
+</ul>
+<p>Cela revient donc à une <strong>marche aléatoire avec une dérive</strong> vers les bonnes solutions.</p>
+<hr>
+</section>
+<section id="algorithme-complet-des-lucioles" class="level4">
+<h4 class="anchored" data-anchor-id="algorithme-complet-des-lucioles">Algorithme complet des lucioles</h4>
+<pre><code>iteration = 0
+Initialiser la population de lucioles x_i, i = 1, ..., n
+L'intensité lumineuse I_i en x_i est donnée par f(x_i)
+
+tant que iteration &lt; Max faire
+  pour i = 1 à n
+    pour j = 1 à n
+      si I_i &lt; I_j alors
+        la luciole i se déplace vers la luciole j
+        mettre à jour les distances r_{ij} et l'intensité I_i
+        mettre à jour l'attractivité
+      fin si
+    fin pour
+  fin pour
+  iteration = iteration + 1
+fin tant que</code></pre>
+<hr>
+</section>
+</section>
+</section>
+<section id="marches-aléatoires-mouvement-brownien-et-vols-de-lévy" class="level2">
+<h2 class="anchored" data-anchor-id="marches-aléatoires-mouvement-brownien-et-vols-de-lévy">Marches aléatoires : Mouvement brownien et vols de Lévy</h2>
+<pre class="mermaid"><code>graph LR
+    A[Marche aléatoire] --&gt; B[Mouvement Brownien&lt;br&gt;Distribution gaussienne];
+    A --&gt; C[Vol de Lévy&lt;br&gt;Loi de puissance];</code></pre>
+<p><strong>Mouvement brownien</strong> (distribution gaussienne) : <span class="math inline">\(\mathrm{saut} \sim [N(0,\sigma)]\)</span></p>
+<p><strong>Vol de Lévy</strong> (loi de puissance) : <span class="math inline">\(\mathrm{saut} \sim \mathrm{Ley}(\alpha) = \alpha \mathrm{jump}^{-1 - \alpha} \quad \mathrm{saut} \in [1,\infty [\)</span></p>
+<p>En 2D : Choix aléatoire de la direction <span class="math inline">\(\theta\)</span> uniformément dans <span class="math inline">\([0,2\pi ]\)</span></p>
+<p><span class="math display">\[ r(t + 1) = r(t) + \mathrm{saut}(t)\exp [i\theta (t)] \]</span></p>
+<hr>
+<section id="vols-de-lévy" class="level3">
+<h3 class="anchored" data-anchor-id="vols-de-lévy">Vols de Lévy</h3>
+<p>Variance infinie (<span class="math inline">\(\alpha \leq 2\)</span>). Quelques événements rares de très grande amplitude. Communément rencontrés dans de nombreux phénomènes naturels : par exemple, le mouvement animal en relation avec la recherche de nourriture. Également rencontrés avec des variables dans les systèmes financiers.</p>
+<hr>
+</section>
+</section>
+<section id="recherche-du-coucou-cuckoo-search" class="level2">
+<h2 class="anchored" data-anchor-id="recherche-du-coucou-cuckoo-search">Recherche du coucou (Cuckoo search)</h2>
+<p>Métaheuristique récemment introduite par Yang &amp; Deb en 2010.</p>
+<p>Une autre métaheuristique <strong>basée sur une population</strong>.</p>
+<p>Orientée vers l’optimisation continue.</p>
+<p>Basée librement sur les preuves biologiques suivantes :</p>
+<ul>
+<li>Certaines espèces de coucous se reproduisent par <strong>parasitisme de couvée</strong>.</li>
+<li>Une femelle pond ses œufs dans les nids d’autres oiseaux hôtes.</li>
+<li>Si l’oiseau hôte détecte l’œuf étranger, il peut abandonner le nid ou jeter l’œuf.</li>
+<li>Sinon, le poussin coucou est élevé aux dépens de la progéniture de l’hôte.</li>
+</ul>
+<hr>
+<section id="principes-de-base-de-la-recherche-du-coucou" class="level3">
+<h3 class="anchored" data-anchor-id="principes-de-base-de-la-recherche-du-coucou">Principes de base de la recherche du coucou</h3>
+<p>Le nombre <span class="math inline">\(n\)</span> de nids disponibles est fixe :</p>
+<p>Chaque coucou a un nid (<span class="math inline">\(n\)</span> est identique au nombre de coucous).</p>
+<p>Chaque coucou “pond” un œuf fictif (c’est-à-dire une solution x) et le place aléatoirement dans un nid donné (position <span class="math inline">\(i\)</span> dans la table).</p>
+<p>À chaque itération, un nid est sélectionné aléatoirement et sa solution est modifiée selon un <strong>vol de Lévy</strong> : mécanisme exploratoire. Cette nouvelle solution modifiée est ensuite comparée à celle d’un autre nid à nouveau sélectionné au hasard. Si la nouvelle solution est améliorée, elle est conservée, sinon elle est abandonnée.</p>
+<hr>
+<p>Il y a une probabilité <span class="math inline">\(p_{a} \in [0,1]\)</span> que l’hôte découvre l’œuf intrus et s’en débarrasse.</p>
+<p>Nous remplaçons alors une fraction <span class="math inline">\(p_{a}\)</span> des nids parmi ceux qui contiennent les pires solutions par de nouveaux nids choisis au hasard selon un vol de Lévy. Ces nids sont réinitialisés avec des solutions sélectionnées au hasard.</p>
+<p>C’est le mécanisme d’<strong>exploitation</strong> dans la recherche du coucou.</p>
+<hr>
+<section id="pseudocode-de-la-recherche-du-coucou" class="level4">
+<h4 class="anchored" data-anchor-id="pseudocode-de-la-recherche-du-coucou">Pseudocode de la recherche du coucou</h4>
+<pre><code>Initialiser n nids x_i, i = 1, ..., n
+tant que pas convergence faire
+  Générer une nouvelle solution x'_i par vol de Lévy
+  Choisir un nid aléatoire j
+  si f(x'_i) &gt; f(x_j) alors remplacer x_j par x'_i
+  Abandonner une fraction p_0 des pires nids et en créer de nouveaux
+  Garder la meilleure solution
+fin tant que</code></pre>
+<hr>
+</section>
+</section>
+<section id="exemple-jouet-de-la-recherche-du-coucou" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-jouet-de-la-recherche-du-coucou">Exemple jouet de la recherche du coucou</h3>
+<p>Appliqué pour identifier le maximum d’une fonction de fitness <span class="math inline">\(f\)</span> de <span class="math inline">\([0,1] \to \mathbb{R}\)</span> avec 4 nids (numérotés de 0 à 3). Un quart des nids sont vidés à chaque itération : <span class="math inline">\(p_n = 0.25\)</span>.</p>
+<pre><code>alpha=1.5  # une valeur possible pour l'exposant de Levy
+a=1        # mais une autre mise à l'échelle pourrait être mieux
+
+iter=0
+solution=[random() for i in range(nest)]
+while(iter&lt;maxIter):
+  iter+=1
+  i=randint(0, nest-1)          # sélection d'un nid
+  x=solution[i] + a*levy()      # amélioration aléatoire de l'"œuf"
+  x=x - int(x)                  # plier la solution dans [0,1]
+  j=randint(0, nest-1)          # sélection d'un nid receveur
+  if fitness(x) &gt; fitness(solution[j]):
+    solution[j]=x
+  solution.sort(key=fitness)
+  solution[0:nest/4] = [random() for i in range(nest/4)]
+  best=solution[nest-1]</code></pre>
+<hr>
+<section id="discussion-des-résultats" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-des-résultats">Discussion des résultats</h4>
+<p>Meilleure solution trouvée : <span class="math inline">\(x = 0.399\)</span>, <span class="math inline">\(f(x) = 180.660\)</span> Optimum global : <span class="math inline">\(x^* = 0.4133\)</span>, <span class="math inline">\(f(x^*) = 187.785\)</span> La solution de la recherche du coucou est à moins de 5% de l’optimum global.</p>
+<p>La recherche fonctionne mieux avec 3 nids repeuplés aléatoirement à chaque itération (courbe bleue) : convergence après 5 itérations <span class="math inline">\(x = 0.4137\)</span>, <span class="math inline">\(f(x) = 187.780\)</span>.</p>
+<p>Sur un total de 16 itérations, seuls 4 remplacements d’œufs ont été acceptés. Les améliorations sont principalement dues à de nouvelles solutions provenant aléatoirement du nid 0.</p>
+<p>À précision comparable, l’effort de calcul (nombre de nouvelles valeurs de fitness calculées) pour le cas bleu est également le meilleur : effort de 15 = 5 itérations pour chacune des 3 nouvelles évaluations. Au lieu de 28 = 14 itérations avec à chaque fois 2 évaluations (une modifiée et une nouvelle solution).</p>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

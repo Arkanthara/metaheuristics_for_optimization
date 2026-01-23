@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ch6 – ISS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9ee82e006983bafa07c9ac29a901142c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ISS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-langage" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text">Langage</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-langage">    
+        <li>
+    <a class="dropdown-item" href="./../index.html">
+ <span class="dropdown-text">Anglais</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./index.html">
+ <span class="dropdown-text">Français</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch6.html">Algorithmes évolutionnaires</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cours</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction aux Métaheuristiques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recherche Tabu (Tabu Search)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulated Annealing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">La méthode des colonies de fourmis et l’intelligence en essaim</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch6.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Algorithmes évolutionnaires</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Genetic Programming - GP)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Chapitre 7) et Performance des Métaheuristiques (Chapitre 8)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapitre 9 : Transitions de Phase en Optimisation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#algorithmes-évolutionnaires" id="toc-algorithmes-évolutionnaires" class="nav-link active" data-scroll-target="#algorithmes-évolutionnaires">Algorithmes évolutionnaires</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#idée-clé" id="toc-idée-clé" class="nav-link" data-scroll-target="#idée-clé">Idée clé</a></li>
+  <li><a href="#types-dalgorithmes-évolutionnaires" id="toc-types-dalgorithmes-évolutionnaires" class="nav-link" data-scroll-target="#types-dalgorithmes-évolutionnaires">Types d’algorithmes évolutionnaires</a></li>
+  <li><a href="#caractéristiques-clés-des-ga" id="toc-caractéristiques-clés-des-ga" class="nav-link" data-scroll-target="#caractéristiques-clés-des-ga">Caractéristiques clés des GA</a></li>
+  </ul></li>
+  <li><a href="#algorithmes-génétiques-ga" id="toc-algorithmes-génétiques-ga" class="nav-link" data-scroll-target="#algorithmes-génétiques-ga">Algorithmes génétiques (GA)</a>
+  <ul class="collapse">
+  <li><a href="#maximisation-de-la-fitness" id="toc-maximisation-de-la-fitness" class="nav-link" data-scroll-target="#maximisation-de-la-fitness">Maximisation de la fitness</a></li>
+  <li><a href="#processus-itératif" id="toc-processus-itératif" class="nav-link" data-scroll-target="#processus-itératif">Processus itératif</a></li>
+  <li><a href="#élitisme" id="toc-élitisme" class="nav-link" data-scroll-target="#élitisme">Élitisme</a></li>
+  <li><a href="#pseudocode-dun-ga" id="toc-pseudocode-dun-ga" class="nav-link" data-scroll-target="#pseudocode-dun-ga">Pseudocode d’un GA</a></li>
+  <li><a href="#résumé-du-processus-évolutif-global" id="toc-résumé-du-processus-évolutif-global" class="nav-link" data-scroll-target="#résumé-du-processus-évolutif-global">Résumé du processus évolutif global</a></li>
+  <li><a href="#initialisation-et-critère-darrêt" id="toc-initialisation-et-critère-darrêt" class="nav-link" data-scroll-target="#initialisation-et-critère-darrêt">Initialisation et critère d’arrêt</a></li>
+  </ul></li>
+  <li><a href="#étape-de-sélection" id="toc-étape-de-sélection" class="nav-link" data-scroll-target="#étape-de-sélection">Étape de sélection</a>
+  <ul class="collapse">
+  <li><a href="#mécanisme-de-sélection" id="toc-mécanisme-de-sélection" class="nav-link" data-scroll-target="#mécanisme-de-sélection">Mécanisme de sélection</a></li>
+  </ul></li>
+  <li><a href="#étape-de-croisement" id="toc-étape-de-croisement" class="nav-link" data-scroll-target="#étape-de-croisement">Étape de croisement</a>
+  <ul class="collapse">
+  <li><a href="#application-du-croisement" id="toc-application-du-croisement" class="nav-link" data-scroll-target="#application-du-croisement">Application du croisement</a></li>
+  </ul></li>
+  <li><a href="#étape-de-mutation" id="toc-étape-de-mutation" class="nav-link" data-scroll-target="#étape-de-mutation">Étape de mutation</a>
+  <ul class="collapse">
+  <li><a href="#exploration-vs-exploitation" id="toc-exploration-vs-exploitation" class="nav-link" data-scroll-target="#exploration-vs-exploitation">Exploration vs Exploitation</a></li>
+  </ul></li>
+  <li><a href="#exemple-jouet" id="toc-exemple-jouet" class="nav-link" data-scroll-target="#exemple-jouet">Exemple jouet</a>
+  <ul class="collapse">
+  <li><a href="#population-initiale" id="toc-population-initiale" class="nav-link" data-scroll-target="#population-initiale">Population initiale</a></li>
+  <li><a href="#étape-de-sélection-proportionnelle-à-la-fitness" id="toc-étape-de-sélection-proportionnelle-à-la-fitness" class="nav-link" data-scroll-target="#étape-de-sélection-proportionnelle-à-la-fitness">Étape de sélection (proportionnelle à la fitness)</a></li>
+  <li><a href="#étape-de-croisement-1" id="toc-étape-de-croisement-1" class="nav-link" data-scroll-target="#étape-de-croisement-1">Étape de croisement</a></li>
+  <li><a href="#étape-de-mutation-1" id="toc-étape-de-mutation-1" class="nav-link" data-scroll-target="#étape-de-mutation-1">Étape de mutation</a></li>
+  <li><a href="#nouvelle-génération-à-t1" id="toc-nouvelle-génération-à-t1" class="nav-link" data-scroll-target="#nouvelle-génération-à-t1">Nouvelle génération à <span class="math inline">\(t+1\)</span></a></li>
+  </ul></li>
+  <li><a href="#exemple-plus-réaliste" id="toc-exemple-plus-réaliste" class="nav-link" data-scroll-target="#exemple-plus-réaliste">Exemple plus réaliste</a>
+  <ul class="collapse">
+  <li><a href="#évolution-de-la-fitness" id="toc-évolution-de-la-fitness" class="nav-link" data-scroll-target="#évolution-de-la-fitness">Évolution de la fitness</a></li>
+  <li><a href="#diversité-de-la-population" id="toc-diversité-de-la-population" class="nav-link" data-scroll-target="#diversité-de-la-population">Diversité de la population</a></li>
+  </ul></li>
+  <li><a href="#cas-dune-fonction-continue-réelle" id="toc-cas-dune-fonction-continue-réelle" class="nav-link" data-scroll-target="#cas-dune-fonction-continue-réelle">Cas d’une fonction continue réelle</a>
+  <ul class="collapse">
+  <li><a href="#fonctions-de-test-rastrigin-et-schwefel" id="toc-fonctions-de-test-rastrigin-et-schwefel" class="nav-link" data-scroll-target="#fonctions-de-test-rastrigin-et-schwefel">Fonctions de test Rastrigin et Schwefel</a></li>
+  <li><a href="#autre-exemple" id="toc-autre-exemple" class="nav-link" data-scroll-target="#autre-exemple">Autre exemple</a></li>
+  <li><a href="#le-défi-de-lencodage" id="toc-le-défi-de-lencodage" class="nav-link" data-scroll-target="#le-défi-de-lencodage">Le défi de l’encodage</a></li>
+  <li><a href="#description-dune-exécution-ga" id="toc-description-dune-exécution-ga" class="nav-link" data-scroll-target="#description-dune-exécution-ga">Description d’une exécution GA</a></li>
+  <li><a href="#notes-sur-lencodage" id="toc-notes-sur-lencodage" class="nav-link" data-scroll-target="#notes-sur-lencodage">Notes sur l’encodage</a></li>
+  <li><a href="#encodage-en-virgule-flottante-des-nombres-réels" id="toc-encodage-en-virgule-flottante-des-nombres-réels" class="nav-link" data-scroll-target="#encodage-en-virgule-flottante-des-nombres-réels">Encodage en virgule flottante des nombres réels</a></li>
+  <li><a href="#ga-avec-nombres-réels" id="toc-ga-avec-nombres-réels" class="nav-link" data-scroll-target="#ga-avec-nombres-réels">GA avec nombres réels</a></li>
+  </ul></li>
+  <li><a href="#autres-types-dopérateurs-de-sélection" id="toc-autres-types-dopérateurs-de-sélection" class="nav-link" data-scroll-target="#autres-types-dopérateurs-de-sélection">Autres types d’opérateurs de sélection</a>
+  <ul class="collapse">
+  <li><a href="#révision-de-la-sélection-proportionnelle-à-la-fitness" id="toc-révision-de-la-sélection-proportionnelle-à-la-fitness" class="nav-link" data-scroll-target="#révision-de-la-sélection-proportionnelle-à-la-fitness">Révision de la sélection proportionnelle (à la fitness)</a></li>
+  <li><a href="#sélection-par-rang" id="toc-sélection-par-rang" class="nav-link" data-scroll-target="#sélection-par-rang">Sélection par rang</a></li>
+  <li><a href="#sélection-par-tournoi" id="toc-sélection-par-tournoi" class="nav-link" data-scroll-target="#sélection-par-tournoi">Sélection par tournoi</a></li>
+  </ul></li>
+  <li><a href="#temps-de-prise-de-contrôle-takeover-time-intensité-de-sélection" id="toc-temps-de-prise-de-contrôle-takeover-time-intensité-de-sélection" class="nav-link" data-scroll-target="#temps-de-prise-de-contrôle-takeover-time-intensité-de-sélection">Temps de prise de contrôle (Takeover time) : Intensité de sélection</a>
+  <ul class="collapse">
+  <li><a href="#estimation-pratique" id="toc-estimation-pratique" class="nav-link" data-scroll-target="#estimation-pratique">Estimation pratique</a></li>
+  <li><a href="#solution-de-léquation-logistique" id="toc-solution-de-léquation-logistique" class="nav-link" data-scroll-target="#solution-de-léquation-logistique">Solution de l’équation logistique</a></li>
+  </ul></li>
+  <li><a href="#autres-approches-de-croisement-et-de-mutation" id="toc-autres-approches-de-croisement-et-de-mutation" class="nav-link" data-scroll-target="#autres-approches-de-croisement-et-de-mutation">Autres approches de croisement et de mutation</a>
+  <ul class="collapse">
+  <li><a href="#autres-opérateurs-de-croisement" id="toc-autres-opérateurs-de-croisement" class="nav-link" data-scroll-target="#autres-opérateurs-de-croisement">Autres opérateurs de croisement</a></li>
+  <li><a href="#autres-opérateurs-de-mutation" id="toc-autres-opérateurs-de-mutation" class="nav-link" data-scroll-target="#autres-opérateurs-de-mutation">Autres opérateurs de mutation</a></li>
+  </ul></li>
+  <li><a href="#utilité-des-opérateurs-génétiques" id="toc-utilité-des-opérateurs-génétiques" class="nav-link" data-scroll-target="#utilité-des-opérateurs-génétiques">Utilité des opérateurs génétiques</a>
+  <ul class="collapse">
+  <li><a href="#pourquoi-le-croisement-est-efficace" id="toc-pourquoi-le-croisement-est-efficace" class="nav-link" data-scroll-target="#pourquoi-le-croisement-est-efficace">Pourquoi le croisement est efficace ?</a></li>
+  <li><a href="#utilité-de-lopérateur-de-croisement-avec-une-fonction-réelle" id="toc-utilité-de-lopérateur-de-croisement-avec-une-fonction-réelle" class="nav-link" data-scroll-target="#utilité-de-lopérateur-de-croisement-avec-une-fonction-réelle">Utilité de l’opérateur de croisement avec une fonction réelle</a></li>
+  <li><a href="#exemple-couverture-optimale-de-zone-par-antennes-gsm" id="toc-exemple-couverture-optimale-de-zone-par-antennes-gsm" class="nav-link" data-scroll-target="#exemple-couverture-optimale-de-zone-par-antennes-gsm">Exemple : Couverture optimale de zone par antennes GSM</a></li>
+  </ul></li>
+  <li><a href="#théorème-du-schéma-schema-theorem" id="toc-théorème-du-schéma-schema-theorem" class="nav-link" data-scroll-target="#théorème-du-schéma-schema-theorem">Théorème du schéma (Schema Theorem)</a>
+  <ul class="collapse">
+  <li><a href="#définitions" id="toc-définitions" class="nav-link" data-scroll-target="#définitions">Définitions</a></li>
+  <li><a href="#ordre-et-longueur-dun-schéma" id="toc-ordre-et-longueur-dun-schéma" class="nav-link" data-scroll-target="#ordre-et-longueur-dun-schéma">Ordre et longueur d’un schéma</a></li>
+  <li><a href="#fitness-dun-schéma-s" id="toc-fitness-dun-schéma-s" class="nav-link" data-scroll-target="#fitness-dun-schéma-s">Fitness d’un schéma <span class="math inline">\(S\)</span></a></li>
+  <li><a href="#évolution-du-nombre-moyen-mt-s" id="toc-évolution-du-nombre-moyen-mt-s" class="nav-link" data-scroll-target="#évolution-du-nombre-moyen-mt-s">Évolution du nombre moyen <span class="math inline">\(M(t, S)\)</span></a></li>
+  <li><a href="#inégalité-fondamentale" id="toc-inégalité-fondamentale" class="nav-link" data-scroll-target="#inégalité-fondamentale">Inégalité fondamentale</a></li>
+  <li><a href="#théorème-du-schéma-de-holland" id="toc-théorème-du-schéma-de-holland" class="nav-link" data-scroll-target="#théorème-du-schéma-de-holland">Théorème du schéma de Holland</a></li>
+  </ul></li>
+  <li><a href="#population-structurée" id="toc-population-structurée" class="nav-link" data-scroll-target="#population-structurée">Population structurée</a>
+  <ul class="collapse">
+  <li><a href="#multi-populations" id="toc-multi-populations" class="nav-link" data-scroll-target="#multi-populations">Multi-populations</a></li>
+  <li><a href="#populations-cellulaires" id="toc-populations-cellulaires" class="nav-link" data-scroll-target="#populations-cellulaires">Populations cellulaires</a></li>
+  <li><a href="#temps-de-prise-de-contrôle-avec-populations-structurées" id="toc-temps-de-prise-de-contrôle-avec-populations-structurées" class="nav-link" data-scroll-target="#temps-de-prise-de-contrôle-avec-populations-structurées">Temps de prise de contrôle avec populations structurées</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch6.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch6.html">Algorithmes évolutionnaires</a></li></ol></nav></header>
+
+
+
+
+
+<section id="algorithmes-évolutionnaires" class="level1">
+<h1>Algorithmes évolutionnaires</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Métaheuristique stochastique <strong>basée sur une population</strong> introduite dans les années 70 (parmi les toutes premières).</p>
+<p>Famille de métaheuristiques basée sur le concept de l’évolution darwinienne : <strong>sélection naturelle</strong> ou “survie du plus apte”.</p>
+<p>Les individus “meilleurs” se reproduisent (sélection) et évoluent.</p>
+<p>Composants principaux :</p>
+<ul>
+<li><strong>Sélection</strong></li>
+<li><strong>Mutation</strong></li>
+<li><strong>Croisement</strong> (crossover) des individus les plus aptes.</li>
+</ul>
+<hr>
+<section id="idée-clé" class="level3">
+<h3 class="anchored" data-anchor-id="idée-clé">Idée clé</h3>
+<p>Simuler le processus d’évolution pour faire émerger des solutions de haute qualité pour un problème donné : recherche de bonnes solutions en faisant évoluer une population de solutions candidates via la variation et la sélection.</p>
+</section>
+<section id="types-dalgorithmes-évolutionnaires" class="level3">
+<h3 class="anchored" data-anchor-id="types-dalgorithmes-évolutionnaires">Types d’algorithmes évolutionnaires</h3>
+<ul>
+<li><strong>Algorithmes génétiques (GA)</strong> – John Holland</li>
+<li><strong>Stratégie d’évolution (ES)</strong> – Ingo Rechenberg</li>
+<li><strong>Programmation génétique (GP)</strong> – Lawrence J. Fogel, John R. Koza</li>
+</ul>
+<hr>
+</section>
+<section id="caractéristiques-clés-des-ga" class="level3">
+<h3 class="anchored" data-anchor-id="caractéristiques-clés-des-ga">Caractéristiques clés des GA</h3>
+<ul>
+<li><strong>Basés sur une population</strong> : explore de nombreuses régions de l’espace de recherche simultanément.</li>
+<li><strong>Opérateurs probabilistes</strong> : utilisent l’aléatoire mais sont guidés par la fitness.</li>
+<li><strong>Capacité de recherche globale</strong> : moins sujet aux minima locaux que les méthodes purement déterministes.</li>
+<li><strong>Optimisation boîte noire</strong> : ne nécessite pas de dérivées ou d’informations de gradient.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="algorithmes-génétiques-ga" class="level2">
+<h2 class="anchored" data-anchor-id="algorithmes-génétiques-ga">Algorithmes génétiques (GA)</h2>
+<p>Nous considérons une population d’individus.</p>
+<p>Chaque individu correspond à une solution (c’est-à-dire un point dans l’espace de recherche <span class="math inline">\(S\)</span>).</p>
+<p>Comme pour les autres métaheuristiques, le choix de la <strong>représentation</strong> de la solution joue un rôle important. Pour les GA, nous parlons d’<strong>encodage</strong> du jeu fictif de chromosomes/le génotype de chaque individu (le phénotype).</p>
+<ul>
+<li><strong>Encodage binaire</strong> : par exemple pour le problème MaxOne.</li>
+<li><strong>Encodage à valeurs réelles</strong> : pour l’optimisation continue.</li>
+<li><strong>Encodage par permutation</strong> : pour les problèmes d’ordonnancement (ex. : TSP).</li>
+</ul>
+<p>Le niveau d’adaptation de chaque individu est naturellement donné par sa <strong>fitness</strong>.</p>
+<hr>
+<section id="maximisation-de-la-fitness" class="level3">
+<h3 class="anchored" data-anchor-id="maximisation-de-la-fitness">Maximisation de la fitness</h3>
+<p>Dans ce cours, nous nous concentrons sur la <strong>maximisation</strong> de la fitness.</p>
+<p>En biologie, la fitness peut être mesurée par le nombre de descendants → plus le nombre de descendants est grand, plus l’espèce est adaptée.</p>
+<hr>
+</section>
+<section id="processus-itératif" class="level3">
+<h3 class="anchored" data-anchor-id="processus-itératif">Processus itératif</h3>
+<p><strong>Initialisation</strong> : L’évolution commence à partir d’une population d’individus générés aléatoirement.</p>
+<p>Suivi d’un processus itératif :</p>
+<p>La population à chaque itération est appelée une <strong>génération</strong>.</p>
+<p>À chaque génération, la fitness de chaque individu de la population est évaluée. Ensuite, on effectue :</p>
+<ol type="1">
+<li><strong>Sélection</strong> des individus les plus aptes dans toute la population.</li>
+<li><strong>Mutations</strong> (transformation aléatoire du génotype).</li>
+<li><strong>Croisement</strong> (hybridation du génotype d’une paire d’individus).</li>
+</ol>
+<hr>
+</section>
+<section id="élitisme" class="level3">
+<h3 class="anchored" data-anchor-id="élitisme">Élitisme</h3>
+<p>Pour limiter l’impact de l’exploration et promouvoir l’exploitation, et afin de ne pas perdre la meilleure solution trouvée jusqu’à présent, celle-ci est automatiquement insérée dans la dernière génération. C’est le processus dit d’<strong>élitisme</strong>.</p>
+<p>L’élitisme est implémenté en remplaçant l’individu le moins apte par le plus apte (non nécessaire si le plus apte est déjà apparu au cours de la génération en cours).</p>
+<p>La taille de la population est maintenue constante tout au long de l’évolution.</p>
+<hr>
+</section>
+<section id="pseudocode-dun-ga" class="level3">
+<h3 class="anchored" data-anchor-id="pseudocode-dun-ga">Pseudocode d’un GA</h3>
+<pre><code>génération = 0
+initialiser la population
+
+tant que (condition d'arrêt non atteinte)
+    génération += 1
+    évaluer : calculer la fitness de chaque individu
+    sélectionner des individus
+    croisement
+    mutation
+    insérer le meilleur
+fin tant que
+
+afficher le meilleur</code></pre>
+<hr>
+</section>
+<section id="résumé-du-processus-évolutif-global" class="level3">
+<h3 class="anchored" data-anchor-id="résumé-du-processus-évolutif-global">Résumé du processus évolutif global</h3>
+<p><span class="math display">\[ P(t) \stackrel{\mathrm{sélection}}{\longrightarrow} P^{\prime}(t) \stackrel{\mathrm{croisement}}{\longrightarrow} P^{\prime \prime}(t) \stackrel{\mathrm{mutation}}{\longrightarrow} P^{\prime \prime \prime}(t) = P(t + 1) \]</span></p>
+<p>Le maintien d’une taille de population constante a des implications importantes sur la définition des opérateurs de sélection et de croisement.</p>
+<hr>
+</section>
+<section id="initialisation-et-critère-darrêt" class="level3">
+<h3 class="anchored" data-anchor-id="initialisation-et-critère-darrêt">Initialisation et critère d’arrêt</h3>
+<p><strong>Population initiale</strong> :</p>
+<ul>
+<li>Taille <span class="math inline">\(n\)</span> : contient typiquement des dizaines à quelques centaines d’individus.</li>
+<li>Par défaut, générée aléatoirement, à moins qu’une connaissance préalable ne soit disponible.</li>
+</ul>
+<p><strong>Critère d’arrêt</strong> :</p>
+<ul>
+<li>Par défaut après un nombre donné d’itérations, ou en l’absence d’amélioration de la fitness.</li>
+<li>Retourne le meilleur individu de la population.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="étape-de-sélection" class="level2">
+<h2 class="anchored" data-anchor-id="étape-de-sélection">Étape de sélection</h2>
+<p><span class="math display">\[ P(t) \stackrel{\mathrm{sélection}}{\longrightarrow} P^{\prime}(t) \]</span></p>
+<p>La sélection choisit des individus de la population actuelle pour devenir parents de la génération suivante.</p>
+<p><strong>Survie du plus apte</strong> : principe de proportionnalité à la fitness. Les individus ayant une fitness plus élevée ont une probabilité plus élevée d’être sélectionnés pour se reproduire.</p>
+<p>Une certaine stochasticité est préservée : des individus moins aptes peuvent parfois se reproduire aussi, ce qui aide à maintenir la diversité et à éviter une convergence prématurée.</p>
+<p><strong>Pression de sélection</strong> : mesure à quel point le processus de sélection favorise les meilleurs individus.</p>
+<ul>
+<li>Pression de sélection élevée → convergence rapide mais risque de convergence prématurée (perte de diversité).</li>
+<li>Pression de sélection faible → meilleure diversité mais convergence plus lente.</li>
+</ul>
+<hr>
+<section id="mécanisme-de-sélection" class="level3">
+<h3 class="anchored" data-anchor-id="mécanisme-de-sélection">Mécanisme de sélection</h3>
+<p>Nous tirons, <strong>avec remise</strong>, <span class="math inline">\(n\)</span> fois un individu parmi la population courante de taille <span class="math inline">\(n\)</span>.</p>
+<p>Le choix est effectué aléatoirement mais implique la fonction de fitness. Par exemple, la probabilité de sélectionner l’individu <span class="math inline">\(k\)</span> est proportionnelle à sa fitness.</p>
+<p>D’autres méthodes sont possibles : sélection par tournoi ou par rang (voir plus tard).</p>
+<p>À la fin de l’étape de sélection, nous avons une population temporaire dans laquelle un individu donné peut apparaître plusieurs fois. Par construction, il est attendu que cette population contienne les individus les plus aptes de la population originale.</p>
+<hr>
+</section>
+</section>
+<section id="étape-de-croisement" class="level2">
+<h2 class="anchored" data-anchor-id="étape-de-croisement">Étape de croisement</h2>
+<p><span class="math display">\[ P^{\prime}(t) \stackrel{\mathrm{croisement}}{\longrightarrow} P^{\prime \prime}(t) \]</span></p>
+<p>Les <span class="math inline">\(n\)</span> individus issus de l’étape de sélection constituent les parents de la génération suivante obtenue après croisement et mutation.</p>
+<p><strong>Croisement</strong> :</p>
+<ul>
+<li>Conçu pour mélanger l’information de deux parents afin de créer une descendance qui combine leurs traits avantageux.</li>
+<li>Mécanisme essentiel qui donne aux GA leur puissance : construire de nouvelles solutions à partir de bonnes composantes existantes.</li>
+</ul>
+<hr>
+<section id="application-du-croisement" class="level3">
+<h3 class="anchored" data-anchor-id="application-du-croisement">Application du croisement</h3>
+<p>Nous formons des paires d’individus basées sur les parents identifiés lors de l’étape de sélection. Par exemple, les paires <span class="math inline">\((s_i, s_{i+1})\)</span>, où <span class="math inline">\(s_i\)</span> est le <span class="math inline">\(i\)</span>-ème individu, <span class="math inline">\(i = 1, 3, \ldots\)</span>.</p>
+<p>Avec une probabilité donnée <span class="math inline">\(p_{\mathrm{croisement}}\)</span>, nous mélangeons l’encodage (génome) des deux parents pour générer le génome de deux descendants les remplaçant.</p>
+<p>Avec une probabilité <span class="math inline">\(1 - p_{\mathrm{croisement}}\)</span>, le croisement n’est pas appliqué : les descendants sont des copies exactes des parents.</p>
+<p>Il existe différents opérateurs de croisement (voir plus tard).</p>
+<hr>
+</section>
+</section>
+<section id="étape-de-mutation" class="level2">
+<h2 class="anchored" data-anchor-id="étape-de-mutation">Étape de mutation</h2>
+<p><span class="math display">\[ P^{\prime \prime}(t) \stackrel{\mathrm{mutation}}{\longrightarrow} P^{\prime \prime \prime}(t) = P(t + 1) \]</span></p>
+<p>La mutation est la principale source de nouveauté génétique et est essentielle pour maintenir l’exploration.</p>
+<p>Une mutation peut être appliquée aux <span class="math inline">\(n\)</span> nouveaux individus générés par l’étape de croisement précédente, avec une probabilité <span class="math inline">\(p_{\mathrm{mutation}}\)</span>.</p>
+<p>Cette étape de mutation est destinée à imiter les erreurs de transcription et le bruit exogène qui peuvent créer de nouvelles solutions → exploration supplémentaire.</p>
+<p>Une mutation consiste à modifier aléatoirement l’encodage/génome d’un individu donné.</p>
+<hr>
+<section id="exploration-vs-exploitation" class="level3">
+<h3 class="anchored" data-anchor-id="exploration-vs-exploitation">Exploration vs Exploitation</h3>
+<ul>
+<li>L’opérateur de <strong>sélection</strong> favorise l’intensification → <strong>exploitation</strong>.</li>
+<li>L’opérateur de <strong>mutation</strong> favorise la diversification → <strong>exploration</strong>.</li>
+<li>L’opérateur de <strong>croisement</strong> favorise également plus la diversification que l’intensification (les deux ne sont pas mutuellement exclusifs).</li>
+</ul>
+<p><strong>Paramètres de guidage</strong> :</p>
+<ul>
+<li>Taille de la population <span class="math inline">\(n\)</span>.</li>
+<li>Probabilité de mutation <span class="math inline">\(P_{\text{mutation}}\)</span>.</li>
+<li>Probabilité de croisement <span class="math inline">\(P_{\text{croisement}}\)</span>.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exemple-jouet" class="level2">
+<h2 class="anchored" data-anchor-id="exemple-jouet">Exemple jouet</h2>
+<p>Illustrons les étapes clés d’un GA avec un problème basique : <strong>maxOne</strong>, un problème particulier de paysage <span class="math inline">\(NK\)</span> avec <span class="math inline">\(K = 0\)</span>.</p>
+<p>But : trouver la chaîne de bits de longueur <span class="math inline">\(\ell\)</span> telle que le nombre de bits à 1 soit maximum.</p>
+<p>La solution est évidente pour un humain : <span class="math inline">\(x = 111\ldots 111\)</span>, mais c’est un défi pour le GA de l’identifier. Pour illustrer, nous considérons <span class="math inline">\(\ell = 10\)</span> et une taille de population <span class="math inline">\(n = 6\)</span>.</p>
+<hr>
+<section id="population-initiale" class="level3">
+<h3 class="anchored" data-anchor-id="population-initiale">Population initiale</h3>
+<p>Supposons que le tirage aléatoire initial donne :</p>
+<ul>
+<li><span class="math inline">\(s_1 = 1111010101 \quad f(s_1) = 7\)</span></li>
+<li><span class="math inline">\(s_2 = 0111000101 \quad f(s_2) = 5\)</span></li>
+<li><span class="math inline">\(s_3 = 1110110101 \quad f(s_3) = 7\)</span></li>
+<li><span class="math inline">\(s_4 = 0100010011 \quad f(s_4) = 4\)</span></li>
+<li><span class="math inline">\(s_5 = 1110111101 \quad f(s_5) = 8\)</span></li>
+<li><span class="math inline">\(s_6 = 0100110000 \quad f(s_6) = 3\)</span></li>
+</ul>
+<p>où la fitness <span class="math inline">\(f\)</span> est simplement définie comme :</p>
+<p><span class="math display">\[ f(s_i) = f(x_1 x_2 \dots x_\ell) = \sum_{j=1}^\ell x_j \]</span></p>
+<hr>
+</section>
+<section id="étape-de-sélection-proportionnelle-à-la-fitness" class="level3">
+<h3 class="anchored" data-anchor-id="étape-de-sélection-proportionnelle-à-la-fitness">Étape de sélection (proportionnelle à la fitness)</h3>
+<p>Nous considérons un processus de sélection proportionnel à la fitness :</p>
+<p>La probabilité <span class="math inline">\(p_i\)</span> de sélectionner l’individu <span class="math inline">\(s_i\)</span> est :</p>
+<p><span class="math display">\[ p_{i} = \frac{f(s_{i})}{\sum_{k = 1}^{n}f(s_{k})} \]</span></p>
+<p>Dans ce problème, la somme des fitness est <span class="math inline">\(34\)</span> et sa valeur moyenne est <span class="math inline">\(34 / 6 = 5.67\)</span>.</p>
+<p>Ainsi, la probabilité de sélectionner <span class="math inline">\(s_1\)</span> est <span class="math inline">\(7 / 34 = 0.2059\)</span> tandis que <span class="math inline">\(s_6\)</span> sera sélectionné avec une probabilité <span class="math inline">\(3 / 34 = 0.088\)</span>.</p>
+<hr>
+<section id="roulette-roulette-wheel" class="level4">
+<h4 class="anchored" data-anchor-id="roulette-roulette-wheel">Roulette (Roulette wheel)</h4>
+<p>Nous tirons un nombre aléatoire <span class="math inline">\(r = \text{rand}(0,1)\)</span> et nous sélectionnons l’individu <span class="math inline">\(i\)</span> tel que :</p>
+<p><span class="math display">\[ \sum_{k=1}^{i-1} p_k &lt; r \leq \sum_{k=1}^{i} p_k \]</span></p>
+<p>Table des probabilités cumulées :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Individu</th>
+<th>Probabilité</th>
+<th>Intervalle cumulatif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(s_1\)</span></td>
+<td>0.2059</td>
+<td>0.0000 – 0.2059</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s_2\)</span></td>
+<td>0.1471</td>
+<td>0.2059 – 0.3530</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(s_3\)</span></td>
+<td>0.2059</td>
+<td>0.3530 – 0.5589</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s_4\)</span></td>
+<td>0.1176</td>
+<td>0.5589 – 0.6765</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(s_5\)</span></td>
+<td>0.2353</td>
+<td>0.6765 – 0.9118</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s_6\)</span></td>
+<td>0.0882</td>
+<td>0.9118 – 1.0000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="résultat-de-la-sélection" class="level4">
+<h4 class="anchored" data-anchor-id="résultat-de-la-sélection">Résultat de la sélection</h4>
+<p>Supposons qu’à la fin de l’étape de sélection (6 tirages avec remplacement), nous obtenions la population temporaire suivante :</p>
+<ul>
+<li><span class="math inline">\(s_{1}^{\prime} = 1111010101\)</span> (copie de <span class="math inline">\(s_1\)</span>)</li>
+<li><span class="math inline">\(s_{2}^{\prime} = 1110110101\)</span> (copie de <span class="math inline">\(s_3\)</span>)</li>
+<li><span class="math inline">\(s_{3}^{\prime} = 1110111101\)</span> (copie de <span class="math inline">\(s_5\)</span>)</li>
+<li><span class="math inline">\(s_{4}^{\prime} = 0111000101\)</span> (copie de <span class="math inline">\(s_2\)</span>)</li>
+<li><span class="math inline">\(s_{5}^{\prime} = 0100010011\)</span> (copie de <span class="math inline">\(s_4\)</span>)</li>
+<li><span class="math inline">\(s_{6}^{\prime} = 1110111101\)</span> (copie de <span class="math inline">\(s_5\)</span>)</li>
+</ul>
+<p>Note : La chaîne <span class="math inline">\(s_5\)</span> a été sélectionnée deux fois (fitness la plus élevée). La chaîne <span class="math inline">\(s_6\)</span> n’a jamais été sélectionnée (fitness la plus basse).</p>
+<p>L’étape de sélection donne plus de chances à certains individus à haute fitness de se retrouver dans la prochaine génération. Évidemment, il est crucial d’introduire un élément d’“innovation” via l’exploration, sinon aucune nouvelle solution ne peut émerger. Ces variations exploratoires sont réalisées par les opérateurs génétiques de croisement et de mutation.</p>
+<hr>
+</section>
+</section>
+<section id="étape-de-croisement-1" class="level3">
+<h3 class="anchored" data-anchor-id="étape-de-croisement-1">Étape de croisement</h3>
+<p>L’opérateur de croisement doit maintenant être spécifiquement défini. La chaîne binaire peut être vue comme un code génétique (encodage) avec 2 symboles (0 et 1) au lieu des 4 symboles d’ADN (A, C, G, T).</p>
+<p><strong>Croisement à un point</strong> :</p>
+<p>Il consiste à créer un nouvel individu en prenant les premiers <span class="math inline">\(k\)</span> “gènes” du premier parent et les gènes de <span class="math inline">\(k+1\)</span> à <span class="math inline">\(\ell\)</span> du second parent.</p>
+<p>Ici, <span class="math inline">\(k\)</span> est le point de croisement choisi aléatoirement entre 1 et <span class="math inline">\(\ell - 1\)</span>.</p>
+<p>Pour obtenir le deuxième descendant : nous prenons les gènes <span class="math inline">\(1:k\)</span> du second parent croisés avec les gènes <span class="math inline">\((k+1):\ell\)</span> du premier parent. Par ce processus, à partir de deux parents, nous obtenons deux descendants.</p>
+<hr>
+<section id="application-au-sein-de-la-population" class="level4">
+<h4 class="anchored" data-anchor-id="application-au-sein-de-la-population">Application au sein de la population</h4>
+<p>Pour appliquer l’opérateur de croisement à toute la population, nous formons des paires <span class="math inline">\((s_i, s_{i+1})\)</span>.</p>
+<p>Avec <span class="math inline">\(n = 6\)</span> chaînes/individus, <span class="math inline">\(s_1'\)</span> est mélangé avec <span class="math inline">\(s_2'\)</span>, <span class="math inline">\(s_3'\)</span> avec <span class="math inline">\(s_4'\)</span>, et <span class="math inline">\(s_5'\)</span> avec <span class="math inline">\(s_6'\)</span>, chaque fois avec une probabilité de croisement <span class="math inline">\(p_{\text{croisement}}\)</span>.</p>
+<p>Choisissons <span class="math inline">\(p_{\text{croisement}} = 0.6\)</span>. Supposons qu’après tirage des nombres pseudo-aléatoires, seules les paires <span class="math inline">\((s_1', s_2')\)</span> et <span class="math inline">\((s_5', s_6')\)</span> sont hybridées.</p>
+<hr>
+</section>
+<section id="premier-croisement" class="level4">
+<h4 class="anchored" data-anchor-id="premier-croisement">Premier croisement</h4>
+<p>Supposons que le point de croisement soit <span class="math inline">\(k = 2\)</span> pour la première paire. Avant le croisement :</p>
+<p><span class="math display">\[ s_1^\prime = 11 \cdot 11010101 \]</span> <span class="math display">\[ s_2^\prime = 11 \cdot 10110101 \]</span></p>
+<p>Purement par hasard, dans ce cas particulier, le croisement n’a produit aucune nouvelle chaîne puisque les descendants sont identiques aux parents. Cela arrive souvent lorsque les parents sont similaires → exploitation du GA.</p>
+<p>Après le croisement :</p>
+<p><span class="math display">\[ s_1^{\prime \prime} = 11 \cdot 10110101 \]</span> <span class="math display">\[ s_2^{\prime \prime} = 11 \cdot 11010101 \]</span></p>
+<hr>
+</section>
+<section id="deuxième-croisement" class="level4">
+<h4 class="anchored" data-anchor-id="deuxième-croisement">Deuxième croisement</h4>
+<p>Pour la paire <span class="math inline">\((s_5', s_6')\)</span>, supposons <span class="math inline">\(k = 5\)</span>. Avant croisement :</p>
+<p><span class="math display">\[ s_5' = 01000 \cdot 10011 \]</span> <span class="math display">\[ s_6' = 11101 \cdot 11101 \]</span></p>
+<p>Après croisement :</p>
+<p><span class="math display">\[ s_5'' = 01000 \cdot 11101 \]</span> <span class="math display">\[ s_6'' = 11101 \cdot 10011 \]</span></p>
+<p>Cette fois, le croisement a produit des descendants distincts des parents. Nous avons généré de la diversité → exploration.</p>
+<hr>
+</section>
+</section>
+<section id="étape-de-mutation-1" class="level3">
+<h3 class="anchored" data-anchor-id="étape-de-mutation-1">Étape de mutation</h3>
+<p>La dernière étape pour générer une nouvelle population implique une mutation aléatoire d’un ou plusieurs gènes de la population de descendants générée par croisement.</p>
+<p>Pour chaque chaîne/individu ET pour chaque chiffre binaire de la chaîne, nous créons la possibilité de l’inverser avec une petite probabilité, disons 0.1.</p>
+<p>Cette valeur implique que sur 60 chiffres binaires au total (60 = 6 × 10), nous attendons qu’en moyenne 6 soient inversés.</p>
+<p>À la fin de ce processus, la génération résultante pourrait ressembler à ceci (les chiffres à inverser sont surlignés) :</p>
+<ul>
+<li><span class="math inline">\(s_1'' = 111\ 011\ 0101\)</span> (aucun changement)</li>
+<li><span class="math inline">\(s_2'' = 111\ 101\ 0101\)</span> (aucun changement)</li>
+<li><span class="math inline">\(s_3'' = 111\ 011\ 1101\)</span> (aucun changement)</li>
+<li><span class="math inline">\(s_4'' = 011\ 100\ 0101\)</span> (aucun changement)</li>
+<li><span class="math inline">\(s_5'' = 010\ 001\ 1101\)</span> (aucun changement)</li>
+<li><span class="math inline">\(s_6'' = 111\ 011\ 0011\)</span> (le dernier 1 devient 0)</li>
+</ul>
+<p>Sur les 6 mutations potentielles, 4 transforment un ‘1’ en ‘0’, réduisant ainsi la fitness de la chaîne/individu → dégradation de la fitness.</p>
+<p>Ce n’est pas surprenant, étant donné que les “bonnes” solutions tendent à prévaloir à ce stade, donc les mutations vont probablement détériorer le résultat, mais occasionnellement elles peuvent l’améliorer → exploration.</p>
+<hr>
+</section>
+<section id="nouvelle-génération-à-t1" class="level3">
+<h3 class="anchored" data-anchor-id="nouvelle-génération-à-t1">Nouvelle génération à <span class="math inline">\(t+1\)</span></h3>
+<p>Une fois l’étape de mutation terminée, nous avons la nouvelle génération suivante :</p>
+<p><span class="math display">\[
+\begin{aligned}
+s_1^{HH} &amp;= 111\ 010\ 0101 &amp; f(s_1^{HH}) &amp;= 6 \\
+s_2^{HH} &amp;= 111\ 111\ 0100 &amp; f(s_2^{HH}) &amp;= 7 \\
+s_3^{HH} &amp;= 111\ 010\ 1111 &amp; f(s_3^{HH}) &amp;= 8 \\
+s_4^{HH} &amp;= 011\ 100\ 0101 &amp; f(s_4^{HH}) &amp;= 5 \\
+s_5^{HH} &amp;= 010\ 001\ 1101 &amp; f(s_5^{HH}) &amp;= 5 \\
+s_6^{HH} &amp;= 111\ 011\ 0001 &amp; f(s_6^{HH}) &amp;= 6
+\end{aligned}
+\]</span></p>
+<p>En l’espace d’une seule génération, la <strong>fitness totale</strong> est passée de 34 à 37, soit une augmentation de 7%.</p>
+<p>La fitness moyenne est passée de 5.666 à 6.166.</p>
+<p>Ce processus itératif pourrait continuer jusqu’à ce qu’un critère d’arrêt le stoppe.</p>
+<hr>
+</section>
+</section>
+<section id="exemple-plus-réaliste" class="level2">
+<h2 class="anchored" data-anchor-id="exemple-plus-réaliste">Exemple plus réaliste</h2>
+<p>Considérons maintenant l’évolution d’une population “réelle” de <span class="math inline">\(n\)</span> individus (c’est-à-dire <span class="math inline">\(n\)</span> chaînes binaires).</p>
+<p>Les chaînes ont maintenant une longueur <span class="math inline">\(\ell = 128\)</span>.</p>
+<p>Le GA s’arrête lorsqu’il trouve la chaîne optimale ou après 100 itérations.</p>
+<p>Nous choisissons <span class="math inline">\(p_{\text{croisement}} = 0.8\)</span> et <span class="math inline">\(p_{\text{mutation}} = 0.05\)</span>.</p>
+<hr>
+<section id="évolution-de-la-fitness" class="level3">
+<h3 class="anchored" data-anchor-id="évolution-de-la-fitness">Évolution de la fitness</h3>
+<p>Sur un run particulier du GA appliqué au problème MaxOne, on observe :</p>
+<ul>
+<li>Cette exécution particulière a découvert la chaîne optimale avec une fitness de 128.</li>
+<li>La fitness moyenne vers la fin de l’exécution est extrêmement proche de l’optimum de 128, ce qui indique que la majorité de la population est proche de l’optimum global.</li>
+<li>L’augmentation de la fitness (du meilleur et de la moyenne) est rapide au début, puis plafonne → Comportement classique de <strong>diminishing returns</strong>.</li>
+</ul>
+<p>Cette observation tend à être assez générale pour les algorithmes évolutionnaires en général et les GA en particulier : la population globale s’améliore mais il tend à devenir de plus en plus difficile d’augmenter sa fitness.</p>
+<hr>
+</section>
+<section id="diversité-de-la-population" class="level3">
+<h3 class="anchored" data-anchor-id="diversité-de-la-population">Diversité de la population</h3>
+<p>La diversité est maximale initialement puis diminue au fil des générations. Cette tendance n’est pas surprenante : la population initiale est choisie aléatoirement, donc présente une diversité maximale.</p>
+<p>Lors de l’itération à travers les générations, le processus de sélection tend à homogénéiser la population pour faire émerger le caractère de haute fitness.</p>
+<p>Les opérateurs de croisement et de mutation tendent à contrebalancer cet effet d’homogénéisation. Cependant, ces deux opérateurs ne peuvent pas contrebalancer la perte de diversité induite par le processus de sélection.</p>
+<p>Le but de l’algorithme est de converger vers de “bonnes” solutions, qui par construction partagent de nombreuses similitudes.</p>
+<hr>
+</section>
+</section>
+<section id="cas-dune-fonction-continue-réelle" class="level2">
+<h2 class="anchored" data-anchor-id="cas-dune-fonction-continue-réelle">Cas d’une fonction continue réelle</h2>
+<p>Les EA tendent à être très efficaces pour optimiser des problèmes avec des fonctions de fitness multivariées et multimodales difficiles.</p>
+<p>Cette classe de métaheuristiques peut facilement éviter de rester piégée dans des optima locaux grâce au croisement et à la mutation.</p>
+<p>Un autre avantage majeur est que les EA ne nécessitent pas de dérivées de la fonction de fitness, ils peuvent donc facilement être appliqués à :</p>
+<ul>
+<li>Des fonctions de fitness discontinues.</li>
+<li>Des fonctions de fitness variant dans le temps.</li>
+</ul>
+<p>Cela peut être vérifié en utilisant les fonctions de test de référence bien connues de <strong>Rastrigin</strong> et <strong>Schwefel</strong>, qui peuvent avoir des dizaines de variables et ont été conçues pour défier les optimiseurs classiques.</p>
+<hr>
+<section id="fonctions-de-test-rastrigin-et-schwefel" class="level3">
+<h3 class="anchored" data-anchor-id="fonctions-de-test-rastrigin-et-schwefel">Fonctions de test Rastrigin et Schwefel</h3>
+<p><span class="math display">\[ f_{R}(x) = An + \sum_{i = 1}^{n}\left[x_{i}^{2} - A\cos (2\pi x_{i})\right] \quad A = 10 \]</span></p>
+<p><span class="math display">\[ f_{S}(x) = Bn - \sum_{i = 1}^{n}x_{i}\sin \left(\sqrt{|x_{i}|}\right) \quad B = 418.983 \]</span></p>
+<hr>
+</section>
+<section id="autre-exemple" class="level3">
+<h3 class="anchored" data-anchor-id="autre-exemple">Autre exemple</h3>
+<p>Considérons la fonction à valeurs réelles (<span class="math inline">\(\mathbb{R} \to \mathbb{R}\)</span>) suivante :</p>
+<p><span class="math display">\[ f(x) = -\mid x\sin (\sqrt{\mid x\mid})\mid + C \]</span></p>
+<p>Ce problème apparaît trompeusement simple car il peut être résolu “à la main”. Cependant, il est utilisé pour décomposer le fonctionnement interne des GA avant d’aborder des cas plus complexes et réalistes.</p>
+<p>Nous cherchons <span class="math inline">\(x^*\)</span> dans l’intervalle <span class="math inline">\(D = [-512, 512]\)</span> tel que <span class="math inline">\(f(x^*)\)</span> atteigne sa valeur minimale. Comme <span class="math inline">\(f(x)\)</span> est symétrique, il suffit d’étudier le problème pour les valeurs positives de <span class="math inline">\(x : x \in \mathbb{R}^+\)</span>.</p>
+<hr>
+</section>
+<section id="le-défi-de-lencodage" class="level3">
+<h3 class="anchored" data-anchor-id="le-défi-de-lencodage">Le défi de l’encodage</h3>
+<p>Une solution admissible de ce problème est toute valeur de <span class="math inline">\(x\)</span> dans l’intervalle <span class="math inline">\([0, 512]\)</span>. Un individu au sein de la population doit être encodé sous la forme d’une chaîne binaire avec une longueur appropriée <span class="math inline">\(\ell\)</span> afin de représenter correctement la valeur d’un nombre réel.</p>
+<p>Ainsi, la valeur de <span class="math inline">\(\ell\)</span> dépend de la précision recherchée : plus <span class="math inline">\(\ell\)</span> est long, plus la précision est élevée.</p>
+<p>Contrairement au problème MaxOne (solutions intrinsèquement binaires), nous devrons décoder les chaînes de binaires en nombres réels afin de pouvoir évaluer la fonction.</p>
+<hr>
+<section id="exemple-dencodage" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-dencodage">Exemple d’encodage</h4>
+<p>Par exemple, si chaque individu <span class="math inline">\(x\)</span> est représenté par une chaîne binaire de 10 bits, alors <span class="math inline">\(2^{10} = 1,024\)</span> valeurs au total sont disponibles pour couvrir l’intervalle <span class="math inline">\([0,512]\)</span>.</p>
+<p><span class="math display">\[ x = \frac{512}{1023}s, \quad x \in \mathbb{R}, \quad s \in \{0, \ldots 1023\} \]</span></p>
+<p>Nous aurons donc une granularité d’environ <span class="math inline">\(0.5\)</span> : nous pouvons échantillonner des points avec un espacement d’environ 0.5.</p>
+<p>Les chaînes <code>0000000000</code> et <code>1111111111</code> représentent respectivement les bornes inférieure et supérieure de l’intervalle de recherche. Toute autre chaîne sera à l’intérieur de l’intervalle.</p>
+<hr>
+</section>
+</section>
+<section id="description-dune-exécution-ga" class="level3">
+<h3 class="anchored" data-anchor-id="description-dune-exécution-ga">Description d’une exécution GA</h3>
+<p>Nous considérons une population de <span class="math inline">\(n=50\)</span> individus. La solution optimale est <span class="math inline">\(x^{*}=421.016\)</span> avec <span class="math inline">\(f(x^{*})=0.0176086\)</span>. Il ne faut pas oublier l’erreur de précision associée à l’encodage choisi.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Génération</th>
+<th>Meilleure fitness</th>
+<th>Fitness moyenne</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>104.302</td>
+<td>68.703</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>52.677</td>
+<td>8.619</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>0.00179</td>
+<td>32.711</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>0.00179</td>
+<td>14.322</td>
+</tr>
+<tr class="odd">
+<td>26</td>
+<td>0.00179</td>
+<td>5.833</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>0.00179</td>
+<td>2.725</td>
+</tr>
+<tr class="odd">
+<td>50</td>
+<td>0.00179</td>
+<td>1.776</td>
+</tr>
+<tr class="even">
+<td>90</td>
+<td>0.00179</td>
+<td>0.15</td>
+</tr>
+</tbody>
+</table>
+<p>Compte tenu de la précision, la solution optimale est déjà trouvée à la 9ème génération.</p>
+<p>Avec cet exemple, l’optimisation ne s’est pas coincée dans l’un des nombreux minima locaux. Les GA semblent efficaces avec de tels paysages de fitness multimodaux.</p>
+<p>La fitness moyenne continue de s’améliorer au fil des générations, montrant ainsi que toute la population converge vers l’optimum.</p>
+<hr>
+</section>
+<section id="notes-sur-lencodage" class="level3">
+<h3 class="anchored" data-anchor-id="notes-sur-lencodage">Notes sur l’encodage</h3>
+<p>Pour l’optimisation continue (fonctions <span class="math inline">\(\mathbb{R}^d \to \mathbb{R}\)</span>), l’encodage précédemment considéré n’est pas toujours approprié.</p>
+<p>Pour une chaîne binaire de longueur fixe, la précision de la solution dépendra de la taille de l’intervalle de recherche.</p>
+<p>Un GA tel que celui décrit précédemment ne sera pas efficace avec ce type d’espace de recherche. Nous recommandons donc de considérer un encodage en <strong>virgule flottante</strong>.</p>
+<hr>
+</section>
+<section id="encodage-en-virgule-flottante-des-nombres-réels" class="level3">
+<h3 class="anchored" data-anchor-id="encodage-en-virgule-flottante-des-nombres-réels">Encodage en virgule flottante des nombres réels</h3>
+<p>Tout nombre réel <span class="math inline">\(x\)</span> peut s’écrire <span class="math inline">\(s \times r^t\)</span> où <span class="math inline">\(s\)</span> est la mantisse, <span class="math inline">\(t\)</span> l’exposant et <span class="math inline">\(r\)</span> la base.</p>
+<p>Par exemple, avec <span class="math inline">\(r = 2\)</span> (binaire) :</p>
+<p><span class="math display">\[ x = \left(b_0 + \sum_{k = 1}^{p - 1}b_k2^{-k}\right)\times 2^t \qquad t = \sum_{k = p}^{n - 1}b_k2^{k + 1 - p} \]</span></p>
+<p>La représentation informatique des nombres à virgule flottante utilise <span class="math inline">\(r = 2\)</span> et <span class="math inline">\(p\)</span> bits pour encoder <span class="math inline">\(s\)</span> et le reste, <span class="math inline">\(q = n - p\)</span> bits pour encoder l’exposant <span class="math inline">\(t\)</span>.</p>
+<p><span class="math inline">\(p\)</span> est la précision d’encodage.</p>
+<p>La norme IEEE 754 propose la double précision (64 bits) avec : 1 bit pour le signe, <span class="math inline">\(p = 52\)</span> bits pour la mantisse et <span class="math inline">\(q = 11\)</span> bits pour l’exposant.</p>
+<p>Cette norme donne environ 16 chiffres décimaux significatifs et un exposant entre <span class="math inline">\(-1024\)</span> et <span class="math inline">\(+1023\)</span>.</p>
+<p>En simple précision (32 bits) : <span class="math inline">\(p = 23\)</span> (7 chiffres décimaux significatifs) et <span class="math inline">\(q = 8\)</span> bits pour l’exposant (<span class="math inline">\(-128\)</span> à <span class="math inline">\(+127\)</span>).</p>
+<hr>
+</section>
+<section id="ga-avec-nombres-réels" class="level3">
+<h3 class="anchored" data-anchor-id="ga-avec-nombres-réels">GA avec nombres réels</h3>
+<p>On peut choisir la précision requise en fonction de ses besoins spécifiques, y compris le nombre <span class="math inline">\(q\)</span> de bits pour l’exposant.</p>
+<p>Les opérateurs de croisement et de mutation sont appliqués indépendamment à la mantisse et à l’exposant, avec des probabilités potentiellement différentes.</p>
+<p>Cela permet donc de rechercher dans des espaces de recherche complexes tels que ceux des types Rastrigin et Schwefel.</p>
+<p>NB : Il est également possible de formuler directement un GA avec des nombres réels (voir l’évolution stratégique au chapitre 7).</p>
+<hr>
+</section>
+</section>
+<section id="autres-types-dopérateurs-de-sélection" class="level2">
+<h2 class="anchored" data-anchor-id="autres-types-dopérateurs-de-sélection">Autres types d’opérateurs de sélection</h2>
+<p><span class="math display">\[ P(t) \stackrel{\mathrm{sélection}}{\longrightarrow} P^{\prime}(t) \stackrel{\mathrm{croisement}}{\longrightarrow} P^{\prime \prime}(t) \stackrel{\mathrm{mutation}}{\longrightarrow} P^{\prime \prime \prime}(t) = P(t + 1) \]</span></p>
+<p><strong>Sélection déterministe</strong> : Selon un critère donné qui sélectionne ou rejette un individu de la population.</p>
+<p><strong>Sélection stochastique</strong> : Se produit sur la base d’un tirage aléatoire. Elle a l’avantage de permettre à des individus moins aptes de rejoindre la population (équivalent en quelque sorte à une dégradation de la fitness).</p>
+<hr>
+<section id="révision-de-la-sélection-proportionnelle-à-la-fitness" class="level3">
+<h3 class="anchored" data-anchor-id="révision-de-la-sélection-proportionnelle-à-la-fitness">Révision de la sélection proportionnelle (à la fitness)</h3>
+<p>La soi-disant “roulette” : <span class="math inline">\(p_{i} = \frac{f_{i}}{\sum_{j}f_{i}}\)</span></p>
+<p>Pour les problèmes de maximisation (sinon redéfinir <span class="math inline">\(f\)</span> avec <span class="math inline">\(-f\)</span>). La fitness doit être positive ⇒ sinon ajouter une constante suffisamment grande <span class="math inline">\(f_{0}\)</span>.</p>
+<p>L’évolution tend à réduire la diversité de la population : les <span class="math inline">\(f_{i}\)</span> tendent à se rapprocher les unes des autres. Cela a un impact négatif : la sélection proportionnelle devient moins sélective.</p>
+<p>Pour augmenter la sélectivité, on peut envisager de mettre en œuvre une approche proportionnelle à une fitness modifiée <span class="math inline">\(\bar{f}\)</span> :</p>
+<p><span class="math display">\[ \bar{f} (t) = f - \min_{i\in P(t)} f_{i} \]</span></p>
+<p>L’objectif est d’amplifier les différences entre les différents individus à une génération donnée.</p>
+<hr>
+</section>
+<section id="sélection-par-rang" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-par-rang">Sélection par rang</h3>
+<p>Les limitations de la sélection proportionnelle peuvent être surmontées avec une autre approche : sensibilité aux valeurs aberrantes, mise à l’échelle, difficulté à maintenir la diversité, localité limitée.</p>
+<p>Nous considérons un <strong>classement</strong> de la population basé sur la fitness (minimisation ou maximisation de <span class="math inline">\(f\)</span>).</p>
+<p>Nous proposons de sélectionner l’individu de rang supérieur, ignorant la valeur réelle de sa fitness.</p>
+<hr>
+<section id="sélection-par-rang-linéaire" class="level4">
+<h4 class="anchored" data-anchor-id="sélection-par-rang-linéaire">Sélection par rang linéaire</h4>
+<p>La probabilité <span class="math inline">\(p_i\)</span> de sélectionner l’individu <span class="math inline">\(i\)</span> s’écrit :</p>
+<p><span class="math display">\[ p_i = \frac{1}{n} \left[ \beta - 2(\beta - 1) \frac{i-1}{n-1} \right], \quad i = 1, \ldots, n \]</span></p>
+<p>où l’indice <span class="math inline">\(i\)</span> est le rang de l’individu après tri.</p>
+<p><span class="math inline">\(\beta\)</span> est un paramètre qui représente le nombre de copies attendues pour le meilleur individu (avec rang 1 et remplacement). <span class="math inline">\(\beta &gt; 1\)</span> est requis pour que <span class="math inline">\(p_1 &gt; p_n\)</span> et <span class="math inline">\(\beta \le 2\)</span> pour avoir <span class="math inline">\(p_n &gt; 0\)</span>.</p>
+<p>On peut facilement vérifier que <span class="math inline">\(\sum_{i=1}^{n} p_i = 1\)</span>.</p>
+<p>L’intensité de la sélection (ou sélectivité) est réglée via <span class="math inline">\(\beta\)</span> : plus <span class="math inline">\(\beta\)</span> est grand, plus la sélectivité est forte. Avec <span class="math inline">\(\beta = 1\)</span>, tous les individus sont équiprobables.</p>
+<p>Il existe également des méthodes non linéaires basées sur le rang.</p>
+<hr>
+</section>
+</section>
+<section id="sélection-par-tournoi" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-par-tournoi">Sélection par tournoi</h3>
+<p>Le <strong>tournoi le plus basique</strong> possible est un tirage aléatoire uniforme de <span class="math inline">\(k = 2\)</span> individus au sein de la population <span class="math inline">\(P(t)\)</span>.</p>
+<ul>
+<li>Ces 2 individus sont ensuite comparés, par exemple selon leurs fitness respectives.</li>
+<li>Le gagnant (fitness plus élevée) est sélectionné et placé dans la population intermédiaire <span class="math inline">\(P'(t)\)</span>.</li>
+<li>Les deux candidats sont remis dans <span class="math inline">\(P(t)\)</span> pour potentiellement participer aux prochains tours de tournoi.</li>
+<li>Nous exécutons <span class="math inline">\(n\)</span> de ces tours de tournoi pour compléter entièrement <span class="math inline">\(P'(t)\)</span>.</li>
+</ul>
+<p>Nous pouvons également considérer des tournois avec plus d’individus tant que <span class="math inline">\(k \ll n\)</span>. Par exemple <span class="math inline">\(k \in \{2, \ldots, 10\}\)</span>.</p>
+<hr>
+<section id="avantages-de-la-sélection-par-tournoi" class="level4">
+<h4 class="anchored" data-anchor-id="avantages-de-la-sélection-par-tournoi">Avantages de la sélection par tournoi</h4>
+<ul>
+<li>Contrôle facile et précis de la pression de sélection.</li>
+<li>Ajustement de la pression sélective simplement en changeant la taille du tournoi <span class="math inline">\(k\)</span>. Cas extrêmes : <span class="math inline">\(k = 1\)</span> et <span class="math inline">\(k = n\)</span>. Ce réglage est explicite et prévisible, contrairement à la sélection proportionnelle (FPS) où la pression dépend de toute la distribution de fitness.</li>
+<li>Couramment utilisé : fonctionne naturellement avec toute distribution de fitness.</li>
+<li>La sélection par tournoi ne nécessite pas de fitness non négative, de mise à l’échelle ou de normalisation. Résistante aux valeurs aberrantes.</li>
+<li>Facile à implémenter.</li>
+<li>Un autre avantage : il suffit de pouvoir comparer la performance relative des individus, sans autre mesure de “qualité”. Par exemple, en robotique, il suffit de comparer les performances du robot sur une tâche donnée, sans avoir besoin de définir une fonction de fitness.</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="temps-de-prise-de-contrôle-takeover-time-intensité-de-sélection" class="level2">
+<h2 class="anchored" data-anchor-id="temps-de-prise-de-contrôle-takeover-time-intensité-de-sélection">Temps de prise de contrôle (Takeover time) : Intensité de sélection</h2>
+<p>Le <strong>temps de prise de contrôle</strong> <span class="math inline">\(\tau\)</span> est un concept théorique défini comme le nombre de tours de sélection requis (sans croisement ni mutation) pour que le meilleur individu prenne le contrôle de toute la population.</p>
+<p>C’est une mesure de l’intensité de la sélection :</p>
+<ul>
+<li>Si <span class="math inline">\(\tau\)</span> est petit, la sélection est forte.</li>
+<li>Si <span class="math inline">\(\tau\)</span> est grand, nous avons plutôt une faible intensité de sélection.</li>
+</ul>
+<p>Par exemple, si à chacun des <span class="math inline">\(n\)</span> tours du processus de sélection, nous mettons le meilleur individu dans <span class="math inline">\(P^{\prime}\)</span>, alors <span class="math inline">\(\tau = 1\)</span>.</p>
+<p>En pratique, <span class="math inline">\(\tau\)</span> est défini comme le temps nécessaire pour avoir <span class="math inline">\(n / 2\)</span> copies du meilleur individu.</p>
+<hr>
+<section id="estimation-pratique" class="level3">
+<h3 class="anchored" data-anchor-id="estimation-pratique">Estimation pratique</h3>
+<p>En pratique, le temps de prise de contrôle <span class="math inline">\(\tau\)</span> peut être estimé par une exploration computationnelle.</p>
+<p>On peut s’attendre à ce que le nombre de copies <span class="math inline">\(m(t)\)</span> du meilleur individu après <span class="math inline">\(t\)</span> sélections suive une équation correspondant à la <strong>carte logistique</strong> :</p>
+<p><span class="math display">\[ \frac{\mathrm{d}m}{\mathrm{d}t} = \alpha m\left(1 - \frac{m}{n}\right) \]</span></p>
+<p>Avec sélection seulement, le nombre <span class="math inline">\(m(t)\)</span> de copies du meilleur individu évolue comme :</p>
+<p><span class="math display">\[ m(t + 1) = n \times \mathrm{Probabilité}(\mathrm{sélectionner~le~meilleur~individu}) \]</span></p>
+<p>La probabilité de tirer le meilleur individu est proportionnelle à <span class="math inline">\(m/n\)</span> (qui est la fraction de copies existantes dans la population) multipliée par un coefficient <span class="math inline">\(\alpha\)</span> qui dépend de la fitness.</p>
+<p>Ce coefficient diminue comme la fraction de places restantes <span class="math inline">\(1 - m/n\)</span>.</p>
+<p>La moyenne <span class="math inline">\(m\)</span> varie comme :</p>
+<p><span class="math display">\[ n \times \left( \alpha \frac{m}{n} \left(1 - \frac{m}{n}\right) \right) \]</span></p>
+<hr>
+</section>
+<section id="solution-de-léquation-logistique" class="level3">
+<h3 class="anchored" data-anchor-id="solution-de-léquation-logistique">Solution de l’équation logistique</h3>
+<p><span class="math display">\[ m(t) = \frac{n}{1 + \frac{n - m_0}{m_0} e^{-\alpha t}} \quad (1) \]</span></p>
+<p>où <span class="math inline">\(m_0 = m(t = 0) = 1\)</span>.</p>
+<p>Avec</p>
+<p><span class="math display">\[ \tau = \frac{\ln(n - 1)}{\alpha} \quad (2) \]</span></p>
+<p>nous obtenons</p>
+<p><span class="math display">\[ m(\tau) = \frac{n}{2} \quad (3) \]</span></p>
+<p>Cela donne le temps de prise de contrôle <span class="math inline">\(\tau = \mathcal{O}(\ln n)\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="autres-approches-de-croisement-et-de-mutation" class="level2">
+<h2 class="anchored" data-anchor-id="autres-approches-de-croisement-et-de-mutation">Autres approches de croisement et de mutation</h2>
+<p>Nous avons introduit le <strong>croisement à un point</strong> de base.</p>
+<p>Nous pouvons également considérer un <strong>croisement à deux points</strong>, dans lequel les deux descendants sont :</p>
+<p><span class="math display">\[ a_{1}a_{2}\ldots a_{k}b_{k + 1}\ldots b_{m}a_{m + 1}\ldots a_{\ell} \]</span> <span class="math display">\[ b_{1}b_{2}\ldots b_{k}a_{k + 1}\ldots a_{m}b_{m + 1}\ldots b_{\ell} \]</span></p>
+<p>Une autre approche est le <strong>croisement uniforme</strong> :</p>
+<p>Avec probabilité 1/2, on choisit le bit du premier parent, ou celui du second parent. Dans ce cas, les bits identiques chez les deux parents ne peuvent pas être modifiés.</p>
+<p>Le concept derrière ce croisement est d’exploiter le fait que dans certains cas, les premiers bits d’un individu sont bons, mais pas les suivants, alors que l’inverse est vrai pour un autre individu.</p>
+<hr>
+<section id="autres-opérateurs-de-croisement" class="level3">
+<h3 class="anchored" data-anchor-id="autres-opérateurs-de-croisement">Autres opérateurs de croisement</h3>
+<p>Avec certains espaces de recherche <span class="math inline">\(S\)</span>, les opérateurs de croisement précédemment considérés ne sont pas efficaces car ils produisent des individus non viables.</p>
+<p>C’est particulièrement vrai si <span class="math inline">\(S\)</span> est l’espace des permutations (par exemple, TSP et QAP).</p>
+<p>Exemple de croisement entre 2 cycles parmi 8 villes :</p>
+<p><span class="math display">\[ 1 - 2 - 4 - | - 3 - 8 - 5 - 6 - 7 \]</span> <span class="math display">\[ 1 - 3 - 4 - | - 8 - 2 - 5 - 7 - 6 \]</span></p>
+<p>Si nous utilisions le croisement à un point régulier, cela donnerait une solution non admissible :</p>
+<p><span class="math display">\[ 1 - 2 - 4 - 8 - 2 - 5 - 7 - 6 \]</span></p>
+<p>Si l’on insiste pour un croisement des deux cycles <span class="math inline">\(T_{1}\)</span> et <span class="math inline">\(T_{2}\)</span>, l’approche suivante donne un descendant admissible :</p>
+<p><span class="math display">\[ T_{1} = 1 - 4 - |3 - 5 - 2| - 6 - 7 - 8 \]</span> <span class="math display">\[ T_{2} = 1 - 3 - 2 - 6 - 4 - 5 - 7 - 8 \]</span></p>
+<p>La section à deux points sélectionnée aléatoirement (entre les barres verticales) du parent <span class="math inline">\(T_{1}\)</span> est transférée au descendant <span class="math inline">\(T_{3}\)</span>.</p>
+<p>Ensuite, les villes du parent <span class="math inline">\(T_{2}\)</span> qui n’ont pas encore été utilisées sont insérées dans le même ordre à partir du point de coupure :</p>
+<p><span class="math display">\[ T_{3} = 3 - 5 - 2 - 1 - 6 - 4 - 7 - 8 \]</span></p>
+<hr>
+</section>
+<section id="autres-opérateurs-de-mutation" class="level3">
+<h3 class="anchored" data-anchor-id="autres-opérateurs-de-mutation">Autres opérateurs de mutation</h3>
+<p>Le même type de problèmes affecte l’opérateur de mutation. D’autres stratégies de mutation peuvent être mises en œuvre :</p>
+<ul>
+<li>Déplacement d’une seule ville.</li>
+<li>Échange de 2 villes.</li>
+<li>Échange de 2 segments.</li>
+</ul>
+<p>Exemple d’un déplacement aléatoire : la ville 2 se déplace entre 8 et 5.</p>
+<p><span class="math display">\[ 1 - 2 - 4 - 3 - 8 - 5 - 6 - 7 \rightarrow 1 - 4 - 3 - 8 - 2 - 5 - 6 - 7 \]</span></p>
+<p>Échange de 2 segments :</p>
+<p><span class="math display">\[ 1 - 2 - 3 - |4 - 5| - 6 - |7 - 8| \rightarrow 1 - 2 - 3 - 7 - 8 - 6 - 4 - 5 \]</span></p>
+<hr>
+</section>
+</section>
+<section id="utilité-des-opérateurs-génétiques" class="level2">
+<h2 class="anchored" data-anchor-id="utilité-des-opérateurs-génétiques">Utilité des opérateurs génétiques</h2>
+<p>But : voir l’impact du croisement et de la sélection dans des cas simples.</p>
+<p>Considérons un problème <span class="math inline">\(NK\)</span> avec <span class="math inline">\(N = 18\)</span>, <span class="math inline">\(K = 3\)</span>, dont la solution optimale est par hasard la chaîne de bits <span class="math inline">\(x = 000\dots 000\)</span>. La mutation est toujours présente.</p>
+<p>Le nombre moyen de générations nécessaires pour trouver la solution optimale (sur 100 exécutions) :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>avec croisement</th>
+<th>sans croisement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Problème 1 (80 générations)</td>
+<td>8</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Problème 2 (80 générations)</td>
+<td>8</td>
+<td>48</td>
+</tr>
+<tr class="odd">
+<td>Problème 3 (80 générations)</td>
+<td>28</td>
+<td>67</td>
+</tr>
+<tr class="even">
+<td>Problème 4 (200 générations)</td>
+<td>65</td>
+<td>127</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong> : Parfois, la solution optimale n’est pas atteinte dans la limite du nombre maximum de générations (80 ou 200 ici). Dans de tels cas, l’exécution n’est pas incluse dans les statistiques.</p>
+<hr>
+<section id="pourquoi-le-croisement-est-efficace" class="level3">
+<h3 class="anchored" data-anchor-id="pourquoi-le-croisement-est-efficace">Pourquoi le croisement est efficace ?</h3>
+<p>L’opérateur de croisement est <strong>très efficace</strong> avec les problèmes <span class="math inline">\(NK\)</span>.</p>
+<p>Si le point de croisement est <span class="math inline">\(k\)</span>, nous avons :</p>
+<p><span class="math display">\[ x = x_1x_2 \dots x_k | x_{k+1} \dots x_N \]</span></p>
+<p>et la fitness est quasi-séparable :</p>
+<p><span class="math display">\[
+\begin{aligned}
+f(x_1x_2 \dots x_N) &amp;= \sum_{i=1}^N h(x_{i-1}, x_i, x_{i+1}) \\
+&amp;= \sum_{i=1}^{k-1} h(x_{i-1}, x_i, x_{i+1}) + \\
+&amp;\qquad h(x_{k-1}, x_k, x_{k+1}) + h(x_k, x_{k+1}, x_{k+2}) + \\
+&amp;\qquad \sum_{i=k+2}^N h(x_{i-1}, x_i, x_{i+1}) \\
+&amp;= \text{Gauche}(x_1 \dots x_k) + \Delta(x_{k-1} \dots x_{k+2}) + \text{Droite}(x_{k+1} \dots x_N) \\
+&amp;\approx L + R
+\end{aligned}
+\]</span></p>
+<hr>
+</section>
+<section id="utilité-de-lopérateur-de-croisement-avec-une-fonction-réelle" class="level3">
+<h3 class="anchored" data-anchor-id="utilité-de-lopérateur-de-croisement-avec-une-fonction-réelle">Utilité de l’opérateur de croisement avec une fonction réelle</h3>
+<p>Cas trivial de la fonction à valeurs réelles, <span class="math inline">\(f(x) = x\)</span> pour <span class="math inline">\(x \in [0, 1]\)</span> encodée avec <span class="math inline">\(N = 18\)</span> bits.</p>
+<p><span class="math display">\[ x = \frac{\sum_{i=0}^{N-1} x_i 2^i}{2^N - 1} \]</span></p>
+<p>Nombre moyen de générations requises pour atteindre l’optimum (limité à 80) :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 64%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>avec croisement</th>
+<th>sans croisement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(f(x) = x\)</span></td>
+<td>47</td>
+<td>54</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(g(x) = -(x + 0.1)(x - 0.8)\sin(x/(6\pi))\)</span></td>
+<td>38</td>
+<td>49</td>
+</tr>
+</tbody>
+</table>
+<p>NB : Parfois avec <span class="math inline">\(g(x)\)</span> l’optimum n’est pas atteint dans les 80 générations.</p>
+<p>Pour l’encodage des nombres réels, nous attendons un croisement neutre : les bits les plus significatifs sont les plus représentatifs de la qualité. Cependant, le croisement reste utile.</p>
+<hr>
+</section>
+<section id="exemple-couverture-optimale-de-zone-par-antennes-gsm" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-couverture-optimale-de-zone-par-antennes-gsm">Exemple : Couverture optimale de zone par antennes GSM</h3>
+<p>Objectif : minimiser les zones de chevauchement. Solution basée sur une carte d’intensité, avec les positions des antennes sélectionnées.</p>
+<p>Nous pouvons considérer des mutations (déplacer les antennes vers d’autres emplacements acceptables) et des croisements (fusionner des régions complémentaires dans deux cartes).</p>
+<p>Dans cet exemple, la fitness est difficile à calculer, ce qui est souvent un problème clé commun dans les applications pratiques. La parallélisation peut aider.</p>
+<hr>
+</section>
+</section>
+<section id="théorème-du-schéma-schema-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="théorème-du-schéma-schema-theorem">Théorème du schéma (Schema Theorem)</h2>
+<p>But : Expliquer pourquoi les GA trouvent la solution.</p>
+<p>Idée centrale :</p>
+<ul>
+<li>Les motifs de bits (c’est-à-dire les schémas) qui correspondent à une fitness élevée sont amplifiés au cours du processus évolutif.</li>
+<li>La solution optimale est construite en concaténant ces “bons” schémas grâce à l’opération de croisement. On parle aussi de <strong>blocs de construction</strong> (building blocks).</li>
+<li>Cependant, cela ne fonctionne pas toujours de cette façon, et le processus évolutif peut être “trompé” par des schémas sous-optimaux qui éloignent l’évolution.</li>
+</ul>
+<hr>
+<section id="définitions" class="level3">
+<h3 class="anchored" data-anchor-id="définitions">Définitions</h3>
+<p>En pratique :</p>
+<ul>
+<li>Un <strong>schéma</strong> <span class="math inline">\(H\)</span> est un modèle (ou patron) qui représente un sous-ensemble de chaînes de bits dans l’espace de recherche.</li>
+<li>Généralement écrit avec l’alphabet <span class="math inline">\(\{0, 1, *\}\)</span>.</li>
+<li>Par exemple : <span class="math inline">\(S = (1 * *1 * 0)\)</span> est un schéma avec 3 chiffres binaires fixes, et 3 chiffres binaires libres indiqués par <span class="math inline">\(*\)</span>.</li>
+<li>Un individu correspond à un schéma (et réciproquement) s’il a les mêmes valeurs pour les positions fixes : <span class="math inline">\((100100)\)</span> correspond à <span class="math inline">\(S = (1 * *1 * 0)\)</span>.</li>
+<li>Un schéma représente un hyperplan dans l’espace de recherche.</li>
+</ul>
+<hr>
+</section>
+<section id="ordre-et-longueur-dun-schéma" class="level3">
+<h3 class="anchored" data-anchor-id="ordre-et-longueur-dun-schéma">Ordre et longueur d’un schéma</h3>
+<p>Deux quantités importantes caractérisent un schéma :</p>
+<ul>
+<li><strong>Ordre</strong> <span class="math inline">\(o(S)\)</span> d’un schéma <span class="math inline">\(S\)</span> : le nombre de positions fixes (c’est-à-dire non <span class="math inline">\(^*\)</span>). Pour <span class="math inline">\(S = (1* * 1*0) : o(S) = 3\)</span>.</li>
+<li><strong>Longueur définissante</strong> <span class="math inline">\(\delta(S)\)</span> d’un schéma <span class="math inline">\(S\)</span> : la distance entre la première position fixe et la dernière.</li>
+</ul>
+<p>Exemples :</p>
+<ul>
+<li><span class="math inline">\(\delta (1* * 1*0) = 6 - 1 = 5\)</span></li>
+<li><span class="math inline">\(\delta (***1* * ) = 4 - 4 = 0\)</span></li>
+<li><span class="math inline">\(\delta (*0*1* * ) = 4 - 2 = 2\)</span></li>
+</ul>
+<p>Pour un problème avec <span class="math inline">\(m\)</span> bits :</p>
+<ul>
+<li>Un schéma d’ordre <span class="math inline">\(k\)</span> correspond à <span class="math inline">\(2^{m - k}\)</span> chaînes.</li>
+<li>Une chaîne admet <span class="math inline">\(2^{m}\)</span> schémas : (0 symbole libre + 1 symbole libre + … + <span class="math inline">\(m\)</span> symboles libres) :</li>
+</ul>
+<p><span class="math display">\[ 2^{m} = \sum_{k = 0}^{m} \binom{m}{k} \]</span></p>
+<hr>
+</section>
+<section id="fitness-dun-schéma-s" class="level3">
+<h3 class="anchored" data-anchor-id="fitness-dun-schéma-s">Fitness d’un schéma <span class="math inline">\(S\)</span></h3>
+<p><strong>Fitness d’un schéma</strong> : C’est la fitness moyenne de tous les individus de la population correspondant à <span class="math inline">\(S\)</span>.</p>
+<p><span class="math display">\[ f_{P(t)}(S) = \frac{1}{M(S)} \sum_{i=1}^{M(S)} f(v_i) \]</span></p>
+<p>où <span class="math inline">\(v_1, \ldots, v_{M(S)}\)</span> sont les <span class="math inline">\(M\)</span> individus de <span class="math inline">\(P(t)\)</span> satisfaisant le schéma <span class="math inline">\(S\)</span>.</p>
+<p><strong>Fitness totale</strong> <span class="math inline">\(F(t)\)</span> de toute la population à l’itération <span class="math inline">\(t\)</span> :</p>
+<p><span class="math display">\[ F(t) = \sum_{v \in P(t)} f(v) \]</span></p>
+<hr>
+</section>
+<section id="évolution-du-nombre-moyen-mt-s" class="level3">
+<h3 class="anchored" data-anchor-id="évolution-du-nombre-moyen-mt-s">Évolution du nombre moyen <span class="math inline">\(M(t, S)\)</span></h3>
+<p>Le théorème du schéma estime les variations du nombre moyen <span class="math inline">\(M(t, S)\)</span> d’individus correspondant au schéma <span class="math inline">\(S\)</span> tout au long de l’évolution.</p>
+<p>Nous avons :</p>
+<p><span class="math display">\[ M(S,t + 1) = M^{\prime}(S,t) \times [\mathrm{prob~de~survie~après~croisement}] \times [\mathrm{prob~de~survie~après~mutation}] \]</span></p>
+<p>où <span class="math inline">\(M^{\prime}(S,t)\)</span> est le nombre de copies de <span class="math inline">\(S\)</span> après sélection.</p>
+<p>Si <span class="math inline">\(M(S,t + 1) &gt; M(S,t)\)</span>, alors le schéma <span class="math inline">\(S\)</span> est amplifié. Sinon, il finira par disparaître.</p>
+<hr>
+<section id="après-sélection" class="level4">
+<h4 class="anchored" data-anchor-id="après-sélection">Après sélection</h4>
+<p>En moyenne, le nombre <span class="math inline">\(M'(S,t)\)</span> d’individus correspondant au schéma <span class="math inline">\(S\)</span> après <strong>sélection</strong> est :</p>
+<p><span class="math display">\[ M'(t,S) = n \frac{M(t,S)f(S,t)}{F(t)} = \frac{M(t,S)f(S,t)}{\bar{F}} \quad \text{avec} \quad \bar{F} = \frac{F}{n} \]</span></p>
+<p>car nous avons <span class="math inline">\(n\)</span> tirages, <span class="math inline">\(M(t,S)f(S,t)\)</span> est la probabilité totale du schéma, et <span class="math inline">\(M(t,S)f(S,t)/F(t)\)</span> est la probabilité de tirer un individu correspondant à <span class="math inline">\(S\)</span>.</p>
+<p>⇒ Un schéma dont la fitness est supérieure à la moyenne est amplifié.</p>
+<hr>
+</section>
+<section id="impact-du-croisement" class="level4">
+<h4 class="anchored" data-anchor-id="impact-du-croisement">Impact du croisement</h4>
+<p>Un schéma <span class="math inline">\(S\)</span> est détruit par un croisement si le point de croisement tombe à l’intérieur du schéma. Avec <span class="math inline">\(m\)</span> bits, il y a <span class="math inline">\(m - 1\)</span> points de croisement possibles, et la probabilité qu’il soit détruit est inférieure à <span class="math inline">\(\frac{\delta(S)}{m - 1}\)</span> puisque, si les deux parents correspondent au schéma, il est préservé.</p>
+<p>Compte tenu de la probabilité de croisement <span class="math inline">\(p_c\)</span>, le schéma <span class="math inline">\(S\)</span> survit avec une probabilité supérieure à <span class="math inline">\(1 - p_c\frac{\delta(S)}{m - 1}\)</span>.</p>
+<hr>
+</section>
+<section id="impact-de-la-mutation" class="level4">
+<h4 class="anchored" data-anchor-id="impact-de-la-mutation">Impact de la mutation</h4>
+<p>Si chaque bit de l’individu est inversé par mutation avec probabilité <span class="math inline">\(p_{m}\)</span>, alors le schéma <span class="math inline">\(S\)</span> survit avec une probabilité :</p>
+<p><span class="math display">\[ (1 - p_m)^{o(S)} \approx 1 - o(S)p_m \qquad \mathrm{si} \quad p_m \ll 1 \]</span></p>
+<hr>
+</section>
+</section>
+<section id="inégalité-fondamentale" class="level3">
+<h3 class="anchored" data-anchor-id="inégalité-fondamentale">Inégalité fondamentale</h3>
+<p>En combinant les effets de la sélection, du croisement et de la mutation (avec <span class="math inline">\(p_m \ll 1\)</span>) :</p>
+<p><span class="math display">\[ M(t + 1, S) \geq \frac{M(t, S)f(S, t)}{F(t)} \left[ 1 - p_c \frac{\delta(S)}{m - 1} - o(S)p_m \right] \]</span></p>
+<hr>
+</section>
+<section id="théorème-du-schéma-de-holland" class="level3">
+<h3 class="anchored" data-anchor-id="théorème-du-schéma-de-holland">Théorème du schéma de Holland</h3>
+<p><strong>Théorème du schéma</strong> : Les schémas courts, de petit ordre (<span class="math inline">\(\delta (S)\)</span> et <span class="math inline">\(o(S)\)</span> petits) et avec une fitness supérieure à la moyenne sont amplifiés par le GA. Au fur et à mesure que le schéma est amplifié, sa fitness se rapproche de celle de la moyenne, et l’amplification ralentit.</p>
+<p>Dans de nombreux cas, la solution optimale est obtenue en concaténant ces “bons” schémas courts, les soi-disant <strong>blocs de construction</strong>.</p>
+<p>Mais dans d’autres cas, le GA peut être influencé par des schémas sous-optimaux, qui “trompent” le processus évolutif.</p>
+<hr>
+</section>
+</section>
+<section id="population-structurée" class="level2">
+<h2 class="anchored" data-anchor-id="population-structurée">Population structurée</h2>
+<p>Jusqu’à présent, nous avons supposé que tous les individus d’une population donnée pouvaient interagir les uns avec les autres, sans limites. En biologie, ce sont des populations <strong>panmictiques</strong>.</p>
+<p>Mais en biologie, les individus sont incapables de se déplacer arbitrairement loin chaque fois qu’ils se reproduisent. L’isolement de certaines sous-populations peut parfois avoir des effets surprenants (par exemple, Galapagos).</p>
+<p>Nous pouvons donc utiliser cette inspiration biologique pour développer certaines idées sur les processus évolutifs métaheuristiques.</p>
+<p>Il existe de nombreuses façons de structurer une population avec les EA. En pratique, nous choisissons :</p>
+<ul>
+<li><strong>Multi-populations</strong>, ou populations insulaires.</li>
+<li><strong>Populations cellulaires</strong>.</li>
+</ul>
+<p>Le but n’est pas de simplement copier la nature. Nous observons que cette organisation est bénéfique à la performance de l’algorithme de recherche.</p>
+<hr>
+<section id="multi-populations" class="level3">
+<h3 class="anchored" data-anchor-id="multi-populations">Multi-populations</h3>
+<p>Nous considérons un réseau de populations.</p>
+<p>D’une part, ces populations évoluent selon l’EA. D’autre part, il y a des échanges d’individus entre les populations via les arêtes.</p>
+<p>Par analogie avec la biologie, nous parlons de <strong>“migrations”</strong>.</p>
+<p>Il est crucial de spécifier :</p>
+<ul>
+<li>Le nombre de sous-populations.</li>
+<li>La topologie d’interaction entre les populations.</li>
+<li>Le nombre d’individus par sous-population (traditionnellement maintenu constant).</li>
+<li>Le nombre et le type d’individus migrants.</li>
+<li>La fréquence de migration.</li>
+</ul>
+<hr>
+<section id="choix-classiques" class="level4">
+<h4 class="anchored" data-anchor-id="choix-classiques">Choix classiques</h4>
+<ul>
+<li>Garder les sous-populations relativement grandes (par exemple 50 individus).</li>
+<li>Avoir de l’ordre de quelques dizaines de sous-populations.</li>
+<li>Un anneau de connexion est souvent suffisant (dépendance faible de la topologie du réseau).</li>
+<li>Entre 5% et 10% des individus émigrent. Les copies sont sélectionnées parmi les meilleurs individus.</li>
+<li>Les individus immigrés remplacent les individus les moins aptes d’une sous-population donnée.</li>
+</ul>
+<hr>
+</section>
+<section id="avantages-des-multi-populations" class="level4">
+<h4 class="anchored" data-anchor-id="avantages-des-multi-populations">Avantages des multi-populations</h4>
+<ul>
+<li>Convergence plus rapide pour le même effort de calcul.</li>
+<li>Nous maintenons une meilleure diversité grâce aux sous-populations séparées.</li>
+<li>Peut facilement être parallélisé (communications asynchrones).</li>
+<li>MAIS il y a un compromis entre le nombre de sous-populations et leur taille.</li>
+</ul>
+<p>Comparaison entre différents groupements : 1 population avec 500 individus contre 50 populations avec 10 individus chacune. Le groupement optimal semble être autour de 10 populations avec 50 individus chacune.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 43%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Configuration</th>
+<th>Taux de succès (sur 100 runs)</th>
+<th>Fitness moyenne optimale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1-500</td>
+<td>53</td>
+<td>4.964</td>
+</tr>
+<tr class="even">
+<td>2-250</td>
+<td>55</td>
+<td>4.899</td>
+</tr>
+<tr class="odd">
+<td>5-100</td>
+<td>64</td>
+<td>4.778</td>
+</tr>
+<tr class="even">
+<td>10-50</td>
+<td>76</td>
+<td>4.208</td>
+</tr>
+<tr class="odd">
+<td>50-10</td>
+<td>62</td>
+<td>4.770</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(E\)</span> représente l’effort de calcul.</p>
+<hr>
+</section>
+</section>
+<section id="populations-cellulaires" class="level3">
+<h3 class="anchored" data-anchor-id="populations-cellulaires">Populations cellulaires</h3>
+<p>Cela consiste à organiser les individus sur une grille régulière (ou dans certains cas particuliers sur un graphe).</p>
+<p>Les opérations de sélection et de croisement impliquent un individu et ses voisins spatiaux (ou voisins topologiques dans le cas d’un graphe).</p>
+<p>La <strong>sélection par tournoi</strong> est la plus courante : l’individu peut être remplacé par le voisin le plus apte. Un tournoi binaire entre l’individu et un voisin choisi au hasard est également possible.</p>
+<p>Le croisement est effectué avec probabilité <span class="math inline">\(p_c\)</span> avec un voisin choisi au hasard.</p>
+<p>Mutation : inchangée.</p>
+<p>Mise à jour parallèle.</p>
+<hr>
+<section id="avantages-des-populations-cellulaires" class="level4">
+<h4 class="anchored" data-anchor-id="avantages-des-populations-cellulaires">Avantages des populations cellulaires</h4>
+<p>L’avantage principal de l’approche cellulaire est que la sélection est moins rapide que pour une population panmictique : meilleure exploration spatiale.</p>
+<p>Cela peut être vérifié en considérant le temps de prise de contrôle. L’individu le plus apte “se propage” mieux dans son voisinage.</p>
+<p>Pour une organisation spatiale basée sur un anneau, la vitesse de propagation est linéaire, et basée sur une grille, elle est quadratique.</p>
+<p>La vitesse de sélection peut donc être ajustée en modifiant la taille/topologie du voisinage.</p>
+<hr>
+</section>
+</section>
+<section id="temps-de-prise-de-contrôle-avec-populations-structurées" class="level3">
+<h3 class="anchored" data-anchor-id="temps-de-prise-de-contrôle-avec-populations-structurées">Temps de prise de contrôle avec populations structurées</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Topologie</th>
+<th>Temps de prise de contrôle <span class="math inline">\(\tau\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Anneau</td>
+<td><span class="math inline">\(\mathcal{O}(n)\)</span></td>
+</tr>
+<tr class="even">
+<td>Grille</td>
+<td><span class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Uniforme (panmictique)</td>
+<td><span class="math inline">\(\mathcal{O}(\log n)\)</span></td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
