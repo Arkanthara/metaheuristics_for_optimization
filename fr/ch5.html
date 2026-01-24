@@ -313,7 +313,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -351,7 +351,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Recherche Tabu (Tabu Search)</span></a>
+ <span class="menu-text">Recherche Tabou (Tabu Search)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -363,19 +363,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">La méthode des colonies de fourmis et l’intelligence en essaim</span></a>
+ <span class="menu-text">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch5.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</span></a>
+ <span class="menu-text">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Algorithmes évolutionnaires</span></a>
+ <span class="menu-text">Algorithmes Évolutionnaires</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -408,418 +408,172 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou" id="toc-optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou" class="nav-link active" data-scroll-target="#optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</a>
+  <li><a href="#métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search" id="toc-métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search" class="nav-link active" data-scroll-target="#métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</a>
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#particle-swarm-optimization-pso" id="toc-particle-swarm-optimization-pso" class="nav-link" data-scroll-target="#particle-swarm-optimization-pso">Particle Swarm Optimization (PSO)</a>
   <ul class="collapse">
-  <li><a href="#principes-fondateurs-du-pso" id="toc-principes-fondateurs-du-pso" class="nav-link" data-scroll-target="#principes-fondateurs-du-pso">Principes fondateurs du PSO</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#algorithme-pso" id="toc-algorithme-pso" class="nav-link" data-scroll-target="#algorithme-pso">Algorithme PSO</a></li>
   </ul></li>
-  <li><a href="#algorithme-pso" id="toc-algorithme-pso" class="nav-link" data-scroll-target="#algorithme-pso">Algorithme PSO</a>
+  <li><a href="#firefly-algorithm" id="toc-firefly-algorithm" class="nav-link" data-scroll-target="#firefly-algorithm">Firefly Algorithm</a>
   <ul class="collapse">
-  <li><a href="#meilleur-local-particle-best" id="toc-meilleur-local-particle-best" class="nav-link" data-scroll-target="#meilleur-local-particle-best">Meilleur local (Particle-best)</a></li>
-  <li><a href="#meilleur-global-global-best" id="toc-meilleur-global-global-best" class="nav-link" data-scroll-target="#meilleur-global-global-best">Meilleur global (Global-best)</a></li>
-  <li><a href="#troisième-tendance-inertie" id="toc-troisième-tendance-inertie" class="nav-link" data-scroll-target="#troisième-tendance-inertie">Troisième tendance : Inertie</a></li>
-  <li><a href="#règles-de-mouvement-des-particules" id="toc-règles-de-mouvement-des-particules" class="nav-link" data-scroll-target="#règles-de-mouvement-des-particules">Règles de mouvement des particules</a></li>
-  <li><a href="#remarques-générales" id="toc-remarques-générales" class="nav-link" data-scroll-target="#remarques-générales">Remarques générales</a></li>
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#règle-de-déplacement" id="toc-règle-de-déplacement" class="nav-link" data-scroll-target="#règle-de-déplacement">Règle de déplacement</a></li>
   </ul></li>
-  <li><a href="#exemples" id="toc-exemples" class="nav-link" data-scroll-target="#exemples">Exemples</a>
+  <li><a href="#cuckoo-search" id="toc-cuckoo-search" class="nav-link" data-scroll-target="#cuckoo-search">Cuckoo Search</a>
   <ul class="collapse">
-  <li><a href="#exemple-1-problème-jouet-1d" id="toc-exemple-1-problème-jouet-1d" class="nav-link" data-scroll-target="#exemple-1-problème-jouet-1d">Exemple #1 : Problème jouet 1D</a></li>
-  <li><a href="#exemple-2-recherche-2d-avec-un-optimum-unique" id="toc-exemple-2-recherche-2d-avec-un-optimum-unique" class="nav-link" data-scroll-target="#exemple-2-recherche-2d-avec-un-optimum-unique">Exemple #2 : Recherche 2D avec un optimum unique</a></li>
-  <li><a href="#exemple-3-recherche-2d-avec-une-fitness-multimodale" id="toc-exemple-3-recherche-2d-avec-une-fitness-multimodale" class="nav-link" data-scroll-target="#exemple-3-recherche-2d-avec-une-fitness-multimodale">Exemple #3 : Recherche 2D avec une fitness multimodale</a></li>
-  <li><a href="#notes-sur-le-pso" id="toc-notes-sur-le-pso" class="nav-link" data-scroll-target="#notes-sur-le-pso">Notes sur le PSO</a></li>
-  </ul></li>
-  <li><a href="#lalgorithme-des-lucioles-firefly-algorithm" id="toc-lalgorithme-des-lucioles-firefly-algorithm" class="nav-link" data-scroll-target="#lalgorithme-des-lucioles-firefly-algorithm">L’algorithme des lucioles (Firefly Algorithm)</a>
-  <ul class="collapse">
-  <li><a href="#inspiration-biologique" id="toc-inspiration-biologique" class="nav-link" data-scroll-target="#inspiration-biologique">Inspiration biologique :</a></li>
-  <li><a href="#principes-de-base-de-lalgorithme-des-lucioles" id="toc-principes-de-base-de-lalgorithme-des-lucioles" class="nav-link" data-scroll-target="#principes-de-base-de-lalgorithme-des-lucioles">Principes de base de l’algorithme des lucioles</a></li>
-  </ul></li>
-  <li><a href="#marches-aléatoires-mouvement-brownien-et-vols-de-lévy" id="toc-marches-aléatoires-mouvement-brownien-et-vols-de-lévy" class="nav-link" data-scroll-target="#marches-aléatoires-mouvement-brownien-et-vols-de-lévy">Marches aléatoires : Mouvement brownien et vols de Lévy</a>
-  <ul class="collapse">
-  <li><a href="#vols-de-lévy" id="toc-vols-de-lévy" class="nav-link" data-scroll-target="#vols-de-lévy">Vols de Lévy</a></li>
-  </ul></li>
-  <li><a href="#recherche-du-coucou-cuckoo-search" id="toc-recherche-du-coucou-cuckoo-search" class="nav-link" data-scroll-target="#recherche-du-coucou-cuckoo-search">Recherche du coucou (Cuckoo search)</a>
-  <ul class="collapse">
-  <li><a href="#principes-de-base-de-la-recherche-du-coucou" id="toc-principes-de-base-de-la-recherche-du-coucou" class="nav-link" data-scroll-target="#principes-de-base-de-la-recherche-du-coucou">Principes de base de la recherche du coucou</a></li>
-  <li><a href="#exemple-jouet-de-la-recherche-du-coucou" id="toc-exemple-jouet-de-la-recherche-du-coucou" class="nav-link" data-scroll-target="#exemple-jouet-de-la-recherche-du-coucou">Exemple jouet de la recherche du coucou</a></li>
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2">Introduction</a></li>
+  <li><a href="#algorithme-1" id="toc-algorithme-1" class="nav-link" data-scroll-target="#algorithme-1">Algorithme</a></li>
   </ul></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch5.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</a></li></ol></nav></header>
 
 
 
 
 
-<section id="optimisation-par-essaim-de-particules-pso-algorithme-des-lucioles-et-recherche-du-coucou" class="level1">
-<h1>Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</h1>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>L’<strong>Optimisation par essaim de particules</strong> (Particle Swarm Optimization, PSO) a été initialement introduite par Eberhart et Kennedy en 1995.</p>
-<p>Cette approche d’optimisation est adaptée aux problèmes d’optimisation continue (par exemple, <span class="math inline">\(S \subset \mathbb{R}^n\)</span>, borné). Un essaim de particules explore l’espace de recherche à la recherche de l’optimum global.</p>
-<hr>
-<section id="principes-fondateurs-du-pso" class="level3">
-<h3 class="anchored" data-anchor-id="principes-fondateurs-du-pso">Principes fondateurs du PSO</h3>
-<p><strong>Intelligence en essaim</strong> :</p>
-<p>Le PSO s’inspire du comportement collectif d’animaux sociaux (par exemple, les vols d’oiseaux, les bancs de poissons, les insectes), où des agents simples se coordonnent pour réaliser un comportement de groupe complexe.</p>
-<p>C’est une métaheuristique <strong>basée sur une population</strong> (comme AS et ACS).</p>
-<p>Elle cherche un équilibre entre deux comportements concurrents :</p>
+<section id="métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search" class="level1">
+<h1>Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</h1>
+<section id="particle-swarm-optimization-pso" class="level2">
+<h2 class="anchored" data-anchor-id="particle-swarm-optimization-pso">Particle Swarm Optimization (PSO)</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>La méthode d’optimisation par essaim particulaire (PSO) a été introduite par Eberhart &amp; Kennedy en 1995. Inspirée du comportement collectif d’animaux sociaux (comme les vols d’oiseaux ou les bancs de poissons), elle est adaptée aux problèmes d’optimisation continue.</p>
+<section id="principes-fondamentaux" class="level4">
+<h4 class="anchored" data-anchor-id="principes-fondamentaux">Principes fondamentaux</h4>
 <ul>
-<li>D’une part, les “animaux” suivent le meilleur individu du groupe : celui qui connaît un chemin vers l’optimum (source de nourriture).</li>
-<li>D’autre part, les “animaux” suivent leur “instinct” et adaptent leur mouvement en fonction de leur propre connaissance du point optimal.</li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="algorithme-pso" class="level2">
-<h2 class="anchored" data-anchor-id="algorithme-pso">Algorithme PSO</h2>
-<p>Nous partons d’une population de <span class="math inline">\(N\)</span> particules (ou agents).</p>
-<p>D’un point de vue mécanique :</p>
+<li>C’est une <strong>métaheuristique basée sur une population</strong> d’agents (particules).</li>
+<li>Chaque particule explore l’espace de recherche et ajuste sa trajectoire en fonction de deux expériences :
 <ul>
-<li>Notons <span class="math inline">\(\mathbf{x}_i(t) \in S\)</span> la position de la particule <span class="math inline">\(i\)</span> à l’itération <span class="math inline">\(t\)</span>.</li>
-<li>Chaque <span class="math inline">\(\mathbf{x}_i\)</span> est une solution possible avec une fitness <span class="math inline">\(f(x_i)\)</span>.</li>
-<li>L’espace de recherche <span class="math inline">\(S\)</span> est l’espace physique de déplacement des particules.</li>
-<li>D’une itération à la suivante, les particules se déplacent dans l’espace de recherche selon une vitesse donnée <span class="math inline">\(\mathbf{v}_i\)</span>.</li>
-</ul>
-<hr>
-<section id="meilleur-local-particle-best" class="level3">
-<h3 class="anchored" data-anchor-id="meilleur-local-particle-best">Meilleur local (Particle-best)</h3>
-<p>Première tendance : Expérience personnelle → Attraction vers le meilleur local :</p>
-<p>À chaque itération <span class="math inline">\(t\)</span>, nous mettons à jour le <strong>meilleur local</strong> (particle-best) <span class="math inline">\(\mathbf{x}_i^{\mathrm{best}}(t)\)</span>. Cette valeur correspond à la meilleure fitness visitée par la particule/individu <span class="math inline">\(i\)</span> depuis le début du processus de recherche.</p>
-<p><span class="math display">\[
-x_{i}^{\mathrm{best}}(t) = \left\{ \begin{array}{cc}x_{i}(t) &amp; \mathrm{si~}f(x_{i})\mathrm{~meilleure~que~}f(x_{i}^{\mathrm{best}})\\ x_{i}^{\mathrm{best}}(t - 1) &amp; \mathrm{sinon} \end{array} \right.
-\]</span></p>
-<hr>
-</section>
-<section id="meilleur-global-global-best" class="level3">
-<h3 class="anchored" data-anchor-id="meilleur-global-global-best">Meilleur global (Global-best)</h3>
-<p>Deuxième tendance : <strong>Expérience sociale</strong> → Attraction vers le <strong>meilleur global</strong> :</p>
-<ul>
-<li>Nous considérons également le <strong>meilleur global</strong> <span class="math inline">\(B(t)\)</span>, également mis à jour à chaque itération.</li>
-<li>Cette valeur correspond à la meilleure fitness globale trouvée jusqu’à l’itération <span class="math inline">\(t\)</span> par l’ensemble de la population de particules.</li>
-</ul>
-<p><span class="math display">\[
-B(t) = \arg\max_{\mathbf{x}_i^{\text{best}}(t)} f(\mathbf{x}_i^{\text{best}}(t))
-\]</span></p>
-<ul>
-<li>Pourquoi un <strong>comportement social</strong> ? À cause du <strong>partage d’information</strong> :
-<ul>
-<li>Les particules partagent des informations <em>indirectement</em> en diffusant leurs meilleures solutions trouvées.</li>
-<li>Cela permet à l’essaim de converger vers des régions prometteuses.</li>
+<li>Son <strong>expérience personnelle</strong> (meilleure position qu’elle a trouvée).</li>
+<li>L’<strong>expérience sociale</strong> (meilleure position trouvée par l’ensemble de l’essaim).</li>
 </ul></li>
+<li>Un troisième facteur, <strong>l’inertie</strong>, préserve une partie de la vitesse précédente.</li>
 </ul>
-<hr>
 </section>
-<section id="troisième-tendance-inertie" class="level3">
-<h3 class="anchored" data-anchor-id="troisième-tendance-inertie">Troisième tendance : Inertie</h3>
-<p>Les trois forces agissant sur une particule PSO sont : 1. L’inertie de son mouvement précédent. 2. L’attraction vers sa meilleure position personnelle (meilleur local). 3. L’attraction vers la meilleure position globale de l’essaim.</p>
-<hr>
 </section>
-<section id="règles-de-mouvement-des-particules" class="level3">
-<h3 class="anchored" data-anchor-id="règles-de-mouvement-des-particules">Règles de mouvement des particules</h3>
-<p>Les règles de mise à jour pour le mouvement des particules sont :</p>
+<section id="algorithme-pso" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme-pso">Algorithme PSO</h3>
+<p>On initialise un essaim de <span class="math inline">\(N\)</span> particules, chacune ayant une position <span class="math inline">\(\mathbf{x}_i(t)\)</span> et une vitesse <span class="math inline">\(\mathbf{v}_i(t)\)</span> à l’itération <span class="math inline">\(t\)</span>.</p>
+<section id="mise-à-jour-de-la-vitesse-et-de-la-position" class="level4">
+<h4 class="anchored" data-anchor-id="mise-à-jour-de-la-vitesse-et-de-la-position">Mise à jour de la vitesse et de la position</h4>
+<p>La vitesse est mise à jour selon trois composantes :</p>
 <p><span class="math display">\[
-\begin{aligned}
-\mathbf{v}_i(t+1) &amp;= \omega \mathbf{v}_i(t) + c_1 r_1(t+1)[\mathbf{x}_i^{\text{best}}(t) - \mathbf{x}_i(t)] \\
-&amp;\quad + c_2 r_2(t+1)[\mathbf{B}(t) - \mathbf{x}_i(t)] \\
-\mathbf{x}_i(t+1) &amp;= \mathbf{x}_i(t) + \mathbf{v}_i(t+1)
-\end{aligned}
+\mathbf{v}_i(t+1) = \omega \mathbf{v}_i(t) + c_1 r_1(t+1)[\mathbf{x}_i^{\text{best}}(t) - \mathbf{x}_i(t)] + c_2 r_2(t+1)[\mathbf{B}(t) - \mathbf{x}_i(t)]
 \]</span></p>
-<p>Notes :</p>
-<ul>
-<li>Ces équations sont des <strong>équations vectorielles</strong> (chaque composante est mise à jour en 2D ou 3D).</li>
-<li><strong>Initialisation aléatoire</strong> : les particules sont typiquement uniformément réparties dans l’espace de recherche <span class="math inline">\(S\)</span> avec une vitesse initiale nulle.</li>
-</ul>
-<hr>
-<section id="paramètres-de-lalgorithme" class="level4">
-<h4 class="anchored" data-anchor-id="paramètres-de-lalgorithme">Paramètres de l’algorithme</h4>
-<ul>
-<li><span class="math inline">\(\omega\)</span>, <span class="math inline">\(c_{1}\)</span> et <span class="math inline">\(c_{2}\)</span> sont des paramètres constants à spécifier.</li>
-<li><span class="math inline">\(r_{1}\)</span> et <span class="math inline">\(r_{2}\)</span> sont des nombres aléatoires uniformément tirés de l’intervalle <span class="math inline">\([0,1[\)</span> → introduisent la stochasticité. En général, des nombres aléatoires différents sont tirés pour chaque composante directionnelle de la vitesse.</li>
-</ul>
-<hr>
-</section>
-<section id="interprétation-et-sélection-des-paramètres-de-guidage" class="level4">
-<h4 class="anchored" data-anchor-id="interprétation-et-sélection-des-paramètres-de-guidage">Interprétation et sélection des paramètres de guidage</h4>
-<ul>
-<li>Le paramètre <span class="math inline">\(c_1\)</span> est le <strong>coefficient cognitif</strong>, intégrant la perception individuelle de chaque particule par rapport à la position optimale.</li>
-<li>Le paramètre <span class="math inline">\(c_2\)</span> est le <strong>coefficient social</strong>, intégrant l’évaluation collective (groupe) de la recherche de l’optimum.</li>
-<li>Classiquement, <span class="math inline">\(c_1 \approx c_2 \approx 2\)</span>.</li>
-<li><span class="math inline">\(\omega\)</span> se réfère à l’inertie au changement et est typiquement choisi légèrement inférieur à 1.</li>
-</ul>
-<hr>
-</section>
-<section id="contrôle-des-vitesses-et-positions" class="level4">
-<h4 class="anchored" data-anchor-id="contrôle-des-vitesses-et-positions">Contrôle des vitesses et positions</h4>
-<p>Il est courant d’imposer des limites à la valeur absolue de chaque composante de la vitesse <span class="math inline">\(\mathbf{v}_i\)</span> pour éviter qu’elles ne deviennent trop grandes.</p>
-<p>Une valeur de coupure <span class="math inline">\(\mathbf{v}_{\mathrm{max}}\)</span> est prescrite.</p>
-<p>De même, une limite <span class="math inline">\(\mathbf{x}_{\mathrm{max}}\)</span> est imposée à chaque position <span class="math inline">\(\mathbf{x}_i\)</span> pour s’assurer que la particule reste dans les limites du domaine.</p>
-<p>Il est nécessaire de travailler dans un espace de recherche où les opérations arithmétiques de somme et de produit ont un sens. Que faire si les variables du problème sont booléennes ? Le PSO peut-il traiter des problèmes combinatoires ?</p>
-<hr>
-</section>
-</section>
-<section id="remarques-générales" class="level3">
-<h3 class="anchored" data-anchor-id="remarques-générales">Remarques générales</h3>
-<p>Comme l’Ant System (AS) :</p>
-<ul>
-<li>Le PSO est une métaheuristique basée sur une population : à chaque itération, <span class="math inline">\(N\)</span> solutions candidates sont générées et cet ensemble de solutions est utilisé pour construire la génération suivante.</li>
-<li>Le PSO admet de nombreuses variantes bâties sur le squelette de cet algorithme.</li>
-<li>Dans certaines variantes, la position du meilleur global <span class="math inline">\(B(t)\)</span> peut être définie/restreinte à une sous-population dans un voisinage donné de l’agent <span class="math inline">\(i\)</span>. Cela reviendrait à avoir le voisinage social intégré dans l’espace. Dans ce cas, <span class="math inline">\(B = B_i\)</span> varie d’un agent à l’autre.</li>
-</ul>
-<p><strong>Convergence</strong> : Le PSO est caractérisé par une vitesse de convergence rapide.</p>
-<p><strong>Implémentation</strong> : Des implémentations simples !</p>
-<p><strong>Équilibre entre exploration et exploitation</strong> :</p>
-<ul>
-<li>Le caractère aléatoire et l’inertie dans les mises à jour de vitesse équilibrent l’exploration (recherche de nouvelles régions) et l’exploitation (affinement des bonnes régions connues).</li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="exemples" class="level2">
-<h2 class="anchored" data-anchor-id="exemples">Exemples</h2>
-<section id="exemple-1-problème-jouet-1d" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-1-problème-jouet-1d">Exemple #1 : Problème jouet 1D</h3>
-<p>Intuition sur le fonctionnement interne du PSO :</p>
-<p>Considérons un problème jouet avec un paysage de fitness assez régulier dans un espace de recherche unidimensionnel (1D) <span class="math inline">\(S = [a,b] \in \mathbf{R}\)</span>. Nous considérons une petite population de particules : <span class="math inline">\(N = 2\)</span> particules ! Cela nous permet d’analyser comment elles interagissent socialement pour s’approcher mutuellement de l’optimum (ici un maximum).</p>
-<p>Paramètres : <span class="math inline">\(\omega = 0.9\)</span>, <span class="math inline">\(S = [- 1, 8]\)</span>, positions initiales aléatoires, vitesse initiale nulle.</p>
-<ul>
-<li>Initialement, les deux particules ont une vitesse nulle.</li>
-<li>Leur meilleur local <span class="math inline">\(b_i(t = 0)\)</span> est leur position actuelle.</li>
-<li>Le meilleur global <span class="math inline">\(B(t = 0)\)</span> est la position de la particule la plus proche du maximum (ici la noire).</li>
-</ul>
-<p>Ensuite, nous résolvons le système suivant pour <span class="math inline">\(i = 1, 2\)</span> :</p>
+<p>Puis la position est mise à jour :</p>
 <p><span class="math display">\[
-\begin{aligned}
-v_i(t + 1) &amp;= 0.9v_i(t) + [b_i(t) - x_i(t)] + [B(t) - x_i(t)] \\
-x_i(t + 1) &amp;= x_i(t) + 0.2v_i(t + 1)
-\end{aligned}
+\mathbf{x}_i(t+1) = \mathbf{x}_i(t) + \mathbf{v}_i(t+1)
 \]</span></p>
-<p>Ici : <span class="math inline">\(c_1 = c_2 = 1\)</span>.</p>
-<hr>
-<section id="dynamique-observée" class="level4">
-<h4 class="anchored" data-anchor-id="dynamique-observée">Dynamique observée</h4>
+</section>
+<section id="paramètres-guidés-guided-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés-guided-parameters">Paramètres guidés (guided parameters)</h4>
 <ul>
-<li>La particule grise est attirée par la noire, tandis que cette dernière ne bouge pas puisqu’elle est déjà à la position du meilleur global.</li>
-<li>Comme la particule grise augmente sa fitness, son meilleur local reste sa position courante, ce qui ne modifie pas son attraction vers la particule noire.</li>
-<li>En raison de son élan, la particule grise dépasse la noire et atteint une valeur de fitness plus élevée.</li>
-<li>Elle devient le nouveau meilleur global et s’arrête progressivement.</li>
-<li>D’autre part, la particule noire est maintenant mise en mouvement par le nouveau statut de la particule grise.</li>
-<li>Et ce processus continue au fur et à mesure des itérations.</li>
+<li><strong><span class="math inline">\(\omega\)</span> (coefficient d’inertie)</strong> : Contrôle la persistance de la vitesse précédente. Typiquement légèrement inférieur à 1 (p.&nbsp;ex. 0.9).</li>
+<li><strong><span class="math inline">\(c_1\)</span> (coefficient cognitif)</strong> : Pondère l’attraction vers la meilleure position personnelle (expérience individuelle). Classiquement <span class="math inline">\(c_1 \approx 2\)</span>.</li>
+<li><strong><span class="math inline">\(c_2\)</span> (coefficient social)</strong> : Pondère l’attraction vers la meilleure position globale (expérience collective). Classiquement <span class="math inline">\(c_2 \approx 2\)</span>.</li>
+<li><strong><span class="math inline">\(r_1, r_2\)</span></strong> : Nombres aléatoires uniformes dans <span class="math inline">\([0,1[\)</span> introduisant une <strong>stochasticité</strong>.</li>
 </ul>
-<p>Note : Nous montrons les particules se déplaçant sur la courbe de fitness à des fins d’illustration ! Elles se déplacent le long de l’axe <span class="math inline">\(x\)</span>.</p>
-<hr>
 </section>
-</section>
-<section id="exemple-2-recherche-2d-avec-un-optimum-unique" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-2-recherche-2d-avec-un-optimum-unique">Exemple #2 : Recherche 2D avec un optimum unique</h3>
-<p>Un cas “légèrement” plus réaliste :</p>
-<p>Nous rendons progressivement le problème d’optimisation plus difficile. Nous considérons maintenant un espace de recherche bidimensionnel <span class="math inline">\([0,80] \times [0,60] \subset \mathbb{R}^{2}\)</span> avec un seul optimum.</p>
-<p>Nous discrétisons l’espace de recherche pour travailler dans <span class="math inline">\(\mathbb{Z}^2\)</span>.</p>
-<p>Nous répartissons aléatoirement <span class="math inline">\(N = 5\)</span> particules dans <span class="math inline">\(S\)</span> avec une vitesse initiale nulle.</p>
-<p>Optimum global : position (75, 36) et fitness 0.436.</p>
-<p>Recherche exhaustive : <span class="math inline">\(80 \times 60 = 4'800\)</span> évaluations (en supposant des positions limitées à <span class="math inline">\(\mathbb{Z}^2\)</span>).</p>
-<p>Avec 5 particules et 50 itérations, la meilleure solution trouvée en un seul run (correspondant à la figure précédente) est :</p>
-<p><span class="math display">\[ \mathbf{B} = (75,39) \qquad f(\mathbf{B}) = 0.384 \]</span></p>
-<p>Avec 20 particules et 100 itérations, l’optimum global est trouvé à chaque exécution. On remarque le regroupement des particules autour du maximum. Ici, <span class="math inline">\(r_1 = r_2 = 1\)</span>, et les particules rebondissent sur les bords du domaine.</p>
-<hr>
-</section>
-<section id="exemple-3-recherche-2d-avec-une-fitness-multimodale" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-3-recherche-2d-avec-une-fitness-multimodale">Exemple #3 : Recherche 2D avec une fitness multimodale</h3>
-<p>Nous continuons à complexifier le problème d’optimisation. Même espace de recherche 2D <span class="math inline">\(S = [0,80] \times [0,60]\)</span> mais maintenant avec une fonction de fitness multimodale.</p>
-<p>Nous considérons 10 particules sur 200 itérations.</p>
-<p>Cela correspond à un effort de calcul de <span class="math inline">\(10 \times 200 = 2000\)</span> évaluations, inférieur à ce qui est requis pour une recherche exhaustive, avec <span class="math inline">\(60 \times 80 = 4800\)</span> points à explorer.</p>
-<p>Optimum global : position (22, 7) et fitness correspondante 0.754.</p>
-<p>Avec 10 particules sur 200 itérations, la meilleure solution identifiée en 1 run est :</p>
-<p><span class="math display">\[ B = (23, 7) \quad f(B) = 0.74 \]</span></p>
-<hr>
-</section>
-<section id="notes-sur-le-pso" class="level3">
-<h3 class="anchored" data-anchor-id="notes-sur-le-pso">Notes sur le PSO</h3>
+<section id="remarques-générales" class="level4">
+<h4 class="anchored" data-anchor-id="remarques-générales">Remarques générales</h4>
 <ul>
-<li>Pour appliquer la méthode PSO, les vitesses doivent être calculées. Elle se prête donc naturellement mieux aux problèmes d’optimisation continue.</li>
-<li>Cependant, une extension aux problèmes d’optimisation discrète peut être obtenue avec des méthodes d’arrondi, y compris pour les espaces de recherche booléens.</li>
-<li>Un certain nombre de variantes pour traiter spécifiquement les problèmes d’optimisation combinatoire ont été développées.</li>
+<li>On limite souvent la vitesse (<span class="math inline">\(\mathbf{v}_{\text{max}}\)</span>) et la position (<span class="math inline">\(\mathbf{x}_{\text{max}}\)</span>) pour éviter des dépassements.</li>
+<li>Le PSO converge généralement rapidement.</li>
+<li>Il existe des variantes pour problèmes combinatoires (arrondi, codages spécifiques).</li>
 </ul>
-<p>La méthode PSO a une convergence rapide, et sa capacité à trouver un optimum global est équivalente à celle des algorithmes de colonie de fourmis et des algorithmes génétiques (à venir).</p>
-<p>Évidemment, c’est une méthode basée sur une population : de nombreuses solutions tentatives <span class="math inline">\(\mathbf{x}_i\)</span> sont générées au cours de chaque itération, et ces solutions sont utilisées pour construire l’itération suivante.</p>
-<hr>
+</section>
+<section id="exemple-synthétique" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-synthétique">Exemple synthétique</h4>
+<p>Pour un problème simple à une dimension, on observe comment deux particules s’attirent mutuellement vers l’optimum. La particule au voisinage de l’optimum devient le <em>global-best</em>, attirant l’autre particule, qui peut à son tour la dépasser et devenir le nouveau guide. Le processus itératif mène à une convergence rapide vers la région optimale.</p>
 </section>
 </section>
-<section id="lalgorithme-des-lucioles-firefly-algorithm" class="level2">
-<h2 class="anchored" data-anchor-id="lalgorithme-des-lucioles-firefly-algorithm">L’algorithme des lucioles (Firefly Algorithm)</h2>
-<p>L’<strong>algorithme des lucioles</strong> (Firefly Optimization) a été introduit par Xin-She Yang en 2009.</p>
-<p>Il s’inspire largement du comportement collectif des lucioles et du PSO.</p>
-<p>Cette métaheuristique gagne beaucoup d’attention et de succès pour les problèmes d’optimisation difficiles.</p>
-<section id="inspiration-biologique" class="level3">
-<h3 class="anchored" data-anchor-id="inspiration-biologique">Inspiration biologique :</h3>
+</section>
+<section id="firefly-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="firefly-algorithm">Firefly Algorithm</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
+<p>L’algorithme des lucioles (Firefly Algorithm), introduit par Xin-She Yang (2009), s’inspire du comportement de bioluminescence des lucioles pour attirer des partenaires ou des proies.</p>
+<section id="principes-de-base" class="level4">
+<h4 class="anchored" data-anchor-id="principes-de-base">Principes de base</h4>
 <ul>
-<li>Comportement de clignotement des lucioles, où l’intensité lumineuse de chaque luciole attire les autres : imitation de la communication naturelle et des signaux d’accouplement.</li>
-<li>Les lucioles émettent de la lumière pour attirer des partenaires ou des proies, et le degré d’attraction est proportionnel à l’intensité de la source lumineuse.</li>
+<li>Chaque luciole <span class="math inline">\(i\)</span> représente une solution candidate <span class="math inline">\(\mathbf{x}_i\)</span> dans l’espace de recherche.</li>
+<li>L’intensité lumineuse <span class="math inline">\(I_i\)</span> d’une luciole est proportionnelle à la qualité (fitness) de sa solution : <span class="math inline">\(I_i(t) = f(\mathbf{x}_i(t))\)</span> pour une maximisation.</li>
+<li>Les lucioles moins brillantes sont attirées par les plus brillantes.</li>
 </ul>
-<p>Nous considérons une formulation pour l’optimisation continue, mais une version discrète existe.</p>
-<hr>
 </section>
-<section id="principes-de-base-de-lalgorithme-des-lucioles" class="level3">
-<h3 class="anchored" data-anchor-id="principes-de-base-de-lalgorithme-des-lucioles">Principes de base de l’algorithme des lucioles</h3>
-<p>Chaque luciole <span class="math inline">\(i\)</span> représente une solution candidate dans l’espace de recherche <span class="math inline">\(S\)</span> :</p>
-<p>elle occupe à l’itération <span class="math inline">\(t\)</span> la position <span class="math inline">\(x_{i}(t)\)</span> dans <span class="math inline">\(S\)</span> (par exemple, <span class="math inline">\(S \subset \mathbb{R}^{d}\)</span>, <span class="math inline">\(d\)</span> étant la dimension spatiale de l’espace).</p>
-<section id="signification-de-la-fonction-de-fitness" class="level4">
-<h4 class="anchored" data-anchor-id="signification-de-la-fonction-de-fitness">Signification de la fonction de fitness :</h4>
-<p>Chaque luciole <span class="math inline">\(i\)</span> émet de la lumière avec une intensité <span class="math inline">\(I_{i}\)</span> qui dépend de la valeur <span class="math inline">\(f(x_{i})\)</span> de la fonction de fitness à son emplacement.</p>
-<p>Pour un problème de maximisation, nous considérons typiquement :</p>
-<p><span class="math display">\[ I_{i}(t) = f(x_{i}(t)) \]</span></p>
-<hr>
 </section>
-<section id="attractivité-proportionnelle-à-la-luminosité" class="level4">
-<h4 class="anchored" data-anchor-id="attractivité-proportionnelle-à-la-luminosité">Attractivité proportionnelle à la luminosité :</h4>
-<p>Les lucioles sont attirées par celles qui sont plus brillantes (meilleures solutions). L’attractivité diminue avec la distance et avec l’absorption de la lumière dans le milieu.</p>
-<p>À chaque itération <span class="math inline">\(t\)</span>, nous inspectons toutes les paires de lucioles <span class="math inline">\((i,j)\)</span>, avec <span class="math inline">\(1 \leq i \leq n\)</span> et <span class="math inline">\(i &lt; j \leq n\)</span>, étant donné une population de <span class="math inline">\(n\)</span> lucioles. Si <span class="math inline">\(I_i &lt; I_j\)</span>, alors la luciole <span class="math inline">\(i\)</span> se déplace vers la luciole <span class="math inline">\(j\)</span> selon l’attractivité perçue.</p>
-<hr>
-</section>
-<section id="définition-de-lattractivité" class="level4">
-<h4 class="anchored" data-anchor-id="définition-de-lattractivité">Définition de l’attractivité</h4>
-<p>L’attractivité de la luciole <span class="math inline">\(i\)</span> envers la luciole <span class="math inline">\(j\)</span>, qui a une luminosité plus élevée, est donnée par :</p>
-<p><span class="math display">\[ \beta = \beta_{0}\exp (-\gamma r_{ij}^{2}) \]</span></p>
+<section id="règle-de-déplacement" class="level3">
+<h3 class="anchored" data-anchor-id="règle-de-déplacement">Règle de déplacement</h3>
+<p>La luciole <span class="math inline">\(i\)</span> (moins brillante) se déplace vers la luciole <span class="math inline">\(j\)</span> (plus brillante) selon :</p>
+<p><span class="math display">\[
+\mathbf{x}_i^{\text{new}} = \mathbf{x}_i + \beta_0 \exp(-\gamma r_{ij}^2)(\mathbf{x}_j - \mathbf{x}_i) + \alpha \boldsymbol{\epsilon}
+\]</span></p>
+<section id="paramètres-guidés" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés">Paramètres guidés</h4>
 <ul>
-<li><span class="math inline">\(\beta_{0}\)</span> est l’attractivité de base.</li>
-<li><span class="math inline">\(r_{ij}\)</span> est la distance (euclidienne ou autre) entre <span class="math inline">\(x_{i}\)</span> et <span class="math inline">\(x_{j}\)</span>.</li>
-</ul>
-<p>Ce terme sera ensuite relié à la fraction de la distance parcourue par <span class="math inline">\(i\)</span> vers <span class="math inline">\(j\)</span>.</p>
-<hr>
-</section>
-<section id="signification-de-gamma" class="level4">
-<h4 class="anchored" data-anchor-id="signification-de-gamma">Signification de <span class="math inline">\(\gamma\)</span></h4>
-<p><span class="math display">\[ \exp (-\gamma r_{ij}^2) \in [0,1] \]</span></p>
-<p>L’attractivité décroît exponentiellement avec la distance inter-luciole : liée à la réduction de l’intensité lumineuse perçue (diminue avec la distance et avec l’absorption de la lumière dans le milieu).</p>
-<p><span class="math inline">\(\gamma\)</span> peut être vu comme un paramètre permettant d’ajuster l’équilibre entre exploration et exploitation :</p>
+<li><strong><span class="math inline">\(\beta_0\)</span></strong> : Attractivité de base (souvent fixée à 1).</li>
+<li><strong><span class="math inline">\(\gamma\)</span></strong> : Coefficient d’absorption de la lumière. Il règle l’équilibre exploration/exploitation :
 <ul>
-<li>Un petit <span class="math inline">\(\gamma\)</span> signifie que la lumière voyage loin : il augmente l’attractivité des lucioles lointaines et favorise l’<strong>exploration</strong>.</li>
-<li>Un grand <span class="math inline">\(\gamma\)</span> signifie que la lumière est rapidement absorbée et tend à favoriser une attraction plus forte vers la luciole ayant la meilleure solution, c’est-à-dire l’<strong>exploitation</strong>.</li>
-</ul>
-<hr>
-</section>
-<section id="règle-de-mouvement-des-lucioles" class="level4">
-<h4 class="anchored" data-anchor-id="règle-de-mouvement-des-lucioles">Règle de mouvement des lucioles</h4>
-<p>Le déplacement de la luciole <span class="math inline">\(i\)</span> attirée par <span class="math inline">\(j\)</span> est la superposition d’un terme d’attraction déterministe et d’un terme aléatoire :</p>
-<p><span class="math display">\[ x_{i}^{new} = x_{i} + \beta_{0}\exp (-\gamma r_{ij}^{2})(x_{j} - x_{i}) + \alpha \epsilon \]</span></p>
-<p>Les positions sont mises à jour séquentiellement !</p>
-<ul>
-<li><span class="math inline">\(\beta_{0} = 1\)</span> est la valeur par défaut courante.</li>
-<li><span class="math inline">\(\alpha\)</span> est le paramètre de randomisation constant : classiquement <span class="math inline">\(\alpha \in [0,1]\)</span>.</li>
-<li>Le terme <span class="math inline">\(\epsilon\)</span> est la distribution stochastique :
-<ul>
-<li>Distribution uniforme : <span class="math inline">\(\epsilon = \mathrm{rand}_d()\)</span> est un vecteur aléatoire <span class="math inline">\(d\)</span>-dimensionnel avec des composantes dans <span class="math inline">\([0,1[\)</span> qui donne de petits déplacements aléatoires uniformément répartis.</li>
-<li>Distribution normale : <span class="math inline">\(\epsilon = \mathcal{N}(0,1)\)</span> : utilisée pour une exploration stochastique douce, surtout en optimisation continue.</li>
-<li>Distribution de Lévy : <span class="math inline">\(\epsilon = \mathrm{Lévy}(\lambda)\)</span> (plus tard).</li>
+<li>Petit <span class="math inline">\(\gamma\)</span> : La lumière porte loin → attractivité des lucioles lointaines → favorise <strong>l’exploration</strong>.</li>
+<li>Grand <span class="math inline">\(\gamma\)</span> : La lumière est vite absorbée → attractivité forte vers les meilleures solutions → favorise <strong>l’exploitation</strong>.</li>
 </ul></li>
+<li><strong><span class="math inline">\(\alpha\)</span></strong> : Paramètre de randomisation (typiquement <span class="math inline">\(\alpha \in [0,1]\)</span>).</li>
+<li><strong><span class="math inline">\(\boldsymbol{\epsilon}\)</span></strong> : Vecteur de bruit aléatoire (distribution uniforme, normale ou de Lévy).</li>
 </ul>
-<p>Cela revient donc à une <strong>marche aléatoire avec une dérive</strong> vers les bonnes solutions.</p>
-<hr>
 </section>
-<section id="algorithme-complet-des-lucioles" class="level4">
-<h4 class="anchored" data-anchor-id="algorithme-complet-des-lucioles">Algorithme complet des lucioles</h4>
-<pre><code>iteration = 0
-Initialiser la population de lucioles x_i, i = 1, ..., n
-L'intensité lumineuse I_i en x_i est donnée par f(x_i)
-
-tant que iteration &lt; Max faire
-  pour i = 1 à n
-    pour j = 1 à n
-      si I_i &lt; I_j alors
-        la luciole i se déplace vers la luciole j
-        mettre à jour les distances r_{ij} et l'intensité I_i
-        mettre à jour l'attractivité
-      fin si
-    fin pour
-  fin pour
-  iteration = iteration + 1
-fin tant que</code></pre>
-<hr>
+<section id="algorithme" class="level4">
+<h4 class="anchored" data-anchor-id="algorithme">Algorithme</h4>
+<ol type="1">
+<li>Initialiser la population de lucioles.</li>
+<li>Pour chaque paire <span class="math inline">\((i, j)\)</span>, si <span class="math inline">\(I_i &lt; I_j\)</span>, déplacer <span class="math inline">\(i\)</span> vers <span class="math inline">\(j\)</span>.</li>
+<li>Mettre à jour les intensités.</li>
+<li>Répéter jusqu’à convergence.</li>
+</ol>
+</section>
+<section id="exemple-synthétique-1" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-synthétique-1">Exemple synthétique</h4>
+<p>Dans un espace de recherche 2D, plusieurs lucioles convergent progressivement vers l’optimum global. L’attractivité décroît exponentiellement avec la distance, ce qui permet à l’essaim d’explorer largement au début, puis de se concentrer (exploiter) autour des bonnes solutions.</p>
 </section>
 </section>
 </section>
-<section id="marches-aléatoires-mouvement-brownien-et-vols-de-lévy" class="level2">
-<h2 class="anchored" data-anchor-id="marches-aléatoires-mouvement-brownien-et-vols-de-lévy">Marches aléatoires : Mouvement brownien et vols de Lévy</h2>
-<pre class="mermaid"><code>graph LR
-    A[Marche aléatoire] --&gt; B[Mouvement Brownien&lt;br&gt;Distribution gaussienne];
-    A --&gt; C[Vol de Lévy&lt;br&gt;Loi de puissance];</code></pre>
-<p><strong>Mouvement brownien</strong> (distribution gaussienne) : <span class="math inline">\(\mathrm{saut} \sim [N(0,\sigma)]\)</span></p>
-<p><strong>Vol de Lévy</strong> (loi de puissance) : <span class="math inline">\(\mathrm{saut} \sim \mathrm{Ley}(\alpha) = \alpha \mathrm{jump}^{-1 - \alpha} \quad \mathrm{saut} \in [1,\infty [\)</span></p>
-<p>En 2D : Choix aléatoire de la direction <span class="math inline">\(\theta\)</span> uniformément dans <span class="math inline">\([0,2\pi ]\)</span></p>
-<p><span class="math display">\[ r(t + 1) = r(t) + \mathrm{saut}(t)\exp [i\theta (t)] \]</span></p>
-<hr>
-<section id="vols-de-lévy" class="level3">
-<h3 class="anchored" data-anchor-id="vols-de-lévy">Vols de Lévy</h3>
-<p>Variance infinie (<span class="math inline">\(\alpha \leq 2\)</span>). Quelques événements rares de très grande amplitude. Communément rencontrés dans de nombreux phénomènes naturels : par exemple, le mouvement animal en relation avec la recherche de nourriture. Également rencontrés avec des variables dans les systèmes financiers.</p>
-<hr>
-</section>
-</section>
-<section id="recherche-du-coucou-cuckoo-search" class="level2">
-<h2 class="anchored" data-anchor-id="recherche-du-coucou-cuckoo-search">Recherche du coucou (Cuckoo search)</h2>
-<p>Métaheuristique récemment introduite par Yang &amp; Deb en 2010.</p>
-<p>Une autre métaheuristique <strong>basée sur une population</strong>.</p>
-<p>Orientée vers l’optimisation continue.</p>
-<p>Basée librement sur les preuves biologiques suivantes :</p>
+<section id="cuckoo-search" class="level2">
+<h2 class="anchored" data-anchor-id="cuckoo-search">Cuckoo Search</h2>
+<section id="introduction-2" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-2">Introduction</h3>
+<p>Le Cuckoo Search, introduit par Yang &amp; Deb (2010), s’inspire du parasitisme de couvée de certains coucous.</p>
+<section id="principes-de-base-1" class="level4">
+<h4 class="anchored" data-anchor-id="principes-de-base-1">Principes de base</h4>
 <ul>
-<li>Certaines espèces de coucous se reproduisent par <strong>parasitisme de couvée</strong>.</li>
-<li>Une femelle pond ses œufs dans les nids d’autres oiseaux hôtes.</li>
-<li>Si l’oiseau hôte détecte l’œuf étranger, il peut abandonner le nid ou jeter l’œuf.</li>
-<li>Sinon, le poussin coucou est élevé aux dépens de la progéniture de l’hôte.</li>
+<li><strong>Nids</strong> : Chaque nid héberge une solution candidate (un “œuf”).</li>
+<li><strong>Parasitisme</strong> : Un coucou dépose son œuf (nouvelle solution) dans un nid choisi au hasard.</li>
+<li><strong>Découverte</strong> : L’oiseau hôte peut découvrir l’œuf étranger (avec probabilité <span class="math inline">\(p_a\)</span>) et l’abandonner.</li>
 </ul>
-<hr>
-<section id="principes-de-base-de-la-recherche-du-coucou" class="level3">
-<h3 class="anchored" data-anchor-id="principes-de-base-de-la-recherche-du-coucou">Principes de base de la recherche du coucou</h3>
-<p>Le nombre <span class="math inline">\(n\)</span> de nids disponibles est fixe :</p>
-<p>Chaque coucou a un nid (<span class="math inline">\(n\)</span> est identique au nombre de coucous).</p>
-<p>Chaque coucou “pond” un œuf fictif (c’est-à-dire une solution x) et le place aléatoirement dans un nid donné (position <span class="math inline">\(i\)</span> dans la table).</p>
-<p>À chaque itération, un nid est sélectionné aléatoirement et sa solution est modifiée selon un <strong>vol de Lévy</strong> : mécanisme exploratoire. Cette nouvelle solution modifiée est ensuite comparée à celle d’un autre nid à nouveau sélectionné au hasard. Si la nouvelle solution est améliorée, elle est conservée, sinon elle est abandonnée.</p>
-<hr>
-<p>Il y a une probabilité <span class="math inline">\(p_{a} \in [0,1]\)</span> que l’hôte découvre l’œuf intrus et s’en débarrasse.</p>
-<p>Nous remplaçons alors une fraction <span class="math inline">\(p_{a}\)</span> des nids parmi ceux qui contiennent les pires solutions par de nouveaux nids choisis au hasard selon un vol de Lévy. Ces nids sont réinitialisés avec des solutions sélectionnées au hasard.</p>
-<p>C’est le mécanisme d’<strong>exploitation</strong> dans la recherche du coucou.</p>
-<hr>
-<section id="pseudocode-de-la-recherche-du-coucou" class="level4">
-<h4 class="anchored" data-anchor-id="pseudocode-de-la-recherche-du-coucou">Pseudocode de la recherche du coucou</h4>
-<pre><code>Initialiser n nids x_i, i = 1, ..., n
-tant que pas convergence faire
-  Générer une nouvelle solution x'_i par vol de Lévy
-  Choisir un nid aléatoire j
-  si f(x'_i) &gt; f(x_j) alors remplacer x_j par x'_i
-  Abandonner une fraction p_0 des pires nids et en créer de nouveaux
-  Garder la meilleure solution
-fin tant que</code></pre>
-<hr>
 </section>
 </section>
-<section id="exemple-jouet-de-la-recherche-du-coucou" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-jouet-de-la-recherche-du-coucou">Exemple jouet de la recherche du coucou</h3>
-<p>Appliqué pour identifier le maximum d’une fonction de fitness <span class="math inline">\(f\)</span> de <span class="math inline">\([0,1] \to \mathbb{R}\)</span> avec 4 nids (numérotés de 0 à 3). Un quart des nids sont vidés à chaque itération : <span class="math inline">\(p_n = 0.25\)</span>.</p>
-<pre><code>alpha=1.5  # une valeur possible pour l'exposant de Levy
-a=1        # mais une autre mise à l'échelle pourrait être mieux
-
-iter=0
-solution=[random() for i in range(nest)]
-while(iter&lt;maxIter):
-  iter+=1
-  i=randint(0, nest-1)          # sélection d'un nid
-  x=solution[i] + a*levy()      # amélioration aléatoire de l'"œuf"
-  x=x - int(x)                  # plier la solution dans [0,1]
-  j=randint(0, nest-1)          # sélection d'un nid receveur
-  if fitness(x) &gt; fitness(solution[j]):
-    solution[j]=x
-  solution.sort(key=fitness)
-  solution[0:nest/4] = [random() for i in range(nest/4)]
-  best=solution[nest-1]</code></pre>
-<hr>
-<section id="discussion-des-résultats" class="level4">
-<h4 class="anchored" data-anchor-id="discussion-des-résultats">Discussion des résultats</h4>
-<p>Meilleure solution trouvée : <span class="math inline">\(x = 0.399\)</span>, <span class="math inline">\(f(x) = 180.660\)</span> Optimum global : <span class="math inline">\(x^* = 0.4133\)</span>, <span class="math inline">\(f(x^*) = 187.785\)</span> La solution de la recherche du coucou est à moins de 5% de l’optimum global.</p>
-<p>La recherche fonctionne mieux avec 3 nids repeuplés aléatoirement à chaque itération (courbe bleue) : convergence après 5 itérations <span class="math inline">\(x = 0.4137\)</span>, <span class="math inline">\(f(x) = 187.780\)</span>.</p>
-<p>Sur un total de 16 itérations, seuls 4 remplacements d’œufs ont été acceptés. Les améliorations sont principalement dues à de nouvelles solutions provenant aléatoirement du nid 0.</p>
-<p>À précision comparable, l’effort de calcul (nombre de nouvelles valeurs de fitness calculées) pour le cas bleu est également le meilleur : effort de 15 = 5 itérations pour chacune des 3 nouvelles évaluations. Au lieu de 28 = 14 itérations avec à chaque fois 2 évaluations (une modifiée et une nouvelle solution).</p>
+<section id="algorithme-1" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme-1">Algorithme</h3>
+<p>À chaque itération :</p>
+<ol type="1">
+<li>Générer une nouvelle solution (œuf) par un <strong>vol de Lévy</strong> (mécanisme d’exploration).</li>
+<li>Choisir un nid <span class="math inline">\(j\)</span> au hasard.</li>
+<li>Si la nouvelle solution est meilleure que celle du nid <span class="math inline">\(j\)</span>, la remplacer.</li>
+<li>Avec une probabilité <span class="math inline">\(p_a\)</span>, abandonner une fraction des pires nids et en créer de nouveaux aléatoirement (mécanisme d’exploitation).</li>
+</ol>
+<section id="paramètres-guidés-1" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés-1">Paramètres guidés</h4>
+<ul>
+<li><strong><span class="math inline">\(p_a\)</span> (probabilité d’abandon)</strong> : Contrôle la fraction de pires solutions qui sont remplacées à chaque itération. Typiquement <span class="math inline">\(p_a \approx 0.25\)</span>.</li>
+<li><strong>Paramètres du vol de Lévy</strong> : L’exposant <span class="math inline">\(\alpha\)</span> de la distribution de Lévy contrôle la longueur des sauts exploratoires.</li>
+</ul>
+</section>
+<section id="exemple-synthétique-2" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-synthétique-2">Exemple synthétique</h4>
+<p>Pour maximiser une fonction à une variable avec 4 nids, on observe qu’une petite fraction des nids (les pires) est régulièrement remplacée par des solutions aléatoires. Ce processus permet une exploration soutenue tout en conservant et en améliorant les bonnes solutions. L’algorithme trouve souvent une solution proche de l’optimum global avec un effort de calcul moindre qu’une recherche exhaustive.</p>
 
 
 </section>

@@ -354,7 +354,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Recherche Tabu (Tabu Search)</span></a>
+ <span class="menu-text">Recherche Tabou (Tabu Search)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -366,19 +366,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">La méthode des colonies de fourmis et l’intelligence en essaim</span></a>
+ <span class="menu-text">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Optimisation par essaim de particules (PSO), algorithme des lucioles et recherche du coucou</span></a>
+ <span class="menu-text">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Algorithmes évolutionnaires</span></a>
+ <span class="menu-text">Algorithmes Évolutionnaires</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -413,68 +413,25 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction-aux-métaheuristiques" id="toc-introduction-aux-métaheuristiques" class="nav-link active" data-scroll-target="#introduction-aux-métaheuristiques">Introduction aux Métaheuristiques</a>
   <ul class="collapse">
-  <li><a href="#commençons" id="toc-commençons" class="nav-link" data-scroll-target="#commençons">Commençons</a>
+  <li><a href="#pour-commencer-un-exemple-illustratif" id="toc-pour-commencer-un-exemple-illustratif" class="nav-link" data-scroll-target="#pour-commencer-un-exemple-illustratif">Pour Commencer : Un Exemple Illustratif</a></li>
+  <li><a href="#quest-ce-quun-problème-doptimisation" id="toc-quest-ce-quun-problème-doptimisation" class="nav-link" data-scroll-target="#quest-ce-quun-problème-doptimisation">Qu’est-ce qu’un Problème d’Optimisation ?</a>
   <ul class="collapse">
-  <li><a href="#exemple-introductif" id="toc-exemple-introductif" class="nav-link" data-scroll-target="#exemple-introductif">Exemple introductif</a></li>
-  <li><a href="#un-problème-doptimisation-difficile" id="toc-un-problème-doptimisation-difficile" class="nav-link" data-scroll-target="#un-problème-doptimisation-difficile">Un problème d’optimisation difficile</a></li>
+  <li><a href="#recherche-dans-un-espace-de-solutions" id="toc-recherche-dans-un-espace-de-solutions" class="nav-link" data-scroll-target="#recherche-dans-un-espace-de-solutions">Recherche dans un Espace de Solutions</a></li>
+  <li><a href="#exemples-de-problèmes-et-de-classes" id="toc-exemples-de-problèmes-et-de-classes" class="nav-link" data-scroll-target="#exemples-de-problèmes-et-de-classes">Exemples de Problèmes et de Classes</a></li>
   </ul></li>
-  <li><a href="#espace-de-recherche" id="toc-espace-de-recherche" class="nav-link" data-scroll-target="#espace-de-recherche">Espace de Recherche</a>
+  <li><a href="#complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires" id="toc-complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires" class="nav-link" data-scroll-target="#complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires">Complexité Algorithmique : Pourquoi les Métaheuristiques sont Nécessaires</a>
   <ul class="collapse">
-  <li><a href="#optimisation-non-contrainte" id="toc-optimisation-non-contrainte" class="nav-link" data-scroll-target="#optimisation-non-contrainte">Optimisation non contrainte</a></li>
-  <li><a href="#optimisation-contrainte" id="toc-optimisation-contrainte" class="nav-link" data-scroll-target="#optimisation-contrainte">Optimisation contrainte</a></li>
-  <li><a href="#définitions-et-notations" id="toc-définitions-et-notations" class="nav-link" data-scroll-target="#définitions-et-notations">Définitions et Notations</a></li>
-  <li><a href="#structure-de-lespace-de-recherche" id="toc-structure-de-lespace-de-recherche" class="nav-link" data-scroll-target="#structure-de-lespace-de-recherche">Structure de l’Espace de Recherche</a></li>
+  <li><a href="#mesure-de-la-complexité" id="toc-mesure-de-la-complexité" class="nav-link" data-scroll-target="#mesure-de-la-complexité">Mesure de la Complexité</a></li>
+  <li><a href="#lapproche-métaheuristique" id="toc-lapproche-métaheuristique" class="nav-link" data-scroll-target="#lapproche-métaheuristique">L’Approche Métaheuristique</a></li>
   </ul></li>
-  <li><a href="#exemples" id="toc-exemples" class="nav-link" data-scroll-target="#exemples">Exemples</a>
+  <li><a href="#principes-fondamentaux-des-métaheuristiques" id="toc-principes-fondamentaux-des-métaheuristiques" class="nav-link" data-scroll-target="#principes-fondamentaux-des-métaheuristiques">Principes Fondamentaux des Métaheuristiques</a>
   <ul class="collapse">
-  <li><a href="#optimisation-continue" id="toc-optimisation-continue" class="nav-link" data-scroll-target="#optimisation-continue">Optimisation continue</a></li>
-  <li><a href="#programmation-linéaire" id="toc-programmation-linéaire" class="nav-link" data-scroll-target="#programmation-linéaire">Programmation linéaire</a></li>
-  <li><a href="#problème-du-sac-à-dos-knapsack" id="toc-problème-du-sac-à-dos-knapsack" class="nav-link" data-scroll-target="#problème-du-sac-à-dos-knapsack">Problème du sac à dos (Knapsack)</a></li>
-  <li><a href="#problème-du-voyageur-de-commerce-tsp" id="toc-problème-du-voyageur-de-commerce-tsp" class="nav-link" data-scroll-target="#problème-du-voyageur-de-commerce-tsp">Problème du voyageur de commerce (TSP)</a></li>
-  <li><a href="#problèmes-nk" id="toc-problèmes-nk" class="nav-link" data-scroll-target="#problèmes-nk">Problèmes NK</a></li>
-  <li><a href="#plus-sur-les-problèmes-nk" id="toc-plus-sur-les-problèmes-nk" class="nav-link" data-scroll-target="#plus-sur-les-problèmes-nk">Plus sur les problèmes NK</a></li>
+  <li><a href="#définitions-et-caractéristiques" id="toc-définitions-et-caractéristiques" class="nav-link" data-scroll-target="#définitions-et-caractéristiques">Définitions et Caractéristiques</a></li>
+  <li><a href="#ingénierie-de-la-recherche-représentation-et-voisinage" id="toc-ingénierie-de-la-recherche-représentation-et-voisinage" class="nav-link" data-scroll-target="#ingénierie-de-la-recherche-représentation-et-voisinage">Ingénierie de la Recherche : Représentation et Voisinage</a></li>
+  <li><a href="#stratégies-dexploration-et-paysage-de-fitness" id="toc-stratégies-dexploration-et-paysage-de-fitness" class="nav-link" data-scroll-target="#stratégies-dexploration-et-paysage-de-fitness">Stratégies d’Exploration et Paysage de Fitness</a></li>
+  <li><a href="#métaheuristiques-à-population" id="toc-métaheuristiques-à-population" class="nav-link" data-scroll-target="#métaheuristiques-à-population">Métaheuristiques à Population</a></li>
   </ul></li>
-  <li><a href="#révision-de-la-complexité-algorithmique" id="toc-révision-de-la-complexité-algorithmique" class="nav-link" data-scroll-target="#révision-de-la-complexité-algorithmique">Révision de la Complexité Algorithmique</a>
-  <ul class="collapse">
-  <li><a href="#complexité-et-algorithmes-efficaces" id="toc-complexité-et-algorithmes-efficaces" class="nav-link" data-scroll-target="#complexité-et-algorithmes-efficaces">Complexité et algorithmes efficaces</a></li>
-  <li><a href="#mesurer-la-complexité-la-notation-grand-o" id="toc-mesurer-la-complexité-la-notation-grand-o" class="nav-link" data-scroll-target="#mesurer-la-complexité-la-notation-grand-o">Mesurer la complexité : la notation “grand O”</a></li>
-  <li><a href="#complexité-algorithmique-et-classes-p" id="toc-complexité-algorithmique-et-classes-p" class="nav-link" data-scroll-target="#complexité-algorithmique-et-classes-p">Complexité algorithmique et classes P</a></li>
-  <li><a href="#intraçabilité-des-problèmes-exponentiels" id="toc-intraçabilité-des-problèmes-exponentiels" class="nav-link" data-scroll-target="#intraçabilité-des-problèmes-exponentiels">Intraçabilité des problèmes exponentiels</a></li>
-  <li><a href="#classes-de-complexité" id="toc-classes-de-complexité" class="nav-link" data-scroll-target="#classes-de-complexité">Classes de complexité</a></li>
-  <li><a href="#classes-de-complexité-et-optimisation-difficile" id="toc-classes-de-complexité-et-optimisation-difficile" class="nav-link" data-scroll-target="#classes-de-complexité-et-optimisation-difficile">Classes de complexité et optimisation difficile</a></li>
-  <li><a href="#diagramme-des-classes-de-complexité" id="toc-diagramme-des-classes-de-complexité" class="nav-link" data-scroll-target="#diagramme-des-classes-de-complexité">Diagramme des classes de complexité</a></li>
-  <li><a href="#exemple-cycle-hamiltonien" id="toc-exemple-cycle-hamiltonien" class="nav-link" data-scroll-target="#exemple-cycle-hamiltonien">Exemple : Cycle hamiltonien</a></li>
-  <li><a href="#le-tsp-détermine-si-un-cycle-hamiltonien-existe" id="toc-le-tsp-détermine-si-un-cycle-hamiltonien-existe" class="nav-link" data-scroll-target="#le-tsp-détermine-si-un-cycle-hamiltonien-existe">Le TSP détermine si un cycle hamiltonien existe</a></li>
-  <li><a href="#le-tsp-est-un-problème-np-hard" id="toc-le-tsp-est-un-problème-np-hard" class="nav-link" data-scroll-target="#le-tsp-est-un-problème-np-hard">Le TSP est un problème NP-hard</a></li>
-  <li><a href="#classes-de-complexité-un-résumé" id="toc-classes-de-complexité-un-résumé" class="nav-link" data-scroll-target="#classes-de-complexité-un-résumé">Classes de complexité : un résumé</a></li>
-  <li><a href="#hard-optimization" id="toc-hard-optimization" class="nav-link" data-scroll-target="#hard-optimization">Hard-optimization</a></li>
-  </ul></li>
-  <li><a href="#métaheuristiques" id="toc-métaheuristiques" class="nav-link" data-scroll-target="#métaheuristiques">Métaheuristiques</a>
-  <ul class="collapse">
-  <li><a href="#définition-et-contexte" id="toc-définition-et-contexte" class="nav-link" data-scroll-target="#définition-et-contexte">Définition et contexte</a></li>
-  <li><a href="#heuristiques-vs.-métaheuristiques" id="toc-heuristiques-vs.-métaheuristiques" class="nav-link" data-scroll-target="#heuristiques-vs.-métaheuristiques">Heuristiques vs.&nbsp;Métaheuristiques</a></li>
-  <li><a href="#caractérisation-des-métaheuristiques-12" id="toc-caractérisation-des-métaheuristiques-12" class="nav-link" data-scroll-target="#caractérisation-des-métaheuristiques-12">Caractérisation des métaheuristiques (1/2)</a></li>
-  <li><a href="#caractérisation-des-métaheuristiques-22" id="toc-caractérisation-des-métaheuristiques-22" class="nav-link" data-scroll-target="#caractérisation-des-métaheuristiques-22">Caractérisation des métaheuristiques (2/2)</a></li>
-  </ul></li>
-  <li><a href="#principes-de-fonctionnement" id="toc-principes-de-fonctionnement" class="nav-link" data-scroll-target="#principes-de-fonctionnement">Principes de Fonctionnement</a>
-  <ul class="collapse">
-  <li><a href="#représentation-et-trajectoire-12" id="toc-représentation-et-trajectoire-12" class="nav-link" data-scroll-target="#représentation-et-trajectoire-12">Représentation et trajectoire (1/2)</a></li>
-  <li><a href="#représentation-et-trajectoire-22" id="toc-représentation-et-trajectoire-22" class="nav-link" data-scroll-target="#représentation-et-trajectoire-22">Représentation et trajectoire (2/2)</a></li>
-  <li><a href="#comment-définir-le-voisinage" id="toc-comment-définir-le-voisinage" class="nav-link" data-scroll-target="#comment-définir-le-voisinage">Comment définir le voisinage ?</a></li>
-  <li><a href="#exemple-1-mouvements-dans-s-mathbbz2" id="toc-exemple-1-mouvements-dans-s-mathbbz2" class="nav-link" data-scroll-target="#exemple-1-mouvements-dans-s-mathbbz2">Exemple #1 : Mouvements dans <span class="math inline">\(S = \mathbb{Z}^2\)</span></a></li>
-  <li><a href="#exemple-2-permutations-12" id="toc-exemple-2-permutations-12" class="nav-link" data-scroll-target="#exemple-2-permutations-12">Exemple #2 : Permutations (1/2)</a></li>
-  <li><a href="#exemple-2-permutations-22" id="toc-exemple-2-permutations-22" class="nav-link" data-scroll-target="#exemple-2-permutations-22">Exemple #2 : Permutations (2/2)</a></li>
-  <li><a href="#notes-sur-le-voisinage" id="toc-notes-sur-le-voisinage" class="nav-link" data-scroll-target="#notes-sur-le-voisinage">Notes sur le voisinage</a></li>
-  <li><a href="#stratégies-dexploration-élémentaires" id="toc-stratégies-dexploration-élémentaires" class="nav-link" data-scroll-target="#stratégies-dexploration-élémentaires">Stratégies d’exploration élémentaires</a></li>
-  <li><a href="#recherche-locale-itérée-iterated-local-search" id="toc-recherche-locale-itérée-iterated-local-search" class="nav-link" data-scroll-target="#recherche-locale-itérée-iterated-local-search">Recherche locale itérée (Iterated Local Search)</a></li>
-  <li><a href="#paysage-dénergiefitness-energyfitness-landscape" id="toc-paysage-dénergiefitness-energyfitness-landscape" class="nav-link" data-scroll-target="#paysage-dénergiefitness-energyfitness-landscape">Paysage d’énergie/fitness (Energy/Fitness Landscape)</a></li>
-  <li><a href="#lissage-de-fitness-fitness-smoothing" id="toc-lissage-de-fitness-fitness-smoothing" class="nav-link" data-scroll-target="#lissage-de-fitness-fitness-smoothing">Lissage de fitness (Fitness Smoothing)</a></li>
-  <li><a href="#paysage-de-fitness-et-exploration" id="toc-paysage-de-fitness-et-exploration" class="nav-link" data-scroll-target="#paysage-de-fitness-et-exploration">Paysage de fitness et exploration</a></li>
-  <li><a href="#exemple-maxone-12" id="toc-exemple-maxone-12" class="nav-link" data-scroll-target="#exemple-maxone-12">Exemple : MaxOne (1/2)</a></li>
-  <li><a href="#exemple-maxone-22" id="toc-exemple-maxone-22" class="nav-link" data-scroll-target="#exemple-maxone-22">Exemple : MaxOne (2/2)</a></li>
-  <li><a href="#méthodes-de-population-12" id="toc-méthodes-de-population-12" class="nav-link" data-scroll-target="#méthodes-de-population-12">Méthodes de population (1/2)</a></li>
-  <li><a href="#méthodes-de-population-22" id="toc-méthodes-de-population-22" class="nav-link" data-scroll-target="#méthodes-de-population-22">Méthodes de population (2/2)</a></li>
-  </ul></li>
+  <li><a href="#conclusion-du-chapitre" id="toc-conclusion-du-chapitre" class="nav-link" data-scroll-target="#conclusion-du-chapitre">Conclusion du Chapitre</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -486,488 +443,193 @@ window.Quarto = {
 
 
 
+<p>Salut ! Voici le chapitre restructuré selon tes consignes, en mettant l’accent sur une présentation pédagogique, synthétique et bien organisée.</p>
 <section id="introduction-aux-métaheuristiques" class="level1">
 <h1>Introduction aux Métaheuristiques</h1>
-<section id="commençons" class="level2">
-<h2 class="anchored" data-anchor-id="commençons">Commençons</h2>
-<section id="exemple-introductif" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-introductif">Exemple introductif</h3>
-<p>Considérons <span class="math inline">\(n\)</span> personnes dans un espace 2D, chacune aux positions <span class="math inline">\(x_i\)</span>, <span class="math inline">\(i = 1, \ldots, n\)</span>.</p>
-<p><strong>Problème :</strong> Trouver le point <span class="math inline">\(y\)</span> où ces personnes devraient se rencontrer pour minimiser la somme des distances parcourues par chacune d’entre elles.</p>
-<p><strong>Qu’est-ce que ce point ?</strong> La <strong>médiane géométrique</strong>, par définition (voir exemple 1D) :</p>
-<p><span class="math display">\[\text{argmin}_{y \in \mathbb{R}^2} \sum_{i=1}^{n} \|x_i - y\|\]</span></p>
-<p>Il n’existe pas de solution analytique, mais un algorithme itératif : l’<strong>algorithme de Weiszfeld</strong> :</p>
-<p><span class="math display">\[y_{k+1} = \left( \sum_{i=1}^{n} \frac{x_i}{|x_i - y_k|} \right) \Big/ \left( \sum_{i=1}^{n} \frac{1}{|x_i - y_k|} \right)\]</span></p>
-<p>Solution numérique par <strong>hill climbing</strong> (ou <strong>steepest descent</strong>).</p>
-</section>
-<section id="un-problème-doptimisation-difficile" class="level3">
-<h3 class="anchored" data-anchor-id="un-problème-doptimisation-difficile">Un problème d’optimisation difficile</h3>
-<p>Les problèmes d’optimisation réels peuvent présenter des paysages de fitness très complexes avec de nombreux optima locaux, rendant la recherche de l’optimum global particulièrement difficile.</p>
-</section>
-</section>
-<section id="espace-de-recherche" class="level2">
-<h2 class="anchored" data-anchor-id="espace-de-recherche">Espace de Recherche</h2>
-<section id="optimisation-non-contrainte" class="level3">
-<h3 class="anchored" data-anchor-id="optimisation-non-contrainte">Optimisation non contrainte</h3>
-<p>Classiquement, on résout un problème d’optimisation spécifié comme suit :</p>
-<p>Trouver <span class="math inline">\(x \in S\)</span> tel que <span class="math inline">\(f(x) \in \mathbb{R}\)</span> soit maximal/minimal.</p>
-<p><span class="math display">\[x_{\text{opt}} = \text{argmin/argmax}_{x \in S} f(x)\]</span></p>
-<p><span class="math display">\[f_{\text{opt}} = \min/\max_{x \in S} f(x)\]</span></p>
-</section>
-<section id="optimisation-contrainte" class="level3">
-<h3 class="anchored" data-anchor-id="optimisation-contrainte">Optimisation contrainte</h3>
-<p>Habituellement, dans les problèmes d’optimisation, <span class="math inline">\(x\)</span> peut être soumis à des contraintes données (par exemple <span class="math inline">\(\|x\| &lt; b\)</span>).</p>
-<p>Les contraintes peuvent être exprimées en restreignant <span class="math inline">\(S\)</span> aux solutions acceptables.</p>
-</section>
-<section id="définitions-et-notations" class="level3">
-<h3 class="anchored" data-anchor-id="définitions-et-notations">Définitions et Notations</h3>
-<p><strong><span class="math inline">\(S\)</span> est l’espace de recherche</strong></p>
-<ul>
-<li><span class="math inline">\(S\)</span> peut être discret, infini ou continu</li>
-<li>Habituellement, ici <span class="math inline">\(S\)</span> est très grand</li>
-<li>Les éléments <span class="math inline">\(x\)</span> de <span class="math inline">\(S\)</span> sont appelés <strong>solutions possibles</strong> ou <strong>configurations</strong></li>
-</ul>
-<p><strong>La fonction <span class="math inline">\(f\)</span> est appelée :</strong> fonction objectif, fonction de coût, fonction de perte, <strong>fitness</strong>, ou énergie : <span class="math inline">\(f : S \to \mathbb{R}\)</span></p>
-<p><strong>Solution optimale</strong> <span class="math inline">\(x_{\text{opt}}\)</span> : <span class="math inline">\(f(x_{\text{opt}}) \geq f(y), \forall y \in S\)</span></p>
-<p><strong>Valeur optimale :</strong> <span class="math inline">\(f_{\text{opt}} = f(x_{\text{opt}})\)</span></p>
-<p><strong>Unicité de <span class="math inline">\(x_{\text{opt}}\)</span> et <span class="math inline">\(f_{\text{opt}}\)</span> ?</strong> Optimum global ou local</p>
-</section>
-<section id="structure-de-lespace-de-recherche" class="level3">
-<h3 class="anchored" data-anchor-id="structure-de-lespace-de-recherche">Structure de l’Espace de Recherche</h3>
-<p>En général, problèmes multidimensionnels : <span class="math inline">\(x = (x_1, x_2, \ldots, x_n)\)</span>.</p>
-<p><span class="math inline">\(n\)</span> est la <strong>taille du problème</strong>, ou le <strong>nombre de degrés de liberté</strong>.</p>
-<p>La <strong>cardinalité de <span class="math inline">\(S\)</span> croît exponentiellement</strong> avec la taille du problème :</p>
-<p><span class="math display">\[x_i \in S_i \quad S = S_1 \times S_2 \ldots \times S_n \quad |S| = |S_i|^n\]</span></p>
-<p><strong>La difficulté</strong> est que <span class="math inline">\(S\)</span> est trop grand pour une exploration exhaustive et systématique.</p>
-<p><strong>Les métaheuristiques</strong> offrent un moyen d’explorer <span class="math inline">\(S\)</span> quand aucun algorithme polynomial exact n’existe.</p>
-<p>Les métaheuristiques contrastent avec l’<strong>optimisation convexe</strong> pour laquelle de nombreux algorithmes existent.</p>
-</section>
-</section>
-<section id="exemples" class="level2">
-<h2 class="anchored" data-anchor-id="exemples">Exemples</h2>
-<section id="optimisation-continue" class="level3">
-<h3 class="anchored" data-anchor-id="optimisation-continue">Optimisation continue</h3>
-<p><span class="math inline">\(S = \mathbb{R}^n\)</span> : Problème d’optimisation continue. Dérivées (numériques), multiplicateurs de Lagrange, optima locaux/globaux. Ceux-ci doivent être examinés individuellement et prendre en compte les effets de bord.</p>
-<p><strong>Multiplicateur Lagrangien</strong></p>
-<p>Maximiser <span class="math inline">\(f(x_1, x_2)\)</span> avec la contrainte que <span class="math inline">\(g(x_1, x_2) = 0\)</span></p>
-<p><span class="math display">\[\nabla f = \lambda \nabla g\]</span></p>
-<p>où <span class="math inline">\(\lambda\)</span> est un multiplicateur de Lagrange.</p>
-</section>
-<section id="programmation-linéaire" class="level3">
-<h3 class="anchored" data-anchor-id="programmation-linéaire">Programmation linéaire</h3>
-<p><strong>Programmation linéaire :</strong> méthode pour atteindre le meilleur résultat (tel que le profit maximal ou le coût le plus bas) dans un modèle mathématique dont les exigences et l’objectif sont représentés par des relations linéaires.</p>
-<p>Maximiser <span class="math inline">\(z = f(x) = \sum_i c_i x_i\)</span> avec les contraintes suivantes <span class="math inline">\(\sum_i a_{ij} x_i \leq b_j\)</span>, <span class="math inline">\(x \in S = \mathbb{R}^n\)</span>.</p>
-<p>Les solutions sont à la frontière d’un polygone convexe (algorithme <strong>SIMPLEX</strong>).</p>
-<p>Les choses deviennent compliquées si <span class="math inline">\(x \in S = \{0, 1\}^n\)</span>.</p>
-</section>
-<section id="problème-du-sac-à-dos-knapsack" class="level3">
-<h3 class="anchored" data-anchor-id="problème-du-sac-à-dos-knapsack">Problème du sac à dos (Knapsack)</h3>
-<p><span class="math inline">\(n\)</span> objets de valeur <span class="math inline">\(p_i\)</span> avec taille <span class="math inline">\(w_i\)</span>. Maximiser <span class="math inline">\(\sum p_i x_i\)</span> avec <span class="math inline">\(\sum w_i x_i \leq c\)</span>, <span class="math inline">\(x_i \in \{0, 1\}\)</span>, <span class="math inline">\(c &gt; 0\)</span> taille du sac.</p>
-</section>
-<section id="problème-du-voyageur-de-commerce-tsp" class="level3">
-<h3 class="anchored" data-anchor-id="problème-du-voyageur-de-commerce-tsp">Problème du voyageur de commerce (TSP)</h3>
-<p>Problème d’optimisation combinatoire (i.e., <strong>quadratic assignment problem</strong> - QAP).</p>
-</section>
-<section id="problèmes-nk" class="level3">
-<h3 class="anchored" data-anchor-id="problèmes-nk">Problèmes NK</h3>
-<p><strong>Problème MaxOne</strong></p>
-<p><strong>Problèmes NK</strong> (S. Kauffman, réseau de régulation génétique). <span class="math inline">\(N\)</span> gènes, liés à <span class="math inline">\(K\)</span> autres : graphe avec <span class="math inline">\(N\)</span> nœuds et degré <span class="math inline">\(K\)</span>.</p>
-<p><span class="math inline">\(x \in S = \{0, 1\}^N\)</span></p>
-<p><span class="math display">\[f(x) = \sum_{i}^{N} f_i(x_i, \text{neighbors}_i)\]</span></p>
-<p>avec <span class="math inline">\(K - 1\)</span> voisins de <span class="math inline">\(x_i\)</span>. <strong>MaxOne</strong> : <span class="math inline">\(K = 1\)</span>.</p>
-<p>Cas <span class="math inline">\(K = 3\)</span> : <span class="math inline">\(h(111)\)</span> ou <span class="math inline">\(h(110)\)</span> est max.</p>
-<p><strong>Les problèmes NK sont théoriquement intéressants</strong> car ils offrent des espaces de recherche synthétiques, en particulier lorsque <span class="math inline">\(N\)</span> et <span class="math inline">\(K\)</span> augmentent.</p>
-</section>
-<section id="plus-sur-les-problèmes-nk" class="level3">
-<h3 class="anchored" data-anchor-id="plus-sur-les-problèmes-nk">Plus sur les problèmes NK</h3>
-<p>Considérons <span class="math inline">\(N\)</span> personnes avec deux stratégies commerciales notées par <span class="math inline">\(x_i = 0\)</span> ou <span class="math inline">\(x_i = 1\)</span> (type binaire).</p>
-<p>Le succès de chaque stratégie dépend de manière critique des stratégies des autres personnes (interdépendance - systèmes complexes), et de leur relation (coopération vs.&nbsp;compétition).</p>
-<p>Chaque individu est influencé par <span class="math inline">\(K\)</span> autres. La fonction indique le profit/gain résultant associé à la stratégie adoptée par l’agent <span class="math inline">\(i\)</span> compte tenu de l’interdépendance avec le reste du collectif.</p>
-<p>Le profit/gain collectif global pour le système de <span class="math inline">\(N\)</span> agents est simplement la somme <span class="math inline">\(f = \sum f_i\)</span>.</p>
-</section>
-</section>
-<section id="révision-de-la-complexité-algorithmique" class="level2">
-<h2 class="anchored" data-anchor-id="révision-de-la-complexité-algorithmique">Révision de la Complexité Algorithmique</h2>
-<section id="complexité-et-algorithmes-efficaces" class="level3">
-<h3 class="anchored" data-anchor-id="complexité-et-algorithmes-efficaces">Complexité et algorithmes efficaces</h3>
-<p>Pour trouver une solution optimale, on a besoin d’un algorithme efficace (évidemment !).</p>
-<p>L’effort de calcul requis par un algorithme est donné par la quantité de mémoire requise <span class="math inline">\(M\)</span> et le temps de calcul <span class="math inline">\(T\)</span>.</p>
-<p><span class="math inline">\(M\)</span> et <span class="math inline">\(T\)</span> sont respectivement la <strong>complexité en espace</strong> et la <strong>complexité en temps</strong> de l’algorithme.</p>
-<p>Habituellement, on considère la complexité du pire cas, ou celle du cas moyen.</p>
-<p>On considère généralement la <strong>complexité asymptotique</strong>, c’est-à-dire la relation <span class="math inline">\(M(n)\)</span> et <span class="math inline">\(T(n)\)</span> en fonction de la taille du problème <span class="math inline">\(n\)</span>.</p>
-</section>
-<section id="mesurer-la-complexité-la-notation-grand-o" class="level3">
-<h3 class="anchored" data-anchor-id="mesurer-la-complexité-la-notation-grand-o">Mesurer la complexité : la notation “grand O”</h3>
-<p>La complexité est exprimée avec une expression comme “<span class="math inline">\(O()\)</span>”.</p>
-<p>Si on dit que <span class="math inline">\(T(n) = O(f(n))\)</span>, cela signifie qu’il existe une constante <span class="math inline">\(k\)</span> et une valeur <span class="math inline">\(n_0\)</span> telles que si <span class="math inline">\(n \geq n_0\)</span> alors <span class="math inline">\(T(n) \leq k f(n)\)</span>.</p>
-<p>Par exemple :</p>
-<ul>
-<li><span class="math inline">\(T(n) = 0.5n^2 + 2n = O(n^2)\)</span></li>
-<li><span class="math inline">\(T(n) = n + \log(n) &lt; n + n = O(n)\)</span></li>
-</ul>
-</section>
-<section id="complexité-algorithmique-et-classes-p" class="level3">
-<h3 class="anchored" data-anchor-id="complexité-algorithmique-et-classes-p">Complexité algorithmique et classes P</h3>
-<p>Pour certains problèmes (tri, multiplication de matrices, etc.), un algorithme est connu qui les résout en temps polynomial :</p>
-<p><span class="math display">\[T(n) = O(n^m)\]</span></p>
-<p>avec <span class="math inline">\(m\)</span> généralement petit. Ces problèmes appartiennent à la <strong>classe P</strong>.</p>
-<p>Pour d’autres problèmes, aucun algorithme polynomial n’est connu (ou n’existe !). Il n’y a que des algorithmes exponentiels. Par exemple :</p>
-<p><span class="math display">\[T(n) = O(2^n)\]</span></p>
-<p>Ces problèmes sont <strong>difficiles sur le plan computationnel</strong> car <span class="math inline">\(T(n)\)</span> devient excessivement grand lorsque <span class="math inline">\(n\)</span> augmente même modérément.</p>
-</section>
-<section id="intraçabilité-des-problèmes-exponentiels" class="level3">
-<h3 class="anchored" data-anchor-id="intraçabilité-des-problèmes-exponentiels">Intraçabilité des problèmes exponentiels</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 20%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><span class="math inline">\(n\)</span></th>
-<th>10</th>
-<th>50</th>
-<th>100</th>
-<th>1000</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\log_2 n\)</span></td>
-<td>3</td>
-<td>6</td>
-<td>7</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(n^3\)</span></td>
-<td>1000</td>
-<td>125’000</td>
-<td><span class="math inline">\(10^6\)</span></td>
-<td><span class="math inline">\(10^9\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(2^n\)</span></td>
-<td>1024</td>
-<td><span class="math inline">\(1.3 \times 10^{15}\)</span></td>
-<td><span class="math inline">\(1.27 \times 10^{30}\)</span></td>
-<td><span class="math inline">\(1.05 \times 10^{301}\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(n!\)</span></td>
-<td><span class="math inline">\(3629 \times 10^3\)</span></td>
-<td><span class="math inline">\(3.041 \times 10^{64}\)</span></td>
-<td><span class="math inline">\(10^{158}\)</span></td>
-<td><span class="math inline">\(4 \times 10^{2567}\)</span></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="classes-de-complexité" class="level3">
-<h3 class="anchored" data-anchor-id="classes-de-complexité">Classes de complexité</h3>
-<p>En théorie de la complexité, il existe des problèmes dits appartenir aux classes <strong>P</strong>, <strong>NP</strong>, <strong>NP-complet</strong> ou <strong>NP-difficile</strong> (NP-hard).</p>
-<p><strong>La classe P</strong> contient les problèmes qui peuvent être résolus par un algorithme polynomial.</p>
-<p><strong>NP</strong> signifie polynomial non déterministe (non-deterministic polynomial) car ils peuvent être définis par une machine de Turing non déterministe.</p>
-<p><strong>Les problèmes NP</strong> sont ces problèmes pour lesquels une solution donnée peut être vérifiée en temps polynomial.</p>
-<p>Ainsi, les problèmes P sont évidemment dans NP.</p>
-</section>
-<section id="classes-de-complexité-et-optimisation-difficile" class="level3">
-<h3 class="anchored" data-anchor-id="classes-de-complexité-et-optimisation-difficile">Classes de complexité et optimisation difficile</h3>
-<p><strong>Les problèmes NP-hard</strong> sont ceux dont la solution résout n’importe quel problème NP, à une transformation polynomiale près.</p>
-<p>Les problèmes qui sont à la fois dans les classes NP-hard et NP forment la classe <strong>NP-complet</strong>.</p>
-<p>Les problèmes NP-complets comprennent :</p>
-<ul>
-<li>La coloration de graphes</li>
-<li>Les problèmes de satisfaction</li>
-<li>La recherche de cycles hamiltoniens dans un graphe</li>
-</ul>
-<p>Les problèmes NP-complets et NP-hard sont résolus avec des algorithmes exponentiels.</p>
-</section>
-<section id="diagramme-des-classes-de-complexité" class="level3">
-<h3 class="anchored" data-anchor-id="diagramme-des-classes-de-complexité">Diagramme des classes de complexité</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    P[P] --&gt; NP[NP]
-    NP --&gt; NPC[NP-complete]
-    NPC --&gt; NPH[NP-Hard]
-    style P fill:#90EE90
-    style NP fill:#FFD700
-    style NPC fill:#FFA500
-    style NPH fill:#FF6347
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="exemple-cycle-hamiltonien" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-cycle-hamiltonien">Exemple : Cycle hamiltonien</h3>
-<p><strong>Trouver un chemin fermé qui passe par tous les nœuds une fois et une seule.</strong></p>
-<p>Note : La longueur du chemin est 4 et est égale au nombre de nœuds.</p>
-</section>
-<section id="le-tsp-détermine-si-un-cycle-hamiltonien-existe" class="level3">
-<h3 class="anchored" data-anchor-id="le-tsp-détermine-si-un-cycle-hamiltonien-existe">Le TSP détermine si un cycle hamiltonien existe</h3>
-<p><strong>TSP (Traveling Salesman Problem) :</strong> trouver le chemin le plus court qui passe par tous les nœuds une fois et une seule, en supposant un graphe complètement connecté. Ajouter les arêtes manquantes avec un poids 2.</p>
-<ul>
-<li>Pas de cycle hamiltonien → Le tour le plus court est de longueur 5 et non 4</li>
-</ul>
-</section>
-<section id="le-tsp-est-un-problème-np-hard" class="level3">
-<h3 class="anchored" data-anchor-id="le-tsp-est-un-problème-np-hard">Le TSP est un problème NP-hard</h3>
-<ul>
-<li>Le TSP n’est <strong>pas dans NP</strong> car on ne peut pas vérifier qu’un tour est de longueur minimale en temps polynomial</li>
-<li>Trouver un cycle hamiltonien n’est <strong>pas dans P</strong> car aucun algorithme n’est connu pour trouver un cycle hamiltonien en temps polynomial</li>
-<li>Trouver un cycle hamiltonien est connu pour être <strong>NP-complet</strong> (difficile à démontrer)</li>
-<li>Le TSP résout le problème du cycle hamiltonien</li>
-<li>Le TSP est donc <strong>NP-hard</strong></li>
-</ul>
-</section>
-<section id="classes-de-complexité-un-résumé" class="level3">
-<h3 class="anchored" data-anchor-id="classes-de-complexité-un-résumé">Classes de complexité : un résumé</h3>
-<p><strong>Classe P :</strong> Tri (sorting)</p>
-<p><strong>Classe NP :</strong> Factorisation de grands entiers (Factoring large integers)</p>
-<p><strong>Classe NP-complet :</strong> Cycle hamiltonien (Hamiltonian cycle)</p>
-<p><strong>Classe NP-Hard :</strong> TSP</p>
-</section>
-<section id="hard-optimization" class="level3">
-<h3 class="anchored" data-anchor-id="hard-optimization">Hard-optimization</h3>
-<p>De nombreux problèmes d’optimisation qui nécessitent des métaheuristiques sont <strong>NP-hard</strong>. On les appelle des problèmes de <strong>Hard-optimization</strong>.</p>
-<p>Une solution déterministe nécessiterait un algorithme exponentiel.</p>
-<p>Les métaheuristiques sont alors utilisées.</p>
-<p><strong>Mais, quelle est alors la complexité d’une métaheuristique ?</strong></p>
-</section>
-</section>
-<section id="métaheuristiques" class="level2">
-<h2 class="anchored" data-anchor-id="métaheuristiques">Métaheuristiques</h2>
-<section id="définition-et-contexte" class="level3">
-<h3 class="anchored" data-anchor-id="définition-et-contexte">Définition et contexte</h3>
-<p><strong>Métaheuristiques :</strong> terme inventé par Fred Glover en 1986 dans le contexte de la recherche <strong>tabu</strong> (voir Chap. 2).</p>
-<p>Pour de nombreux problèmes réels (Recherche Opérationnelle - OR), aucun algorithme polynomial n’existe.</p>
-<p>→ Mais pour d’autres problèmes oui !</p>
-<p>Si <span class="math inline">\(n\)</span> est grand, l’espace de recherche <span class="math inline">\(S\)</span> devient trop vaste pour utiliser un algorithme exponentiel.</p>
-<p><strong>Métaheuristiques :</strong> destinées à explorer <span class="math inline">\(S\)</span> de manière quelque peu intelligente pour trouver des optimums.</p>
-<p>→ Espérons de manière plus efficace qu’à travers un échantillonnage purement aléatoire.</p>
-<p><strong>Compromis</strong> entre qualité de la solution et coût computationnel (i.e.&nbsp;temps CPU).</p>
-<p>→ Capable de retourner une solution acceptable dans un temps raisonnable.</p>
-</section>
-<section id="heuristiques-vs.-métaheuristiques" class="level3">
-<h3 class="anchored" data-anchor-id="heuristiques-vs.-métaheuristiques">Heuristiques vs.&nbsp;Métaheuristiques</h3>
-<p><strong>Heuristiques :</strong> méthodes d’exploration qui exploitent certains aspects spécifiques du problème en question et ne s’appliquent qu’à lui.</p>
-<p>→ Par exemple, lors de la résolution d’un problème de programmation linéaire par l’algorithme du simplexe, une heuristique est souvent utilisée pour choisir les variables entrantes et sortantes.</p>
-<p><strong>Métaheuristiques :</strong> méthodes d’exploration générales, presque toujours stochastiques, qui s’appliquent de la même manière à de nombreux problèmes différents.</p>
-<p>→ Les exemples sont la recherche <strong>tabu</strong>, le <strong>simulated annealing</strong>, les <strong>ant colony</strong>, et les algorithmes évolutionnaires. Sujets de ce cours !!</p>
-<p><strong>Algorithmes d’approximation :</strong> cherchent à trouver des solutions à des problèmes spécifiques avec une qualité choisie et avec des limites spécifiques en termes de temps CPU.</p>
-</section>
-<section id="caractérisation-des-métaheuristiques-12" class="level3">
-<h3 class="anchored" data-anchor-id="caractérisation-des-métaheuristiques-12">Caractérisation des métaheuristiques (1/2)</h3>
-<p><strong>Aucune hypothèse</strong> sur les propriétés mathématiques de <span class="math inline">\(f\)</span>.</p>
-<p>→ La seule exigence est que <span class="math inline">\(f\)</span> puisse être calculée <span class="math inline">\(\forall x \in S\)</span>.</p>
-<p>Basées sur un nombre de <strong>paramètres</strong> qui guident l’exploration, et qui affectent la qualité de la recherche.</p>
-<p>→ Leurs valeurs optimales sont souvent trouvées empiriquement pour un problème donné.</p>
-<p>Nécessitent un <strong>point de départ</strong> (configuration initiale).</p>
-<p>→ Soit sélectionné aléatoirement, soit basé sur d’autres stratégies.</p>
-<p>Nécessitent une <strong>condition d’arrêt</strong> : par exemple, limite CPU, borne sur la qualité de la solution trouvée, etc.</p>
-</section>
-<section id="caractérisation-des-métaheuristiques-22" class="level3">
-<h3 class="anchored" data-anchor-id="caractérisation-des-métaheuristiques-22">Caractérisation des métaheuristiques (2/2)</h3>
-<p>En général, elles ont une <strong>composante stochastique</strong> et peuvent être inspirées par des processus naturels.</p>
-<p>Souvent, elles ont des exigences CPU importantes (pas bon marché !).</p>
-<p>Elles sont <strong>faciles à implémenter</strong> et peuvent facilement être parallélisées.</p>
-<p>Classiquement, elles combinent deux actions clés :</p>
-<p><strong>intensification</strong> et <strong>diversification</strong>, plus communément <strong>exploitation</strong> et <strong>exploration</strong> : soit on cherche des solutions plus prometteuses dans <span class="math inline">\(S\)</span>, soit on analyse davantage une région d’intérêt trouvée.</p>
-<p>⇒ <strong>Règle d’or :</strong> ne jamais utiliser de métaheuristiques si une autre méthode peut être appliquée !</p>
-</section>
-</section>
-<section id="principes-de-fonctionnement" class="level2">
-<h2 class="anchored" data-anchor-id="principes-de-fonctionnement">Principes de Fonctionnement</h2>
-<section id="représentation-et-trajectoire-12" class="level3">
-<h3 class="anchored" data-anchor-id="représentation-et-trajectoire-12">Représentation et trajectoire (1/2)</h3>
-<p>Il y a un <strong>besoin critique</strong> de trouver une représentation appropriée du problème dans l’espace de recherche donné <span class="math inline">\(S\)</span> :</p>
-<p>→ i.e., comment coder les solutions possibles ?</p>
-<p>Une métaheuristique est une <strong>trajectoire</strong> dans <span class="math inline">\(S\)</span>.</p>
-<p>Pour définir cette trajectoire et le mouvement le long de celle-ci, les ingrédients suivants sont requis :</p>
-<p><strong>(1) Voisinage</strong> <span class="math inline">\(V(x)\)</span> pour tout <span class="math inline">\(x \in S\)</span> : ce sont les <span class="math inline">\(y\)</span> atteignables depuis <span class="math inline">\(x\)</span>.</p>
-</section>
-<section id="représentation-et-trajectoire-22" class="level3">
-<h3 class="anchored" data-anchor-id="représentation-et-trajectoire-22">Représentation et trajectoire (2/2)</h3>
-<p><strong>(2) Opérateur de recherche/exploration</strong> <span class="math inline">\(U\)</span> qui sélectionne parmi les voisins du point actuel le long de la trajectoire d’exploration :</p>
-<p><span class="math display">\[x_0 \xrightarrow{U} x_1 \in V(x_0) \xrightarrow{U} x_2 \in V(x_1) \ldots\]</span></p>
-<p>Ce processus continue jusqu’à ce que le critère d’arrêt soit activé.</p>
-<p>Selon la métaheuristique, la sortie est soit :</p>
-<ul>
-<li><ol type="i">
-<li>le point <span class="math inline">\(x\)</span> correspondant à la fitness optimale <span class="math inline">\(f(x)\)</span> trouvée le long de la trajectoire</li>
-</ol></li>
-<li><ol start="2" type="i">
-<li>ou le dernier point <span class="math inline">\(x\)</span> le long de la trajectoire de recherche</li>
-</ol></li>
-</ul>
-</section>
-<section id="comment-définir-le-voisinage" class="level3">
-<h3 class="anchored" data-anchor-id="comment-définir-le-voisinage">Comment définir le voisinage ?</h3>
-<p>Trouver des moyens d’exprimer explicitement <span class="math inline">\(V(x)\)</span> pour tout <span class="math inline">\(x \in S\)</span> :</p>
-<p>→ Souvent impraticable, voire impossible.</p>
-<p>En général, le voisinage est spécifié au moyen de <span class="math inline">\(\ell\)</span> <strong>transformations élémentaires</strong> <span class="math inline">\(T_i\)</span> (ou mouvements) telles que :</p>
-<p><span class="math display">\[T_i(x) \in V(x)\]</span></p>
-<p><span class="math display">\[V(x) = \{x' \in S \mid x' = T_i(x), \, i = 1, \ldots, \ell\}\]</span></p>
-</section>
-<section id="exemple-1-mouvements-dans-s-mathbbz2" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-1-mouvements-dans-s-mathbbz2">Exemple #1 : Mouvements dans <span class="math inline">\(S = \mathbb{Z}^2\)</span></h3>
-<p><span class="math inline">\(x \in S \Rightarrow x = (i, j)\)</span></p>
-<p>Par exemple, on peut considérer quatre mouvements cardinaux (<span class="math inline">\(\ell = 4\)</span>) notés <strong>NORTH</strong>, <strong>EAST</strong>, <strong>SOUTH</strong> et <strong>WEST</strong> tels que :</p>
-<ul>
-<li><span class="math inline">\(N(i, j) = (i, j + 1)\)</span></li>
-<li><span class="math inline">\(E(i, j) = (i + 1, j)\)</span></li>
-<li><span class="math inline">\(S(i, j) = (i, j - 1)\)</span></li>
-<li><span class="math inline">\(W(i, j) = (i - 1, j)\)</span></li>
-</ul>
-</section>
-<section id="exemple-2-permutations-12" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-2-permutations-12">Exemple #2 : Permutations (1/2)</h3>
-<p>Considérons l’espace de recherche <span class="math inline">\(S\)</span> des permutations de <span class="math inline">\(n\)</span> objets (cardinal = <span class="math inline">\(n!\)</span>).</p>
-<p>Avec <span class="math inline">\(n = 3\)</span>, nous avons :</p>
-<p><span class="math display">\[A = \{(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)\}\]</span></p>
-<p>avec <span class="math inline">\(|A| = 3! = 6\)</span>.</p>
-<p>On peut définir un voisinage d’une permutation donnée par l’ensemble des permutations qui peuvent être générées par une opération donnée.</p>
-<p>Par exemple, la transposition <span class="math inline">\((i, j)\)</span>, qui consiste à échanger les positions <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span>.</p>
-</section>
-<section id="exemple-2-permutations-22" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-2-permutations-22">Exemple #2 : Permutations (2/2)</h3>
-<p>Pour <span class="math inline">\(n = 5\)</span>, les mouvements sélectionnés sont :</p>
-<p><span class="math display">\[m_i \in \{(1, 2), (1, 3), (1, 4), (1, 5), (2, 3), (2, 4), (2, 5), (3, 4), (3, 5), (4, 5)\}\]</span></p>
-<p>Par exemple, la permutation <span class="math inline">\((a_3, a_2, a_4, a_5, a_1)\)</span> admet <span class="math inline">\((a_2, a_3, a_4, a_5, a_1)\)</span> comme voisin lors de l’application du mouvement <span class="math inline">\((1, 2)\)</span> qui transpose les deux premiers éléments.</p>
-<p>→ Toutes les permutations sont un produit fini de transpositions.</p>
-</section>
-<section id="notes-sur-le-voisinage" class="level3">
-<h3 class="anchored" data-anchor-id="notes-sur-le-voisinage">Notes sur le voisinage</h3>
-<p>Certaines métaheuristiques <strong>n’explorent pas le voisinage complet</strong> avant de passer au point suivant.</p>
-<p>→ Recherche non exhaustive.</p>
-<p>Typiquement, elles utilisent un élément stochastique pour établir aléatoirement le point suivant, “en espérant” qu’il donnerait une valeur optimale pour <span class="math inline">\(f\)</span> dans <span class="math inline">\(S\)</span>.</p>
-<p>Pour les métaheuristiques effectuant une recherche de voisinage exhaustive, nous pouvons définir une <strong>structure hiérarchique du voisinage</strong> :</p>
-<ul>
-<li>Si rien d’utile n’est trouvé au 1er niveau, on passe au 2ème niveau, et ainsi de suite</li>
-<li>Si rien de meilleur n’est trouvé, on arrête la recherche de voisinage et on passe à un autre voisinage</li>
-</ul>
-<p><strong>Recherche globale vs.&nbsp;locale</strong></p>
-</section>
-<section id="stratégies-dexploration-élémentaires" class="level3">
-<h3 class="anchored" data-anchor-id="stratégies-dexploration-élémentaires">Stratégies d’exploration élémentaires</h3>
-<p><strong>Marches aléatoires</strong> (Random walks)</p>
-<p><strong>Marches aléatoires dépendantes du voisinage</strong></p>
-<p><strong>Hill climbing</strong> (très gourmand - déterministe ou stochastique)</p>
-<p><strong>Hill climbing probabiliste :</strong> probabilité de sélectionner un voisin <span class="math inline">\(p(x) = f(x) / \sum f(x')\)</span></p>
-<p>…</p>
-<p>Cas de l’algorithme de <strong>backtracking</strong> et <strong>branch-and-bound</strong> : ce ne sont PAS des métaheuristiques (exploration systématique de l’espace de recherche) mais ils partagent un certain nombre de caractéristiques avec les métaheuristiques :</p>
-<ul>
-<li><ol type="i">
-<li>Recherche et sélection de voisinage (enfants)</li>
-</ol></li>
-<li><ol start="2" type="i">
-<li>Aucune propriété spécifique requise pour la fonction de fitness</li>
-</ol></li>
-</ul>
-</section>
-<section id="recherche-locale-itérée-iterated-local-search" class="level3">
-<h3 class="anchored" data-anchor-id="recherche-locale-itérée-iterated-local-search">Recherche locale itérée (Iterated Local Search)</h3>
-<p>Considérons une métaheuristique <strong>localSearch</strong> qui se bloque sur des optima locaux. On peut construire une métaheuristique plus puissante :</p>
-<p>Réduire <span class="math inline">\(S\)</span> à <span class="math inline">\(S'\)</span> qui ne contient que les optima locaux de <span class="math inline">\(S\)</span>.</p>
-<p><strong>Topologie induite sur <span class="math inline">\(S'\)</span> :</strong> deux points sont voisins si leur bassin d’attraction reste comme tel pour <span class="math inline">\(S\)</span>.</p>
-<p>En pratique, nous cherchons à trouver les voisins de <span class="math inline">\(x' \in S'\)</span> en perturbant <span class="math inline">\(x'\)</span> de manière aléatoire et en appliquant à nouveau la stratégie de recherche locale sur <span class="math inline">\(S\)</span> pour trouver l’optimum local voisin dans <span class="math inline">\(S\)</span>.</p>
-<p>→ <strong>Défi :</strong> choisir la procédure de perturbation.</p>
-</section>
-<section id="paysage-dénergiefitness-energyfitness-landscape" class="level3">
-<h3 class="anchored" data-anchor-id="paysage-dénergiefitness-energyfitness-landscape">Paysage d’énergie/fitness (Energy/Fitness Landscape)</h3>
-<p>Représentation graphique de la fitness compte tenu de la topologie induite par le voisinage.</p>
-<p>⇒ Nécessite une topologie de voisinage.</p>
-<p><strong>Un paysage de fitness NK</strong> (NK-Landscape, <span class="math inline">\(N = 10\)</span>, <span class="math inline">\(K = 3\)</span>, <span class="math inline">\(f_i\)</span> construit aléatoirement)</p>
-<p>Autre représentation : hypercube binaire avec <span class="math inline">\(2^{10}\)</span> points.</p>
-</section>
-<section id="lissage-de-fitness-fitness-smoothing" class="level3">
-<h3 class="anchored" data-anchor-id="lissage-de-fitness-fitness-smoothing">Lissage de fitness (Fitness Smoothing)</h3>
-<p><strong>Fitness moyenne :</strong></p>
-<p><span class="math display">\[\bar{f} = \frac{1}{|S|} \sum_{x \in S} f(x)\]</span></p>
-<p>Une fitness <span class="math inline">\(f_\lambda\)</span> peut être lissée avec un coefficient <span class="math inline">\(\lambda\)</span> :</p>
-<p><span class="math display">\[f_\lambda(x) = \bar{f} + \lambda(f(x) - \bar{f})\]</span></p>
-<p><strong>Paysage de fitness NK lissé</strong> avec smoothing = 0.4 et smoothing = 0.8</p>
-</section>
-<section id="paysage-de-fitness-et-exploration" class="level3">
-<h3 class="anchored" data-anchor-id="paysage-de-fitness-et-exploration">Paysage de fitness et exploration</h3>
-<p><strong>Paysage facile vs.&nbsp;difficile :</strong> sélection de la stratégie de codage, sélection du voisinage.</p>
-<p><strong>Cas difficile, mais facile :</strong> maximiser <span class="math inline">\(f(x) = x_1 \cdot x_2 \ldots x_n\)</span> pour <span class="math inline">\(x_i \in \{0, 1\}\)</span>. Le paysage est plat de sorte que rien ne peut vraiment guider la recherche.</p>
-<p>Exemple de <strong>MaxOne</strong> avec deux stratégies de codage différentes.</p>
-</section>
-<section id="exemple-maxone-12" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-maxone-12">Exemple : MaxOne (1/2)</h3>
-<p>Le problème <strong>MaxOne</strong> illustre l’importance du choix de l’espace de recherche et du voisinage.</p>
-<p><strong>MaxOne</strong> cherche à maximiser :</p>
-<p><span class="math display">\[f(x_1, \ldots, x_n) = \sum_{i=1}^{n} x_i\]</span></p>
-<p><strong>Solution évidente</strong> (pour nous !) : <span class="math inline">\(x = (x_1, \ldots, x_n) = (1, 1, \ldots, 1)\)</span></p>
-<p><strong>Espace de recherche :</strong> ensemble d’entiers de 0 à <span class="math inline">\(2^n - 1\)</span> (cardinal = <span class="math inline">\(2^n\)</span>)</p>
-</section>
-<section id="exemple-maxone-22" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-maxone-22">Exemple : MaxOne (2/2)</h3>
-<p><strong>MaxOne</strong> avec deux stratégies de codage distinctes : on interprète <span class="math inline">\((x_1, \ldots, x_n)\)</span> comme un entier. Le voisinage comprend <span class="math inline">\(x - 1\)</span> et <span class="math inline">\(x + 1\)</span>. Si <span class="math inline">\(U\)</span> choisit un voisin sans jamais diminuer la fitness, on finit par être bloqué. Cependant avec l’hypercube, ça marche ! (Cas <span class="math inline">\(n = 3\)</span> montré ci-dessous)</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    000[000&lt;br/&gt;f=0] --- 001[001&lt;br/&gt;f=1]
-    000 --- 010[010&lt;br/&gt;f=1]
-    001 --- 011[011&lt;br/&gt;f=2]
-    010 --- 011
-    100[100&lt;br/&gt;f=1] --- 101[101&lt;br/&gt;f=2]
-    100 --- 110[110&lt;br/&gt;f=2]
-    101 --- 111[111&lt;br/&gt;f=3]
-    110 --- 111
-    000 --- 100
-    001 --- 101
-    010 --- 110
-    011 --- 111
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="méthodes-de-population-12" class="level3">
-<h3 class="anchored" data-anchor-id="méthodes-de-population-12">Méthodes de population (1/2)</h3>
-<p><strong>Métaheuristiques à point unique vs.&nbsp;basées sur une population</strong></p>
-<p><strong>A : Trois étapes d’une métaheuristique à point unique</strong></p>
-<ul>
-<li>Étape 0 : <span class="math inline">\(x_0\)</span> dans <span class="math inline">\(S\)</span></li>
-<li>Étape 1 : <span class="math inline">\(x_1\)</span> dans <span class="math inline">\(S\)</span></li>
-<li>Étape 2 : <span class="math inline">\(x_2\)</span> dans <span class="math inline">\(S\)</span></li>
-</ul>
-<p><strong>B : Trois étapes d’une métaheuristique basée sur une population</strong></p>
-<ul>
-<li>Étape 0 : <span class="math inline">\(\{x_0, y_0, z_0\}\)</span> dans <span class="math inline">\(S\)</span></li>
-<li>Étape 1 : <span class="math inline">\(\{x_1, y_1, z_1\}\)</span> dans <span class="math inline">\(S\)</span></li>
-<li>Étape 2 : <span class="math inline">\(\{x_2, y_2, z_2\}\)</span> dans <span class="math inline">\(S\)</span></li>
-</ul>
-</section>
-<section id="méthodes-de-population-22" class="level3">
-<h3 class="anchored" data-anchor-id="méthodes-de-population-22">Méthodes de population (2/2)</h3>
-<p>De nombreuses métaheuristiques considèrent une <strong>population de solutions tentatives</strong>. Ensuite, elles laissent cette population évoluer pour explorer <span class="math inline">\(S\)</span> : par exemple, algorithmes génétiques/évolutionnaires.</p>
-<p>La solution optimale est alors la meilleure solution trouvée à travers toutes les générations/évolutions.</p>
-<p>Nous travaillons dans un <strong>espace de recherche étendu</strong> : <span class="math inline">\(S^N\)</span> où <span class="math inline">\(N\)</span> est le nombre d’individus dans la population.</p>
-<p>Le voisinage d’une population est une autre population : les transformations élémentaires sont plus complexes puisqu’elles peuvent utiliser la population entière, et pas seulement une seule solution.</p>
-<p>Cela peut être vu comme une sorte de <strong>co-évolution</strong> de nombreuses solutions.</p>
+<section id="pour-commencer-un-exemple-illustratif" class="level2">
+<h2 class="anchored" data-anchor-id="pour-commencer-un-exemple-illustratif">Pour Commencer : Un Exemple Illustratif</h2>
+<p>Prenons un problème d’optimisation géométrique simple pour illustrer la nécessité des métaheuristiques.</p>
+<p><strong>Problème :</strong> Trouver le point de rencontre optimal pour <code>n</code> personnes.</p>
+<p>Imaginons <code>n</code> personnes situées dans un espace 2D, chacune à une position <span class="math inline">\(x_i\)</span>. Le but est de trouver le point <span class="math inline">\(y\)</span> où elles doivent se rencontrer pour minimiser la somme des distances parcourues par chacune.</p>
+<p>Ce point est appelé la <strong>médiane géométrique</strong> et est défini par :</p>
+<p><span class="math display">\[
+y^* = \arg\min_{y \in \mathbb{R}^2} \sum_{i=1}^n \|x_i - y\|
+\]</span></p>
 <hr>
-<p><strong>Fin du Chapitre 1</strong></p>
-
-
+<ul>
+<li>Il n’existe <strong>pas de solution analytique</strong> simple pour ce problème.</li>
+<li>Un algorithme itératif, comme l’<strong>algorithme de Weiszfeld</strong>, est nécessaire pour l’approcher.</li>
+<li>Ce type de problème, simple à énoncer mais difficile à résoudre exactement, est un candidat typique pour les méthodes métaheuristiques.</li>
+</ul>
 </section>
+<section id="quest-ce-quun-problème-doptimisation" class="level2">
+<h2 class="anchored" data-anchor-id="quest-ce-quun-problème-doptimisation">Qu’est-ce qu’un Problème d’Optimisation ?</h2>
+<section id="recherche-dans-un-espace-de-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="recherche-dans-un-espace-de-solutions">Recherche dans un Espace de Solutions</h3>
+<p>Un problème d’optimisation consiste à trouver la meilleure solution parmi un ensemble de solutions possibles.</p>
+<ul>
+<li><strong>Espace de recherche (S) :</strong> L’ensemble de toutes les solutions candidates. Il peut être discret (combinatoire) ou continu.</li>
+<li><strong>Fonction objectif (f) :</strong> Aussi appelée fonction de coût, d’énergie ou de <em>fitness</em>. C’est une fonction <span class="math inline">\(f : S \to \mathbb{R}\)</span> qui attribue un score à chaque solution. L’objectif est de la minimiser ou de la maximiser.</li>
+<li><strong>Solution optimale (<span class="math inline">\(x_{opt}\)</span>) :</strong> La solution qui donne la valeur extrême (min ou max) de la fonction objectif sur tout l’espace S.</li>
+</ul>
+<p>Formellement, on cherche :</p>
+<p><span class="math display">\[
+x_{\mathrm{opt}} = \underset {x\in S}{\mathrm{argmin}} \ f(x) \quad \text{ou} \quad x_{\mathrm{opt}} = \underset {x\in S}{\mathrm{argmax}} \ f(x)
+\]</span></p>
+<hr>
+<ul>
+<li><strong>Optimisation libre vs.&nbsp;contrainte :</strong> Les problèmes peuvent avoir des contraintes (ex: <span class="math inline">\(||x|| &lt; b\)</span>). Celles-ci sont généralement intégrées dans la définition de l’espace de recherche admissible.</li>
+<li><strong>La malédiction de la dimension :</strong> Pour des problèmes multidimensionnels où <span class="math inline">\(x = (x_1, ..., x_n)\)</span>, la cardinalité de <span class="math inline">\(S\)</span> croît souvent de manière <strong>exponentielle</strong> avec <span class="math inline">\(n\)</span> (la taille du problème). Une exploration exhaustive devient rapidement impossible.</li>
+</ul>
+</section>
+<section id="exemples-de-problèmes-et-de-classes" class="level3">
+<h3 class="anchored" data-anchor-id="exemples-de-problèmes-et-de-classes">Exemples de Problèmes et de Classes</h3>
+<p><strong>Problèmes Continus (<span class="math inline">\(S = \mathbb{R}^n\)</span>)</strong></p>
+<p>On peut utiliser des méthodes classiques (dérivées, multiplicateurs de Lagrange) pour trouver des optima locaux. L’analyse des conditions aux bornes est cruciale.</p>
+<hr>
+<p><strong>Programmation Linéaire</strong></p>
+<p>Maximiser une fonction linéaire <span class="math inline">\(z = c^T x\)</span> sous des contraintes linéaires <span class="math inline">\(Ax \leq b\)</span>. La solution se trouve sur le bord d’un polyèdre convexe (algorithme du Simplexe). La complexité augmente considérablement si les variables sont binaires (<span class="math inline">\(x_i \in \{0,1\}\)</span>).</p>
+<hr>
+<p><strong>Problèmes Combinatoires (NP-Difficiles)</strong></p>
+<p>Ce sont des problèmes discrets où l’espace de recherche est fini mais gigantesque.</p>
+<ul>
+<li><strong>Problème du Sac à Dos (Knapsack) :</strong> Choisir un sous-ensemble d’objets (de valeurs <span class="math inline">\(p_i\)</span> et poids <span class="math inline">\(w_i\)</span>) pour maximiser la valeur totale sans dépasser une capacité <span class="math inline">\(c\)</span>.</li>
+<li><strong>Problème du Voyageur de Commerce (TSP) :</strong> Trouver le circuit le plus court visitant une liste de villes données une et une seule fois.</li>
+<li><strong>Problèmes NK :</strong> Modèles synthétiques où la performance d’un système de <span class="math inline">\(N\)</span> agents binaires dépend des états de <span class="math inline">\(K\)</span> autres agents. Ils permettent d’étudier des paysages de <em>fitness</em> de complexité variable.</li>
+</ul>
+</section>
+</section>
+<section id="complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires" class="level2">
+<h2 class="anchored" data-anchor-id="complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires">Complexité Algorithmique : Pourquoi les Métaheuristiques sont Nécessaires</h2>
+<section id="mesure-de-la-complexité" class="level3">
+<h3 class="anchored" data-anchor-id="mesure-de-la-complexité">Mesure de la Complexité</h3>
+<p>L’efficacité d’un algorithme est mesurée par sa complexité en temps <span class="math inline">\(T(n)\)</span> et en espace <span class="math inline">\(M(n)\)</span>, exprimées avec la notation Grand O <span class="math inline">\(O()\)</span>.</p>
+<p><span class="math display">\[
+T(n) = O(f(n)) \quad \Rightarrow \quad \exists \ k, n_0 \ \text{tels que} \ \forall n \ge n_0, \ T(n) \le k \cdot f(n)
+\]</span></p>
+<hr>
+<ul>
+<li><strong>Classe P :</strong> Problèmes pour lesquels il existe un algorithme de résolution exacte en temps polynomial (ex: <span class="math inline">\(O(n^2)\)</span>, <span class="math inline">\(O(n \log n)\)</span>).</li>
+<li><strong>Classe NP :</strong> Problèmes pour lesquels une <strong>solution proposée</strong> peut être <strong>vérifiée</strong> en temps polynomial.</li>
+<li><strong>NP-Complet / NP-Difficile :</strong> Les problèmes les plus difficiles de la classe NP. Aucun algorithme polynomial exact n’est connu (et il est fort probable qu’il n’en existe pas). Le TSP en est un exemple paradigmatique.</li>
+</ul>
+<p><strong>Intraitabilité des Problèmes Exponentiels :</strong> Pour les problèmes NP-difficiles, les algorithmes exacts ont une complexité exponentielle (ex: <span class="math inline">\(O(2^n)\)</span>). Même pour des tailles de problème modestes (<span class="math inline">\(n &gt; 50\)</span>), le temps de calcul devient prohibitif.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Tous les problèmes] --&gt; B{Peut-on vérifier une solution\n en temps polynomial?}
+    B --&gt;|Non| C[Autres classes]
+    B --&gt;|Oui| D[Classe NP]
+    D --&gt; E{Peut-on RÉSOUDRE le problème\n en temps polynomial?}
+    E --&gt;|Oui| F[Classe P]
+    E --&gt;|On ne sait pas / Non| G[Sous-ensemble NP]
+    G --&gt; H[Problèmes NP-Complets&lt;br&gt;ex: TSP, Coloration de graphe]
+    H --&gt; I[NP-Difficile&lt;br&gt;Au moins aussi dur qu'un NP-Complet]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="lapproche-métaheuristique" class="level3">
+<h3 class="anchored" data-anchor-id="lapproche-métaheuristique">L’Approche Métaheuristique</h3>
+<p>Face à ces problèmes <strong>d’optimisation difficile (Hard Optimization)</strong>, où une recherche déterministe exhaustive est impossible, les métaheuristiques offrent une alternative.</p>
+<ul>
+<li><strong>Objectif :</strong> Explorer l’espace de recherche <span class="math inline">\(S\)</span> de manière <strong>intelligente et efficace</strong> pour trouver une <strong>solution de bonne qualité en un temps acceptable</strong>, sans garantir l’optimalité globale.</li>
+<li><strong>Philosophie :</strong> Trouver un compromis (<em>trade-off</em>) entre la qualité de la solution trouvée et le coût computationnel (temps CPU).</li>
+</ul>
+</section>
+</section>
+<section id="principes-fondamentaux-des-métaheuristiques" class="level2">
+<h2 class="anchored" data-anchor-id="principes-fondamentaux-des-métaheuristiques">Principes Fondamentaux des Métaheuristiques</h2>
+<section id="définitions-et-caractéristiques" class="level3">
+<h3 class="anchored" data-anchor-id="définitions-et-caractéristiques">Définitions et Caractéristiques</h3>
+<ul>
+<li><strong>Heuristique :</strong> Méthode conçue pour un problème spécifique, exploitant ses propriétés intrinsèques (ex: une règle de sélection dans l’algorithme du Simplexe).</li>
+<li><strong>Métaheuristique :</strong> Schéma algorithmique <strong>général</strong> et souvent stochastique, qui peut être adapté à une large variété de problèmes. Exemples : Recuit Simulé, Algorithmes Évolutionnaires, Colonie de Fourmis.</li>
+</ul>
+<hr>
+<p><strong>Caractéristiques clés d’une métaheuristique :</strong></p>
+<ol type="1">
+<li><strong>Hypothèses minimales :</strong> Elle ne nécessite pas de propriétés mathématiques particulières de la fonction objectif <span class="math inline">\(f\)</span> (comme la dérivabilité), seulement la capacité à l’évaluer.</li>
+<li><strong>Paramètres :</strong> Son comportement est guidé par des paramètres (taille de voisinage, taux d’acceptation…) souvent réglés empiriquement.</li>
+<li><strong>Point de départ :</strong> Nécessite une solution initiale, générée aléatoirement ou via une heuristique simple.</li>
+<li><strong>Critère d’arrêt :</strong> Doit définir quand s’arrêter (ex: nombre max d’itérations, temps CPU, stagnation de la solution).</li>
+</ol>
+</section>
+<section id="ingénierie-de-la-recherche-représentation-et-voisinage" class="level3">
+<h3 class="anchored" data-anchor-id="ingénierie-de-la-recherche-représentation-et-voisinage">Ingénierie de la Recherche : Représentation et Voisinage</h3>
+<p>Pour appliquer une métaheuristique, deux choix conceptuels sont fondamentaux :</p>
+<p><strong>1. La Représentation</strong></p>
+<p>Comment coder une solution <span class="math inline">\(x\)</span> de l’espace <span class="math inline">\(S\)</span> sous une forme manipulable par l’algorithme ? Ce choix influe directement sur la difficulté du paysage de <em>fitness</em>.</p>
+<p><strong>2. La Définition du Voisinage <span class="math inline">\(V(x)\)</span></strong></p>
+<p>Pour chaque solution <span class="math inline">\(x\)</span>, on définit un ensemble de solutions “voisines” <span class="math inline">\(V(x)\)</span> qui peuvent être atteintes en une étape élémentaire. C’est le moteur de l’exploration.</p>
+<ul>
+<li>Le voisinage est généralement défini par un ensemble de <strong>mouvements élémentaires</strong> <span class="math inline">\(T_i\)</span>. <span class="math display">\[
+V(x) = \{ x' \in S \ | \ x' = T_i(x), \ i = 1, \ldots, \ell \}
+\]</span></li>
+<li><strong>Exemple 1 (Mouvements sur une grille) :</strong> Pour <span class="math inline">\(S = \mathbb{Z}^2\)</span>, <span class="math inline">\(V((i,j))\)</span> peut être défini par les 4 déplacements cardinaux {NORD, SUD, EST, OUEST}.</li>
+<li><strong>Exemple 2 (Espace de permutations) :</strong> Pour <span class="math inline">\(S\)</span> = ensemble des permutations de <span class="math inline">\(n\)</span> objets, un mouvement courant est la <strong>transposition</strong> de deux éléments.</li>
+</ul>
+</section>
+<section id="stratégies-dexploration-et-paysage-de-fitness" class="level3">
+<h3 class="anchored" data-anchor-id="stratégies-dexploration-et-paysage-de-fitness">Stratégies d’Exploration et Paysage de Fitness</h3>
+<p><strong>Paysage de Fitness</strong></p>
+<p>C’est la représentation graphique de la fonction objectif <span class="math inline">\(f\)</span> par rapport à la topologie induite par le voisinage. Sa structure (pics, vallées, plateaux) détermine la difficulté du problème.</p>
+<hr>
+<p><strong>Deux Forces Complémentaires : Exploitation vs Exploration</strong></p>
+<p>Toute métaheuristique doit gérer un équilibre subtil :</p>
+<ul>
+<li><strong>Intensification (Exploitation) :</strong> Concentrer la recherche autour des bonnes solutions déjà trouvées pour les améliorer localement.</li>
+<li><strong>Diversification (Exploration) :</strong> Explorer de nouvelles régions de l’espace <span class="math inline">\(S\)</span> pour éviter de rester piégé dans un optimum local de mauvaise qualité.</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    subgraph S [Espace de Recherche]
+        direction LR
+        A[Région explorée] -- Exploration --&gt; B[Nouvelle région]
+        B -- Intensification --&gt; C[Amélioration locale]
+        C -- Échappée / Perturbation --&gt; A
+    end
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Recherche Locale Itérée (Iterated Local Search)</strong></p>
+<p>Ce principe illustre cet équilibre :</p>
+<ol type="1">
+<li>On utilise d’abord une méthode de <strong>recherche locale</strong> (comme la montée de colline) pour trouver un optimum local.</li>
+<li>On applique une <strong>perturbation</strong> contrôlée à cette solution pour “sauter” dans un autre bassin d’attraction.</li>
+<li>On relance la recherche locale à partir de ce nouveau point.</li>
+<li>On répète le processus.</li>
+</ol>
+</section>
+<section id="métaheuristiques-à-population" class="level3">
+<h3 class="anchored" data-anchor-id="métaheuristiques-à-population">Métaheuristiques à Population</h3>
+<p>Au lieu de faire évoluer une seule solution, ces méthodes font évoluer un <strong>ensemble de solutions</strong> (une population) en parallèle.</p>
+<ul>
+<li><strong>Principe :</strong> L’exploration est conduite par les interactions (sélection, reproduction, partage d’information) entre les individus de la population.</li>
+<li><strong>Avantage :</strong> Maintient naturellement une diversité, permettant une exploration plus large. Les Algorithmes Évolutionnaires (ou Génétiques) en sont l’exemple canonique.</li>
+<li><strong>Espace de recherche étendu :</strong> On travaille dans <span class="math inline">\(S^N\)</span>, où <span class="math inline">\(N\)</span> est la taille de la population. Les opérateurs (mouvements) agissent souvent sur l’ensemble de la population.</li>
+</ul>
+</section>
+</section>
+<section id="conclusion-du-chapitre" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-du-chapitre">Conclusion du Chapitre</h2>
+<p>Les métaheuristiques sont des outils puissants pour aborder des problèmes d’optimisation difficiles, pour lesquels aucune méthode exacte et efficace n’existe. Leur succès repose sur une compréhension fine du problème (choix de représentation et de voisinage) et sur l’équilibre entre exploration et exploitation.</p>
+<p><strong>Règle d’or :</strong> Il ne faut recourir aux métaheuristiques que lorsqu’aucune méthode spécifique plus efficace (ex: algorithmes polynomiaux pour les problèmes convexes) ne peut être appliquée.</p>
+
+
 </section>
 </section>
 
