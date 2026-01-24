@@ -1,532 +1,186 @@
+Salut ! Voici le chapitre restructuré selon tes consignes, en mettant l'accent sur une présentation pédagogique, synthétique et bien organisée.
+
 # Introduction aux Métaheuristiques
 
-## Commençons
+## Pour Commencer : Un Exemple Illustratif
 
-### Exemple introductif
+Prenons un problème d'optimisation géométrique simple pour illustrer la nécessité des métaheuristiques.
 
-Considérons $n$ personnes dans un espace 2D, chacune aux positions $x_i$, $i = 1, \ldots, n$.
+**Problème :** Trouver le point de rencontre optimal pour `n` personnes.
 
-**Problème :** Trouver le point $y$ où ces personnes devraient se rencontrer pour minimiser la somme des distances parcourues par chacune d'entre elles.
+Imaginons `n` personnes situées dans un espace 2D, chacune à une position $x_i$. Le but est de trouver le point $y$ où elles doivent se rencontrer pour minimiser la somme des distances parcourues par chacune.
 
-**Qu'est-ce que ce point ?** La **médiane géométrique**, par définition (voir exemple 1D) :
+Ce point est appelé la **médiane géométrique** et est défini par :
 
-$$\text{argmin}_{y \in \mathbb{R}^2} \sum_{i=1}^{n} \|x_i - y\|$$
+$$
+y^* = \arg\min_{y \in \mathbb{R}^2} \sum_{i=1}^n \|x_i - y\|
+$$
 
-Il n'existe pas de solution analytique, mais un algorithme itératif : l'**algorithme de Weiszfeld** :
+***
 
-$$y_{k+1} = \left( \sum_{i=1}^{n} \frac{x_i}{|x_i - y_k|} \right) \Big/ \left( \sum_{i=1}^{n} \frac{1}{|x_i - y_k|} \right)$$
+*   Il n'existe **pas de solution analytique** simple pour ce problème.
+*   Un algorithme itératif, comme l'**algorithme de Weiszfeld**, est nécessaire pour l'approcher.
+*   Ce type de problème, simple à énoncer mais difficile à résoudre exactement, est un candidat typique pour les méthodes métaheuristiques.
 
-Solution numérique par **hill climbing** (ou **steepest descent**).
+## Qu'est-ce qu'un Problème d'Optimisation ?
 
-### Un problème d'optimisation difficile
+### Recherche dans un Espace de Solutions
 
-Les problèmes d'optimisation réels peuvent présenter des paysages de fitness très complexes avec de nombreux optima locaux, rendant la recherche de l'optimum global particulièrement difficile.
+Un problème d'optimisation consiste à trouver la meilleure solution parmi un ensemble de solutions possibles.
 
-## Espace de Recherche
+*   **Espace de recherche (S) :** L'ensemble de toutes les solutions candidates. Il peut être discret (combinatoire) ou continu.
+*   **Fonction objectif (f) :** Aussi appelée fonction de coût, d'énergie ou de *fitness*. C'est une fonction $f : S \to \mathbb{R}$ qui attribue un score à chaque solution. L'objectif est de la minimiser ou de la maximiser.
+*   **Solution optimale ($x_{opt}$) :** La solution qui donne la valeur extrême (min ou max) de la fonction objectif sur tout l'espace S.
 
-### Optimisation non contrainte
+Formellement, on cherche :
 
-Classiquement, on résout un problème d'optimisation spécifié comme suit :
+$$
+x_{\mathrm{opt}} = \underset {x\in S}{\mathrm{argmin}} \ f(x) \quad \text{ou} \quad x_{\mathrm{opt}} = \underset {x\in S}{\mathrm{argmax}} \ f(x)
+$$
 
-Trouver $x \in S$ tel que $f(x) \in \mathbb{R}$ soit maximal/minimal.
+***
 
-$$x_{\text{opt}} = \text{argmin/argmax}_{x \in S} f(x)$$
+*   **Optimisation libre vs. contrainte :** Les problèmes peuvent avoir des contraintes (ex: $||x|| < b$). Celles-ci sont généralement intégrées dans la définition de l'espace de recherche admissible.
+*   **La malédiction de la dimension :** Pour des problèmes multidimensionnels où $x = (x_1, ..., x_n)$, la cardinalité de $S$ croît souvent de manière **exponentielle** avec $n$ (la taille du problème). Une exploration exhaustive devient rapidement impossible.
 
-$$f_{\text{opt}} = \min/\max_{x \in S} f(x)$$
+### Exemples de Problèmes et de Classes
 
-### Optimisation contrainte
+**Problèmes Continus ($S = \mathbb{R}^n$)**
 
-Habituellement, dans les problèmes d'optimisation, $x$ peut être soumis à des contraintes données (par exemple $\|x\| < b$).
+On peut utiliser des méthodes classiques (dérivées, multiplicateurs de Lagrange) pour trouver des optima locaux. L'analyse des conditions aux bornes est cruciale.
 
-Les contraintes peuvent être exprimées en restreignant $S$ aux solutions acceptables.
+***
 
-### Définitions et Notations
+**Programmation Linéaire**
 
-**$S$ est l'espace de recherche**
+Maximiser une fonction linéaire $z = c^T x$ sous des contraintes linéaires $Ax \leq b$. La solution se trouve sur le bord d'un polyèdre convexe (algorithme du Simplexe). La complexité augmente considérablement si les variables sont binaires ($x_i \in \{0,1\}$).
 
-- $S$ peut être discret, infini ou continu
-- Habituellement, ici $S$ est très grand
-- Les éléments $x$ de $S$ sont appelés **solutions possibles** ou **configurations**
+***
 
-**La fonction $f$ est appelée :** fonction objectif, fonction de coût, fonction de perte, **fitness**, ou énergie : $f : S \to \mathbb{R}$
+**Problèmes Combinatoires (NP-Difficiles)**
 
-**Solution optimale** $x_{\text{opt}}$ : $f(x_{\text{opt}}) \geq f(y), \forall y \in S$
+Ce sont des problèmes discrets où l'espace de recherche est fini mais gigantesque.
 
-**Valeur optimale :** $f_{\text{opt}} = f(x_{\text{opt}})$
+*   **Problème du Sac à Dos (Knapsack) :** Choisir un sous-ensemble d'objets (de valeurs $p_i$ et poids $w_i$) pour maximiser la valeur totale sans dépasser une capacité $c$.
+*   **Problème du Voyageur de Commerce (TSP) :** Trouver le circuit le plus court visitant une liste de villes données une et une seule fois.
+*   **Problèmes NK :** Modèles synthétiques où la performance d'un système de $N$ agents binaires dépend des états de $K$ autres agents. Ils permettent d'étudier des paysages de *fitness* de complexité variable.
 
-**Unicité de $x_{\text{opt}}$ et $f_{\text{opt}}$ ?** Optimum global ou local
+## Complexité Algorithmique : Pourquoi les Métaheuristiques sont Nécessaires
 
-### Structure de l'Espace de Recherche
+### Mesure de la Complexité
 
-En général, problèmes multidimensionnels : $x = (x_1, x_2, \ldots, x_n)$.
+L'efficacité d'un algorithme est mesurée par sa complexité en temps $T(n)$ et en espace $M(n)$, exprimées avec la notation Grand O $O()$.
 
-$n$ est la **taille du problème**, ou le **nombre de degrés de liberté**.
+$$
+T(n) = O(f(n)) \quad \Rightarrow \quad \exists \ k, n_0 \ \text{tels que} \ \forall n \ge n_0, \ T(n) \le k \cdot f(n)
+$$
 
-La **cardinalité de $S$ croît exponentiellement** avec la taille du problème :
+***
 
-$$x_i \in S_i \quad S = S_1 \times S_2 \ldots \times S_n \quad |S| = |S_i|^n$$
+*   **Classe P :** Problèmes pour lesquels il existe un algorithme de résolution exacte en temps polynomial (ex: $O(n^2)$, $O(n \log n)$).
+*   **Classe NP :** Problèmes pour lesquels une **solution proposée** peut être **vérifiée** en temps polynomial.
+*   **NP-Complet / NP-Difficile :** Les problèmes les plus difficiles de la classe NP. Aucun algorithme polynomial exact n'est connu (et il est fort probable qu'il n'en existe pas). Le TSP en est un exemple paradigmatique.
 
-**La difficulté** est que $S$ est trop grand pour une exploration exhaustive et systématique.
-
-**Les métaheuristiques** offrent un moyen d'explorer $S$ quand aucun algorithme polynomial exact n'existe.
-
-Les métaheuristiques contrastent avec l'**optimisation convexe** pour laquelle de nombreux algorithmes existent.
-
-## Exemples
-
-### Optimisation continue
-
-$S = \mathbb{R}^n$ : Problème d'optimisation continue. Dérivées (numériques), multiplicateurs de Lagrange, optima locaux/globaux. Ceux-ci doivent être examinés individuellement et prendre en compte les effets de bord.
-
-**Multiplicateur Lagrangien**
-
-Maximiser $f(x_1, x_2)$ avec la contrainte que $g(x_1, x_2) = 0$
-
-$$\nabla f = \lambda \nabla g$$
-
-où $\lambda$ est un multiplicateur de Lagrange.
-
-### Programmation linéaire
-
-**Programmation linéaire :** méthode pour atteindre le meilleur résultat (tel que le profit maximal ou le coût le plus bas) dans un modèle mathématique dont les exigences et l'objectif sont représentés par des relations linéaires.
-
-Maximiser $z = f(x) = \sum_i c_i x_i$ avec les contraintes suivantes $\sum_i a_{ij} x_i \leq b_j$, $x \in S = \mathbb{R}^n$.
-
-Les solutions sont à la frontière d'un polygone convexe (algorithme **SIMPLEX**).
-
-Les choses deviennent compliquées si $x \in S = \{0, 1\}^n$.
-
-### Problème du sac à dos (Knapsack)
-
-$n$ objets de valeur $p_i$ avec taille $w_i$. Maximiser $\sum p_i x_i$ avec $\sum w_i x_i \leq c$, $x_i \in \{0, 1\}$, $c > 0$ taille du sac.
-
-### Problème du voyageur de commerce (TSP)
-
-Problème d'optimisation combinatoire (i.e., **quadratic assignment problem** - QAP).
-
-### Problèmes NK
-
-**Problème MaxOne**
-
-**Problèmes NK** (S. Kauffman, réseau de régulation génétique). $N$ gènes, liés à $K$ autres : graphe avec $N$ nœuds et degré $K$.
-
-$x \in S = \{0, 1\}^N$
-
-$$f(x) = \sum_{i}^{N} f_i(x_i, \text{neighbors}_i)$$
-
-avec $K - 1$ voisins de $x_i$. **MaxOne** : $K = 1$.
-
-Cas $K = 3$ : $h(111)$ ou $h(110)$ est max.
-
-**Les problèmes NK sont théoriquement intéressants** car ils offrent des espaces de recherche synthétiques, en particulier lorsque $N$ et $K$ augmentent.
-
-### Plus sur les problèmes NK
-
-Considérons $N$ personnes avec deux stratégies commerciales notées par $x_i = 0$ ou $x_i = 1$ (type binaire).
-
-Le succès de chaque stratégie dépend de manière critique des stratégies des autres personnes (interdépendance - systèmes complexes), et de leur relation (coopération vs. compétition).
-
-Chaque individu est influencé par $K$ autres. La fonction indique le profit/gain résultant associé à la stratégie adoptée par l'agent $i$ compte tenu de l'interdépendance avec le reste du collectif.
-
-Le profit/gain collectif global pour le système de $N$ agents est simplement la somme $f = \sum f_i$.
-
-## Révision de la Complexité Algorithmique
-
-### Complexité et algorithmes efficaces
-
-Pour trouver une solution optimale, on a besoin d'un algorithme efficace (évidemment !).
-
-L'effort de calcul requis par un algorithme est donné par la quantité de mémoire requise $M$ et le temps de calcul $T$.
-
-$M$ et $T$ sont respectivement la **complexité en espace** et la **complexité en temps** de l'algorithme.
-
-Habituellement, on considère la complexité du pire cas, ou celle du cas moyen.
-
-On considère généralement la **complexité asymptotique**, c'est-à-dire la relation $M(n)$ et $T(n)$ en fonction de la taille du problème $n$.
-
-### Mesurer la complexité : la notation "grand O"
-
-La complexité est exprimée avec une expression comme "$O()$".
-
-Si on dit que $T(n) = O(f(n))$, cela signifie qu'il existe une constante $k$ et une valeur $n_0$ telles que si $n \geq n_0$ alors $T(n) \leq k f(n)$.
-
-Par exemple :
-
-- $T(n) = 0.5n^2 + 2n = O(n^2)$
-- $T(n) = n + \log(n) < n + n = O(n)$
-
-### Complexité algorithmique et classes P
-
-Pour certains problèmes (tri, multiplication de matrices, etc.), un algorithme est connu qui les résout en temps polynomial :
-
-$$T(n) = O(n^m)$$
-
-avec $m$ généralement petit. Ces problèmes appartiennent à la **classe P**.
-
-Pour d'autres problèmes, aucun algorithme polynomial n'est connu (ou n'existe !). Il n'y a que des algorithmes exponentiels. Par exemple :
-
-$$T(n) = O(2^n)$$
-
-Ces problèmes sont **difficiles sur le plan computationnel** car $T(n)$ devient excessivement grand lorsque $n$ augmente même modérément.
-
-### Intraçabilité des problèmes exponentiels
-
-| $n$ | 10 | 50 | 100 | 1000 |
-|-----|----|----|-----|------|
-| $\log_2 n$ | 3 | 6 | 7 | 10 |
-| $n^3$ | 1000 | 125'000 | $10^6$ | $10^9$ |
-| $2^n$ | 1024 | $1.3 \times 10^{15}$ | $1.27 \times 10^{30}$ | $1.05 \times 10^{301}$ |
-| $n!$ | $3629 \times 10^3$ | $3.041 \times 10^{64}$ | $10^{158}$ | $4 \times 10^{2567}$ |
-
-### Classes de complexité
-
-En théorie de la complexité, il existe des problèmes dits appartenir aux classes **P**, **NP**, **NP-complet** ou **NP-difficile** (NP-hard).
-
-**La classe P** contient les problèmes qui peuvent être résolus par un algorithme polynomial.
-
-**NP** signifie polynomial non déterministe (non-deterministic polynomial) car ils peuvent être définis par une machine de Turing non déterministe.
-
-**Les problèmes NP** sont ces problèmes pour lesquels une solution donnée peut être vérifiée en temps polynomial.
-
-Ainsi, les problèmes P sont évidemment dans NP.
-
-### Classes de complexité et optimisation difficile
-
-**Les problèmes NP-hard** sont ceux dont la solution résout n'importe quel problème NP, à une transformation polynomiale près.
-
-Les problèmes qui sont à la fois dans les classes NP-hard et NP forment la classe **NP-complet**.
-
-Les problèmes NP-complets comprennent :
-
-- La coloration de graphes
-- Les problèmes de satisfaction
-- La recherche de cycles hamiltoniens dans un graphe
-
-Les problèmes NP-complets et NP-hard sont résolus avec des algorithmes exponentiels.
-
-### Diagramme des classes de complexité
+**Intraitabilité des Problèmes Exponentiels :** Pour les problèmes NP-difficiles, les algorithmes exacts ont une complexité exponentielle (ex: $O(2^n)$). Même pour des tailles de problème modestes ($n > 50$), le temps de calcul devient prohibitif.
 
 ```{mermaid}
-graph LR
-    P[P] --> NP[NP]
-    NP --> NPC[NP-complete]
-    NPC --> NPH[NP-Hard]
-    style P fill:#90EE90
-    style NP fill:#FFD700
-    style NPC fill:#FFA500
-    style NPH fill:#FF6347
+flowchart TD
+    A[Tous les problèmes] --> B{Peut-on vérifier une solution\n en temps polynomial?}
+    B -->|Non| C[Autres classes]
+    B -->|Oui| D[Classe NP]
+    D --> E{Peut-on RÉSOUDRE le problème\n en temps polynomial?}
+    E -->|Oui| F[Classe P]
+    E -->|On ne sait pas / Non| G[Sous-ensemble NP]
+    G --> H[Problèmes NP-Complets<br>ex: TSP, Coloration de graphe]
+    H --> I[NP-Difficile<br>Au moins aussi dur qu'un NP-Complet]
 ```
 
-### Exemple : Cycle hamiltonien
+### L'Approche Métaheuristique
 
-**Trouver un chemin fermé qui passe par tous les nœuds une fois et une seule.**
+Face à ces problèmes **d'optimisation difficile (Hard Optimization)**, où une recherche déterministe exhaustive est impossible, les métaheuristiques offrent une alternative.
 
-Note : La longueur du chemin est 4 et est égale au nombre de nœuds.
+*   **Objectif :** Explorer l'espace de recherche $S$ de manière **intelligente et efficace** pour trouver une **solution de bonne qualité en un temps acceptable**, sans garantir l'optimalité globale.
+*   **Philosophie :** Trouver un compromis (*trade-off*) entre la qualité de la solution trouvée et le coût computationnel (temps CPU).
 
-### Le TSP détermine si un cycle hamiltonien existe
+## Principes Fondamentaux des Métaheuristiques
 
-**TSP (Traveling Salesman Problem) :** trouver le chemin le plus court qui passe par tous les nœuds une fois et une seule, en supposant un graphe complètement connecté. Ajouter les arêtes manquantes avec un poids 2.
+### Définitions et Caractéristiques
 
-- Pas de cycle hamiltonien → Le tour le plus court est de longueur 5 et non 4
+*   **Heuristique :** Méthode conçue pour un problème spécifique, exploitant ses propriétés intrinsèques (ex: une règle de sélection dans l'algorithme du Simplexe).
+*   **Métaheuristique :** Schéma algorithmique **général** et souvent stochastique, qui peut être adapté à une large variété de problèmes. Exemples : Recuit Simulé, Algorithmes Évolutionnaires, Colonie de Fourmis.
 
-### Le TSP est un problème NP-hard
+***
 
-- Le TSP n'est **pas dans NP** car on ne peut pas vérifier qu'un tour est de longueur minimale en temps polynomial
-- Trouver un cycle hamiltonien n'est **pas dans P** car aucun algorithme n'est connu pour trouver un cycle hamiltonien en temps polynomial
-- Trouver un cycle hamiltonien est connu pour être **NP-complet** (difficile à démontrer)
-- Le TSP résout le problème du cycle hamiltonien
-- Le TSP est donc **NP-hard**
+**Caractéristiques clés d'une métaheuristique :**
 
-### Classes de complexité : un résumé
+1.  **Hypothèses minimales :** Elle ne nécessite pas de propriétés mathématiques particulières de la fonction objectif $f$ (comme la dérivabilité), seulement la capacité à l'évaluer.
+2.  **Paramètres :** Son comportement est guidé par des paramètres (taille de voisinage, taux d'acceptation...) souvent réglés empiriquement.
+3.  **Point de départ :** Nécessite une solution initiale, générée aléatoirement ou via une heuristique simple.
+4.  **Critère d'arrêt :** Doit définir quand s'arrêter (ex: nombre max d'itérations, temps CPU, stagnation de la solution).
 
-**Classe P :** Tri (sorting)
+### Ingénierie de la Recherche : Représentation et Voisinage
 
-**Classe NP :** Factorisation de grands entiers (Factoring large integers)
+Pour appliquer une métaheuristique, deux choix conceptuels sont fondamentaux :
 
-**Classe NP-complet :** Cycle hamiltonien (Hamiltonian cycle)
+**1. La Représentation**
 
-**Classe NP-Hard :** TSP
+Comment coder une solution $x$ de l'espace $S$ sous une forme manipulable par l'algorithme ? Ce choix influe directement sur la difficulté du paysage de *fitness*.
 
-### Hard-optimization
+**2. La Définition du Voisinage $V(x)$**
 
-De nombreux problèmes d'optimisation qui nécessitent des métaheuristiques sont **NP-hard**. On les appelle des problèmes de **Hard-optimization**.
+Pour chaque solution $x$, on définit un ensemble de solutions "voisines" $V(x)$ qui peuvent être atteintes en une étape élémentaire. C'est le moteur de l'exploration.
 
-Une solution déterministe nécessiterait un algorithme exponentiel.
+*   Le voisinage est généralement défini par un ensemble de **mouvements élémentaires** $T_i$.
+    $$
+    V(x) = \{ x' \in S \ | \ x' = T_i(x), \ i = 1, \ldots, \ell \}
+    $$
+*   **Exemple 1 (Mouvements sur une grille) :** Pour $S = \mathbb{Z}^2$, $V((i,j))$ peut être défini par les 4 déplacements cardinaux {NORD, SUD, EST, OUEST}.
+*   **Exemple 2 (Espace de permutations) :** Pour $S$ = ensemble des permutations de $n$ objets, un mouvement courant est la **transposition** de deux éléments.
 
-Les métaheuristiques sont alors utilisées.
+### Stratégies d'Exploration et Paysage de Fitness
 
-**Mais, quelle est alors la complexité d'une métaheuristique ?**
+**Paysage de Fitness**
 
-## Métaheuristiques
+C'est la représentation graphique de la fonction objectif $f$ par rapport à la topologie induite par le voisinage. Sa structure (pics, vallées, plateaux) détermine la difficulté du problème.
 
-### Définition et contexte
+***
 
-**Métaheuristiques :** terme inventé par Fred Glover en 1986 dans le contexte de la recherche **tabu** (voir Chap. 2).
+**Deux Forces Complémentaires : Exploitation vs Exploration**
 
-Pour de nombreux problèmes réels (Recherche Opérationnelle - OR), aucun algorithme polynomial n'existe.
+Toute métaheuristique doit gérer un équilibre subtil :
 
-→ Mais pour d'autres problèmes oui !
-
-Si $n$ est grand, l'espace de recherche $S$ devient trop vaste pour utiliser un algorithme exponentiel.
-
-**Métaheuristiques :** destinées à explorer $S$ de manière quelque peu intelligente pour trouver des optimums.
-
-→ Espérons de manière plus efficace qu'à travers un échantillonnage purement aléatoire.
-
-**Compromis** entre qualité de la solution et coût computationnel (i.e. temps CPU).
-
-→ Capable de retourner une solution acceptable dans un temps raisonnable.
-
-### Heuristiques vs. Métaheuristiques
-
-**Heuristiques :** méthodes d'exploration qui exploitent certains aspects spécifiques du problème en question et ne s'appliquent qu'à lui.
-
-→ Par exemple, lors de la résolution d'un problème de programmation linéaire par l'algorithme du simplexe, une heuristique est souvent utilisée pour choisir les variables entrantes et sortantes.
-
-**Métaheuristiques :** méthodes d'exploration générales, presque toujours stochastiques, qui s'appliquent de la même manière à de nombreux problèmes différents.
-
-→ Les exemples sont la recherche **tabu**, le **simulated annealing**, les **ant colony**, et les algorithmes évolutionnaires. Sujets de ce cours !!
-
-**Algorithmes d'approximation :** cherchent à trouver des solutions à des problèmes spécifiques avec une qualité choisie et avec des limites spécifiques en termes de temps CPU.
-
-### Caractérisation des métaheuristiques (1/2)
-
-**Aucune hypothèse** sur les propriétés mathématiques de $f$.
-
-→ La seule exigence est que $f$ puisse être calculée $\forall x \in S$.
-
-Basées sur un nombre de **paramètres** qui guident l'exploration, et qui affectent la qualité de la recherche.
-
-→ Leurs valeurs optimales sont souvent trouvées empiriquement pour un problème donné.
-
-Nécessitent un **point de départ** (configuration initiale).
-
-→ Soit sélectionné aléatoirement, soit basé sur d'autres stratégies.
-
-Nécessitent une **condition d'arrêt** : par exemple, limite CPU, borne sur la qualité de la solution trouvée, etc.
-
-### Caractérisation des métaheuristiques (2/2)
-
-En général, elles ont une **composante stochastique** et peuvent être inspirées par des processus naturels.
-
-Souvent, elles ont des exigences CPU importantes (pas bon marché !).
-
-Elles sont **faciles à implémenter** et peuvent facilement être parallélisées.
-
-Classiquement, elles combinent deux actions clés :
-
-**intensification** et **diversification**, plus communément **exploitation** et **exploration** : soit on cherche des solutions plus prometteuses dans $S$, soit on analyse davantage une région d'intérêt trouvée.
-
-⇒ **Règle d'or :** ne jamais utiliser de métaheuristiques si une autre méthode peut être appliquée !
-
-## Principes de Fonctionnement
-
-### Représentation et trajectoire (1/2)
-
-Il y a un **besoin critique** de trouver une représentation appropriée du problème dans l'espace de recherche donné $S$ :
-
-→ i.e., comment coder les solutions possibles ?
-
-Une métaheuristique est une **trajectoire** dans $S$.
-
-Pour définir cette trajectoire et le mouvement le long de celle-ci, les ingrédients suivants sont requis :
-
-**(1) Voisinage** $V(x)$ pour tout $x \in S$ : ce sont les $y$ atteignables depuis $x$.
-
-### Représentation et trajectoire (2/2)
-
-**(2) Opérateur de recherche/exploration** $U$ qui sélectionne parmi les voisins du point actuel le long de la trajectoire d'exploration :
-
-$$x_0 \xrightarrow{U} x_1 \in V(x_0) \xrightarrow{U} x_2 \in V(x_1) \ldots$$
-
-Ce processus continue jusqu'à ce que le critère d'arrêt soit activé.
-
-Selon la métaheuristique, la sortie est soit :
-
-- (i) le point $x$ correspondant à la fitness optimale $f(x)$ trouvée le long de la trajectoire
-- (ii) ou le dernier point $x$ le long de la trajectoire de recherche
-
-### Comment définir le voisinage ?
-
-Trouver des moyens d'exprimer explicitement $V(x)$ pour tout $x \in S$ :
-
-→ Souvent impraticable, voire impossible.
-
-En général, le voisinage est spécifié au moyen de $\ell$ **transformations élémentaires** $T_i$ (ou mouvements) telles que :
-
-$$T_i(x) \in V(x)$$
-
-$$V(x) = \{x' \in S \mid x' = T_i(x), \, i = 1, \ldots, \ell\}$$
-
-### Exemple #1 : Mouvements dans $S = \mathbb{Z}^2$
-
-$x \in S \Rightarrow x = (i, j)$
-
-Par exemple, on peut considérer quatre mouvements cardinaux ($\ell = 4$) notés **NORTH**, **EAST**, **SOUTH** et **WEST** tels que :
-
-- $N(i, j) = (i, j + 1)$
-- $E(i, j) = (i + 1, j)$
-- $S(i, j) = (i, j - 1)$
-- $W(i, j) = (i - 1, j)$
-
-### Exemple #2 : Permutations (1/2)
-
-Considérons l'espace de recherche $S$ des permutations de $n$ objets (cardinal = $n!$).
-
-Avec $n = 3$, nous avons :
-
-$$A = \{(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)\}$$
-
-avec $|A| = 3! = 6$.
-
-On peut définir un voisinage d'une permutation donnée par l'ensemble des permutations qui peuvent être générées par une opération donnée.
-
-Par exemple, la transposition $(i, j)$, qui consiste à échanger les positions $i$ et $j$.
-
-### Exemple #2 : Permutations (2/2)
-
-Pour $n = 5$, les mouvements sélectionnés sont :
-
-$$m_i \in \{(1, 2), (1, 3), (1, 4), (1, 5), (2, 3), (2, 4), (2, 5), (3, 4), (3, 5), (4, 5)\}$$
-
-Par exemple, la permutation $(a_3, a_2, a_4, a_5, a_1)$ admet $(a_2, a_3, a_4, a_5, a_1)$ comme voisin lors de l'application du mouvement $(1, 2)$ qui transpose les deux premiers éléments.
-
-→ Toutes les permutations sont un produit fini de transpositions.
-
-### Notes sur le voisinage
-
-Certaines métaheuristiques **n'explorent pas le voisinage complet** avant de passer au point suivant.
-
-→ Recherche non exhaustive.
-
-Typiquement, elles utilisent un élément stochastique pour établir aléatoirement le point suivant, "en espérant" qu'il donnerait une valeur optimale pour $f$ dans $S$.
-
-Pour les métaheuristiques effectuant une recherche de voisinage exhaustive, nous pouvons définir une **structure hiérarchique du voisinage** :
-
-- Si rien d'utile n'est trouvé au 1er niveau, on passe au 2ème niveau, et ainsi de suite
-- Si rien de meilleur n'est trouvé, on arrête la recherche de voisinage et on passe à un autre voisinage
-
-**Recherche globale vs. locale**
-
-### Stratégies d'exploration élémentaires
-
-**Marches aléatoires** (Random walks)
-
-**Marches aléatoires dépendantes du voisinage**
-
-**Hill climbing** (très gourmand - déterministe ou stochastique)
-
-**Hill climbing probabiliste :** probabilité de sélectionner un voisin $p(x) = f(x) / \sum f(x')$
-
-...
-
-Cas de l'algorithme de **backtracking** et **branch-and-bound** : ce ne sont PAS des métaheuristiques (exploration systématique de l'espace de recherche) mais ils partagent un certain nombre de caractéristiques avec les métaheuristiques :
-
-- (i) Recherche et sélection de voisinage (enfants)
-- (ii) Aucune propriété spécifique requise pour la fonction de fitness
-
-### Recherche locale itérée (Iterated Local Search)
-
-Considérons une métaheuristique **localSearch** qui se bloque sur des optima locaux. On peut construire une métaheuristique plus puissante :
-
-Réduire $S$ à $S'$ qui ne contient que les optima locaux de $S$.
-
-**Topologie induite sur $S'$ :** deux points sont voisins si leur bassin d'attraction reste comme tel pour $S$.
-
-En pratique, nous cherchons à trouver les voisins de $x' \in S'$ en perturbant $x'$ de manière aléatoire et en appliquant à nouveau la stratégie de recherche locale sur $S$ pour trouver l'optimum local voisin dans $S$.
-
-→ **Défi :** choisir la procédure de perturbation.
-
-### Paysage d'énergie/fitness (Energy/Fitness Landscape)
-
-Représentation graphique de la fitness compte tenu de la topologie induite par le voisinage.
-
-⇒ Nécessite une topologie de voisinage.
-
-**Un paysage de fitness NK** (NK-Landscape, $N = 10$, $K = 3$, $f_i$ construit aléatoirement)
-
-Autre représentation : hypercube binaire avec $2^{10}$ points.
-
-### Lissage de fitness (Fitness Smoothing)
-
-**Fitness moyenne :**
-
-$$\bar{f} = \frac{1}{|S|} \sum_{x \in S} f(x)$$
-
-Une fitness $f_\lambda$ peut être lissée avec un coefficient $\lambda$ :
-
-$$f_\lambda(x) = \bar{f} + \lambda(f(x) - \bar{f})$$
-
-**Paysage de fitness NK lissé** avec smoothing = 0.4 et smoothing = 0.8
-
-### Paysage de fitness et exploration
-
-**Paysage facile vs. difficile :** sélection de la stratégie de codage, sélection du voisinage.
-
-**Cas difficile, mais facile :** maximiser $f(x) = x_1 \cdot x_2 \ldots x_n$ pour $x_i \in \{0, 1\}$. Le paysage est plat de sorte que rien ne peut vraiment guider la recherche.
-
-Exemple de **MaxOne** avec deux stratégies de codage différentes.
-
-### Exemple : MaxOne (1/2)
-
-Le problème **MaxOne** illustre l'importance du choix de l'espace de recherche et du voisinage.
-
-**MaxOne** cherche à maximiser :
-
-$$f(x_1, \ldots, x_n) = \sum_{i=1}^{n} x_i$$
-
-**Solution évidente** (pour nous !) : $x = (x_1, \ldots, x_n) = (1, 1, \ldots, 1)$
-
-**Espace de recherche :** ensemble d'entiers de 0 à $2^n - 1$ (cardinal = $2^n$)
-
-### Exemple : MaxOne (2/2)
-
-**MaxOne** avec deux stratégies de codage distinctes : on interprète $(x_1, \ldots, x_n)$ comme un entier. Le voisinage comprend $x - 1$ et $x + 1$. Si $U$ choisit un voisin sans jamais diminuer la fitness, on finit par être bloqué. Cependant avec l'hypercube, ça marche ! (Cas $n = 3$ montré ci-dessous)
+*   **Intensification (Exploitation) :** Concentrer la recherche autour des bonnes solutions déjà trouvées pour les améliorer localement.
+*   **Diversification (Exploration) :** Explorer de nouvelles régions de l'espace $S$ pour éviter de rester piégé dans un optimum local de mauvaise qualité.
 
 ```{mermaid}
-graph LR
-    000[000<br/>f=0] --- 001[001<br/>f=1]
-    000 --- 010[010<br/>f=1]
-    001 --- 011[011<br/>f=2]
-    010 --- 011
-    100[100<br/>f=1] --- 101[101<br/>f=2]
-    100 --- 110[110<br/>f=2]
-    101 --- 111[111<br/>f=3]
-    110 --- 111
-    000 --- 100
-    001 --- 101
-    010 --- 110
-    011 --- 111
+flowchart LR
+    subgraph S [Espace de Recherche]
+        direction LR
+        A[Région explorée] -- Exploration --> B[Nouvelle région]
+        B -- Intensification --> C[Amélioration locale]
+        C -- Échappée / Perturbation --> A
+    end
 ```
 
-### Méthodes de population (1/2)
+**Recherche Locale Itérée (Iterated Local Search)**
 
-**Métaheuristiques à point unique vs. basées sur une population**
+Ce principe illustre cet équilibre :
 
-**A : Trois étapes d'une métaheuristique à point unique**
+1.  On utilise d'abord une méthode de **recherche locale** (comme la montée de colline) pour trouver un optimum local.
+2.  On applique une **perturbation** contrôlée à cette solution pour "sauter" dans un autre bassin d'attraction.
+3.  On relance la recherche locale à partir de ce nouveau point.
+4.  On répète le processus.
 
-- Étape 0 : $x_0$ dans $S$
-- Étape 1 : $x_1$ dans $S$
-- Étape 2 : $x_2$ dans $S$
+### Métaheuristiques à Population
 
-**B : Trois étapes d'une métaheuristique basée sur une population**
+Au lieu de faire évoluer une seule solution, ces méthodes font évoluer un **ensemble de solutions** (une population) en parallèle.
 
-- Étape 0 : $\{x_0, y_0, z_0\}$ dans $S$
-- Étape 1 : $\{x_1, y_1, z_1\}$ dans $S$
-- Étape 2 : $\{x_2, y_2, z_2\}$ dans $S$
+*   **Principe :** L'exploration est conduite par les interactions (sélection, reproduction, partage d'information) entre les individus de la population.
+*   **Avantage :** Maintient naturellement une diversité, permettant une exploration plus large. Les Algorithmes Évolutionnaires (ou Génétiques) en sont l'exemple canonique.
+*   **Espace de recherche étendu :** On travaille dans $S^N$, où $N$ est la taille de la population. Les opérateurs (mouvements) agissent souvent sur l'ensemble de la population.
 
-### Méthodes de population (2/2)
+## Conclusion du Chapitre
 
-De nombreuses métaheuristiques considèrent une **population de solutions tentatives**. Ensuite, elles laissent cette population évoluer pour explorer $S$ : par exemple, algorithmes génétiques/évolutionnaires.
+Les métaheuristiques sont des outils puissants pour aborder des problèmes d'optimisation difficiles, pour lesquels aucune méthode exacte et efficace n'existe. Leur succès repose sur une compréhension fine du problème (choix de représentation et de voisinage) et sur l'équilibre entre exploration et exploitation.
 
-La solution optimale est alors la meilleure solution trouvée à travers toutes les générations/évolutions.
-
-Nous travaillons dans un **espace de recherche étendu** : $S^N$ où $N$ est le nombre d'individus dans la population.
-
-Le voisinage d'une population est une autre population : les transformations élémentaires sont plus complexes puisqu'elles peuvent utiliser la population entière, et pas seulement une seule solution.
-
-Cela peut être vu comme une sorte de **co-évolution** de nombreuses solutions.
-
----
-
-**Fin du Chapitre 1**
+**Règle d'or :** Il ne faut recourir aux métaheuristiques que lorsqu'aucune méthode spécifique plus efficace (ex: algorithmes polynomiaux pour les problèmes convexes) ne peut être appliquée.

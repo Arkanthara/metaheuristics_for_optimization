@@ -1,311 +1,231 @@
 # Simulated Annealing
 
-## Motivations
+## Introduction et motivations
 
-**Simulated annealing (SA)** est une métaheuristique introduite par Kirkpatrick et al. en 1983. Elle s'inspire du processus physique de recuit en métallurgie.
+Le **Recuit Simulé (Simulated Annealing, SA)** est une métaheuristique introduite par Kirkpatrick et al. en 1983. Elle s'inspire du processus physique de recuit en métallurgie.
 
-**Le recuit** (annealing) est un processus de refroidissement lent en métallurgie qui améliore la ductilité et facilite le travail des métaux.
+### Analogie avec le recuit métallurgique
 
-$$ \Rightarrow \text{Conduit à un minimum global.} $$
+**Recuit (Annealing)** : Refroidissement lent d'un métal, permettant d'atteindre un état d'énergie minimale globale (structure organisée). Ce processus améliore la ductilité.
 
-**La trempe** (quenching) est un processus de refroidissement rapide qui améliore la dureté du métal mais le rend plus fragile.
+**Trempe (Quenching)** : Refroidissement rapide, conduisant à un minimum local d'énergie (structure fragile avec des régions ordonnées et désordonnées).
 
-$$ \Rightarrow \text{Conduit à un minimum local.} $$
+L'idée est de transposer ce principe à l'optimisation : on explore l'espace des solutions (comme les atomes qui se déplacent à haute température) et on refroidit lentement (diminution d'un paramètre de contrôle) pour converger vers un optimum global.
 
-***
+### Intuition du fonctionnement
 
-### Intuitions sur le fonctionnement interne du SA
+Les processus naturels minimisent l'énergie d'un système. En optimisation, cette énergie est représentée par une **fonction objectif (coût, fitness)**.
 
-Les processus naturels tendent à minimiser l'énergie des systèmes. Cela correspond à la **fonction objectif** (coût, fitness).
+- **Haute température** : Le système explore largement l'espace des états (**exploration**).
+- **Basse température** : Le système exploite les zones prometteuses (**exploitation**).
 
-À haute température, le système explore un large éventail d'états disponibles. Cela correspond à **l'exploration**.
+Le refroidissement progressif permet de passer progressivement de l'exploration à l'exploitation, évitant ainsi de rester piégé dans des minima locaux.
 
-Lorsque le système trouve un état de basse énergie, il y reste sauf s'il reçoit suffisamment d'énergie pour franchir les barrières énergétiques voisines.
+## Principes de l'algorithme
 
-Lorsque la température diminue (refroidissement), le système est contraint d'exploiter des sauts d'énergie de plus en plus bas pour finalement se stabiliser dans un état, qui est, espérons-le, le **minimum global**. Cela correspond à **l'exploitation**.
+Le SA cherche le minimum d'une fonction objectif, notée $E$ (énergie). Il suit les étapes générales des métaheuristiques.
 
-***
+### Éléments clés
 
-## Principes de l'algorithme SA
+1. **Solution initiale** : Choisie arbitrairement dans l'espace des solutions admissibles.
+2. **Température initiale** $T_0$ : Paramètre de contrôle initial, choisi suffisamment grand.
+3. **Mouvements élémentaires** : Permettent de passer d'une solution courante à une solution voisine.
+4. **Règle d'acceptation (Metropolis)** : Détermine si un mouvement est accepté, même s'il dégrade la solution (pour éviter les minima locaux).
 
-Le SA recherche le minimum d'une fonction objectif donnée, assimilée à une énergie et donc notée $E$. Il suit les principes de base de toutes les métaheuristiques :
+### Règle de Metropolis
 
-- Il sélectionne une solution initiale admissible arbitraire (configuration initiale).
-- Une "température" initiale est sélectionnée (spécificité du SA).
-- Il passe de la configuration actuelle à ses voisines avec une probabilité $p$.
+La probabilité $p$ d'accepter un mouvement menant à une énergie $E_{\text{new}}$ depuis $E_{\text{old}}$ est :
 
-$$ p = \min (1,e^{-(\Delta E / T)}), \quad (1) $$
+$$p = \min \left(1, e^{-(\Delta E / T)}\right)$$
 
-où
+avec $\Delta E = E_{\text{new}} - E_{\text{old}}$.
 
-$$ \Delta E = E_{\mathrm{new}} - E_{\mathrm{old}} $$
+En pratique, on tire un nombre aléatoire $r$ uniforme sur $[0,1]$. Le mouvement est accepté si :
 
-C'est la règle dite de **Metropolis** : le déplacement est accepté si
+$$r < e^{-(\Delta E / T)}$$
 
-$$ \mathrm{Random}(0,1) < e^{-(\Delta E / T)} $$
+Si $\Delta E \leq 0$ (amélioration), le mouvement est toujours accepté. Si $\Delta E > 0$ (dégradation), il peut être accepté avec une probabilité qui décroît avec $\Delta E$ et avec la température $T$.
 
-Ainsi, $x_{\mathrm{new}}$ est rejetée avec une probabilité $1 - p$, auquel cas on génère une autre $x_{\mathrm{new}}$.
+### Diagramme de flux simplifié
 
-***
-
-### Choix de la température $T$
-
-La température $T$ est une spécificité du SA en tant que métaheuristique. Elle peut être vue comme un paramètre de guidage dynamique.
-
-- On commence par choisir une température initiale.
-- Si $T$ est grande, le SA accepte facilement une dégradation de la fitness de la configuration (c'est-à-dire une augmentation d'énergie).
-- Mais lorsque $\Delta E$ augmente, l'acceptation du mouvement diminue.
-- Au cours de ce processus, nous diminuerons progressivement la température selon un **plan de refroidissement** (cooling schedule).
-
-En résumé : Nous commençons par une exploration de grande amplitude (haute température), puis nous réduisons lentement l'exploration pour favoriser l'exploitation/intensification à basse température.
-
-***
-
-```mermaid
+````{mermaid}
 flowchart TD
-    A[Début: Config. initiale, T_0] --> B{Générer un voisin};
-    B --> C{Calculer ΔE = E_new - E_old};
-    C --> D{ΔE < 0 ?};
-    D -->|Oui| E[Accepter le mouvement];
-    D -->|Non| F{random < exp(-ΔE/T) ?};
-    F -->|Oui| E;
-    F -->|Non| G[Rejeter le mouvement];
-    E --> H[Mettre à jour la config. courante];
-    G --> H;
-    H --> I{Équilibre atteint<br>ou<br>itérations max à ce T ?};
-    I -->|Non| B;
-    I -->|Oui| J[Réduire T<br>selon le plan de refroidissement];
-    J --> K{Critère d'arrêt<br>vérifié ?};
-    K -->|Non| B;
-    K -->|Oui| L[Fin: Retourner la meilleure solution];
-```
+    A[Choisir solution initiale et T0] --> B[Générer un voisin]
+    B --> C{Calculer ΔE}
+    C --> D[ΔE ≤ 0 ?]
+    D -->|Oui| E[Accepter le mouvement]
+    D -->|Non| F[Accepter avec probabilité exp(-ΔE/T)]
+    F --> G{Mouvement accepté ?}
+    G -->|Oui| E
+    G -->|Non| H[Rejeter le mouvement]
+    E --> I[Mettre à jour la solution]
+    H --> I
+    I --> J[Ajuster la température<br>selon le planning de refroidissement]
+    J --> K{Critère d'arrêt atteint ?}
+    K -->|Non| B
+    K -->|Oui| L[Fin : retourner la meilleure solution]
+````
 
-***
+## Choix des paramètres guidés (Guiding Parameters)
 
-### Exemples
+L'efficacité du SA dépend crucialement du réglage de plusieurs paramètres.
 
-#### Exemple #1 : Paysage de fitness multimodal
+### Température initiale $T_0$
 
-L'aire grise indique l'amplitude de variation d'énergie $\Delta E$ qui est acceptée par la règle de Metropolis avec une probabilité de $1/2$.
+Doit être suffisamment élevée pour permettre une exploration large au début.
 
-#### Exemple #2 : Problème du Voyageur de Commerce (TSP)
+**Heuristique pour choisir $T_0$** :
 
-- Le TSP est un problème de référence pour plusieurs métaheuristiques.
-- But : trouver le chemin **le plus court** passant par les 30 villes une fois et retournant à la première ville (chemin fermé).
-- Pour un ordinateur : $30! \approx 10^{32}$ chemins possibles !
+- Effectuer 100 mouvements aléatoires à partir de la solution initiale.
+- Calculer la moyenne des variations d'énergie $|\Delta E|$ observées.
+- Choisir un taux d'acceptation initial $\tau_0$ pour les mouvements dégradants (typiquement 0.5 si la solution initiale est de qualité moyenne, 0.2 si elle est bonne).
+- Résoudre $\exp(-\langle |\Delta E| \rangle / T_0) = \tau_0$ pour obtenir $T_0$.
 
-Le chemin le plus court est finalement trouvé avec $T = 0.013$ et après 5 000 itérations. Une itération correspond à l'échange de deux villes dans le tour. Le plan de température utilisé était : $T_{k+1} = 0.9 T_k$ après 20 mouvements acceptés (pas des itérations !) à une température donnée.
+### Planning de refroidissement (Cooling Schedule)
 
-Comprendre les paramètres de guidage :
-- La température initiale $T_0$
-- Le nombre de mouvements acceptés avant de changer la température
-- La manière de diminuer la température (le plan de refroidissement)
-- Le critère d'arrêt
+Définit comment la température $T$ est diminuée au cours du temps. Deux aspects :
 
-Il n'y a pas de méthode principielle pour fixer de manière satisfaisante leurs valeurs !
+1. **Quand diminuer la température ?** (Équilibre thermique)
+2. **Comment diminuer la température ?** (Loi de décroissance)
 
-#### Exemple #3 : Placement de composants électroniques
+#### Équilibre thermique
 
-#### Exemple #4 : Minimisation du câblage
+On diminue $T$ lorsque le système a atteint un "état d'équilibre" à la température courante. Cela est estimé par :
 
-#### Exemple #5 : Dessin de graphes
+- Un nombre fixe de mouvements acceptés (ex. $12N$, où $N$ est le nombre de degrés de liberté du problème).
+- Ou un nombre total de mouvements effectués (ex. $100N$).
 
-- Les mouvements sont des déplacements aléatoires des sommets d'un graphe.
-- Fonction objectif : $f = \sum_{i,j} A_{ij}(d_{ij} - d_0)^2 + \sum_{i,j} \frac{V_0}{d_{ij}}$
-- But : maximiser la distance $d_{ij}$ entre les paires de sommets, tout en maintenant une distance moyenne $d_0$.
+#### Loi de décroissance
 
-***
+La façon la plus courante est une **loi géométrique** :
 
-### Sur l'importance du choix de "bons" mouvements
+$$T_{k+1} = \alpha T_k$$
 
-Le type de mouvements choisi pour explorer les voisinages influence significativement la qualité des solutions obtenues.
+avec $\alpha \in ]0,1[$, typiquement 0.9.
 
-Pour le TSP avec 500 villes, une longueur optimale $L = 33.0015$ est atteinte avec l'algorithme Concorde. Le SA, en tolérant une erreur de 5%, peut trouver une solution en 1 seconde contre 40 secondes pour Concorde (sur un ordinateur portable 2017). C'est une parfaite illustration du compromis vitesse/précision au cœur de toutes les métaheuristiques.
+La décroissance théorique garantissant la convergence est $T(t) = C / \log(t)$ pour $t \gg 1$, mais elle est trop lente en pratique.
 
-#### Mouvements 2-opt
+### Critère d'arrêt
 
-Un mouvement 2-opt (pour *two-exchange optimization*) consiste à supprimer deux arêtes et à reconnecter le chemin différemment.
+Plusieurs possibilités :
 
-Étant donné un tour $T = (v_{1},v_{2},\dots ,v_{n},v_{1})$, un mouvement 2-opt sélectionne deux arêtes non adjacentes :
+- Température tombée en dessous d'un seuil $T_{\text{min}}$.
+- Aucune amélioration de l'énergie après un certain nombre de paliers de température consécutifs (ex. 3 paliers).
+- Nombre maximal d'itérations atteint.
 
-$$(v_{i},v_{i + 1}) \quad \mathrm{et} \quad (v_{j},v_{j + 1})$$
+### Choix des mouvements élémentaires
 
-et les remplace par
+Les mouvements définissent le voisinage d'une solution. Ils doivent être :
 
-$$(v_{i},v_{j}) \quad \mathrm{et} \quad (v_{i + 1},v_{j + 1})$$
+- **Réversibles** : Si on peut aller de $A$ à $B$, on doit pouvoir aller de $B$ à $A$.
+- **Connectant** : Tout état doit être accessible depuis tout autre état en un nombre fini de mouvements.
+- **Efficaces** : Permettre une exploration efficace de l'espace. Le calcul de $\Delta E$ doit être rapide.
 
-Le segment entre $v_{i + 1}$ et $v_{j}$ est inversé.
+Pour le **Problème du Voyageur de Commerce (TSP)**, un mouvement classique est le **2-opt** : on supprime deux arêtes non adjacentes et on reconnecte le chemin différemment, ce qui inverse un segment du tour. C'est plus efficace qu'une simple permutation de deux villes.
 
-On calcule le changement de distance :
+## Exemples synthétiques
 
-$$\Delta = [d(v_{i},v_{j}) + d(v_{i + 1},v_{j + 1})] - [d(v_{i},v_{i + 1}) + d(v_{j},v_{j + 1})]$$
+### Exemple 1 : Paysage multimodal
 
-Si $\Delta < 0$, la nouvelle route est plus courte et le mouvement est accepté.
+Illustration de l'effet de la température sur la probabilité d'accepter des mouvements dégradants. À température élevée, des sauts d'énergie importants peuvent être acceptés, permettant de sortir des bassins d'attraction locaux.
 
-- Plus efficace que les transpositions/permutations élémentaires.
-- Facile à implémenter.
-- Coût de calcul de l'ordre de $\mathcal{O}(n^2)$ par itération (temps polynomial).
+### Exemple 2 : Problème du Voyageur de Commerce (TSP)
 
-***
+**Idée** : Trouver le tour le plus court visitant $n$ villes une fois et revenant à l'origine.
+
+- **Espace des solutions** : $(n-1)!/2$ tours possibles (symétries exclues).
+- **Mouvements** : 2-opt.
+- **Paramètres** : $T_0=0.1$, paliers de température après 20 mouvements acceptés, refroidissement géométrique $T_{k+1}=0.9 T_k$.
+- **Résultat** : Solution optimale trouvée en moins de 5000 itérations pour 30 villes.
+
+**Remarque** : Le SA est rapide mais peut ne pas garantir l'optimalité globale. Pour un TSP de 500 villes, le SA (avec une tolérance de 5% d'erreur) peut être 40 fois plus rapide que l'algorithme exact Concorde, illustrant le compromis vitesse/précision des métaheuristiques.
+
+### Exemples d'applications (autres)
+
+- Placement de composants électroniques (minimisation de l'encombrement).
+- Minimisation de la longueur de câblage.
+- Dessin de graphes (maximisation des distances entre nœuds tout en maintenant une distance moyenne).
 
 ## Convergence
 
-**Problème** : Une métaheuristique donnée peut-elle trouver l'optimum global après un nombre suffisant d'itérations, ou va-t-elle rester coincée dans un optimum local ?
+Le SA possède des propriétés de convergence théorique sous certaines conditions.
 
-Pour le SA, des résultats théoriques ont été obtenus :
+### Conditions de convergence
 
-- La convergence vers l'optimum global a été prouvée dans un sens probabiliste.
-- En d'autres termes : le SA obtient une solution arbitrairement proche du minimum global avec une probabilité arbitrairement proche de 1.
-- Cela se fait souvent au prix d'un coût de calcul élevé.
+1. Température initiale $T_0$ suffisamment élevée.
+2. Refroidissement suffisamment lent (pas plus rapide que $C/\log t$).
+3. Mouvements réversibles.
+4. Espace des solutions connecté (accessibilité).
 
-***
+### Résultat théorique
 
-### Conditions pour la convergence
+Sous ces conditions, le SA converge **en probabilité** vers l'optimum global : après un temps suffisamment long, la probabilité de trouver la solution optimale est arbitrairement proche de 1.
 
-1. La température initiale doit être suffisamment élevée.
-2. La température ne doit pas être diminuée trop rapidement pendant le processus de recherche.
-3. Les mouvements (transformations élémentaires) doivent être réversibles : si on peut faire $A \to B$, alors on peut faire $B \to A$.
-4. Tout état réalisable du système doit être accessible à partir de n'importe quel autre état en un nombre fini de mouvements.
+Cependant, ce temps peut être prohibitif en pratique, d'où l'importance d'un bon réglage des paramètres.
 
-***
+### Illustration numérique
 
-### Plan de refroidissement (Cooling schedule)
+Des simulations sur un paysage d'énergie discret montrent que :
 
-Le plan de refroidissement est une fonction $T(t)$ qui dicte comment $T$ est progressivement diminuée.
+- Avec un $T_0$ trop bas, la distribution de probabilité reste dépendante de la condition initiale.
+- Avec un refroidissement trop rapide, le système reste piégé dans un minimum local.
 
-Pour assurer la convergence du SA, $T$ ne doit pas diminuer plus vite que $C / \log t$ pour $t \gg 1$.
+## Guide pratique pour l'implémentation
 
-La constante $C$ est liée aux variations de la fitness à travers l'espace de recherche $S$. Elle est *a priori* inconnue.
+### Codage du problème
 
-Le problème principal est que les variations temporelles de $C / \log t$ sont excessivement lentes en pratique.
+- Choisir une représentation efficace des solutions.
+- Définir des mouvements élémentaires qui préservent l'admissibilité ou gérer les contraintes via des pénalités dans la fonction objectif.
 
-***
+### Calcul des variations d'énergie
 
-### Modélisation probabiliste et matrice de transition
+Le calcul de $\Delta E$ doit être rapide, idéalement en temps constant ou linéaire, pour ne pas ralentir l'algorithme.
 
-Soit $P(t,i)$ la probabilité que la configuration actuelle du SA à l'itération $t$ soit $i$. La probabilité que cette solution devienne $j$ à $t + 1$ est donnée par :
+### Validation et robustesse
 
-$$P(t + 1,j) = \sum_{i} P(t,i) W_{ij}(t)$$
+Pour vérifier la fiabilité de la solution obtenue :
 
-où $W_{ij}(t)$ est la probabilité de transition de l'état $i$ à l'état $j$.
+- Relancer l'algorithme avec différentes conditions initiales.
+- Relancer avec différentes graines aléatoires.
 
-Soit $k_{\text{out}}(i)$ le nombre de voisins de la configuration $i$, et $E_i$ sa fitness. Soit $P_{\mathrm{metro}}(E_i,E_j,T(t))$ la probabilité selon la règle de Metropolis d'accepter un mouvement de $i$ vers $j$ à la température $T(t)$. Alors :
+La valeur de la fonction objectif optimale doit rester similaire, même si les solutions peuvent varier (en cas d'optima multiples).
 
-$$W_{ij}(t) = \left\{ \begin{array}{cc}0 & \mathrm{si~}j\mathrm{~n'est~pas~un~voisin~de~}i\\ \frac{1}{k_{\mathrm{out}}(i)} P_{\mathrm{metro}}(E_i,E_j,T(t)) & \mathrm{si~}j\mathrm{~est~un~voisin~de~}i \end{array} \right.$$
+## Méthode du recuit parallèle (Parallel Tempering)
 
-La probabilité que le SA rejette le mouvement choisi (pas de changement) est :
+### Origine et principe
 
-$$W_{ii}(t) = 1 - \sum_{j\in V(i)} W_{ij}(t)$$
+Cette méthode, inspirée de la simulation du repliement des protéines, vise à éviter les minima locaux en exécutant **plusieurs recuits simulés en parallèle** à différentes températures fixes, et en permettant des échanges de configurations entre ces recuits.
 
-En itérant, on trouve que la distribution de probabilité après $t$ itérations est :
+### Algorithme
 
-$$P(t,k) = \sum_{\ell} P(0,\ell) \left[ \Pi_{t'=0}^{t-1} W(t') \right]_{\ell k}$$
+- On lance $M$ replicas du système, chacun à une température $T_i$ fixe, avec $T_1 < T_2 < \dots < T_M$.
+- Chaque replica évolue indépendamment selon la règle de Metropolis.
+- Périodiquement, on propose un échange de configurations entre deux replicas adjacents en température ($T_i$ et $T_{i+1}$).
 
-Si $T_{0}$ est suffisamment élevée, le produit des matrices de transition $W(0,t-1)$ a toutes ses lignes identiques après un certain temps. Ainsi, $P(t,k)$ devient indépendante de la condition initiale $P(0,\ell)$.
+### Probabilité d'échange
 
-$$ \Rightarrow P(t,k) = W(0,t-1)_{1k} $$
+Soient deux replicas $i$ et $j$ avec $j = i \pm 1$, ayant des énergies $E_i$ et $E_j$. L'échange de leurs configurations est accepté avec probabilité :
 
-Si la température initiale est trop basse, les zones de l'espace de recherche seront différemment accessibles selon le point de départ : $P(t)$ dépend alors de $P(0)$.
+$$p = \min\left(1, e^{-\Delta_{ij}}\right)$$
 
-***
+avec
 
-## Guide pratique pour l'utilisation du SA
+$$\Delta_{ij} = (E_i - E_j)\left(\frac{1}{T_j} - \frac{1}{T_i}\right)$$
 
-Lors de l'implémentation du SA, il faut porter une attention à :
+Cette formule est symétrique et favorise le transfert des bonnes solutions vers les basses températures.
 
-- Le codage du problème (choix de la représentation des configurations).
-- Le choix des mouvements/transformations élémentaires.
-- Le calcul de $\Delta E$ après un mouvement doit être facile.
-- Les contraintes doivent être facilement traduites en restrictions sur les mouvements, ou implémentées en ajoutant un terme de pénalisation positif à la fitness.
-- Le choix de la configuration initiale.
+### Avantages
 
-***
+- Combinaison efficace de l'exploration (haute température) et de l'exploitation (basse température).
+- Parallélisation naturelle.
+- Réduction du risque de rester bloqué dans un minimum local.
 
-### Choix de la température initiale $T_0$
+### Paramètres guidés
 
-Une heuristique utile pour déterminer une valeur appropriée de $T_0$ :
-
-1. Effectuer 100 transformations élémentaires aléatoires à partir de la configuration initiale.
-2. Calculer la moyenne des variations d'énergie observées $\langle \Delta E \rangle$.
-3. Choisir un taux d'acceptation initial $\tau_0$ pour les mouvements qui dégradent la solution. Typiquement $\tau_0 = 0.5$ si la qualité initiale est supposée moyenne, et $\tau_0 = 0.2$ si elle est supposée bonne.
-4. Calculer $T_0$ tel que :
-
-$$ \exp \left( -\frac{\langle\Delta E\rangle}{T_0} \right) = \tau_0 $$
-
-$T_0$ doit être tel que les barrières d'énergie séparant les bassins d'attraction de la condition initiale et de la configuration optimale puissent être franchies avec une probabilité suffisamment élevée.
-
-***
-
-### Étages de température et plan de refroidissement
-
-La température est diminuée lorsqu'un "état d'équilibre" est atteint.
-
-- Un état d'équilibre est atteint si $12N$ mouvements élémentaires ont été acceptés ou si $100N$ ont été accomplis ($N$ étant le nombre de degrés de liberté du problème).
-- Sinon, l'**exploration** continue.
-
-Chaque fois qu'un équilibre est atteint, on passe à l'étage de température suivant. Une manière courante est de diminuer $T$ selon une loi géométrique :
-
-$$ T_{k+1} = \alpha T_k, \quad \text{avec } \alpha \in [0.8, 0.99] \text{ (souvent } 0.9\text{)} $$
-
-où $k$ est l'indice de l'étage.
-
-**Condition d'arrêt du recuit** : Si après 3 étages de température consécutifs, l'énergie $E$ n'est pas améliorée, alors on arrête le SA.
-
-***
-
-### Validation et cohérence
-
-Pour vérifier que la valeur optimale trouvée est suffisamment fiable, on peut :
-
-- Exécuter le SA à nouveau avec une condition initiale différente.
-- Exécuter le SA à nouveau avec une séquence différente de nombres pseudo-aléatoires.
-
-La solution optimale peut varier grandement puisqu'elle n'est pas unique, mais la valeur de la fitness optimale devrait rester pratiquement la même.
-
-***
-
-## La méthode du *Parallel Tempering*
-
-Cette méthode trouve son origine dans la simulation numérique du repliement des protéines (Geyer, 1991). L'idée consiste à considérer plusieurs simulations de Monte-Carlo à des températures similaires.
-
-*Tempering* (tempérage) : processus de chauffage et refroidissement répétés d'un échantillon.
-
-Le *Parallel Tempering* consiste à exécuter $M$ processus SA en parallèle, chacun à une température constante. Les échanges de configuration ont lieu entre des processus à des températures similaires.
-
-***
-
-### Algorithme du *Parallel Tempering*
-
-- On considère $M$ répliques du même système.
-- Chacune avec une température donnée $T_i$, où $i$ est l'indice de la réplique, avec $T_1 < T_2 < \ldots T_M$.
-- En principe, $T_i$ est maintenue constante pendant tout le processus.
-- Le plan de refroidissement est distribué sur toutes les $M$ répliques, plutôt que sur les itérations.
-- Les configurations en cours d'exécution peuvent être échangées entre deux répliques (ce qui revient à changer de température).
-
-L'échange entre les configurations $C_i$ et $C_j$ a lieu entre des répliques avec des températures voisines $T_i$ et $T_j$ (avec $j = i \pm 1$). Les configurations $i$ et $j$ (d'énergies respectives $E_i$ et $E_j$) sont échangées avec la probabilité :
-
-$$ p = \min(1, e^{-\Delta_{ij}}) $$
-
-où $\Delta_{ij}$ est donné par :
-
-$$ \Delta_{ij} = (E_i - E_j) \left( \frac{1}{T_j} - \frac{1}{T_i} \right) $$
-
-Cette relation est symétrique en $i$ et $j$. Si la réplique à température plus élevée admet une configuration ayant une énergie plus basse que celle à température plus basse, alors $\Delta_{ij} > 0$ et la probabilité d'échange est $p = 1$.
-
-Les "bonnes" solutions se déplaceront naturellement des répliques à températures plus élevées vers celles à températures plus basses. L'inverse reste possible, mais avec une probabilité plus faible.
-
-***
+- **Nombre de replicas $M$** : Souvent choisi comme $M = \sqrt{N}$, où $N$ est la taille du problème (degrés de liberté).
+- **Fréquence des échanges** : Après que chaque replica a atteint un équilibre local (par exemple, après un certain nombre de mouvements).
+- **Séquence des températures** : $T_M$ doit être assez haute pour permettre une exploration large, $T_1$ assez basse pour une exploitation fine. Les températures intermédiaires sont souvent choisies selon une progression géométrique.
 
 ### Interprétation
 
-- Le SA à haute température favorise une plus grande exploration mais moins détaillée.
-- Le SA à basse température favorise une exploitation plus intense d'une région plus petite, avec le risque de rester coincé dans un minimum local.
-- En échangeant les configurations, on obtient une combinaison efficace de l'exploration et de l'exploitation.
-
-***
-
-### Paramètres de guidage pour le *Parallel Tempering*
-
-- Nombre de répliques $M$ : souvent choisi tel que $M = \sqrt{N}$ où $N$ est la taille du problème (nombre de degrés de liberté).
-- Fréquence d'échange des configurations : une fois que deux répliques ont atteint un état stationnaire.
-- Séquence des températures $T_i$ : $T_M$ doit être relativement élevée, tandis que $T_1$ doit être suffisamment basse.
+Les replicas à haute température explorent largement l'espace, tandis que ceux à basse température affinent la recherche localement. Les échanges permettent à une configuration prometteuse découverte à haute température de migrer vers un replica à basse température pour y être exploitée.
