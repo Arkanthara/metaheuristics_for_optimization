@@ -24,8 +24,6 @@ fontsize: 7pt
    - (Optionnel) Mettre à jour mémoire long terme
 3. **Retourner** meilleure solution trouvée
 
----
-
 ## Formules clés
 
 **Fitness QAP :**
@@ -48,8 +46,6 @@ $$
 
 où $T$ est la matrice tabou, $t$ l'itération actuelle.
 
----
-
 ## Caractéristiques
 
 **Espace de recherche :** Combinatoire (permutations, graphes, etc.)
@@ -60,14 +56,14 @@ où $T$ est la matrice tabou, $t$ l'itération actuelle.
 
 **Aspiration :** Outrepasser tabou si solution meilleure que toutes précédentes.
 
----
-
 ## Paramètres de guidage
 
 - **Taille liste taboue ($M$)** : contrôle mémoire court terme
 - **Temps de bannissement ($k$)** : durée d'interdiction d'un mouvement
 - **Structure du voisinage** : type et nombre de mouvements
 - **Critère d'aspiration** : condition pour ignorer tabou
+
+---
 
 # Recuit Simulé
 
@@ -103,6 +99,8 @@ $$\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)$$
 - Planning refroidissement ($\alpha$, itérations/palier)  
 - Critère d'arrêt  
 - Mouvements élémentaires
+
+---
 
 # ACO
 
@@ -149,6 +147,8 @@ avec $\Delta\tau_{ij}^k = Q/L_k$ si arête dans solution $k$
 
 **Valeurs typiques TSP :** $\alpha=1$, $\beta=5$, $\rho=0.5$, $m=n$, $Q=1$
 
+---
+
 # Particle Swarm Optimization (PSO)
 
 **Algorithme**
@@ -171,6 +171,8 @@ $$
 - Espace : Continu (extensions discrètes)
 - Convergence : Rapide
 - Guided parameters : ω, c₁, c₂
+
+---
 
 # Firefly Algorithm
 
@@ -195,8 +197,6 @@ $$
 - Convergence : Bonne, équilibre via γ
 - Guided parameters : β₀, γ, α
 
----
-
 # Cuckoo Search
 
 **Algorithme**
@@ -218,6 +218,8 @@ $$
 - Convergence : Rapide, bonne exploration
 - Guided parameters : pₐ, α, λ
 
+---
+
 # Algorithmes Évolutionnaires
 
 ## Algorithme
@@ -228,8 +230,6 @@ $$
 5. Appliquer mutation avec probabilité $p_m$
 6. Former nouvelle génération avec élitisme
 7. Répéter 2-6 jusqu'à critère d'arrêt
-
----
 
 ## Formules Mathématiques
 
@@ -247,8 +247,6 @@ $$
 $$
 p_i = \frac{1}{n}\left[\beta - 2(\beta-1)\frac{i-1}{n-1}\right]
 $$
-
----
 
 ## Caractéristiques
 
@@ -268,6 +266,8 @@ $$
 - $p_m$ : probabilité mutation (0.001-0.1)
 - Élitisme : 1-10%
 - Pression sélection ($\beta$ ou $k$ tournoi)
+
+---
 
 # Genetic Programming (GP)
 
@@ -302,6 +302,8 @@ $$f(p) = \sum_{i=1}^{k} |y_i - p(x_i)|$$
 - Méthode sélection (tournoi)
 - Limite profondeur (5-20)
 - Critère arrêt (générations/stagnation)
+
+---
 
 # Performance
 
@@ -344,6 +346,8 @@ $$\sum_{f} P(d_m | f, m, A_1) = \sum_{f} P(d_m | f, m, A_2)$$
 - Paramètres critiques à régler
 - Aucune méthode universelle
 - Adapter l'algorithme au problème
+
+---
 
 # Transitions de phase en optimisation
 
