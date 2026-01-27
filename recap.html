@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>recap – Meta</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9ee82e006983bafa07c9ac29a901142c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-96c1bb8b336142dcc39f931773fab1b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Meta</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cours</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction aux Métaheuristiques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recherche Tabou (Tabu Search)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulated Annealing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Algorithmes Évolutionnaires</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programmation Génétique (Genetic Programming, GP)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Performance of Metaheuristics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapitre 9 : Transitions de phase en optimisation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#recherche-tabou" id="toc-recherche-tabou" class="nav-link active" data-scroll-target="#recherche-tabou">Recherche Tabou</a>
+  <ul class="collapse">
+  <li><a href="#algorithme" id="toc-algorithme" class="nav-link" data-scroll-target="#algorithme">Algorithme</a></li>
+  <li><a href="#formules-clés" id="toc-formules-clés" class="nav-link" data-scroll-target="#formules-clés">Formules clés</a></li>
+  <li><a href="#caractéristiques" id="toc-caractéristiques" class="nav-link" data-scroll-target="#caractéristiques">Caractéristiques</a></li>
+  <li><a href="#paramètres-de-guidage" id="toc-paramètres-de-guidage" class="nav-link" data-scroll-target="#paramètres-de-guidage">Paramètres de guidage</a></li>
+  </ul></li>
+  <li><a href="#recuit-simulé-simulated-annealing" id="toc-recuit-simulé-simulated-annealing" class="nav-link" data-scroll-target="#recuit-simulé-simulated-annealing">Recuit Simulé (Simulated Annealing)</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-1" id="toc-algorithme-1" class="nav-link" data-scroll-target="#algorithme-1">Algorithme</a>
+  <ul class="collapse">
+  <li><a href="#recuit-simulé-standard" id="toc-recuit-simulé-standard" class="nav-link" data-scroll-target="#recuit-simulé-standard">Recuit Simulé Standard</a></li>
+  <li><a href="#recuit-parallèle-parallel-tempering" id="toc-recuit-parallèle-parallel-tempering" class="nav-link" data-scroll-target="#recuit-parallèle-parallel-tempering">Recuit Parallèle (Parallel Tempering)</a></li>
+  </ul></li>
+  <li><a href="#formules-mathématiques-essentielles" id="toc-formules-mathématiques-essentielles" class="nav-link" data-scroll-target="#formules-mathématiques-essentielles">Formules Mathématiques Essentielles</a>
+  <ul class="collapse">
+  <li><a href="#règle-dacceptation-de-metropolis" id="toc-règle-dacceptation-de-metropolis" class="nav-link" data-scroll-target="#règle-dacceptation-de-metropolis">Règle d’Acceptation de Metropolis</a></li>
+  <li><a href="#planning-de-refroidissement-typique-géométrique" id="toc-planning-de-refroidissement-typique-géométrique" class="nav-link" data-scroll-target="#planning-de-refroidissement-typique-géométrique">Planning de Refroidissement Typique (Géométrique)</a></li>
+  </ul></li>
+  <li><a href="#caractéristiques-1" id="toc-caractéristiques-1" class="nav-link" data-scroll-target="#caractéristiques-1">Caractéristiques</a>
+  <ul class="collapse">
+  <li><a href="#espace-de-recherche-et-voisinage" id="toc-espace-de-recherche-et-voisinage" class="nav-link" data-scroll-target="#espace-de-recherche-et-voisinage">Espace de Recherche et Voisinage</a></li>
+  <li><a href="#convergence" id="toc-convergence" class="nav-link" data-scroll-target="#convergence">Convergence</a></li>
+  <li><a href="#paramètres-guidés-guiding-parameters" id="toc-paramètres-guidés-guiding-parameters" class="nav-link" data-scroll-target="#paramètres-guidés-guiding-parameters">Paramètres Guidés (Guiding Parameters)</a></li>
+  </ul></li>
+  <li><a href="#informations-clés" id="toc-informations-clés" class="nav-link" data-scroll-target="#informations-clés">Informations Clés</a></li>
+  </ul></li>
+  <li><a href="#optimisation-par-colonie-de-fourmis-aco" id="toc-optimisation-par-colonie-de-fourmis-aco" class="nav-link" data-scroll-target="#optimisation-par-colonie-de-fourmis-aco">Optimisation par Colonie de Fourmis (ACO)</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-3" id="toc-algorithme-3" class="nav-link" data-scroll-target="#algorithme-3">Algorithme</a></li>
+  <li><a href="#formules-mathématiques-essentielles-1" id="toc-formules-mathématiques-essentielles-1" class="nav-link" data-scroll-target="#formules-mathématiques-essentielles-1">Formules Mathématiques Essentielles</a></li>
+  <li><a href="#caractéristiques-3" id="toc-caractéristiques-3" class="nav-link" data-scroll-target="#caractéristiques-3">Caractéristiques</a>
+  <ul class="collapse">
+  <li><a href="#espace-de-recherche" id="toc-espace-de-recherche" class="nav-link" data-scroll-target="#espace-de-recherche">Espace de Recherche</a></li>
+  <li><a href="#convergence-1" id="toc-convergence-1" class="nav-link" data-scroll-target="#convergence-1">Convergence</a></li>
+  <li><a href="#paramètres-guidés-guided-parameters" id="toc-paramètres-guidés-guided-parameters" class="nav-link" data-scroll-target="#paramètres-guidés-guided-parameters">Paramètres Guidés (Guided Parameters)</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-1" id="toc-informations-clés-1" class="nav-link" data-scroll-target="#informations-clés-1">Informations Clés</a>
+  <ul class="collapse">
+  <li><a href="#mécanismes-fondamentaux" id="toc-mécanismes-fondamentaux" class="nav-link" data-scroll-target="#mécanismes-fondamentaux">Mécanismes Fondamentaux</a></li>
+  <li><a href="#avantages" id="toc-avantages" class="nav-link" data-scroll-target="#avantages">Avantages</a></li>
+  <li><a href="#limites" id="toc-limites" class="nav-link" data-scroll-target="#limites">Limites</a></li>
+  <li><a href="#variantes-principales" id="toc-variantes-principales" class="nav-link" data-scroll-target="#variantes-principales">Variantes Principales</a></li>
+  <li><a href="#domaines-dapplication" id="toc-domaines-dapplication" class="nav-link" data-scroll-target="#domaines-dapplication">Domaines d’Application</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#particle-swarm-optimization-pso" id="toc-particle-swarm-optimization-pso" class="nav-link" data-scroll-target="#particle-swarm-optimization-pso">Particle Swarm Optimization (PSO)</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-5" id="toc-algorithme-5" class="nav-link" data-scroll-target="#algorithme-5">Algorithme</a></li>
+  <li><a href="#formules-mathématiques-importantes" id="toc-formules-mathématiques-importantes" class="nav-link" data-scroll-target="#formules-mathématiques-importantes">Formules mathématiques importantes</a>
+  <ul class="collapse">
+  <li><a href="#mise-à-jour-de-la-vitesse" id="toc-mise-à-jour-de-la-vitesse" class="nav-link" data-scroll-target="#mise-à-jour-de-la-vitesse">Mise à jour de la vitesse</a></li>
+  <li><a href="#mise-à-jour-de-la-position" id="toc-mise-à-jour-de-la-position" class="nav-link" data-scroll-target="#mise-à-jour-de-la-position">Mise à jour de la position</a></li>
+  <li><a href="#meilleure-position-personnelle" id="toc-meilleure-position-personnelle" class="nav-link" data-scroll-target="#meilleure-position-personnelle">Meilleure position personnelle</a></li>
+  <li><a href="#meilleure-position-globale" id="toc-meilleure-position-globale" class="nav-link" data-scroll-target="#meilleure-position-globale">Meilleure position globale</a></li>
+  </ul></li>
+  <li><a href="#caractéristiques-5" id="toc-caractéristiques-5" class="nav-link" data-scroll-target="#caractéristiques-5">Caractéristiques</a>
+  <ul class="collapse">
+  <li><a href="#espace-de-recherche-1" id="toc-espace-de-recherche-1" class="nav-link" data-scroll-target="#espace-de-recherche-1">Espace de recherche</a></li>
+  <li><a href="#convergence-2" id="toc-convergence-2" class="nav-link" data-scroll-target="#convergence-2">Convergence</a></li>
+  <li><a href="#guided-parameters" id="toc-guided-parameters" class="nav-link" data-scroll-target="#guided-parameters">Guided parameters</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-2" id="toc-informations-clés-2" class="nav-link" data-scroll-target="#informations-clés-2">Informations clés</a>
+  <ul class="collapse">
+  <li><a href="#principes-fondamentaux" id="toc-principes-fondamentaux" class="nav-link" data-scroll-target="#principes-fondamentaux">Principes fondamentaux</a></li>
+  <li><a href="#forces-agissantes" id="toc-forces-agissantes" class="nav-link" data-scroll-target="#forces-agissantes">Forces agissantes</a></li>
+  <li><a href="#équilibre-explorationexploitation" id="toc-équilibre-explorationexploitation" class="nav-link" data-scroll-target="#équilibre-explorationexploitation">Équilibre exploration/exploitation</a></li>
+  <li><a href="#avantages-1" id="toc-avantages-1" class="nav-link" data-scroll-target="#avantages-1">Avantages</a></li>
+  <li><a href="#limites-1" id="toc-limites-1" class="nav-link" data-scroll-target="#limites-1">Limites</a></li>
+  <li><a href="#variantes-courantes" id="toc-variantes-courantes" class="nav-link" data-scroll-target="#variantes-courantes">Variantes courantes</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#firefly-algorithm" id="toc-firefly-algorithm" class="nav-link" data-scroll-target="#firefly-algorithm">Firefly Algorithm</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-6" id="toc-algorithme-6" class="nav-link" data-scroll-target="#algorithme-6">Algorithme</a></li>
+  <li><a href="#formules-mathématiques-importantes-1" id="toc-formules-mathématiques-importantes-1" class="nav-link" data-scroll-target="#formules-mathématiques-importantes-1">Formules mathématiques importantes</a>
+  <ul class="collapse">
+  <li><a href="#attractivité-entre-lucioles" id="toc-attractivité-entre-lucioles" class="nav-link" data-scroll-target="#attractivité-entre-lucioles">Attractivité entre lucioles</a></li>
+  <li><a href="#règle-de-déplacement" id="toc-règle-de-déplacement" class="nav-link" data-scroll-target="#règle-de-déplacement">Règle de déplacement</a></li>
+  </ul></li>
+  <li><a href="#caractéristiques-6" id="toc-caractéristiques-6" class="nav-link" data-scroll-target="#caractéristiques-6">Caractéristiques</a>
+  <ul class="collapse">
+  <li><a href="#espace-de-recherche-2" id="toc-espace-de-recherche-2" class="nav-link" data-scroll-target="#espace-de-recherche-2">Espace de recherche</a></li>
+  <li><a href="#convergence-3" id="toc-convergence-3" class="nav-link" data-scroll-target="#convergence-3">Convergence</a></li>
+  <li><a href="#guided-parameters-1" id="toc-guided-parameters-1" class="nav-link" data-scroll-target="#guided-parameters-1">Guided parameters</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-3" id="toc-informations-clés-3" class="nav-link" data-scroll-target="#informations-clés-3">Informations clés</a></li>
+  </ul></li>
+  <li><a href="#cuckoo-search" id="toc-cuckoo-search" class="nav-link" data-scroll-target="#cuckoo-search">Cuckoo Search</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-7" id="toc-algorithme-7" class="nav-link" data-scroll-target="#algorithme-7">Algorithme</a></li>
+  <li><a href="#formules-mathématiques-importantes-2" id="toc-formules-mathématiques-importantes-2" class="nav-link" data-scroll-target="#formules-mathématiques-importantes-2">Formules mathématiques importantes</a>
+  <ul class="collapse">
+  <li><a href="#génération-par-vol-de-lévy" id="toc-génération-par-vol-de-lévy" class="nav-link" data-scroll-target="#génération-par-vol-de-lévy">Génération par vol de Lévy</a></li>
+  </ul></li>
+  <li><a href="#caractéristiques-7" id="toc-caractéristiques-7" class="nav-link" data-scroll-target="#caractéristiques-7">Caractéristiques</a>
+  <ul class="collapse">
+  <li><a href="#espace-de-recherche-3" id="toc-espace-de-recherche-3" class="nav-link" data-scroll-target="#espace-de-recherche-3">Espace de recherche</a></li>
+  <li><a href="#convergence-4" id="toc-convergence-4" class="nav-link" data-scroll-target="#convergence-4">Convergence</a></li>
+  <li><a href="#guided-parameters-2" id="toc-guided-parameters-2" class="nav-link" data-scroll-target="#guided-parameters-2">Guided parameters</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-4" id="toc-informations-clés-4" class="nav-link" data-scroll-target="#informations-clés-4">Informations clés</a></li>
+  </ul></li>
+  <li><a href="#algorithmes-évolutionnaires" id="toc-algorithmes-évolutionnaires" class="nav-link" data-scroll-target="#algorithmes-évolutionnaires">Algorithmes Évolutionnaires</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-8" id="toc-algorithme-8" class="nav-link" data-scroll-target="#algorithme-8">Algorithme</a>
+  <ul class="collapse">
+  <li><a href="#étapes-succintes" id="toc-étapes-succintes" class="nav-link" data-scroll-target="#étapes-succintes">Étapes Succintes</a></li>
+  </ul></li>
+  <li><a href="#formules-mathématiques-importantes-3" id="toc-formules-mathématiques-importantes-3" class="nav-link" data-scroll-target="#formules-mathématiques-importantes-3">Formules Mathématiques Importantes</a>
+  <ul class="collapse">
+  <li><a href="#sélection-proportionnelle-roulette-wheel" id="toc-sélection-proportionnelle-roulette-wheel" class="nav-link" data-scroll-target="#sélection-proportionnelle-roulette-wheel">Sélection Proportionnelle (Roulette Wheel)</a></li>
+  <li><a href="#sélection-par-rang-linéaire" id="toc-sélection-par-rang-linéaire" class="nav-link" data-scroll-target="#sélection-par-rang-linéaire">Sélection par Rang Linéaire</a></li>
+  <li><a href="#théorème-des-schémas-holland" id="toc-théorème-des-schémas-holland" class="nav-link" data-scroll-target="#théorème-des-schémas-holland">Théorème des Schémas (Holland)</a></li>
+  <li><a href="#temps-de-prise-de-contrôle-takeover-time" id="toc-temps-de-prise-de-contrôle-takeover-time" class="nav-link" data-scroll-target="#temps-de-prise-de-contrôle-takeover-time">Temps de Prise de Contrôle (Takeover Time)</a></li>
+  </ul></li>
+  <li><a href="#caractéristiques-8" id="toc-caractéristiques-8" class="nav-link" data-scroll-target="#caractéristiques-8">Caractéristiques</a>
+  <ul class="collapse">
+  <li><a href="#espace-de-recherche-4" id="toc-espace-de-recherche-4" class="nav-link" data-scroll-target="#espace-de-recherche-4">Espace de Recherche</a></li>
+  <li><a href="#convergence-5" id="toc-convergence-5" class="nav-link" data-scroll-target="#convergence-5">Convergence</a></li>
+  <li><a href="#guided-parameters-3" id="toc-guided-parameters-3" class="nav-link" data-scroll-target="#guided-parameters-3">Guided Parameters</a></li>
+  <li><a href="#exploration-vs-exploitation" id="toc-exploration-vs-exploitation" class="nav-link" data-scroll-target="#exploration-vs-exploitation">Exploration vs Exploitation</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-5" id="toc-informations-clés-5" class="nav-link" data-scroll-target="#informations-clés-5">Informations Clés</a>
+  <ul class="collapse">
+  <li><a href="#variantes-principales-1" id="toc-variantes-principales-1" class="nav-link" data-scroll-target="#variantes-principales-1">Variantes Principales</a></li>
+  <li><a href="#avantages-2" id="toc-avantages-2" class="nav-link" data-scroll-target="#avantages-2">Avantages</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  <li><a href="#bonnes-pratiques" id="toc-bonnes-pratiques" class="nav-link" data-scroll-target="#bonnes-pratiques">Bonnes Pratiques</a></li>
+  <li><a href="#applications-typiques" id="toc-applications-typiques" class="nav-link" data-scroll-target="#applications-typiques">Applications Typiques</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#programmation-génétique-gp" id="toc-programmation-génétique-gp" class="nav-link" data-scroll-target="#programmation-génétique-gp">Programmation Génétique (GP)</a>
+  <ul class="collapse">
+  <li><a href="#algorithme-10" id="toc-algorithme-10" class="nav-link" data-scroll-target="#algorithme-10">Algorithme</a></li>
+  <li><a href="#formules-mathématiques-1" id="toc-formules-mathématiques-1" class="nav-link" data-scroll-target="#formules-mathématiques-1">Formules Mathématiques</a></li>
+  <li><a href="#caractéristiques-10" id="toc-caractéristiques-10" class="nav-link" data-scroll-target="#caractéristiques-10">Caractéristiques</a></li>
+  <li><a href="#informations-clés-6" id="toc-informations-clés-6" class="nav-link" data-scroll-target="#informations-clés-6">Informations Clés</a></li>
+  </ul></li>
+  <li><a href="#performance-of-metaheuristics" id="toc-performance-of-metaheuristics" class="nav-link" data-scroll-target="#performance-of-metaheuristics">Performance of Metaheuristics</a>
+  <ul class="collapse">
+  <li><a href="#challenges" id="toc-challenges" class="nav-link" data-scroll-target="#challenges">Challenges</a></li>
+  <li><a href="#key-mathematical-formulas" id="toc-key-mathematical-formulas" class="nav-link" data-scroll-target="#key-mathematical-formulas">Key Mathematical Formulas</a>
+  <ul class="collapse">
+  <li><a href="#mesure-de-leffort-de-calcul-proxy" id="toc-mesure-de-leffort-de-calcul-proxy" class="nav-link" data-scroll-target="#mesure-de-leffort-de-calcul-proxy">1. Mesure de l’Effort de Calcul (Proxy)</a></li>
+  <li><a href="#taux-de-succès-probability-of-success" id="toc-taux-de-succès-probability-of-success" class="nav-link" data-scroll-target="#taux-de-succès-probability-of-success">2. Taux de Succès (Probability of Success)</a></li>
+  <li><a href="#théorème-no-free-lunch-formulation" id="toc-théorème-no-free-lunch-formulation" class="nav-link" data-scroll-target="#théorème-no-free-lunch-formulation">3. Théorème “No Free Lunch” (Formulation)</a></li>
+  </ul></li>
+  <li><a href="#performance-evaluation" id="toc-performance-evaluation" class="nav-link" data-scroll-target="#performance-evaluation">Performance Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#métriques-principales" id="toc-métriques-principales" class="nav-link" data-scroll-target="#métriques-principales">Métriques Principales</a></li>
+  <li><a href="#protocole-expérimental" id="toc-protocole-expérimental" class="nav-link" data-scroll-target="#protocole-expérimental">Protocole Expérimental</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-7" id="toc-informations-clés-7" class="nav-link" data-scroll-target="#informations-clés-7">Informations Clés</a>
+  <ul class="collapse">
+  <li><a href="#nature-de-lanalyse" id="toc-nature-de-lanalyse" class="nav-link" data-scroll-target="#nature-de-lanalyse">Nature de l’Analyse</a></li>
+  <li><a href="#guided-parameters-essentiels-exemples" id="toc-guided-parameters-essentiels-exemples" class="nav-link" data-scroll-target="#guided-parameters-essentiels-exemples">Guided Parameters Essentiels (Exemples)</a></li>
+  <li><a href="#conséquence-pratique-du-théorème-nfl" id="toc-conséquence-pratique-du-théorème-nfl" class="nav-link" data-scroll-target="#conséquence-pratique-du-théorème-nfl">Conséquence Pratique du Théorème NFL</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#transitions-de-phase-en-optimisation" id="toc-transitions-de-phase-en-optimisation" class="nav-link" data-scroll-target="#transitions-de-phase-en-optimisation">Transitions de phase en optimisation</a>
+  <ul class="collapse">
+  <li><a href="#challenges-2" id="toc-challenges-2" class="nav-link" data-scroll-target="#challenges-2">Challenges</a></li>
+  <li><a href="#formules-mathématiques-importantes-4" id="toc-formules-mathématiques-importantes-4" class="nav-link" data-scroll-target="#formules-mathématiques-importantes-4">Formules mathématiques importantes</a>
+  <ul class="collapse">
+  <li><a href="#définition-du-problème" id="toc-définition-du-problème" class="nav-link" data-scroll-target="#définition-du-problème">Définition du problème</a></li>
+  <li><a href="#seuils-critiques" id="toc-seuils-critiques" class="nav-link" data-scroll-target="#seuils-critiques">Seuils critiques</a></li>
+  <li><a href="#complexité-algorithmique" id="toc-complexité-algorithmique" class="nav-link" data-scroll-target="#complexité-algorithmique">Complexité algorithmique</a></li>
+  </ul></li>
+  <li><a href="#performance-evaluation-1" id="toc-performance-evaluation-1" class="nav-link" data-scroll-target="#performance-evaluation-1">Performance evaluation</a>
+  <ul class="collapse">
+  <li><a href="#métriques-principales-1" id="toc-métriques-principales-1" class="nav-link" data-scroll-target="#métriques-principales-1">Métriques principales</a></li>
+  <li><a href="#comportements-observés" id="toc-comportements-observés" class="nav-link" data-scroll-target="#comportements-observés">Comportements observés</a></li>
+  </ul></li>
+  <li><a href="#informations-clés-8" id="toc-informations-clés-8" class="nav-link" data-scroll-target="#informations-clés-8">Informations clés</a>
+  <ul class="collapse">
+  <li><a href="#structure-de-lespace-des-solutions" id="toc-structure-de-lespace-des-solutions" class="nav-link" data-scroll-target="#structure-de-lespace-des-solutions">Structure de l’espace des solutions</a></li>
+  <li><a href="#algorithmes-et-leurs-caractéristiques" id="toc-algorithmes-et-leurs-caractéristiques" class="nav-link" data-scroll-target="#algorithmes-et-leurs-caractéristiques">Algorithmes et leurs caractéristiques</a></li>
+  <li><a href="#implications-pratiques" id="toc-implications-pratiques" class="nav-link" data-scroll-target="#implications-pratiques">Implications pratiques</a></li>
+  <li><a href="#guide-des-paramètres" id="toc-guide-des-paramètres" class="nav-link" data-scroll-target="#guide-des-paramètres">Guide des paramètres</a></li>
+  <li><a href="#recommandations" id="toc-recommandations" class="nav-link" data-scroll-target="#recommandations">Recommandations</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="recap.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+
+<section id="recherche-tabou" class="level1">
+<h1>Recherche Tabou</h1>
+<section id="algorithme" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme">Algorithme</h2>
+<p><strong>Étapes :</strong></p>
+<ol type="1">
+<li><strong>Initialiser</strong> une solution <span class="math inline">\(x_0\)</span>, liste taboue vide <span class="math inline">\(T\)</span>, paramètres (<span class="math inline">\(M\)</span>, <span class="math inline">\(k\)</span>)</li>
+<li><strong>Tant que</strong> critère d’arrêt non atteint :
+<ul>
+<li>Générer voisinage <span class="math inline">\(V(x_c)\)</span></li>
+<li><strong>Choisir</strong> le meilleur <span class="math inline">\(x' \in V(x_c)\)</span> <strong>non-tabou</strong> (ou avec aspiration)</li>
+<li><span class="math inline">\(x_c \leftarrow x'\)</span></li>
+<li><strong>Mettre à jour</strong> <span class="math inline">\(T\)</span> (ajouter mouvement inverse, FIFO ou temps <span class="math inline">\(k\)</span>)</li>
+<li>(Optionnel) Mettre à jour mémoire long terme</li>
+</ul></li>
+<li><strong>Retourner</strong> meilleure solution trouvée</li>
+</ol>
+<hr>
+</section>
+<section id="formules-clés" class="level2">
+<h2 class="anchored" data-anchor-id="formules-clés">Formules clés</h2>
+<p><strong>Fitness QAP :</strong></p>
+<p><span class="math display">\[
+f = \sum_{i,j} f_{ij} \cdot d_{r_i r_j}
+\]</span></p>
+<p><strong>Évaluation voisin :</strong></p>
+<p><span class="math display">\[
+\Delta = f(x') - f(x)
+\]</span></p>
+<p><strong>Condition tabou (exemple) :</strong> mouvement <span class="math inline">\((r,s)\)</span> interdit si</p>
+<p><span class="math display">\[
+T_{i_s r} &gt; t \quad \text{et} \quad T_{i_r s} &gt; t
+\]</span></p>
+<p>où <span class="math inline">\(T\)</span> est la matrice tabou, <span class="math inline">\(t\)</span> l’itération actuelle.</p>
+<hr>
+</section>
+<section id="caractéristiques" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques">Caractéristiques</h2>
+<p><strong>Espace de recherche :</strong> Combinatoire (permutations, graphes, etc.)</p>
+<p><strong>Convergence :</strong> Conditionnelle (si espace fini, voisinage symétrique, accessibilité), mais temps exponentiel possible.</p>
+<p><strong>Mémoire :</strong> Court terme (liste taboue FIFO/tenure <span class="math inline">\(k\)</span>) + long terme (fréquences des mouvements).</p>
+<p><strong>Aspiration :</strong> Outrepasser tabou si solution meilleure que toutes précédentes.</p>
+<hr>
+</section>
+<section id="paramètres-de-guidage" class="level2">
+<h2 class="anchored" data-anchor-id="paramètres-de-guidage">Paramètres de guidage</h2>
+<ul>
+<li><strong>Taille liste taboue (<span class="math inline">\(M\)</span>)</strong> : contrôle mémoire court terme</li>
+<li><strong>Temps de bannissement (<span class="math inline">\(k\)</span>)</strong> : durée d’interdiction d’un mouvement</li>
+<li><strong>Structure du voisinage</strong> : type et nombre de mouvements</li>
+<li><strong>Critère d’aspiration</strong> : condition pour ignorer tabou</li>
+</ul>
+</section>
+</section>
+<section id="recuit-simulé-simulated-annealing" class="level1">
+<h1>Recuit Simulé (Simulated Annealing)</h1>
+<section id="algorithme-1" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-1">Algorithme</h2>
+<section id="recuit-simulé-standard" class="level3">
+<h3 class="anchored" data-anchor-id="recuit-simulé-standard">Recuit Simulé Standard</h3>
+<ol type="1">
+<li><strong>Initialisation</strong>
+<ul>
+<li>Choisir une solution initiale <span class="math inline">\(x_{\text{current}}\)</span>.</li>
+<li>Choisir une température initiale élevée <span class="math inline">\(T_0\)</span>.</li>
+<li>Définir un planning de refroidissement et un critère d’arrêt.</li>
+</ul></li>
+<li><strong>Boucle principale</strong> (jusqu’à ce que le critère d’arrêt soit satisfait)
+<ul>
+<li>Pour un nombre donné d’itérations à cette température :
+<ul>
+<li>Générer une solution voisine <span class="math inline">\(x_{\text{new}}\)</span> à partir de <span class="math inline">\(x_{\text{current}}\)</span> (mouvement élémentaire).</li>
+<li>Calculer <span class="math inline">\(\Delta E = E(x_{\text{new}}) - E(x_{\text{current}})\)</span>.</li>
+<li>Si <span class="math inline">\(\Delta E \leq 0\)</span>, accepter <span class="math inline">\(x_{\text{new}}\)</span> (<span class="math inline">\(x_{\text{current}} \leftarrow x_{\text{new}}\)</span>).</li>
+<li>Sinon, accepter <span class="math inline">\(x_{\text{new}}\)</span> avec probabilité <span class="math inline">\(p = \exp(-\Delta E / T)\)</span> (Règle de Metropolis).</li>
+</ul></li>
+<li>Diminuer la température <span class="math inline">\(T\)</span> selon le planning de refroidissement.</li>
+</ul></li>
+<li><strong>Résultat</strong>
+<ul>
+<li>Retourner la meilleure solution rencontrée.</li>
+</ul></li>
+</ol>
+</section>
+<section id="recuit-parallèle-parallel-tempering" class="level3">
+<h3 class="anchored" data-anchor-id="recuit-parallèle-parallel-tempering">Recuit Parallèle (Parallel Tempering)</h3>
+<ol type="1">
+<li><strong>Initialisation</strong>
+<ul>
+<li>Lancer <span class="math inline">\(M\)</span> replicas du système avec des températures fixes <span class="math inline">\(T_1 &lt; T_2 &lt; ... &lt; T_M\)</span>.</li>
+<li>Initialiser une configuration aléatoire pour chaque replica.</li>
+</ul></li>
+<li><strong>Boucle principale</strong>
+<ul>
+<li>Pour chaque replica <span class="math inline">\(i\)</span> de manière (quasi-)indépendante :
+<ul>
+<li>Effectuer des étapes de Recuit Simulé standard à température constante <span class="math inline">\(T_i\)</span>.</li>
+</ul></li>
+<li>Périodiquement, proposer un échange de configurations entre deux replicas adjacents en température (<span class="math inline">\(i\)</span> et <span class="math inline">\(i+1\)</span>).</li>
+<li>Accepter l’échange avec probabilité <span class="math inline">\(p = \min(1, e^{-\Delta_{ij}})\)</span> où <span class="math inline">\(\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\)</span>.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="formules-mathématiques-essentielles" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-essentielles">Formules Mathématiques Essentielles</h2>
+<section id="règle-dacceptation-de-metropolis" class="level3">
+<h3 class="anchored" data-anchor-id="règle-dacceptation-de-metropolis">Règle d’Acceptation de Metropolis</h3>
+<p>Probabilité d’accepter une solution plus mauvaise :</p>
+<p><span class="math display">\[p_{\text{accept}} = \min \left(1, \exp\left(-\frac{\Delta E}{T}\right)\right)\]</span></p>
+<p>avec <span class="math inline">\(\Delta E = E_{\text{new}} - E_{\text{old}}\)</span>.</p>
+</section>
+<section id="planning-de-refroidissement-typique-géométrique" class="level3">
+<h3 class="anchored" data-anchor-id="planning-de-refroidissement-typique-géométrique">Planning de Refroidissement Typique (Géométrique)</h3>
+<p><span class="math display">\[T_{k+1} = \alpha \cdot T_k\]</span></p>
+<p>avec <span class="math inline">\(\alpha \in ]0,1[\)</span>, souvent <span class="math inline">\(\alpha=0.9\)</span>.</p>
+</section>
+</section>
+<section id="caractéristiques-1" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-1">Caractéristiques</h2>
+<section id="espace-de-recherche-et-voisinage" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche-et-voisinage">Espace de Recherche et Voisinage</h3>
+<ul>
+<li><strong>Espace</strong> : Discrét ou continu. Représentation des solutions cruciale.</li>
+<li><strong>Mouvements</strong> : Doivent être réversibles et connecter l’espace. Choix impactant fortement la performance (ex. 2-opt pour TSP).</li>
+</ul>
+</section>
+<section id="convergence" class="level3">
+<h3 class="anchored" data-anchor-id="convergence">Convergence</h3>
+<ul>
+<li><strong>Convergence théorique</strong> : Sous conditions (température initiale assez haute, refroidissement assez lent <span class="math inline">\(T(t) \propto C/\log(t)\)</span>), convergence en probabilité vers l’optimum global.</li>
+<li><strong>Pratique</strong> : La convergence garantie est souvent trop lente. Les paramètres sont réglés pour un compromis temps/qualité.</li>
+</ul>
+</section>
+<section id="paramètres-guidés-guiding-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="paramètres-guidés-guiding-parameters">Paramètres Guidés (Guiding Parameters)</h3>
+<ol type="1">
+<li><strong>Température Initiale <span class="math inline">\(T_0\)</span></strong>
+<ul>
+<li>Doit permettre une exploration large.</li>
+<li>Heuristique : <span class="math inline">\(T_0\)</span> tel que <span class="math inline">\(\exp(-\langle |\Delta E| \rangle / T_0) = \tau_0\)</span>, avec <span class="math inline">\(\tau_0 \approx 0.5\)</span>.</li>
+</ul></li>
+<li><strong>Loi de Refroidissement</strong>
+<ul>
+<li>Vitesse de décroissance (<span class="math inline">\(\alpha\)</span>).</li>
+<li>Nombre d’itérations par palier de température.</li>
+</ul></li>
+<li><strong>Critère d’Arrêt</strong>
+<ul>
+<li>Température minimale <span class="math inline">\(T_{\text{min}}\)</span>.</li>
+<li>Nombre maximum d’itérations.</li>
+<li>Absence d’amélioration après plusieurs paliers.</li>
+</ul></li>
+<li><strong>(Pour Recuit Parallèle)</strong>
+<ul>
+<li>Nombre de replicas <span class="math inline">\(M\)</span> (souvent <span class="math inline">\(M \approx \sqrt{N}\)</span>).</li>
+<li>Séquence des températures <span class="math inline">\(\{T_i\}\)</span>.</li>
+<li>Fréquence des échanges.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="informations-clés" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés">Informations Clés</h2>
+<ul>
+<li><strong>Métaheuristique</strong> : Inspirée de la physique (recuit métallurgique).</li>
+<li><strong>Gestion Exploration/Exploitation</strong> : Contrôlée par la température <span class="math inline">\(T\)</span>.</li>
+<li><strong>Avantage Principal</strong> : Capacité à échapper aux minima locaux en acceptant des dégradations temporaires.</li>
+<li><strong>Inconvénient Principal</strong> : Nombreux paramètres à régler, performance dépendante de ce réglage.</li>
+<li><strong>Variante Majeure</strong> : <em>Parallel Tempering</em> pour améliorer l’exploration et permettre le parallélisme.</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Recuit Simulé
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="algorithme-2" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-2">Algorithme</h2>
+<section id="standard" class="level3">
+<h3 class="anchored" data-anchor-id="standard">Standard</h3>
+<ol type="1">
+<li>Initialiser solution <span class="math inline">\(x\)</span>, température <span class="math inline">\(T\)</span></li>
+<li>Tant que critère non atteint :
+<ul>
+<li>Générer voisin <span class="math inline">\(x'\)</span></li>
+<li><span class="math inline">\(\Delta E = E(x') - E(x)\)</span></li>
+<li>Si <span class="math inline">\(\Delta E \leq 0\)</span> : <span class="math inline">\(x \leftarrow x'\)</span></li>
+<li>Sinon : <span class="math inline">\(x \leftarrow x'\)</span> avec proba <span class="math inline">\(e^{-\Delta E/T}\)</span></li>
+<li>Diminuer <span class="math inline">\(T\)</span> selon planning</li>
+</ul></li>
+</ol>
+</section>
+<section id="parallèle" class="level3">
+<h3 class="anchored" data-anchor-id="parallèle">Parallèle</h3>
+<ol type="1">
+<li>Lancer <span class="math inline">\(M\)</span> replicas à températures fixes <span class="math inline">\(T_1 &lt; ... &lt; T_M\)</span></li>
+<li>Parallèlement :
+<ul>
+<li>Chaque replica évolue indépendamment</li>
+<li>Échanges périodiques entre replicas adjacents selon <span class="math inline">\(p = \min(1,e^{-\Delta_{ij}})\)</span></li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="formules" class="level2">
+<h2 class="anchored" data-anchor-id="formules">Formules</h2>
+<p><span class="math display">\[p_{\text{accept}} = \min(1, e^{-\Delta E/T})\]</span> <span class="math display">\[T_{k+1} = \alpha T_k \quad (0&lt;\alpha&lt;1)\]</span> <span class="math display">\[\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\]</span></p>
+</section>
+<section id="caractéristiques-2" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-2">Caractéristiques</h2>
+<p><strong>Espace</strong> : Continu ou discret<br>
+<strong>Convergence</strong> : Probabiliste vers optimum global si <span class="math inline">\(T(t) \propto C/\log(t)\)</span><br>
+<strong>Paramètres</strong> :<br>
+- <span class="math inline">\(T_0\)</span> (température initiale)<br>
+- Planning refroidissement (<span class="math inline">\(\alpha\)</span>, itérations/palier)<br>
+- Critère d’arrêt<br>
+- Mouvements élémentaires</p>
+</section>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="optimisation-par-colonie-de-fourmis-aco" class="level1">
+<h1>Optimisation par Colonie de Fourmis (ACO)</h1>
+<section id="algorithme-3" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-3">Algorithme</h2>
+<p><strong>Étapes principales de l’Ant System (AS) :</strong></p>
+<ol type="1">
+<li><strong>Initialisation</strong> : Déposer une petite quantité de phéromone <span class="math inline">\(\tau_{ij}(0)\)</span> sur chaque arête.</li>
+<li><strong>Construction des solutions</strong> : Pour chaque fourmi <span class="math inline">\(k\)</span> :
+<ul>
+<li>Construire une solution complète par séquences de choix probabilistes.</li>
+<li>La probabilité de choisir l’élément <span class="math inline">\(j\)</span> depuis l’état <span class="math inline">\(i\)</span> dépend de la phéromone <span class="math inline">\(\tau_{ij}\)</span> et d’une heuristique <span class="math inline">\(\eta_{ij}\)</span>.</li>
+</ul></li>
+<li><strong>Évaluation</strong> : Calculer la qualité <span class="math inline">\(f(s_k)\)</span> de chaque solution construite.</li>
+<li><strong>Mise à jour des phéromones</strong> :
+<ul>
+<li><strong>Évaporation</strong> : Réduire toutes les phéromones par un facteur <span class="math inline">\((1-\rho)\)</span>.</li>
+<li><strong>Dépôt</strong> : Ajouter de la phéromone sur les composants des bonnes solutions.</li>
+</ul></li>
+<li><strong>Itération</strong> : Répéter les étapes 2-4 jusqu’à critère d’arrêt.</li>
+</ol>
+</section>
+<section id="formules-mathématiques-essentielles-1" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-essentielles-1">Formules Mathématiques Essentielles</h2>
+<p><strong>Règle de décision probabiliste (AS) :</strong></p>
+<p><span class="math display">\[
+p_{ij}^k = \frac{[\tau_{ij}]^{\alpha} \cdot [\eta_{ij}]^{\beta}}{\sum_{l \in N_i^k} [\tau_{il}]^{\alpha} \cdot [\eta_{il}]^{\beta}}
+\]</span></p>
+<p><strong>Mise à jour des phéromones (AS) :</strong></p>
+<p><span class="math display">\[
+\tau_{ij} \leftarrow (1-\rho)\tau_{ij} + \sum_{k=1}^m \Delta\tau_{ij}^k
+\]</span></p>
+<p>avec <span class="math inline">\(\Delta\tau_{ij}^k = \frac{Q}{L_k}\)</span> si l’arête <span class="math inline">\((i,j)\)</span> est dans le tour de la fourmi <span class="math inline">\(k\)</span>.</p>
+<p><strong>Règle de transition pseudo-aléatoire (ACS) :</strong></p>
+<p><span class="math display">\[
+j = \begin{cases}
+\arg\max_{l \in N_i^k} \{[\tau_{il}] \cdot [\eta_{il}]^\beta\} &amp; \text{si } q \leq q_0 \\
+\text{règle proportionnelle de l'AS} &amp; \text{sinon}
+\end{cases}
+\]</span></p>
+</section>
+<section id="caractéristiques-3" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-3">Caractéristiques</h2>
+<section id="espace-de-recherche" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche">Espace de Recherche</h3>
+<ul>
+<li>Problèmes <strong>combinatoires</strong> (TSP, QAP, ordonnancement).</li>
+<li>Solutions construites <strong>incrémentalement</strong>.</li>
+<li>Espace exploré via <strong>mémoire collective</strong> (phéromones).</li>
+</ul>
+</section>
+<section id="convergence-1" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-1">Convergence</h3>
+<ul>
+<li>Convergence <strong>asymptotique</strong> vers l’optimum garanti avec paramètres adaptés.</li>
+<li><strong>Équilibre exploration/exploitation</strong> crucial.</li>
+<li>Risque de <strong>stagnation/prématurité</strong> si mauvais réglage.</li>
+</ul>
+</section>
+<section id="paramètres-guidés-guided-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="paramètres-guidés-guided-parameters">Paramètres Guidés (Guided Parameters)</h3>
+<section id="ant-system-as" class="level4">
+<h4 class="anchored" data-anchor-id="ant-system-as">Ant System (AS)</h4>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> ≥ 0 : Poids de la phéromone (exploitation)</li>
+<li><span class="math inline">\(\beta\)</span> ≥ 0 : Poids de l’heuristique (exploration)</li>
+<li><span class="math inline">\(\rho\)</span> ∈ [0,1] : Taux d’évaporation (oubli)</li>
+<li><span class="math inline">\(Q\)</span> &gt; 0 : Constante de dépôt (échelle phéromonale)</li>
+<li><span class="math inline">\(m\)</span> : Nombre de fourmis (parallélisme)</li>
+</ul>
+</section>
+<section id="ant-colony-system-acs" class="level4">
+<h4 class="anchored" data-anchor-id="ant-colony-system-acs">Ant Colony System (ACS)</h4>
+<ul>
+<li><span class="math inline">\(q_0\)</span> ∈ [0,1] : Seuil de décision déterministe</li>
+<li><span class="math inline">\(\phi\)</span> ∈ [0,1] : Taux d’évaporation locale</li>
+</ul>
+<p><strong>Valeurs typiques (TSP) :</strong> <span class="math display">\[
+\alpha = 1,\quad \beta = 5,\quad \rho = 0.5,\quad m = n,\quad Q = 1
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="informations-clés-1" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-1">Informations Clés</h2>
+<section id="mécanismes-fondamentaux" class="level3">
+<h3 class="anchored" data-anchor-id="mécanismes-fondamentaux">Mécanismes Fondamentaux</h3>
+<ul>
+<li><strong>Stigmergie</strong> : Coordination indirecte via modification environnement (phéromones).</li>
+<li><strong>Auto-organisation</strong> : Ordre global émerge d’interactions locales simples.</li>
+<li><strong>Boucle de rétroaction positive</strong> : Renforcement des bonnes solutions.</li>
+</ul>
+</section>
+<section id="avantages" class="level3">
+<h3 class="anchored" data-anchor-id="avantages">Avantages</h3>
+<ul>
+<li><strong>Robuste</strong> : Tolère perte d’agents/erreurs.</li>
+<li><strong>Parallélisable</strong> : Fourmis indépendantes.</li>
+<li><strong>Flexible</strong> : Adaptable à divers problèmes.</li>
+<li><strong>Équilibré</strong> : Gère naturellement exploration/exploitation.</li>
+</ul>
+</section>
+<section id="limites" class="level3">
+<h3 class="anchored" data-anchor-id="limites">Limites</h3>
+<ul>
+<li><strong>Nombreux paramètres</strong> à régler.</li>
+<li><strong>Convergence lente</strong> sur grands problèmes.</li>
+<li><strong>Performance</strong> dépend fortement de l’heuristique choisie.</li>
+<li><strong>Stagnation</strong> possible (tous les agents suivent même chemin).</li>
+</ul>
+</section>
+<section id="variantes-principales" class="level3">
+<h3 class="anchored" data-anchor-id="variantes-principales">Variantes Principales</h3>
+<ol type="1">
+<li><strong>Ant System (AS)</strong> : Version originale.</li>
+<li><strong>Ant Colony System (ACS)</strong> : Avec règle pseudo-aléatoire et mise à jour élitiste.</li>
+<li><strong>MAX-MIN Ant System</strong> : Bornes sur les phéromones pour éviter stagnation.</li>
+</ol>
+</section>
+<section id="domaines-dapplication" class="level3">
+<h3 class="anchored">Domaines d’Application</h3>
+<ul>
+<li>Routage réseaux</li>
+<li>Ordonnancement</li>
+<li>Classification données</li>
+<li>Apprentissage automatique</li>
+<li>Robotique en essaim</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>ACO
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="algorithme-4" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-4">Algorithme</h2>
+<p><strong>AS (Ant System) :</strong></p>
+<ol type="1">
+<li>Initialiser les phéromones</li>
+<li>Chaque fourmi construit une solution via choix probabilistes basés sur phéromones <span class="math inline">\(\tau\)</span> et heuristique <span class="math inline">\(\eta\)</span></li>
+<li>Évaluer les solutions</li>
+<li>Évaporer les phéromones : <span class="math inline">\(\tau \leftarrow (1-\rho)\tau\)</span></li>
+<li>Déposer des phéromones sur les bonnes solutions</li>
+<li>Répéter 2-5</li>
+</ol>
+<p><strong>ACS (Ant Colony System) différences :</strong></p>
+<ul>
+<li>Règle de décision : avec proba <span class="math inline">\(q_0\)</span>, choix déterministe (max <span class="math inline">\([\tau][\eta]^\beta\)</span>) ; sinon règle AS</li>
+<li>Mise à jour locale immédiate de l’évaporation après chaque choix</li>
+<li>Seule la meilleure fourmi globale dépose des phéromones</li>
+</ul>
+</section>
+<section id="formules-1" class="level2">
+<h2 class="anchored" data-anchor-id="formules-1">Formules</h2>
+<p><strong>Règle de décision AS :</strong> <span class="math display">\[
+p_{ij} = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum [\tau_{il}]^\alpha [\eta_{il}]^\beta}
+\]</span></p>
+<p><strong>Mise à jour phéromones AS :</strong> <span class="math display">\[
+\tau_{ij} \leftarrow (1-\rho)\tau_{ij} + \sum_{k} \Delta\tau_{ij}^k
+\]</span> avec <span class="math inline">\(\Delta\tau_{ij}^k = Q/L_k\)</span> si arête dans solution <span class="math inline">\(k\)</span></p>
+</section>
+<section id="caractéristiques-4" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-4">Caractéristiques</h2>
+<p><strong>Espace recherche :</strong> Combinatoire, construction incrémentale</p>
+<p><strong>Convergence :</strong> Asymptotique, risque de stagnation, équilibre exploration/exploitation critique</p>
+<p><strong>Paramètres guidés :</strong></p>
+<ul>
+<li>AS : <span class="math inline">\(\alpha\)</span> (phéromone), <span class="math inline">\(\beta\)</span> (heuristique), <span class="math inline">\(\rho\)</span> (évaporation), <span class="math inline">\(m\)</span> (#fourmis), <span class="math inline">\(Q\)</span></li>
+<li>ACS : + <span class="math inline">\(q_0\)</span> (seuil déterministe), <span class="math inline">\(\phi\)</span> (évaporation locale)</li>
+</ul>
+<p><strong>Valeurs typiques TSP :</strong> <span class="math inline">\(\alpha=1\)</span>, <span class="math inline">\(\beta=5\)</span>, <span class="math inline">\(\rho=0.5\)</span>, <span class="math inline">\(m=n\)</span>, <span class="math inline">\(Q=1\)</span></p>
+</section>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="particle-swarm-optimization-pso" class="level1">
+<h1>Particle Swarm Optimization (PSO)</h1>
+<section id="algorithme-5" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-5">Algorithme</h2>
+<ol type="1">
+<li><p>Initialiser un essaim de <span class="math inline">\(N\)</span> particules avec positions aléatoires <span class="math inline">\(\mathbf{x}_i(0)\)</span> et vitesses nulles <span class="math inline">\(\mathbf{v}_i(0)\)</span> dans l’espace de recherche borné <span class="math inline">\(S\)</span>.</p></li>
+<li><p>Évaluer la fitness <span class="math inline">\(f(\mathbf{x}_i(t))\)</span> pour chaque particule.</p></li>
+<li><p>Mettre à jour pour chaque particule :</p>
+<ul>
+<li>Sa meilleure position personnelle <span class="math inline">\(\mathbf{x}_i^{\text{best}}(t)\)</span></li>
+<li>La meilleure position globale <span class="math inline">\(\mathbf{B}(t)\)</span> de l’essaim</li>
+</ul></li>
+<li><p>Mettre à jour la vitesse et la position de chaque particule selon les équations de mouvement.</p></li>
+<li><p>Répéter les étapes 2-4 jusqu’à convergence ou nombre maximal d’itérations.</p></li>
+</ol>
+</section>
+<section id="formules-mathématiques-importantes" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-importantes">Formules mathématiques importantes</h2>
+<section id="mise-à-jour-de-la-vitesse" class="level3">
+<h3 class="anchored" data-anchor-id="mise-à-jour-de-la-vitesse">Mise à jour de la vitesse</h3>
+<p><span class="math display">\[
+\mathbf{v}_i(t+1) = \omega \mathbf{v}_i(t) + c_1 r_1[\mathbf{x}_i^{\text{best}}(t) - \mathbf{x}_i(t)] + c_2 r_2[\mathbf{B}(t) - \mathbf{x}_i(t)]
+\]</span></p>
+</section>
+<section id="mise-à-jour-de-la-position" class="level3">
+<h3 class="anchored" data-anchor-id="mise-à-jour-de-la-position">Mise à jour de la position</h3>
+<p><span class="math display">\[
+\mathbf{x}_i(t+1) = \mathbf{x}_i(t) + \mathbf{v}_i(t+1)
+\]</span></p>
+</section>
+<section id="meilleure-position-personnelle" class="level3">
+<h3 class="anchored" data-anchor-id="meilleure-position-personnelle">Meilleure position personnelle</h3>
+<p><span class="math display">\[
+\mathbf{x}_i^{\text{best}}(t) =
+\begin{cases}
+\mathbf{x}_i(t) &amp; \text{si } f(\mathbf{x}_i(t)) \text{ meilleure que } f(\mathbf{x}_i^{\text{best}}(t-1)) \\
+\mathbf{x}_i^{\text{best}}(t-1) &amp; \text{sinon}
+\end{cases}
+\]</span></p>
+</section>
+<section id="meilleure-position-globale" class="level3">
+<h3 class="anchored" data-anchor-id="meilleure-position-globale">Meilleure position globale</h3>
+<p><span class="math display">\[
+\mathbf{B}(t) = \arg\max_{\mathbf{x}_i^{\text{best}}(t)} f(\mathbf{x}_i^{\text{best}}(t))
+\]</span></p>
+</section>
+</section>
+<section id="caractéristiques-5" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-5">Caractéristiques</h2>
+<section id="espace-de-recherche-1" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche-1">Espace de recherche</h3>
+<ul>
+<li>Optimisation continue (<span class="math inline">\(S \subset \mathbb{R}^n\)</span>)</li>
+<li>Extensions possibles pour problèmes discrets/combinatoires via méthodes d’arrondi</li>
+</ul>
+</section>
+<section id="convergence-2" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-2">Convergence</h3>
+<ul>
+<li>Convergence rapide vers un optimum (local ou global)</li>
+<li>Caractérisée par un équilibre exploration/exploitation</li>
+</ul>
+</section>
+<section id="guided-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters">Guided parameters</h3>
+<ul>
+<li><p><strong><span class="math inline">\(\omega\)</span> (coefficient d’inertie)</strong> : Contrôle la persistance de la vitesse précédente</p>
+<ul>
+<li>Typiquement <span class="math inline">\(\omega \in [0.4, 0.9]\)</span></li>
+<li>Valeur courante : <span class="math inline">\(\omega \approx 0.9\)</span></li>
+</ul></li>
+<li><p><strong><span class="math inline">\(c_1\)</span> (coefficient cognitif)</strong> : Pondère l’attraction vers la meilleure position personnelle</p>
+<ul>
+<li>Valeur courante : <span class="math inline">\(c_1 \approx 2\)</span></li>
+</ul></li>
+<li><p><strong><span class="math inline">\(c_2\)</span> (coefficient social)</strong> : Pondère l’attraction vers la meilleure position globale</p>
+<ul>
+<li>Valeur courante : <span class="math inline">\(c_2 \approx 2\)</span></li>
+</ul></li>
+<li><p><strong><span class="math inline">\(r_1, r_2\)</span></strong> : Nombres aléatoires uniformes dans <span class="math inline">\([0,1[\)</span> pour stochasticité</p></li>
+<li><p><strong><span class="math inline">\(\mathbf{v}_{\text{max}}\)</span></strong> : Limite de vitesse pour éviter l’explosion des valeurs</p></li>
+</ul>
+</section>
+</section>
+<section id="informations-clés-2" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-2">Informations clés</h2>
+<section id="principes-fondamentaux" class="level3">
+<h3 class="anchored" data-anchor-id="principes-fondamentaux">Principes fondamentaux</h3>
+<ul>
+<li>Métaheuristique basée sur une population (essaim de particules)</li>
+<li>Inspirée du comportement collectif d’animaux sociaux (vol d’oiseaux, bancs de poissons)</li>
+<li>Chaque particule représente une solution candidate</li>
+</ul>
+</section>
+<section id="forces-agissantes" class="level3">
+<h3 class="anchored" data-anchor-id="forces-agissantes">Forces agissantes</h3>
+<ol type="1">
+<li><strong>Inertie</strong> : Persistance du mouvement précédent</li>
+<li><strong>Attraction cognitive</strong> : Vers la meilleure position personnelle (<span class="math inline">\(\mathbf{x}_i^{\text{best}}\)</span>)</li>
+<li><strong>Attraction sociale</strong> : Vers la meilleure position globale (<span class="math inline">\(\mathbf{B}\)</span>)</li>
+</ol>
+</section>
+<section id="équilibre-explorationexploitation" class="level3">
+<h3 class="anchored" data-anchor-id="équilibre-explorationexploitation">Équilibre exploration/exploitation</h3>
+<ul>
+<li><strong>Exploration</strong> : Promue par l’inertie et la stochasticité</li>
+<li><strong>Exploitation</strong> : Promue par les attractions cognitive et sociale</li>
+</ul>
+</section>
+<section id="avantages-1" class="level3">
+<h3 class="anchored" data-anchor-id="avantages-1">Avantages</h3>
+<ul>
+<li>Simplicité d’implémentation</li>
+<li>Peu de paramètres à régler</li>
+<li>Convergence rapide</li>
+<li>Adaptable à divers types de problèmes</li>
+</ul>
+</section>
+<section id="limites-1" class="level3">
+<h3 class="anchored" data-anchor-id="limites-1">Limites</h3>
+<ul>
+<li>Principalement conçu pour l’optimisation continue</li>
+<li>Risque de convergence prématurée vers un optimum local</li>
+<li>Performance sensible au réglage des paramètres</li>
+</ul>
+</section>
+<section id="variantes-courantes" class="level3">
+<h3 class="anchored" data-anchor-id="variantes-courantes">Variantes courantes</h3>
+<ul>
+<li>PSO avec voisinage (social local au lieu de global)</li>
+<li>PSO avec constriction coefficient</li>
+<li>PSO pour optimisation discrète/combinatoire</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Particle Swarm Optimization (PSO)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Algorithme</strong></p>
+<ol type="1">
+<li>Initialiser essaim aléatoire</li>
+<li>Pour chaque particule, mettre à jour vitesse et position</li>
+<li>Mettre à jour meilleures positions personnelle et globale</li>
+<li>Répéter</li>
+</ol>
+<p><strong>Formules</strong> <span class="math display">\[
+\mathbf{v}_i = \omega \mathbf{v}_i + c_1 r_1 (\mathbf{x}_i^{\text{best}} - \mathbf{x}_i) + c_2 r_2 (\mathbf{B} - \mathbf{x}_i)
+\]</span> <span class="math display">\[
+\mathbf{x}_i = \mathbf{x}_i + \mathbf{v}_i
+\]</span></p>
+<p><strong>Caractéristiques</strong></p>
+<ul>
+<li>Espace : Continu (extensions discrètes)</li>
+<li>Convergence : Rapide</li>
+<li>Guided parameters : ω, c₁, c₂</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="firefly-algorithm" class="level1">
+<h1>Firefly Algorithm</h1>
+<section id="algorithme-6" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-6">Algorithme</h2>
+<ol type="1">
+<li><p>Initialiser une population de <span class="math inline">\(n\)</span> lucioles avec positions aléatoires <span class="math inline">\(\mathbf{x}_i\)</span>.</p></li>
+<li><p>Calculer l’intensité lumineuse <span class="math inline">\(I_i = f(\mathbf{x}_i)\)</span> pour chaque luciole.</p></li>
+<li><p>Pour chaque paire de lucioles <span class="math inline">\((i,j)\)</span> où <span class="math inline">\(I_i &lt; I_j\)</span> :</p>
+<ul>
+<li>Déplacer la luciole <span class="math inline">\(i\)</span> vers <span class="math inline">\(j\)</span> selon la règle de déplacement.</li>
+<li>Mettre à jour l’intensité de <span class="math inline">\(i\)</span>.</li>
+</ul></li>
+<li><p>Trier les lucioles et mettre à jour la meilleure solution globale.</p></li>
+<li><p>Répéter jusqu’à convergence.</p></li>
+</ol>
+</section>
+<section id="formules-mathématiques-importantes-1" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-importantes-1">Formules mathématiques importantes</h2>
+<section id="attractivité-entre-lucioles" class="level3">
+<h3 class="anchored" data-anchor-id="attractivité-entre-lucioles">Attractivité entre lucioles</h3>
+<p><span class="math display">\[
+\beta(r_{ij}) = \beta_0 \exp(-\gamma r_{ij}^2)
+\]</span></p>
+</section>
+<section id="règle-de-déplacement" class="level3">
+<h3 class="anchored" data-anchor-id="règle-de-déplacement">Règle de déplacement</h3>
+<p><span class="math display">\[
+\mathbf{x}_i^{\text{new}} = \mathbf{x}_i + \beta_0 \exp(-\gamma r_{ij}^2)(\mathbf{x}_j - \mathbf{x}_i) + \alpha \boldsymbol{\epsilon}
+\]</span></p>
+</section>
+</section>
+<section id="caractéristiques-6" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-6">Caractéristiques</h2>
+<section id="espace-de-recherche-2" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche-2">Espace de recherche</h3>
+<ul>
+<li>Optimisation continue principalement</li>
+<li>Versions discrètes existent</li>
+</ul>
+</section>
+<section id="convergence-3" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-3">Convergence</h3>
+<ul>
+<li>Convergence progressive vers les régions prometteuses</li>
+<li>Bon équilibre exploration/exploitation via <span class="math inline">\(\gamma\)</span></li>
+</ul>
+</section>
+<section id="guided-parameters-1" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-1">Guided parameters</h3>
+<ul>
+<li><strong><span class="math inline">\(\beta_0\)</span></strong> : Attractivité de base (typiquement 1)</li>
+<li><strong><span class="math inline">\(\gamma\)</span></strong> : Coefficient d’absorption lumineuse
+<ul>
+<li>Petit <span class="math inline">\(\gamma\)</span> → exploration accrue</li>
+<li>Grand <span class="math inline">\(\gamma\)</span> → exploitation accrue</li>
+</ul></li>
+<li><strong><span class="math inline">\(\alpha\)</span></strong> : Paramètre de randomisation (typiquement <span class="math inline">\(\in [0,1]\)</span>)</li>
+<li><strong><span class="math inline">\(\boldsymbol{\epsilon}\)</span></strong> : Bruit aléatoire (distribution uniforme, normale ou Lévy)</li>
+</ul>
+</section>
+</section>
+<section id="informations-clés-3" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-3">Informations clés</h2>
+<ul>
+<li>Inspiré du comportement de bioluminescence des lucioles</li>
+<li>Chaque luciole représente une solution candidate</li>
+<li>L’intensité lumineuse correspond à la qualité de la solution</li>
+<li>Les lucioles moins brillantes sont attirées par les plus brillantes</li>
+<li>L’attractivité diminue exponentiellement avec la distance</li>
+<li>Deux composantes de déplacement : attraction déterministe + bruit aléatoire</li>
+<li>Adaptable à divers problèmes d’optimisation difficile</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="cuckoo-search" class="level1">
+<h1>Cuckoo Search</h1>
+<section id="algorithme-7" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-7">Algorithme</h2>
+<ol type="1">
+<li><p>Initialiser <span class="math inline">\(n\)</span> nids avec solutions aléatoires <span class="math inline">\(\mathbf{x}_i\)</span>.</p></li>
+<li><p>Générer une nouvelle solution par vol de Lévy.</p></li>
+<li><p>Choisir un nid <span class="math inline">\(j\)</span> aléatoirement.</p></li>
+<li><p>Si la nouvelle solution est meilleure, remplacer la solution du nid <span class="math inline">\(j\)</span>.</p></li>
+<li><p>Abandonner une fraction <span class="math inline">\(p_a\)</span> des pires nids, créer de nouveaux nids aléatoirement.</p></li>
+<li><p>Garder la meilleure solution.</p></li>
+<li><p>Répéter jusqu’à convergence.</p></li>
+</ol>
+</section>
+<section id="formules-mathématiques-importantes-2" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-importantes-2">Formules mathématiques importantes</h2>
+<section id="génération-par-vol-de-lévy" class="level3">
+<h3 class="anchored" data-anchor-id="génération-par-vol-de-lévy">Génération par vol de Lévy</h3>
+<p><span class="math display">\[
+\mathbf{x}_i^{\text{new}} = \mathbf{x}_i + \alpha \oplus \text{Lévy}(\lambda)
+\]</span></p>
+</section>
+</section>
+<section id="caractéristiques-7" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-7">Caractéristiques</h2>
+<section id="espace-de-recherche-3" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche-3">Espace de recherche</h3>
+<ul>
+<li>Optimisation continue</li>
+<li>Adaptable à d’autres types</li>
+</ul>
+</section>
+<section id="convergence-4" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-4">Convergence</h3>
+<ul>
+<li>Convergence généralement rapide</li>
+<li>Bonne exploration grâce aux vols de Lévy</li>
+</ul>
+</section>
+<section id="guided-parameters-2" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-2">Guided parameters</h3>
+<ul>
+<li><strong><span class="math inline">\(p_a\)</span></strong> : Probabilité d’abandon (typiquement 0.25)</li>
+<li><strong><span class="math inline">\(\alpha\)</span></strong> : Échelle du pas (généralement 1)</li>
+<li><strong><span class="math inline">\(\lambda\)</span></strong> : Paramètre d’échelle du vol de Lévy (typiquement 1.5)</li>
+</ul>
+</section>
+</section>
+<section id="informations-clés-4" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-4">Informations clés</h2>
+<ul>
+<li>Inspiré du parasitisme de couvée des coucous</li>
+<li>Combinaison de vols de Lévy (exploration) et remplacement des pires solutions (exploitation)</li>
+<li>Chaque nid contient une solution</li>
+<li>Les “œufs” représentent de nouvelles solutions candidates</li>
+<li>Mécanisme d’abandon évite les minima locaux</li>
+<li>Simple avec peu de paramètres</li>
+<li>Efficace pour problèmes multimodaux</li>
+<li>Peut être combiné avec d’autres opérateurs de recherche</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Firefly Algorithm
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Algorithme</strong></p>
+<ol type="1">
+<li>Initialiser population aléatoire</li>
+<li>Pour chaque paire (i,j), si I_i &lt; I_j, déplacer i vers j</li>
+<li>Mettre à jour intensités</li>
+<li>Répéter</li>
+</ol>
+<p><strong>Formules</strong> <span class="math display">\[
+\beta = \beta_0 \exp(-\gamma r_{ij}^2)
+\]</span> <span class="math display">\[
+\mathbf{x}_i = \mathbf{x}_i + \beta(\mathbf{x}_j - \mathbf{x}_i) + \alpha\boldsymbol{\epsilon}
+\]</span></p>
+<p><strong>Caractéristiques</strong></p>
+<ul>
+<li>Espace : Continu (extensions discrètes)</li>
+<li>Convergence : Bonne, équilibre via γ</li>
+<li>Guided parameters : β₀, γ, α</li>
+</ul>
+<hr>
+<section id="cuckoo-search-1" class="level1">
+<h1>Cuckoo Search</h1>
+<p><strong>Algorithme</strong></p>
+<ol type="1">
+<li>Initialiser n nids aléatoires</li>
+<li>Générer nouvelle solution par Lévy flight</li>
+<li>Remplacer si meilleure</li>
+<li>Abandonner fraction pₐ des pires nids</li>
+<li>Répéter</li>
+</ol>
+<p><strong>Formules</strong> <span class="math display">\[
+\mathbf{x}_i^{\text{new}} = \mathbf{x}_i + \alpha \oplus \text{Lévy}(\lambda)
+\]</span></p>
+<p><strong>Caractéristiques</strong></p>
+<ul>
+<li>Espace : Continu</li>
+<li>Convergence : Rapide, bonne exploration</li>
+<li>Guided parameters : pₐ, α, λ</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="algorithmes-évolutionnaires" class="level1">
+<h1>Algorithmes Évolutionnaires</h1>
+<section id="algorithme-8" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-8">Algorithme</h2>
+<section id="étapes-succintes" class="level3">
+<h3 class="anchored" data-anchor-id="étapes-succintes">Étapes Succintes</h3>
+<ol type="1">
+<li><strong>Initialisation</strong> : génération aléatoire d’une population de <span class="math inline">\(n\)</span> solutions candidates</li>
+<li><strong>Évaluation</strong> : calcul de la fitness pour chaque individu</li>
+<li><strong>Sélection</strong> : choix des parents basé sur leur fitness</li>
+<li><strong>Croisement</strong> : recombination des parents pour produire une descendance</li>
+<li><strong>Mutation</strong> : modification aléatoire des individus</li>
+<li><strong>Remplacement</strong> : formation de la nouvelle génération avec élitisme</li>
+<li><strong>Répétition</strong> des étapes 2-6 jusqu’à critère d’arrêt</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="formules-mathématiques-importantes-3" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-importantes-3">Formules Mathématiques Importantes</h2>
+<section id="sélection-proportionnelle-roulette-wheel" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-proportionnelle-roulette-wheel">Sélection Proportionnelle (Roulette Wheel)</h3>
+<p><span class="math display">\[
+p_i = \frac{f_i}{\sum_{j=1}^n f_j}
+\]</span> où <span class="math inline">\(p_i\)</span> = probabilité de sélection de l’individu <span class="math inline">\(i\)</span>, <span class="math inline">\(f_i\)</span> = sa fitness</p>
+</section>
+<section id="sélection-par-rang-linéaire" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-par-rang-linéaire">Sélection par Rang Linéaire</h3>
+<p><span class="math display">\[
+p_i = \frac{1}{n} \left[ \beta - 2(\beta - 1) \frac{i-1}{n-1} \right]
+\]</span> avec <span class="math inline">\(\beta \in [1,2]\)</span> contrôlant la pression de sélection, <span class="math inline">\(i\)</span> = rang après tri</p>
+</section>
+<section id="théorème-des-schémas-holland" class="level3">
+<h3 class="anchored" data-anchor-id="théorème-des-schémas-holland">Théorème des Schémas (Holland)</h3>
+<p><span class="math display">\[
+M(t+1, S) \geq \frac{M(t, S)f(S, t)}{F(t)} \left[ 1 - p_c \frac{\delta(S)}{m-1} - o(S)p_m \right]
+\]</span></p>
+<ul>
+<li><span class="math inline">\(M(t,S)\)</span> : nombre d’individus correspondant au schéma <span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(\delta(S)\)</span> : longueur définissante du schéma</li>
+<li><span class="math inline">\(o(S)\)</span> : ordre du schéma (nombre de positions fixes)</li>
+</ul>
+</section>
+<section id="temps-de-prise-de-contrôle-takeover-time" class="level3">
+<h3 class="anchored" data-anchor-id="temps-de-prise-de-contrôle-takeover-time">Temps de Prise de Contrôle (Takeover Time)</h3>
+<p><span class="math display">\[
+\tau = \frac{\ln(n-1)}{\alpha}
+\]</span> <span class="math inline">\(\tau\)</span> petit → sélection forte, <span class="math inline">\(\tau\)</span> grand → sélection faible</p>
+<hr>
+</section>
+</section>
+<section id="caractéristiques-8" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-8">Caractéristiques</h2>
+<section id="espace-de-recherche-4" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche-4">Espace de Recherche</h3>
+<ul>
+<li><strong>Adapté à</strong> : espaces discrets, continus, mixtes, permutations</li>
+<li><strong>Représentations</strong> : binaire, réelle, permutation, arborescente (GP)</li>
+<li><strong>Fonction objectif</strong> : boîte noire, pas besoin de dérivées</li>
+</ul>
+</section>
+<section id="convergence-5" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-5">Convergence</h3>
+<ul>
+<li><strong>Convergence globale</strong> : évite les minima locaux grâce à la diversité</li>
+<li><strong>Diminishing returns</strong> : amélioration rapide initiale, puis plateau</li>
+<li><strong>Probabiliste</strong> : convergence en probabilité vers l’optimum global sous conditions</li>
+</ul>
+</section>
+<section id="guided-parameters-3" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-3">Guided Parameters</h3>
+<ol type="1">
+<li><strong>Taille population (<span class="math inline">\(n\)</span>)</strong> : 20-200 (trade-off exploration/exploitation)</li>
+<li><strong>Probabilité croisement (<span class="math inline">\(p_c\)</span>)</strong> : 0.6-0.9 (recombinaison)</li>
+<li><strong>Probabilité mutation (<span class="math inline">\(p_m\)</span>)</strong> : 0.001-0.1 par gène (nouveauté)</li>
+<li><strong>Taux élitisme</strong> : 1-10% (préservation meilleurs)</li>
+<li><strong>Pression sélection (<span class="math inline">\(\beta\)</span> ou <span class="math inline">\(k\)</span>)</strong> : contrôle vitesse convergence</li>
+</ol>
+</section>
+<section id="exploration-vs-exploitation" class="level3">
+<h3 class="anchored" data-anchor-id="exploration-vs-exploitation">Exploration vs Exploitation</h3>
+<ul>
+<li><strong>Sélection</strong> → exploitation (intensification)</li>
+<li><strong>Mutation</strong> → exploration (diversification)</li>
+<li><strong>Croisement</strong> → exploration modérée</li>
+<li><strong>Équilibre critique</strong> contrôlé par <span class="math inline">\(p_c\)</span>, <span class="math inline">\(p_m\)</span>, <span class="math inline">\(n\)</span></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="informations-clés-5" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-5">Informations Clés</h2>
+<section id="variantes-principales-1" class="level3">
+<h3 class="anchored" data-anchor-id="variantes-principales-1">Variantes Principales</h3>
+<ul>
+<li><strong>Sélection</strong> : proportionnelle, par rang, tournoi (<span class="math inline">\(k=2\)</span> typique)</li>
+<li><strong>Croisement</strong> : 1-point, 2-point, uniforme, spécifique au problème</li>
+<li><strong>Mutation</strong> : bit-flip, gaussienne, swap, insertion</li>
+</ul>
+</section>
+<section id="avantages-2" class="level3">
+<h3 class="anchored" data-anchor-id="avantages-2">Avantages</h3>
+<ul>
+<li>Pas besoin d’information de gradient</li>
+<li>Robustesse aux bruits et discontinuités</li>
+<li>Exploration globale efficace</li>
+<li>Parallélisation naturelle</li>
+</ul>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<ul>
+<li>Nombreux paramètres à régler</li>
+<li>Convergence parfois lente en fin d’optimisation</li>
+<li>Coût calcul élevé pour fonctions objectif complexes</li>
+</ul>
+</section>
+<section id="bonnes-pratiques" class="level3">
+<h3 class="anchored" data-anchor-id="bonnes-pratiques">Bonnes Pratiques</h3>
+<ul>
+<li><strong>Encodage réel</strong> recommandé pour optimisation continue</li>
+<li><strong>Élitisme</strong> essentiel pour convergence monotone</li>
+<li><strong>Diversité</strong> à surveiller pour éviter convergence prématurée</li>
+<li><strong>Paramètres adaptatifs</strong> possibles pour améliorer performances</li>
+</ul>
+</section>
+<section id="applications-typiques" class="level3">
+<h3 class="anchored">Applications Typiques</h3>
+<ul>
+<li>Optimisation combinatoire (TSP, emploi du temps)</li>
+<li>Optimisation continue (ingénierie, calibration)</li>
+<li>Apprentissage automatique (réglage hyperparamètres)</li>
+<li>Conception (aérodynamique, circuits)</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Algorithmes Évolutionnaires
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="algorithme-9" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-9">Algorithme</h2>
+<ol type="1">
+<li>Initialiser population aléatoire</li>
+<li>Évaluer fitness de chaque individu</li>
+<li>Sélectionner les parents (par roulette, rang ou tournoi)</li>
+<li>Appliquer croisement avec probabilité <span class="math inline">\(p_c\)</span></li>
+<li>Appliquer mutation avec probabilité <span class="math inline">\(p_m\)</span></li>
+<li>Former nouvelle génération avec élitisme</li>
+<li>Répéter 2-6 jusqu’à critère d’arrêt</li>
+</ol>
+<hr>
+</section>
+<section id="formules-mathématiques" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques">Formules Mathématiques</h2>
+<section id="sélection-proportionnelle" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-proportionnelle">Sélection proportionnelle</h3>
+<p><span class="math display">\[
+p_i = \frac{f_i}{\sum_{j=1}^n f_j}
+\]</span></p>
+</section>
+<section id="théorème-des-schémas" class="level3">
+<h3 class="anchored" data-anchor-id="théorème-des-schémas">Théorème des schémas</h3>
+<p><span class="math display">\[
+M(t+1,S) \geq \frac{M(t,S)f(S,t)}{F(t)}\left[1 - p_c\frac{\delta(S)}{m-1} - o(S)p_m\right]
+\]</span></p>
+</section>
+<section id="sélection-par-rang-linéaire-1" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-par-rang-linéaire-1">Sélection par rang linéaire</h3>
+<p><span class="math display">\[
+p_i = \frac{1}{n}\left[\beta - 2(\beta-1)\frac{i-1}{n-1}\right]
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="caractéristiques-9" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-9">Caractéristiques</h2>
+<section id="espace-de-recherche-5" class="level3">
+<h3 class="anchored" data-anchor-id="espace-de-recherche-5">Espace de recherche</h3>
+<ul>
+<li>Discret, continu, permutations</li>
+<li>Encodage : binaire, réel, permutation</li>
+<li>Fonction boîte noire (pas de gradient)</li>
+</ul>
+</section>
+<section id="convergence-6" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-6">Convergence</h3>
+<ul>
+<li>Convergence globale (évite minima locaux)</li>
+<li>Diminishing returns (plateau en fin)</li>
+<li>Probabiliste</li>
+</ul>
+</section>
+<section id="guided-parameters-4" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-4">Guided Parameters</h3>
+<ul>
+<li><span class="math inline">\(n\)</span> : taille population (20-200)</li>
+<li><span class="math inline">\(p_c\)</span> : probabilité croisement (0.6-0.9)</li>
+<li><span class="math inline">\(p_m\)</span> : probabilité mutation (0.001-0.1)</li>
+<li>Élitisme : 1-10%</li>
+<li>Pression sélection (<span class="math inline">\(\beta\)</span> ou <span class="math inline">\(k\)</span> tournoi)</li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="programmation-génétique-gp" class="level1">
+<h1>Programmation Génétique (GP)</h1>
+<section id="algorithme-10" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-10">Algorithme</h2>
+<ol type="1">
+<li><p><strong>Initialisation</strong> : Générer une population initiale de programmes aléatoires à partir des ensembles de fonctions <span class="math inline">\(F\)</span> et de terminaux <span class="math inline">\(T\)</span></p></li>
+<li><p><strong>Évaluation</strong> : Calculer la fitness de chaque programme selon une métrique définie (ex: erreur quadratique)</p></li>
+<li><p><strong>Sélection</strong> : Choisir les programmes les plus performants pour la reproduction</p></li>
+<li><p><strong>Recombinaison</strong> : Appliquer les opérateurs génétiques :</p>
+<ul>
+<li><strong>Crossover</strong> : Échanger des sous-arbres entre deux programmes parents</li>
+<li><strong>Mutation</strong> : Remplacer un sous-arbre aléatoire par un nouveau</li>
+</ul></li>
+<li><p><strong>Remplacement</strong> : Former une nouvelle génération à partir des descendants et/ou des parents</p></li>
+<li><p><strong>Terminaison</strong> : Répéter jusqu’à satisfaction d’un critère (fitness, générations, stagnation)</p></li>
+</ol>
+</section>
+<section id="formules-mathématiques-1" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-1">Formules Mathématiques</h2>
+<p><strong>Fitness pour régression symbolique</strong> :</p>
+<p><span class="math display">\[
+f(p) = \sum_{i=1}^{k} |y_i - p(x_i)|
+\]</span></p>
+<p>où <span class="math inline">\(p\)</span> est le programme, <span class="math inline">\((x_i, y_i)\)</span> sont les données d’entraînement.</p>
+<p><strong>Représentation arborescente</strong> :</p>
+<p>Un programme <span class="math inline">\(p\)</span> représenté comme arbre, où :</p>
+<ul>
+<li>Nœuds internes : fonctions de <span class="math inline">\(F\)</span></li>
+<li>Feuilles : terminaux de <span class="math inline">\(T\)</span></li>
+</ul>
+</section>
+<section id="caractéristiques-10" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-10">Caractéristiques</h2>
+<p><strong>Espace de recherche</strong> :</p>
+<ul>
+<li>Toutes les compositions possibles de <span class="math inline">\(F\)</span> et <span class="math inline">\(T\)</span></li>
+<li>Potentiellement infini et de dimension variable</li>
+<li>Contraint par la propriété de clôture</li>
+</ul>
+<p><strong>Convergence</strong> :</p>
+<ul>
+<li>Convergence probable vers des solutions sous-optimales</li>
+<li>Sensible au surapprentissage (overfitting)</li>
+<li>Nécessité de limiter la complexité (contrôle du “bloat”)</li>
+</ul>
+<p><strong>Guided Parameters</strong> :</p>
+<ul>
+<li><strong>Fonction set (<span class="math inline">\(F\)</span>)</strong> : Opérateurs autorisés (+, -, ×, ÷, fonctions booléennes, etc.)</li>
+<li><strong>Terminal set (<span class="math inline">\(T\)</span>)</strong> : Variables et constantes</li>
+<li><strong>Taille population</strong> : 50-1000 individus</li>
+<li><strong>Probabilité crossover</strong> : 80-95%</li>
+<li><strong>Probabilité mutation</strong> : 5-20%</li>
+<li><strong>Méthode sélection</strong> : Tournoi, roulette, rang</li>
+<li><strong>Limite profondeur</strong> : 5-20 niveaux</li>
+<li><strong>Critère arrêt</strong> : Générations (50-500) ou fitness cible</li>
+</ul>
+</section>
+<section id="informations-clés-6" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-6">Informations Clés</h2>
+<p><strong>Avantages</strong> :</p>
+<ul>
+<li>Pas de forme fonctionnelle pré-définie</li>
+<li>Solutions interprétables (formules explicites)</li>
+<li>Construction automatique de caractéristiques</li>
+<li>Exploration non-linéaire naturelle</li>
+</ul>
+<p><strong>Défis</strong> :</p>
+<ul>
+<li>Complexité computationnelle élevée</li>
+<li>Contrôle de la taille (bloat problem)</li>
+<li>Risque de surapprentissage</li>
+<li>Difficulté avec grands jeux de données</li>
+</ul>
+<p><strong>Applications typiques</strong> :</p>
+<ul>
+<li>Régression symbolique</li>
+<li>Classification</li>
+<li>Modélisation de comportements (robotique)</li>
+<li>Découverte de lois scientifiques</li>
+</ul>
+<p><strong>Variantes</strong> :</p>
+<ul>
+<li><strong>GP arborescent</strong> : Représentation en arbre, opérateurs sur sous-arbres</li>
+<li><strong>GP linéaire</strong> : Programmes séquentiels, stack-based</li>
+<li><strong>Grammatical Evolution</strong> : Génération via grammaire formelle</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Genetic Programming (GP)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="algorithme-11" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-11">Algorithme</h2>
+<ol type="1">
+<li><strong>Initialiser</strong> population de programmes aléatoires via <span class="math inline">\(F\)</span> et <span class="math inline">\(T\)</span></li>
+<li><strong>Évaluer</strong> chaque programme avec fonction fitness (ex: erreur absolue)</li>
+<li><strong>Sélectionner</strong> meilleurs individus (tournoi/roulette)</li>
+<li><strong>Appliquer</strong> opérateurs :
+<ul>
+<li>Crossover : échanger sous-arbres entre parents</li>
+<li>Mutation : remplacer sous-arbre aléatoire</li>
+</ul></li>
+<li><strong>Remplacer</strong> ancienne génération</li>
+<li><strong>Répéter</strong> 2-5 jusqu’à critère d’arrêt</li>
+</ol>
+</section>
+<section id="formules-2" class="level2">
+<h2 class="anchored" data-anchor-id="formules-2">Formules</h2>
+<p><strong>Fitness régression</strong> :</p>
+<p><span class="math display">\[f(p) = \sum_{i=1}^{k} |y_i - p(x_i)|\]</span></p>
+</section>
+<section id="caractéristiques-11" class="level2">
+<h2 class="anchored" data-anchor-id="caractéristiques-11">Caractéristiques</h2>
+<p><strong>Espace</strong> : Composition infinie de <span class="math inline">\(F\)</span> et <span class="math inline">\(T\)</span> (arbres variables)</p>
+<p><strong>Convergence</strong> : Vers optimum local, sensible au surapprentissage et bloat</p>
+<p><strong>Paramètres</strong> :</p>
+<ul>
+<li><span class="math inline">\(F\)</span> (fonctions), <span class="math inline">\(T\)</span> (terminaux)</li>
+<li>Taille population (50-1000)</li>
+<li>Probabilités crossover (0.8-0.95) et mutation (0.05-0.2)</li>
+<li>Méthode sélection (tournoi)</li>
+<li>Limite profondeur (5-20)</li>
+<li>Critère arrêt (générations/stagnation)</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="performance-of-metaheuristics" class="level1">
+<h1>Performance of Metaheuristics</h1>
+<section id="challenges" class="level2">
+<h2 class="anchored" data-anchor-id="challenges">Challenges</h2>
+<ul>
+<li><strong>Stochasticité et Variance</strong> : Les exécutions multiples donnent des résultats différents.</li>
+<li><strong>Absence de Métrique Universelle</strong> : Pas d’indicateur unique pour mesurer la performance.</li>
+<li><strong>Dépendance aux Paramètres</strong> : La performance est sensible aux <em>guided parameters</em>.</li>
+<li><strong>Dépendance au Problème</strong> : Une méthode performante sur un problème peut être inefficace sur un autre.</li>
+<li><strong>Théorème “No Free Lunch” (NFL)</strong> : Aucun algorithme n’est supérieur à un autre sur l’ensemble de tous les problèmes.</li>
+</ul>
+</section>
+<section id="key-mathematical-formulas" class="level2">
+<h2 class="anchored" data-anchor-id="key-mathematical-formulas">Key Mathematical Formulas</h2>
+<section id="mesure-de-leffort-de-calcul-proxy" class="level3">
+<h3 class="anchored" data-anchor-id="mesure-de-leffort-de-calcul-proxy">1. Mesure de l’Effort de Calcul (Proxy)</h3>
+<p>Pour un problème de taille <span class="math inline">\(N\)</span>, l’effort <span class="math inline">\(T\)</span> (ex: nombre d’évaluations) peut suivre une loi de puissance : <span class="math display">\[T(N) = C \times N^{\alpha}\]</span> où <span class="math inline">\(C\)</span> et <span class="math inline">\(\alpha\)</span> sont des constantes dépendant de l’algorithme et du problème.</p>
+</section>
+<section id="taux-de-succès-probability-of-success" class="level3">
+<h3 class="anchored" data-anchor-id="taux-de-succès-probability-of-success">2. Taux de Succès (Probability of Success)</h3>
+<p>Probabilité de trouver une solution dans une marge d’erreur <span class="math inline">\(\epsilon\)</span> sur $ $ runs : <span class="math display">\[P_{\epsilon} = \frac{\text{Nombre de solutions avec erreur} \leq \epsilon}{\mathcal{N}}\]</span></p>
+</section>
+<section id="théorème-no-free-lunch-formulation" class="level3">
+<h3 class="anchored" data-anchor-id="théorème-no-free-lunch-formulation">3. Théorème “No Free Lunch” (Formulation)</h3>
+<p>Pour deux algorithmes <span class="math inline">\(A_1\)</span> et <span class="math inline">\(A_2\)</span>, sur l’ensemble <span class="math inline">\(F\)</span> de toutes les fonctions discrètes possibles : <span class="math display">\[\sum_{f \in F} P(d_m | f, m, A_1) = \sum_{f \in F} P(d_m | f, m, A_2)\]</span> où <span class="math inline">\(P(d_m | f, m, A)\)</span> est la probabilité que la séquence de <span class="math inline">\(m\)</span> échantillons <span class="math inline">\(d_m\)</span> générée par <span class="math inline">\(A\)</span> contienne l’optimum de <span class="math inline">\(f\)</span>.</p>
+</section>
+</section>
+<section id="performance-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="performance-evaluation">Performance Evaluation</h2>
+<section id="métriques-principales" class="level3">
+<h3 class="anchored" data-anchor-id="métriques-principales">Métriques Principales</h3>
+<ul>
+<li><strong>Effort de Calcul</strong> : Temps machine ou nombre d’évaluations de la fonction objectif.</li>
+<li><strong>Qualité de la Solution</strong> : Erreur relative moyenne ou taux de succès <span class="math inline">\(P_{\epsilon}\)</span>.</li>
+<li><strong>Évolutivité (Scalability)</strong> : Croissance de l’effort en fonction de la taille du problème <span class="math inline">\(N\)</span>.</li>
+</ul>
+</section>
+<section id="protocole-expérimental" class="level3">
+<h3 class="anchored" data-anchor-id="protocole-expérimental">Protocole Expérimental</h3>
+<ul>
+<li>Les résultats doivent être <strong>moyennés</strong> sur de nombreux runs (typiquement <span class="math inline">\(\mathcal{N} \in [100, 1000]\)</span>).</li>
+<li>Les comparaisons doivent utiliser des <strong>tests statistiques</strong> (ex: Kolmogorov-Smirnov) pour valider la significativité.</li>
+<li>Les <em>benchmarks</em> sont essentiels (problèmes réels ou synthétiques comme les <span class="math inline">\(NK\)</span>-landscapes).</li>
+</ul>
+</section>
+</section>
+<section id="informations-clés-7" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-7">Informations Clés</h2>
+<section id="nature-de-lanalyse" class="level3">
+<h3 class="anchored" data-anchor-id="nature-de-lanalyse">Nature de l’Analyse</h3>
+<p>L’analyse de performance est <strong>empirique et statistique</strong>, non théorique, en raison du caractère stochastique des métaheuristiques.</p>
+</section>
+<section id="guided-parameters-essentiels-exemples" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-essentiels-exemples">Guided Parameters Essentiels (Exemples)</h3>
+<p>Chaque métaheuristique a des paramètres critiques à régler :</p>
+<ul>
+<li><strong>Recuit Simulé</strong> : Température initiale, calendrier de refroidissement.</li>
+<li><strong>Algorithme Génétique</strong> : Taille de population, taux de croisement/mutation.</li>
+<li><strong>Optimisation par Essaims Particulaires (PSO)</strong> : Coefficients cognitif et social, poids d’inertie.</li>
+</ul>
+</section>
+<section id="conséquence-pratique-du-théorème-nfl" class="level3">
+<h3 class="anchored">Conséquence Pratique du Théorème NFL</h3>
+<p>Il n’existe pas de méthode universellement meilleure. Le choix et le réglage d’une métaheuristique doivent être <strong>adaptés à la classe de problème spécifique</strong> visée. La recherche d’une méthode “générale” est vaine.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Performance
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="challenges-1" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-1">Challenges</h2>
+<ul>
+<li>Stochasticité → résultats variables</li>
+<li>Pas de métrique universelle</li>
+<li>Dépendant des paramètres</li>
+<li>Dépendant du problème</li>
+<li>“No Free Lunch” : aucun algorithme n’est meilleur sur tous les problèmes</li>
+</ul>
+</section>
+<section id="formules-clés-1" class="level2">
+<h2 class="anchored" data-anchor-id="formules-clés-1">Formules Clés</h2>
+<p><strong>Effort de calcul</strong> :<br>
+<span class="math display">\[T(N) \propto N^{\alpha}\]</span></p>
+<p><strong>Taux de succès</strong> :<br>
+<span class="math display">\[P_{\epsilon} = \frac{\text{solutions dans } \epsilon}{\text{runs}}\]</span></p>
+<p><strong>Théorème NFL</strong> :<br>
+<span class="math display">\[\sum_{f} P(d_m | f, m, A_1) = \sum_{f} P(d_m | f, m, A_2)\]</span></p>
+</section>
+<section id="évaluation" class="level2">
+<h2 class="anchored" data-anchor-id="évaluation">Évaluation</h2>
+<p><strong>Métriques</strong> :</p>
+<ul>
+<li>Effort : temps ou évaluations</li>
+<li>Qualité : erreur relative ou <span class="math inline">\(P_{\epsilon}\)</span></li>
+<li>Évolutivité : croissance avec <span class="math inline">\(N\)</span></li>
+</ul>
+<p><strong>Protocole</strong> :</p>
+<ul>
+<li>Moyenne sur 100-1000 runs</li>
+<li>Tests statistiques pour comparaison</li>
+<li>Benchmarks réels et synthétiques</li>
+</ul>
+</section>
+<section id="informations-essentielles" class="level2">
+<h2 class="anchored" data-anchor-id="informations-essentielles">Informations Essentielles</h2>
+<ul>
+<li>Analyse empirique et statistique</li>
+<li>Paramètres critiques à régler</li>
+<li>Aucune méthode universelle</li>
+<li>Adapter l’algorithme au problème</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="transitions-de-phase-en-optimisation" class="level1">
+<h1>Transitions de phase en optimisation</h1>
+<section id="challenges-2" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-2">Challenges</h2>
+<ul>
+<li><strong>Transition abrupte</strong> de complexité : passage de linéaire à exponentiel</li>
+<li><strong>Raréfaction des solutions</strong> dans l’espace de recherche</li>
+<li><strong>Dépendance critique</strong> au paramètre de difficulté <span class="math inline">\(\alpha = M/N\)</span></li>
+<li><strong>Comportement non monotone</strong> des métaheuristiques</li>
+<li><strong>Seuils critiques</strong> différents selon l’algorithme utilisé</li>
+</ul>
+</section>
+<section id="formules-mathématiques-importantes-4" class="level2">
+<h2 class="anchored" data-anchor-id="formules-mathématiques-importantes-4">Formules mathématiques importantes</h2>
+<section id="définition-du-problème" class="level3">
+<h3 class="anchored" data-anchor-id="définition-du-problème">Définition du problème</h3>
+<ul>
+<li>Énergie : <span class="math inline">\(E = \text{nombre de contraintes non satisfaites}\)</span></li>
+<li>Paramètre de contrôle : <span class="math inline">\(\alpha = \frac{M}{N}\)</span></li>
+</ul>
+</section>
+<section id="seuils-critiques" class="level3">
+<h3 class="anchored" data-anchor-id="seuils-critiques">Seuils critiques</h3>
+<ul>
+<li><strong>2-XORSAT</strong> : <span class="math inline">\(\alpha_c = \frac{1}{2}\)</span></li>
+<li><strong>3-XORSAT</strong> :
+<ul>
+<li><span class="math inline">\(\alpha_d = 0.8184\)</span> (début du clustering)</li>
+<li><span class="math inline">\(\alpha_c = 0.9179\)</span> (transition de phase)</li>
+</ul></li>
+<li><strong>RWSAT sur 3-XORSAT</strong> : <span class="math inline">\(\alpha_E = 0.33\)</span></li>
+<li><strong>Backtracking</strong> : <span class="math inline">\(\alpha_c = \frac{2}{3}\)</span> (assignation aléatoire)</li>
+</ul>
+</section>
+<section id="complexité-algorithmique" class="level3">
+<h3 class="anchored" data-anchor-id="complexité-algorithmique">Complexité algorithmique</h3>
+<ul>
+<li>Régime linéaire : <span class="math inline">\(\langle T_{res}\rangle = N \cdot t_{res}\)</span></li>
+<li>Régime exponentiel : <span class="math inline">\(\langle T_{res}\rangle = \exp(N \cdot \tau_{res})\)</span></li>
+</ul>
+</section>
+</section>
+<section id="performance-evaluation-1" class="level2">
+<h2 class="anchored" data-anchor-id="performance-evaluation-1">Performance evaluation</h2>
+<section id="métriques-principales-1" class="level3">
+<h3 class="anchored" data-anchor-id="métriques-principales-1">Métriques principales</h3>
+<ul>
+<li><strong>Probabilité de satisfaisabilité</strong> : <span class="math inline">\(P_{SAT}(N, \alpha)\)</span></li>
+<li><strong>Temps de résolution moyen</strong> : <span class="math inline">\(\langle T_{res}\rangle\)</span></li>
+<li><strong>Énergie moyenne</strong> : <span class="math inline">\(e = E/M\)</span></li>
+<li><strong>Valeur de plateau</strong> : <span class="math inline">\(e_{\mathrm{plateau}}\)</span></li>
+</ul>
+</section>
+<section id="comportements-observés" class="level3">
+<h3 class="anchored" data-anchor-id="comportements-observés">Comportements observés</h3>
+<ul>
+<li><strong>Régime facile (<span class="math inline">\(\alpha &lt; \alpha_E\)</span>)</strong> :
+<ul>
+<li><span class="math inline">\(e_{\mathrm{plateau}} = 0\)</span></li>
+<li>Complexité linéaire en <span class="math inline">\(N\)</span></li>
+<li>Convergence rapide</li>
+</ul></li>
+<li><strong>Régime difficile (<span class="math inline">\(\alpha_E \leq \alpha &lt; \alpha_c\)</span>)</strong> :
+<ul>
+<li><span class="math inline">\(e_{\mathrm{plateau}} &gt; 0\)</span></li>
+<li>Complexité exponentielle en <span class="math inline">\(N\)</span></li>
+<li>Fluctuations autour d’un plateau</li>
+</ul></li>
+<li><strong>Régime insoluble (<span class="math inline">\(\alpha &gt; \alpha_c\)</span>)</strong> :
+<ul>
+<li><span class="math inline">\(P_{SAT} \to 0\)</span> pour <span class="math inline">\(N \to \infty\)</span></li>
+<li>Aucune solution avec haute probabilité</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="informations-clés-8" class="level2">
+<h2 class="anchored" data-anchor-id="informations-clés-8">Informations clés</h2>
+<section id="structure-de-lespace-des-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="structure-de-lespace-des-solutions">Structure de l’espace des solutions</h3>
+<ul>
+<li><strong><span class="math inline">\(\alpha &lt; \alpha_d\)</span></strong> : solutions uniformément distribuées</li>
+<li><strong><span class="math inline">\(\alpha_d \leq \alpha &lt; \alpha_c\)</span></strong> : solutions groupées en clusters</li>
+<li><strong><span class="math inline">\(\alpha &gt; \alpha_c\)</span></strong> : absence de solutions (haute probabilité)</li>
+</ul>
+</section>
+<section id="algorithmes-et-leurs-caractéristiques" class="level3">
+<h3 class="anchored" data-anchor-id="algorithmes-et-leurs-caractéristiques">Algorithmes et leurs caractéristiques</h3>
+<section id="gauss-elimination" class="level4">
+<h4 class="anchored" data-anchor-id="gauss-elimination">Gauss elimination</h4>
+<ul>
+<li>Complexité : <span class="math inline">\(\mathcal{O}(N^3)\)</span> pour XORSAT</li>
+<li>Toujours polynomial pour XORSAT</li>
+</ul>
+</section>
+<section id="rwsat-random-walk-sat" class="level4">
+<h4 class="anchored" data-anchor-id="rwsat-random-walk-sat">RWSAT (Random Walk SAT)</h4>
+<ul>
+<li>Heuristique locale</li>
+<li>Transition à <span class="math inline">\(\alpha_E = 0.33\)</span> pour 3-XORSAT</li>
+<li>Sensible à l’initialisation aléatoire</li>
+</ul>
+</section>
+<section id="backtracking" class="level4">
+<h4 class="anchored" data-anchor-id="backtracking">Backtracking</h4>
+<ul>
+<li>Exploration systématique en profondeur</li>
+<li>Transition à <span class="math inline">\(\alpha_c = 2/3\)</span> (version aléatoire)</li>
+<li>Meilleure avec heuristique de choix de variable (<span class="math inline">\(\alpha_c = 0.7507\)</span>)</li>
+</ul>
+</section>
+</section>
+<section id="implications-pratiques" class="level3">
+<h3 class="anchored" data-anchor-id="implications-pratiques">Implications pratiques</h3>
+<ol type="1">
+<li><strong>Identification du régime</strong> : déterminer si <span class="math inline">\(\alpha\)</span> est inférieur ou supérieur au seuil critique</li>
+<li><strong>Choix d’algorithme</strong> : adapter la méthode au régime de difficulté</li>
+<li><strong>Dimensionnement</strong> : relation entre <span class="math inline">\(N\)</span>, <span class="math inline">\(M\)</span> et la difficulté attendue</li>
+<li><strong>Attentes de performance</strong> : prévoir le temps de calcul en fonction de <span class="math inline">\(\alpha\)</span></li>
+</ol>
+</section>
+<section id="guide-des-paramètres" class="level3">
+<h3 class="anchored" data-anchor-id="guide-des-paramètres">Guide des paramètres</h3>
+<ul>
+<li><strong>Contrôle principal</strong> : <span class="math inline">\(\alpha = M/N\)</span></li>
+<li><strong>Seuils à surveiller</strong> : <span class="math inline">\(\alpha_E\)</span>, <span class="math inline">\(\alpha_d\)</span>, <span class="math inline">\(\alpha_c\)</span></li>
+<li><strong>Indicateur de performance</strong> : <span class="math inline">\(e = E/M\)</span></li>
+<li><strong>Critère d’arrêt</strong> : <span class="math inline">\(E = 0\)</span> ou temps maximal</li>
+</ul>
+</section>
+<section id="recommandations" class="level3">
+<h3 class="anchored">Recommandations</h3>
+<ul>
+<li>Pour <span class="math inline">\(\alpha &lt; \alpha_E\)</span> : méthodes simples suffisent (complexité linéaire)</li>
+<li>Pour <span class="math inline">\(\alpha_E \leq \alpha &lt; \alpha_c\)</span> : prévoir des méthodes robustes (complexité exponentielle)</li>
+<li>Pour <span class="math inline">\(\alpha &gt; \alpha_c\)</span> : problème probablement insoluble, considérer la relaxation des contraintes</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Transitions de phase en optimisation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="challenges-3" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-3">Challenges</h2>
+<ul>
+<li>Complexité passe brutalement de linéaire à exponentielle</li>
+<li>Solutions deviennent rares quand <span class="math inline">\(\alpha = M/N\)</span> augmente</li>
+<li>Performances dépendent fortement du régime (<span class="math inline">\(\alpha\)</span>)</li>
+</ul>
+</section>
+<section id="formules-clés-2" class="level2">
+<h2 class="anchored" data-anchor-id="formules-clés-2">Formules clés</h2>
+<ul>
+<li>Paramètre : <span class="math inline">\(\alpha = M/N\)</span></li>
+<li>2-XORSAT : <span class="math inline">\(\alpha_c = 0.5\)</span></li>
+<li>3-XORSAT : <span class="math inline">\(\alpha_c = 0.9179\)</span></li>
+<li>RWSAT : transition à <span class="math inline">\(\alpha_E = 0.33\)</span></li>
+</ul>
+</section>
+<section id="performance-1" class="level2">
+<h2 class="anchored" data-anchor-id="performance-1">Performance</h2>
+<section id="métriques" class="level3">
+<h3 class="anchored" data-anchor-id="métriques">Métriques</h3>
+<ul>
+<li><span class="math inline">\(P_{SAT}\)</span> : probabilité de satisfaisabilité</li>
+<li><span class="math inline">\(\langle T_{res}\rangle\)</span> : temps moyen de résolution</li>
+<li><span class="math inline">\(e = E/M\)</span> : énergie normalisée</li>
+</ul>
+</section>
+<section id="régimes" class="level3">
+<h3 class="anchored" data-anchor-id="régimes">Régimes</h3>
+<ul>
+<li><strong>Linéaire</strong> (<span class="math inline">\(\alpha &lt; \alpha_E\)</span>) : <span class="math inline">\(T \sim N\)</span></li>
+<li><strong>Exponentiel</strong> (<span class="math inline">\(\alpha_E \leq \alpha &lt; \alpha_c\)</span>) : <span class="math inline">\(T \sim \exp(N)\)</span></li>
+<li><strong>Insoluble</strong> (<span class="math inline">\(\alpha &gt; \alpha_c\)</span>) : <span class="math inline">\(P_{SAT} \to 0\)</span></li>
+</ul>
+</section>
+</section>
+<section id="informations-essentielles-1" class="level2">
+<h2 class="anchored" data-anchor-id="informations-essentielles-1">Informations essentielles</h2>
+<ol type="1">
+<li><strong>Seuils critiques</strong> :
+<ul>
+<li>2-XORSAT : 0.5</li>
+<li>3-XORSAT : 0.9179</li>
+<li>RWSAT : 0.33</li>
+<li>Backtracking : 0.667</li>
+</ul></li>
+<li><strong>Structure solutions</strong> :
+<ul>
+<li><span class="math inline">\(\alpha &lt; 0.818\)</span> : solutions uniformes</li>
+<li><span class="math inline">\(\alpha \in [0.818, 0.918]\)</span> : solutions en clusters</li>
+<li><span class="math inline">\(\alpha &gt; 0.918\)</span> : aucune solution</li>
+</ul></li>
+<li><strong>Recommandations</strong> :
+<ul>
+<li>Monitorer <span class="math inline">\(\alpha\)</span></li>
+<li>Changer d’algorithme selon le régime</li>
+<li>Anticiper explosion exponentielle</li>
+</ul></li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

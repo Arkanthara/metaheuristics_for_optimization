@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch3 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch3.html">Simulated Annealing</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -303,7 +335,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch3.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Simulated Annealing</span></a>
   </div>
 </li>
@@ -351,36 +383,318 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#simulated-annealing" id="toc-simulated-annealing" class="nav-link active" data-scroll-target="#simulated-annealing">Simulated Annealing</a>
+  <ul class="collapse">
+  <li><a href="#introduction-et-motivations" id="toc-introduction-et-motivations" class="nav-link" data-scroll-target="#introduction-et-motivations">Introduction et motivations</a>
+  <ul class="collapse">
+  <li><a href="#analogie-avec-le-recuit-métallurgique" id="toc-analogie-avec-le-recuit-métallurgique" class="nav-link" data-scroll-target="#analogie-avec-le-recuit-métallurgique">Analogie avec le recuit métallurgique</a></li>
+  <li><a href="#intuition-du-fonctionnement" id="toc-intuition-du-fonctionnement" class="nav-link" data-scroll-target="#intuition-du-fonctionnement">Intuition du fonctionnement</a></li>
+  </ul></li>
+  <li><a href="#principes-de-lalgorithme" id="toc-principes-de-lalgorithme" class="nav-link" data-scroll-target="#principes-de-lalgorithme">Principes de l’algorithme</a>
+  <ul class="collapse">
+  <li><a href="#éléments-clés" id="toc-éléments-clés" class="nav-link" data-scroll-target="#éléments-clés">Éléments clés</a></li>
+  <li><a href="#règle-de-metropolis" id="toc-règle-de-metropolis" class="nav-link" data-scroll-target="#règle-de-metropolis">Règle de Metropolis</a></li>
+  <li><a href="#diagramme-de-flux-simplifié" id="toc-diagramme-de-flux-simplifié" class="nav-link" data-scroll-target="#diagramme-de-flux-simplifié">Diagramme de flux simplifié</a></li>
+  </ul></li>
+  <li><a href="#choix-des-paramètres-guidés-guiding-parameters" id="toc-choix-des-paramètres-guidés-guiding-parameters" class="nav-link" data-scroll-target="#choix-des-paramètres-guidés-guiding-parameters">Choix des paramètres guidés (Guiding Parameters)</a>
+  <ul class="collapse">
+  <li><a href="#température-initiale-t_0" id="toc-température-initiale-t_0" class="nav-link" data-scroll-target="#température-initiale-t_0">Température initiale <span class="math inline">\(T_0\)</span></a></li>
+  <li><a href="#planning-de-refroidissement-cooling-schedule" id="toc-planning-de-refroidissement-cooling-schedule" class="nav-link" data-scroll-target="#planning-de-refroidissement-cooling-schedule">Planning de refroidissement (Cooling Schedule)</a></li>
+  <li><a href="#critère-darrêt" id="toc-critère-darrêt" class="nav-link" data-scroll-target="#critère-darrêt">Critère d’arrêt</a></li>
+  <li><a href="#choix-des-mouvements-élémentaires" id="toc-choix-des-mouvements-élémentaires" class="nav-link" data-scroll-target="#choix-des-mouvements-élémentaires">Choix des mouvements élémentaires</a></li>
+  </ul></li>
+  <li><a href="#exemples-synthétiques" id="toc-exemples-synthétiques" class="nav-link" data-scroll-target="#exemples-synthétiques">Exemples synthétiques</a>
+  <ul class="collapse">
+  <li><a href="#exemple-1-paysage-multimodal" id="toc-exemple-1-paysage-multimodal" class="nav-link" data-scroll-target="#exemple-1-paysage-multimodal">Exemple 1 : Paysage multimodal</a></li>
+  <li><a href="#exemple-2-problème-du-voyageur-de-commerce-tsp" id="toc-exemple-2-problème-du-voyageur-de-commerce-tsp" class="nav-link" data-scroll-target="#exemple-2-problème-du-voyageur-de-commerce-tsp">Exemple 2 : Problème du Voyageur de Commerce (TSP)</a></li>
+  <li><a href="#exemples-dapplications-autres" id="toc-exemples-dapplications-autres" class="nav-link" data-scroll-target="#exemples-dapplications-autres">Exemples d’applications (autres)</a></li>
+  </ul></li>
+  <li><a href="#convergence" id="toc-convergence" class="nav-link" data-scroll-target="#convergence">Convergence</a>
+  <ul class="collapse">
+  <li><a href="#conditions-de-convergence" id="toc-conditions-de-convergence" class="nav-link" data-scroll-target="#conditions-de-convergence">Conditions de convergence</a></li>
+  <li><a href="#résultat-théorique" id="toc-résultat-théorique" class="nav-link" data-scroll-target="#résultat-théorique">Résultat théorique</a></li>
+  <li><a href="#illustration-numérique" id="toc-illustration-numérique" class="nav-link" data-scroll-target="#illustration-numérique">Illustration numérique</a></li>
+  </ul></li>
+  <li><a href="#guide-pratique-pour-limplémentation" id="toc-guide-pratique-pour-limplémentation" class="nav-link" data-scroll-target="#guide-pratique-pour-limplémentation">Guide pratique pour l’implémentation</a>
+  <ul class="collapse">
+  <li><a href="#codage-du-problème" id="toc-codage-du-problème" class="nav-link" data-scroll-target="#codage-du-problème">Codage du problème</a></li>
+  <li><a href="#calcul-des-variations-dénergie" id="toc-calcul-des-variations-dénergie" class="nav-link" data-scroll-target="#calcul-des-variations-dénergie">Calcul des variations d’énergie</a></li>
+  <li><a href="#validation-et-robustesse" id="toc-validation-et-robustesse" class="nav-link" data-scroll-target="#validation-et-robustesse">Validation et robustesse</a></li>
+  </ul></li>
+  <li><a href="#méthode-du-recuit-parallèle-parallel-tempering" id="toc-méthode-du-recuit-parallèle-parallel-tempering" class="nav-link" data-scroll-target="#méthode-du-recuit-parallèle-parallel-tempering">Méthode du recuit parallèle (Parallel Tempering)</a>
+  <ul class="collapse">
+  <li><a href="#origine-et-principe" id="toc-origine-et-principe" class="nav-link" data-scroll-target="#origine-et-principe">Origine et principe</a></li>
+  <li><a href="#algorithme" id="toc-algorithme" class="nav-link" data-scroll-target="#algorithme">Algorithme</a></li>
+  <li><a href="#probabilité-déchange" id="toc-probabilité-déchange" class="nav-link" data-scroll-target="#probabilité-déchange">Probabilité d’échange</a></li>
+  <li><a href="#avantages" id="toc-avantages" class="nav-link" data-scroll-target="#avantages">Avantages</a></li>
+  <li><a href="#paramètres-guidés" id="toc-paramètres-guidés" class="nav-link" data-scroll-target="#paramètres-guidés">Paramètres guidés</a></li>
+  <li><a href="#interprétation" id="toc-interprétation" class="nav-link" data-scroll-target="#interprétation">Interprétation</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch3.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch3.html">Simulated Annealing</a></li></ol></nav></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
+
+
+
+<section id="simulated-annealing" class="level1">
+<h1>Simulated Annealing</h1>
+<section id="introduction-et-motivations" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-et-motivations">Introduction et motivations</h2>
+<p>Le <strong>Recuit Simulé (Simulated Annealing, SA)</strong> est une métaheuristique introduite par Kirkpatrick et al.&nbsp;en 1983. Elle s’inspire du processus physique de recuit en métallurgie.</p>
+<section id="analogie-avec-le-recuit-métallurgique" class="level3">
+<h3 class="anchored" data-anchor-id="analogie-avec-le-recuit-métallurgique">Analogie avec le recuit métallurgique</h3>
+<p><strong>Recuit (Annealing)</strong> : Refroidissement lent d’un métal, permettant d’atteindre un état d’énergie minimale globale (structure organisée). Ce processus améliore la ductilité.</p>
+<p><strong>Trempe (Quenching)</strong> : Refroidissement rapide, conduisant à un minimum local d’énergie (structure fragile avec des régions ordonnées et désordonnées).</p>
+<p>L’idée est de transposer ce principe à l’optimisation : on explore l’espace des solutions (comme les atomes qui se déplacent à haute température) et on refroidit lentement (diminution d’un paramètre de contrôle) pour converger vers un optimum global.</p>
+</section>
+<section id="intuition-du-fonctionnement" class="level3">
+<h3 class="anchored" data-anchor-id="intuition-du-fonctionnement">Intuition du fonctionnement</h3>
+<p>Les processus naturels minimisent l’énergie d’un système. En optimisation, cette énergie est représentée par une <strong>fonction objectif (coût, fitness)</strong>.</p>
+<ul>
+<li><strong>Haute température</strong> : Le système explore largement l’espace des états (<strong>exploration</strong>).</li>
+<li><strong>Basse température</strong> : Le système exploite les zones prometteuses (<strong>exploitation</strong>).</li>
+</ul>
+<p>Le refroidissement progressif permet de passer progressivement de l’exploration à l’exploitation, évitant ainsi de rester piégé dans des minima locaux.</p>
+</section>
+</section>
+<section id="principes-de-lalgorithme" class="level2">
+<h2 class="anchored" data-anchor-id="principes-de-lalgorithme">Principes de l’algorithme</h2>
+<p>Le SA cherche le minimum d’une fonction objectif, notée <span class="math inline">\(E\)</span> (énergie). Il suit les étapes générales des métaheuristiques.</p>
+<section id="éléments-clés" class="level3">
+<h3 class="anchored" data-anchor-id="éléments-clés">Éléments clés</h3>
+<ol type="1">
+<li><strong>Solution initiale</strong> : Choisie arbitrairement dans l’espace des solutions admissibles.</li>
+<li><strong>Température initiale</strong> <span class="math inline">\(T_0\)</span> : Paramètre de contrôle initial, choisi suffisamment grand.</li>
+<li><strong>Mouvements élémentaires</strong> : Permettent de passer d’une solution courante à une solution voisine.</li>
+<li><strong>Règle d’acceptation (Metropolis)</strong> : Détermine si un mouvement est accepté, même s’il dégrade la solution (pour éviter les minima locaux).</li>
+</ol>
+</section>
+<section id="règle-de-metropolis" class="level3">
+<h3 class="anchored" data-anchor-id="règle-de-metropolis">Règle de Metropolis</h3>
+<p>La probabilité <span class="math inline">\(p\)</span> d’accepter un mouvement menant à une énergie <span class="math inline">\(E_{\text{new}}\)</span> depuis <span class="math inline">\(E_{\text{old}}\)</span> est :</p>
+<p><span class="math display">\[p = \min \left(1, e^{-(\Delta E / T)}\right)\]</span></p>
+<p>avec <span class="math inline">\(\Delta E = E_{\text{new}} - E_{\text{old}}\)</span>.</p>
+<p>En pratique, on tire un nombre aléatoire <span class="math inline">\(r\)</span> uniforme sur <span class="math inline">\([0,1]\)</span>. Le mouvement est accepté si :</p>
+<p><span class="math display">\[r &lt; e^{-(\Delta E / T)}\]</span></p>
+<p>Si <span class="math inline">\(\Delta E \leq 0\)</span> (amélioration), le mouvement est toujours accepté. Si <span class="math inline">\(\Delta E &gt; 0\)</span> (dégradation), il peut être accepté avec une probabilité qui décroît avec <span class="math inline">\(\Delta E\)</span> et avec la température <span class="math inline">\(T\)</span>.</p>
+</section>
+<section id="diagramme-de-flux-simplifié" class="level3">
+<h3 class="anchored" data-anchor-id="diagramme-de-flux-simplifié">Diagramme de flux simplifié</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Choisir solution initiale et T0] --&gt; B[Générer un voisin]
+    B --&gt; C{Calculer ΔE}
+    C --&gt; D[ΔE ≤ 0 ?]
+    D --&gt;|Oui| E[Accepter le mouvement]
+    D --&gt;|Non| F[Accepter avec probabilité exp(-ΔE/T)]
+    F --&gt; G{Mouvement accepté ?}
+    G --&gt;|Oui| E
+    G --&gt;|Non| H[Rejeter le mouvement]
+    E --&gt; I[Mettre à jour la solution]
+    H --&gt; I
+    I --&gt; J[Ajuster la température&lt;br&gt;selon le planning de refroidissement]
+    J --&gt; K{Critère d'arrêt atteint ?}
+    K --&gt;|Non| B
+    K --&gt;|Oui| L[Fin : retourner la meilleure solution]
+</pre>
 </div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="choix-des-paramètres-guidés-guiding-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="choix-des-paramètres-guidés-guiding-parameters">Choix des paramètres guidés (Guiding Parameters)</h2>
+<p>L’efficacité du SA dépend crucialement du réglage de plusieurs paramètres.</p>
+<section id="température-initiale-t_0" class="level3">
+<h3 class="anchored" data-anchor-id="température-initiale-t_0">Température initiale <span class="math inline">\(T_0\)</span></h3>
+<p>Doit être suffisamment élevée pour permettre une exploration large au début.</p>
+<p><strong>Heuristique pour choisir <span class="math inline">\(T_0\)</span></strong> :</p>
+<ul>
+<li>Effectuer 100 mouvements aléatoires à partir de la solution initiale.</li>
+<li>Calculer la moyenne des variations d’énergie <span class="math inline">\(|\Delta E|\)</span> observées.</li>
+<li>Choisir un taux d’acceptation initial <span class="math inline">\(\tau_0\)</span> pour les mouvements dégradants (typiquement 0.5 si la solution initiale est de qualité moyenne, 0.2 si elle est bonne).</li>
+<li>Résoudre <span class="math inline">\(\exp(-\langle |\Delta E| \rangle / T_0) = \tau_0\)</span> pour obtenir <span class="math inline">\(T_0\)</span>.</li>
+</ul>
+</section>
+<section id="planning-de-refroidissement-cooling-schedule" class="level3">
+<h3 class="anchored" data-anchor-id="planning-de-refroidissement-cooling-schedule">Planning de refroidissement (Cooling Schedule)</h3>
+<p>Définit comment la température <span class="math inline">\(T\)</span> est diminuée au cours du temps. Deux aspects :</p>
+<ol type="1">
+<li><strong>Quand diminuer la température ?</strong> (Équilibre thermique)</li>
+<li><strong>Comment diminuer la température ?</strong> (Loi de décroissance)</li>
+</ol>
+<section id="équilibre-thermique" class="level4">
+<h4 class="anchored" data-anchor-id="équilibre-thermique">Équilibre thermique</h4>
+<p>On diminue <span class="math inline">\(T\)</span> lorsque le système a atteint un “état d’équilibre” à la température courante. Cela est estimé par :</p>
+<ul>
+<li>Un nombre fixe de mouvements acceptés (ex. <span class="math inline">\(12N\)</span>, où <span class="math inline">\(N\)</span> est le nombre de degrés de liberté du problème).</li>
+<li>Ou un nombre total de mouvements effectués (ex. <span class="math inline">\(100N\)</span>).</li>
+</ul>
+</section>
+<section id="loi-de-décroissance" class="level4">
+<h4 class="anchored" data-anchor-id="loi-de-décroissance">Loi de décroissance</h4>
+<p>La façon la plus courante est une <strong>loi géométrique</strong> :</p>
+<p><span class="math display">\[T_{k+1} = \alpha T_k\]</span></p>
+<p>avec <span class="math inline">\(\alpha \in ]0,1[\)</span>, typiquement 0.9.</p>
+<p>La décroissance théorique garantissant la convergence est <span class="math inline">\(T(t) = C / \log(t)\)</span> pour <span class="math inline">\(t \gg 1\)</span>, mais elle est trop lente en pratique.</p>
+</section>
+</section>
+<section id="critère-darrêt" class="level3">
+<h3 class="anchored" data-anchor-id="critère-darrêt">Critère d’arrêt</h3>
+<p>Plusieurs possibilités :</p>
+<ul>
+<li>Température tombée en dessous d’un seuil <span class="math inline">\(T_{\text{min}}\)</span>.</li>
+<li>Aucune amélioration de l’énergie après un certain nombre de paliers de température consécutifs (ex. 3 paliers).</li>
+<li>Nombre maximal d’itérations atteint.</li>
+</ul>
+</section>
+<section id="choix-des-mouvements-élémentaires" class="level3">
+<h3 class="anchored" data-anchor-id="choix-des-mouvements-élémentaires">Choix des mouvements élémentaires</h3>
+<p>Les mouvements définissent le voisinage d’une solution. Ils doivent être :</p>
+<ul>
+<li><strong>Réversibles</strong> : Si on peut aller de <span class="math inline">\(A\)</span> à <span class="math inline">\(B\)</span>, on doit pouvoir aller de <span class="math inline">\(B\)</span> à <span class="math inline">\(A\)</span>.</li>
+<li><strong>Connectant</strong> : Tout état doit être accessible depuis tout autre état en un nombre fini de mouvements.</li>
+<li><strong>Efficaces</strong> : Permettre une exploration efficace de l’espace. Le calcul de <span class="math inline">\(\Delta E\)</span> doit être rapide.</li>
+</ul>
+<p>Pour le <strong>Problème du Voyageur de Commerce (TSP)</strong>, un mouvement classique est le <strong>2-opt</strong> : on supprime deux arêtes non adjacentes et on reconnecte le chemin différemment, ce qui inverse un segment du tour. C’est plus efficace qu’une simple permutation de deux villes.</p>
+</section>
+</section>
+<section id="exemples-synthétiques" class="level2">
+<h2 class="anchored" data-anchor-id="exemples-synthétiques">Exemples synthétiques</h2>
+<section id="exemple-1-paysage-multimodal" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-1-paysage-multimodal">Exemple 1 : Paysage multimodal</h3>
+<p>Illustration de l’effet de la température sur la probabilité d’accepter des mouvements dégradants. À température élevée, des sauts d’énergie importants peuvent être acceptés, permettant de sortir des bassins d’attraction locaux.</p>
+</section>
+<section id="exemple-2-problème-du-voyageur-de-commerce-tsp" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-2-problème-du-voyageur-de-commerce-tsp">Exemple 2 : Problème du Voyageur de Commerce (TSP)</h3>
+<p><strong>Idée</strong> : Trouver le tour le plus court visitant <span class="math inline">\(n\)</span> villes une fois et revenant à l’origine.</p>
+<ul>
+<li><strong>Espace des solutions</strong> : <span class="math inline">\((n-1)!/2\)</span> tours possibles (symétries exclues).</li>
+<li><strong>Mouvements</strong> : 2-opt.</li>
+<li><strong>Paramètres</strong> : <span class="math inline">\(T_0=0.1\)</span>, paliers de température après 20 mouvements acceptés, refroidissement géométrique <span class="math inline">\(T_{k+1}=0.9 T_k\)</span>.</li>
+<li><strong>Résultat</strong> : Solution optimale trouvée en moins de 5000 itérations pour 30 villes.</li>
+</ul>
+<p><strong>Remarque</strong> : Le SA est rapide mais peut ne pas garantir l’optimalité globale. Pour un TSP de 500 villes, le SA (avec une tolérance de 5% d’erreur) peut être 40 fois plus rapide que l’algorithme exact Concorde, illustrant le compromis vitesse/précision des métaheuristiques.</p>
+</section>
+<section id="exemples-dapplications-autres" class="level3">
+<h3 class="anchored" data-anchor-id="exemples-dapplications-autres">Exemples d’applications (autres)</h3>
+<ul>
+<li>Placement de composants électroniques (minimisation de l’encombrement).</li>
+<li>Minimisation de la longueur de câblage.</li>
+<li>Dessin de graphes (maximisation des distances entre nœuds tout en maintenant une distance moyenne).</li>
+</ul>
+</section>
+</section>
+<section id="convergence" class="level2">
+<h2 class="anchored" data-anchor-id="convergence">Convergence</h2>
+<p>Le SA possède des propriétés de convergence théorique sous certaines conditions.</p>
+<section id="conditions-de-convergence" class="level3">
+<h3 class="anchored" data-anchor-id="conditions-de-convergence">Conditions de convergence</h3>
+<ol type="1">
+<li>Température initiale <span class="math inline">\(T_0\)</span> suffisamment élevée.</li>
+<li>Refroidissement suffisamment lent (pas plus rapide que <span class="math inline">\(C/\log t\)</span>).</li>
+<li>Mouvements réversibles.</li>
+<li>Espace des solutions connecté (accessibilité).</li>
+</ol>
+</section>
+<section id="résultat-théorique" class="level3">
+<h3 class="anchored" data-anchor-id="résultat-théorique">Résultat théorique</h3>
+<p>Sous ces conditions, le SA converge <strong>en probabilité</strong> vers l’optimum global : après un temps suffisamment long, la probabilité de trouver la solution optimale est arbitrairement proche de 1.</p>
+<p>Cependant, ce temps peut être prohibitif en pratique, d’où l’importance d’un bon réglage des paramètres.</p>
+</section>
+<section id="illustration-numérique" class="level3">
+<h3 class="anchored" data-anchor-id="illustration-numérique">Illustration numérique</h3>
+<p>Des simulations sur un paysage d’énergie discret montrent que :</p>
+<ul>
+<li>Avec un <span class="math inline">\(T_0\)</span> trop bas, la distribution de probabilité reste dépendante de la condition initiale.</li>
+<li>Avec un refroidissement trop rapide, le système reste piégé dans un minimum local.</li>
+</ul>
+</section>
+</section>
+<section id="guide-pratique-pour-limplémentation" class="level2">
+<h2 class="anchored" data-anchor-id="guide-pratique-pour-limplémentation">Guide pratique pour l’implémentation</h2>
+<section id="codage-du-problème" class="level3">
+<h3 class="anchored" data-anchor-id="codage-du-problème">Codage du problème</h3>
+<ul>
+<li>Choisir une représentation efficace des solutions.</li>
+<li>Définir des mouvements élémentaires qui préservent l’admissibilité ou gérer les contraintes via des pénalités dans la fonction objectif.</li>
+</ul>
+</section>
+<section id="calcul-des-variations-dénergie" class="level3">
+<h3 class="anchored" data-anchor-id="calcul-des-variations-dénergie">Calcul des variations d’énergie</h3>
+<p>Le calcul de <span class="math inline">\(\Delta E\)</span> doit être rapide, idéalement en temps constant ou linéaire, pour ne pas ralentir l’algorithme.</p>
+</section>
+<section id="validation-et-robustesse" class="level3">
+<h3 class="anchored" data-anchor-id="validation-et-robustesse">Validation et robustesse</h3>
+<p>Pour vérifier la fiabilité de la solution obtenue :</p>
+<ul>
+<li>Relancer l’algorithme avec différentes conditions initiales.</li>
+<li>Relancer avec différentes graines aléatoires.</li>
+</ul>
+<p>La valeur de la fonction objectif optimale doit rester similaire, même si les solutions peuvent varier (en cas d’optima multiples).</p>
+</section>
+</section>
+<section id="méthode-du-recuit-parallèle-parallel-tempering" class="level2">
+<h2 class="anchored" data-anchor-id="méthode-du-recuit-parallèle-parallel-tempering">Méthode du recuit parallèle (Parallel Tempering)</h2>
+<section id="origine-et-principe" class="level3">
+<h3 class="anchored" data-anchor-id="origine-et-principe">Origine et principe</h3>
+<p>Cette méthode, inspirée de la simulation du repliement des protéines, vise à éviter les minima locaux en exécutant <strong>plusieurs recuits simulés en parallèle</strong> à différentes températures fixes, et en permettant des échanges de configurations entre ces recuits.</p>
+</section>
+<section id="algorithme" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme">Algorithme</h3>
+<ul>
+<li>On lance <span class="math inline">\(M\)</span> replicas du système, chacun à une température <span class="math inline">\(T_i\)</span> fixe, avec <span class="math inline">\(T_1 &lt; T_2 &lt; \dots &lt; T_M\)</span>.</li>
+<li>Chaque replica évolue indépendamment selon la règle de Metropolis.</li>
+<li>Périodiquement, on propose un échange de configurations entre deux replicas adjacents en température (<span class="math inline">\(T_i\)</span> et <span class="math inline">\(T_{i+1}\)</span>).</li>
+</ul>
+</section>
+<section id="probabilité-déchange" class="level3">
+<h3 class="anchored" data-anchor-id="probabilité-déchange">Probabilité d’échange</h3>
+<p>Soient deux replicas <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span> avec <span class="math inline">\(j = i \pm 1\)</span>, ayant des énergies <span class="math inline">\(E_i\)</span> et <span class="math inline">\(E_j\)</span>. L’échange de leurs configurations est accepté avec probabilité :</p>
+<p><span class="math display">\[p = \min\left(1, e^{-\Delta_{ij}}\right)\]</span></p>
+<p>avec</p>
+<p><span class="math display">\[\Delta_{ij} = (E_i - E_j)\left(\frac{1}{T_j} - \frac{1}{T_i}\right)\]</span></p>
+<p>Cette formule est symétrique et favorise le transfert des bonnes solutions vers les basses températures.</p>
+</section>
+<section id="avantages" class="level3">
+<h3 class="anchored" data-anchor-id="avantages">Avantages</h3>
+<ul>
+<li>Combinaison efficace de l’exploration (haute température) et de l’exploitation (basse température).</li>
+<li>Parallélisation naturelle.</li>
+<li>Réduction du risque de rester bloqué dans un minimum local.</li>
+</ul>
+</section>
+<section id="paramètres-guidés" class="level3">
+<h3 class="anchored" data-anchor-id="paramètres-guidés">Paramètres guidés</h3>
+<ul>
+<li><strong>Nombre de replicas <span class="math inline">\(M\)</span></strong> : Souvent choisi comme <span class="math inline">\(M = \sqrt{N}\)</span>, où <span class="math inline">\(N\)</span> est la taille du problème (degrés de liberté).</li>
+<li><strong>Fréquence des échanges</strong> : Après que chaque replica a atteint un équilibre local (par exemple, après un certain nombre de mouvements).</li>
+<li><strong>Séquence des températures</strong> : <span class="math inline">\(T_M\)</span> doit être assez haute pour permettre une exploration large, <span class="math inline">\(T_1\)</span> assez basse pour une exploitation fine. Les températures intermédiaires sont souvent choisies selon une progression géométrique.</li>
+</ul>
+</section>
+<section id="interprétation" class="level3">
+<h3 class="anchored" data-anchor-id="interprétation">Interprétation</h3>
+<p>Les replicas à haute température explorent largement l’espace, tandis que ceux à basse température affinent la recherche localement. Les échanges permettent à une configuration prometteuse découverte à haute température de migrer vers un replica à basse température pour y être exploitée.</p>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

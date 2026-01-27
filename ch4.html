@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch4 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch4.html">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -309,7 +341,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch4.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</span></a>
   </div>
 </li>
@@ -351,36 +383,228 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#métaheuristiques-méthode-de-la-colonie-de-fourmis-intelligence-en-essaim" id="toc-métaheuristiques-méthode-de-la-colonie-de-fourmis-intelligence-en-essaim" class="nav-link active" data-scroll-target="#métaheuristiques-méthode-de-la-colonie-de-fourmis-intelligence-en-essaim">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#concepts-fondamentaux-de-lintelligence-en-essaim" id="toc-concepts-fondamentaux-de-lintelligence-en-essaim" class="nav-link" data-scroll-target="#concepts-fondamentaux-de-lintelligence-en-essaim">Concepts Fondamentaux de l’Intelligence en Essaim</a>
+  <ul class="collapse">
+  <li><a href="#auto-organisation-et-systèmes-complexes" id="toc-auto-organisation-et-systèmes-complexes" class="nav-link" data-scroll-target="#auto-organisation-et-systèmes-complexes">Auto-organisation et Systèmes Complexes</a></li>
+  <li><a href="#robustesse-évolutivité-et-adaptabilité" id="toc-robustesse-évolutivité-et-adaptabilité" class="nav-link" data-scroll-target="#robustesse-évolutivité-et-adaptabilité">Robustesse, Évolutivité et Adaptabilité</a></li>
+  </ul></li>
+  <li><a href="#le-comportement-naturel-des-fourmis-et-la-stigmergie" id="toc-le-comportement-naturel-des-fourmis-et-la-stigmergie" class="nav-link" data-scroll-target="#le-comportement-naturel-des-fourmis-et-la-stigmergie">Le Comportement Naturel des Fourmis et la Stigmergie</a>
+  <ul class="collapse">
+  <li><a href="#le-rôle-des-phéromones" id="toc-le-rôle-des-phéromones" class="nav-link" data-scroll-target="#le-rôle-des-phéromones">Le Rôle des Phéromones</a></li>
+  <li><a href="#le-concept-de-stigmergie" id="toc-le-concept-de-stigmergie" class="nav-link" data-scroll-target="#le-concept-de-stigmergie">Le Concept de Stigmergie</a></li>
+  <li><a href="#illustration-lexpérience-du-double-pont" id="toc-illustration-lexpérience-du-double-pont" class="nav-link" data-scroll-target="#illustration-lexpérience-du-double-pont">Illustration : l’Expérience du Double Pont</a></li>
+  </ul></li>
+  <li><a href="#la-métaheuristique-doptimisation-par-colonie-de-fourmis-aco" id="toc-la-métaheuristique-doptimisation-par-colonie-de-fourmis-aco" class="nav-link" data-scroll-target="#la-métaheuristique-doptimisation-par-colonie-de-fourmis-aco">La Métaheuristique d’Optimisation par Colonie de Fourmis (ACO)</a>
+  <ul class="collapse">
+  <li><a href="#principe-de-base" id="toc-principe-de-base" class="nav-link" data-scroll-target="#principe-de-base">Principe de Base</a></li>
+  <li><a href="#lalgorithme-de-base-ant-system---as" id="toc-lalgorithme-de-base-ant-system---as" class="nav-link" data-scroll-target="#lalgorithme-de-base-ant-system---as">L’Algorithme de Base (Ant System - AS)</a></li>
+  <li><a href="#lamélioration-ant-colony-system-acs" id="toc-lamélioration-ant-colony-system-acs" class="nav-link" data-scroll-target="#lamélioration-ant-colony-system-acs">L’Amélioration : Ant Colony System (ACS)</a></li>
+  </ul></li>
+  <li><a href="#performances-et-caractéristiques" id="toc-performances-et-caractéristiques" class="nav-link" data-scroll-target="#performances-et-caractéristiques">Performances et Caractéristiques</a></li>
+  <li><a href="#synthèse-et-idées-clés" id="toc-synthèse-et-idées-clés" class="nav-link" data-scroll-target="#synthèse-et-idées-clés">Synthèse et Idées Clés</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch4.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch4.html">Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</a></li></ol></nav></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
+
+
+
+<section id="métaheuristiques-méthode-de-la-colonie-de-fourmis-intelligence-en-essaim" class="level1">
+<h1>Métaheuristiques : Méthode de la Colonie de Fourmis &amp; Intelligence en Essaim</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>L’Optimisation par Colonie de Fourmis (ACO) est une métaheuristique inspirée du comportement collectif des fourmis, introduite par Marco Dorigo en 1991. Elle appartient au champ plus large de l’<strong>Intelligence en Essaim</strong> (Swarm Intelligence), qui étudie comment des systèmes décentralisés et auto-organisés, composés d’individus aux capacités limitées, peuvent résoudre collectivement des problèmes complexes.</p>
+<p>L’idée centrale est que <strong>“le tout est plus que la somme des parties”</strong>. Cette approche s’applique à de nombreux systèmes naturels : fourmis, abeilles, termites, vols d’oiseaux, bancs de poissons, etc.</p>
+</section>
+<section id="concepts-fondamentaux-de-lintelligence-en-essaim" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-fondamentaux-de-lintelligence-en-essaim">Concepts Fondamentaux de l’Intelligence en Essaim</h2>
+<section id="auto-organisation-et-systèmes-complexes" class="level3">
+<h3 class="anchored" data-anchor-id="auto-organisation-et-systèmes-complexes">Auto-organisation et Systèmes Complexes</h3>
+<p>Les systèmes d’intelligence en essaim sont caractérisés par :</p>
+<ul>
+<li><strong>L’absence de contrôleur central</strong> : les décisions sont prises de manière décentralisée.</li>
+<li><strong>Des interactions locales</strong> : chaque agent (ex: une fourmi) agit en fonction de son environnement immédiat et de ses interactions avec ses voisins.</li>
+<li><strong>L’émergence de propriétés globales</strong> : des comportements collectifs complexes émergent de ces simples règles locales. C’est ce qu’on appelle l’<strong>auto-organisation</strong>.</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Agents simples&lt;br&gt;Capacités limitées] --&gt; B{Interactions&lt;br&gt;locales &amp; règles simples}
+    B --&gt; C[Processus collectif décentralisé]
+    C --&gt; D[Émergence de propriétés globales&lt;br&gt;Auto-organisation]
+</pre>
 </div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="robustesse-évolutivité-et-adaptabilité" class="level3">
+<h3 class="anchored" data-anchor-id="robustesse-évolutivité-et-adaptabilité">Robustesse, Évolutivité et Adaptabilité</h3>
+<ul>
+<li><strong>Robustesse</strong> : Le système continue de fonctionner efficacement malgré la perte d’agents ou des erreurs individuelles. Cette tolérance aux pannes découle de la nature distribuée et redondante de l’organisation.</li>
+<li><strong>Évolutivité (Scalability)</strong> : La performance s’adapte (généralement s’améliore) avec l’augmentation du nombre d’agents, permettant un traitement parallèle efficace.</li>
+<li><strong>Adaptabilité</strong> : Le système peut s’ajuster pour continuer à fonctionner face à de nouvelles contraintes ou à un environnement dynamique.</li>
+</ul>
+</section>
+</section>
+<section id="le-comportement-naturel-des-fourmis-et-la-stigmergie" class="level2">
+<h2 class="anchored" data-anchor-id="le-comportement-naturel-des-fourmis-et-la-stigmergie">Le Comportement Naturel des Fourmis et la Stigmergie</h2>
+<section id="le-rôle-des-phéromones" class="level3">
+<h3 class="anchored" data-anchor-id="le-rôle-des-phéromones">Le Rôle des Phéromones</h3>
+<p>Pour coordonner leurs actions collectives, comme trouver le chemin le plus court entre le nid et une source de nourriture, les fourmis utilisent un mécanisme de communication indirecte : les <strong>phéromones</strong>.</p>
+<ul>
+<li>Une fourmi dépose une trace de phéromone sur le chemin qu’elle emprunte.</li>
+<li>Les autres fourmis perçoivent la concentration de cette odeur chimique et ont une probabilité plus élevée de suivre les chemins les plus marqués (<strong>chimiotaxie</strong>).</li>
+<li>Ce processus crée une <strong>boucle de rétroaction positive</strong> : un chemin légèrement plus court sera parcouru plus vite, donc renforcé plus souvent, attirant encore plus de fourmis.</li>
+</ul>
+</section>
+<section id="le-concept-de-stigmergie" class="level3">
+<h3 class="anchored" data-anchor-id="le-concept-de-stigmergie">Le Concept de Stigmergie</h3>
+<p>Ce mécanisme est un exemple de <strong>stigmergie</strong> : une forme de coordination indirecte où l’action d’un agent modifie l’environnement, ce qui influence les actions futures des autres agents. La modification de l’environnement (la trace de phéromone) sert de mémoire collective et de guide.</p>
+<ul>
+<li><strong>Évaporation</strong> : Un élément crucial est l’évaporation lente des phéromones. Elle efface les traces devenues inutiles (chemins sous-optimaux) et empêche le système de se figer dans une solution locale.</li>
+</ul>
+</section>
+<section id="illustration-lexpérience-du-double-pont" class="level3">
+<h3 class="anchored" data-anchor-id="illustration-lexpérience-du-double-pont">Illustration : l’Expérience du Double Pont</h3>
+<p>Une expérience classique illustre ce phénomène :</p>
+<ul>
+<li>Deux chemins de longueurs différentes relient le nid à la nourriture.</li>
+<li><strong>Initialement</strong> : Les fourmis choisissent au hasard, les traces de phéromone sont équivalentes.</li>
+<li><strong>Après un court temps</strong> : Les fourmis empruntant le chemin le plus court reviennent plus vite et le renforcent davantage.</li>
+<li><strong>Finalement</strong> : Presque toutes les fourmis utilisent le chemin le plus court. La phéromone sur le chemin long s’évapore par manque de renforcement.</li>
+</ul>
+<p>Un modèle probabiliste simple décrit ce comportement. Pour la <span class="math inline">\((m+1)\)</span>-ième fourmi, la probabilité de choisir la branche du haut <span class="math inline">\(U\)</span> est :</p>
+<p><span class="math display">\[
+P_{U}(m + 1) = \frac{(U_{m} + k)^{h}}{(U_{m} + k)^{h} + (L_{m} + k)^{h}}
+\]</span></p>
+<p>Où :</p>
+<ul>
+<li><span class="math inline">\(U_m\)</span> et <span class="math inline">\(L_m\)</span> sont les nombres de fourmis ayant déjà pris les branches haute et basse.</li>
+<li><span class="math inline">\(k\)</span> et <span class="math inline">\(h\)</span> sont des paramètres.</li>
+<li><span class="math inline">\(k \approx 20\)</span> représente un “seuil” avant qu’un chemin ne devienne attractif.</li>
+<li><span class="math inline">\(h \approx 2\)</span> indique une <strong>sensibilité non-linéaire</strong> à la concentration de phéromone.</li>
+</ul>
+</section>
+</section>
+<section id="la-métaheuristique-doptimisation-par-colonie-de-fourmis-aco" class="level2">
+<h2 class="anchored" data-anchor-id="la-métaheuristique-doptimisation-par-colonie-de-fourmis-aco">La Métaheuristique d’Optimisation par Colonie de Fourmis (ACO)</h2>
+<p>De l’observation biologique, Marco Dorigo et ses collaborateurs ont formulé une métaheuristique générique pour résoudre des problèmes d’optimisation combinatoire difficiles, comme le <strong>Problème du Voyageur de Commerce (TSP)</strong>.</p>
+<section id="principe-de-base" class="level3">
+<h3 class="anchored" data-anchor-id="principe-de-base">Principe de Base</h3>
+<p>On simule un essaim de <strong>fourmis artificielles</strong> (agents) qui construisent itérativement des solutions au problème. Leur choix est guidé par :</p>
+<ol type="1">
+<li><strong>L’information heuristique</strong> (<span class="math inline">\(\eta\)</span>) : une connaissance a priori du problème (ex: l’inverse de la distance entre deux villes).</li>
+<li><strong>L’information phéromonale</strong> (<span class="math inline">\(\tau\)</span>) : une mémoire collective, mise à jour par les fourmis, qui encode la qualité des solutions trouvées dans les itérations précédentes.</li>
+</ol>
+</section>
+<section id="lalgorithme-de-base-ant-system---as" class="level3">
+<h3 class="anchored" data-anchor-id="lalgorithme-de-base-ant-system---as">L’Algorithme de Base (Ant System - AS)</h3>
+<p>Appliqué au TSP avec <span class="math inline">\(n\)</span> villes et <span class="math inline">\(m\)</span> fourmis.</p>
+<section id="initialisation" class="level4">
+<h4 class="anchored" data-anchor-id="initialisation">Initialisation</h4>
+<ul>
+<li>Chaque arête <span class="math inline">\((i, j)\)</span> reçoit une petite quantité initiale de phéromone <span class="math inline">\(\tau_{ij}(0)\)</span>.</li>
+<li>On définit la <strong>visibilité</strong> <span class="math inline">\(\eta_{ij} = 1 / d_{ij}\)</span>, où <span class="math inline">\(d_{ij}\)</span> est la distance entre les villes <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span>.</li>
+</ul>
+</section>
+<section id="construction-des-solutions" class="level4">
+<h4 class="anchored" data-anchor-id="construction-des-solutions">Construction des Solutions</h4>
+<p>À chaque itération, chaque fourmi <span class="math inline">\(k\)</span> construit un tour complet (une permutation des villes).</p>
+<p>La règle de décision est <strong>probabiliste</strong> (règle dite “random proportionnelle”) :</p>
+<p>Quand une fourmi est sur la ville <span class="math inline">\(i\)</span>, la probabilité de choisir la ville <span class="math inline">\(j\)</span> non visitée est :</p>
+<p><span class="math display">\[
+p_{ij}^k = \begin{cases}
+\frac{[\tau_{ij}]^{\alpha} \cdot [\eta_{ij}]^{\beta}}{\sum_{l \in \text{visitable}} [\tau_{il}]^{\alpha} \cdot [\eta_{il}]^{\beta}} &amp; \text{si } j \text{ est visitable} \\
+0 &amp; \text{sinon}
+\end{cases}
+\]</span></p>
+</section>
+<section id="mise-à-jour-des-phéromones" class="level4">
+<h4 class="anchored" data-anchor-id="mise-à-jour-des-phéromones">Mise à Jour des Phéromones</h4>
+<p>Une fois toutes les fourmis passées, les traces de phéromone sont mises à jour en deux étapes :</p>
+<ol type="1">
+<li><strong>Évaporation</strong> (pour éviter la stagnation) : <span class="math display">\[ \tau_{ij} \leftarrow (1 - \rho) \cdot \tau_{ij} \]</span></li>
+<li><strong>Dépôt</strong> (renforcement des bonnes solutions) : <span class="math display">\[ \tau_{ij} \leftarrow \tau_{ij} + \sum_{k=1}^{m} \Delta \tau_{ij}^k \]</span> Où <span class="math inline">\(\Delta \tau_{ij}^k\)</span> est la quantité déposée par la fourmi <span class="math inline">\(k\)</span>. Elle est souvent inversement proportionnelle à la longueur du tour <span class="math inline">\(L_k\)</span> : <span class="math display">\[ \Delta \tau_{ij}^k = \begin{cases} Q / L_k &amp; \text{si l'arête } (i,j) \text{ est dans le tour de la fourmi } k \\ 0 &amp; \text{sinon} \end{cases} \]</span></li>
+</ol>
+</section>
+<section id="paramètres-guidés-de-lant-system-as" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés-de-lant-system-as">Paramètres Guidés de l’Ant System (AS)</h4>
+<p>L’efficacité de l’algorithme dépend du réglage de ses paramètres :</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> (<strong>≥ 0</strong>) : Poids de la phéromone. Contrôle l’<strong>exploitation</strong> (intensification). Une valeur élevée fait que les fourmis suivent préférentiellement les traces fortes.</li>
+<li><span class="math inline">\(\beta\)</span> (<strong>≥ 0</strong>) : Poids de l’information heuristique (visibilité). Contrôle l’<strong>exploration</strong> (diversification). Une valeur élevée fait que les fourmis privilégient les choix localement attractifs (ex: les villes proches).</li>
+<li><span class="math inline">\(\rho\)</span> (<strong>∈ [0, 1]</strong>) : Taux d’évaporation. Contrôle l’<strong>oubli</strong>. Une valeur élevée efface rapidement les anciennes informations, favorisant l’exploration de nouvelles zones.</li>
+<li><span class="math inline">\(Q\)</span> (<strong>&gt; 0</strong>) : Constante de dépôt de phéromone. Influence l’échelle des valeurs de phéromone déposées.</li>
+<li><span class="math inline">\(m\)</span> (<strong>nombre de fourmis</strong>) : Généralement choisi égal au nombre de villes <span class="math inline">\(n\)</span>. Plus il y a de fourmis, plus l’exploration est parallélisée, mais le coût par itération augmente.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Valeurs typiques</strong> (pour le TSP) : <span class="math inline">\(\alpha = 1\)</span>, <span class="math inline">\(\beta = 5\)</span>, <span class="math inline">\(\rho = 0.5\)</span>, <span class="math inline">\(m = n\)</span>, <span class="math inline">\(Q = 1\)</span>. Ces valeurs sont un point de départ empirique.</p>
+</blockquote>
+</section>
+</section>
+<section id="lamélioration-ant-colony-system-acs" class="level3">
+<h3 class="anchored" data-anchor-id="lamélioration-ant-colony-system-acs">L’Amélioration : Ant Colony System (ACS)</h3>
+<p>Pour améliorer les performances sur des problèmes de grande taille, l’<strong>Ant Colony System</strong> introduit deux modifications clés :</p>
+<ol type="1">
+<li><strong>Règle de transition pseudo-aléatoire</strong> :
+<ul>
+<li>Avec une probabilité <span class="math inline">\(q_0\)</span>, la fourmi choisit directement l’arête la plus attractive (celle qui maximise <span class="math inline">\([\tau_{ij}] \cdot [\eta_{ij}]^\beta\)</span>). C’est une <strong>exploitation dirigée</strong>.</li>
+<li>Avec une probabilité <span class="math inline">\((1 - q_0)\)</span>, elle utilise la règle proportionnelle classique de l’AS pour <strong>explorer</strong>.</li>
+</ul></li>
+<li><strong>Mise à jour locale des phéromones</strong> : Dès qu’une fourmi utilise une arête <span class="math inline">\((i, j)\)</span>, elle en évapore immédiatement une partie, réduisant son attractivité pour les autres fourmis et favorisant ainsi la diversité des solutions construites dans la même itération.</li>
+<li><strong>Mise à jour globale</strong> : Seule la <strong>meilleure fourmi</strong> (celle ayant trouvé la meilleure solution globale ou itérative) dépose de la phéromone, concentrant ainsi le renforcement sur la meilleure solution connue.</li>
+</ol>
+<section id="paramètres-supplémentaires-de-lacs" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-supplémentaires-de-lacs">Paramètres Supplémentaires de l’ACS</h4>
+<ul>
+<li><span class="math inline">\(q_0\)</span> (<strong>∈ [0, 1]</strong>) : Paramètre de décision. Contrôle le compromis entre exploitation directe (<span class="math inline">\(q_0\)</span> élevé) et exploration probabiliste.</li>
+<li><span class="math inline">\(\phi\)</span> (<strong>∈ [0, 1]</strong>) : Taux d’évaporation locale.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="performances-et-caractéristiques" class="level2">
+<h2 class="anchored" data-anchor-id="performances-et-caractéristiques">Performances et Caractéristiques</h2>
+<ul>
+<li><strong>Parallélisme intrinsèque</strong> : Les fourmis construisent leurs solutions de manière indépendante, ce qui se prête bien au calcul parallèle.</li>
+<li><strong>Robuste</strong> : La perte de quelques agents (solutions partielles) n’affecte pas gravement la recherche.</li>
+<li><strong>Équilibrée</strong> : Le mécanisme phéromonal gère naturellement le compromis <strong>exploration/exploitation</strong>.
+<ul>
+<li>Les traces de phéromone guident vers de bonnes régions (exploitation).</li>
+<li>La stochasticité des choix et l’évaporation permettent d’explorer d’autres possibilités.</li>
+</ul></li>
+<li><strong>Comparaison avec une recherche aléatoire</strong> : Sur un problème binaire simple, l’ACO trouve l’optimum global avec une probabilité significativement plus élevée qu’une marche aléatoire pour le même effort de calcul (nombre d’évaluations de solutions).</li>
+</ul>
+</section>
+<section id="synthèse-et-idées-clés" class="level2">
+<h2 class="anchored" data-anchor-id="synthèse-et-idées-clés">Synthèse et Idées Clés</h2>
+<ul>
+<li>L’ACO est une <strong>métaheuristique inspirée de la nature</strong>, basée sur le principe de <strong>stigmergie</strong>.</li>
+<li>Elle utilise une <strong>mémoire collective distribuée</strong> (les phéromones) pour construire progressivement des solutions à un problème.</li>
+<li>Son cœur est une <strong>règle probabiliste</strong> combinant une <strong>composante heuristique</strong> (connaissance du problème) et une <strong>composante d’apprentissage</strong> (phéromone).</li>
+<li>Les <strong>paramètres</strong> (<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\rho\)</span>, <span class="math inline">\(q_0\)</span>, etc.) contrôlent finement le comportement de l’essaim entre exploration et exploitation.</li>
+<li>C’est une méthode <strong>populaire</strong> (basée sur une population de solutions) et <strong>flexible</strong>, applicable à une large classe de problèmes d’optimisation combinatoire (routage, ordonnancement, affectation, etc.).</li>
+</ul>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch1 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch1.html">Introduction aux Métaheuristiques</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -291,7 +323,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch1.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction aux Métaheuristiques</span></a>
   </div>
 </li>
@@ -351,36 +383,231 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-aux-métaheuristiques" id="toc-introduction-aux-métaheuristiques" class="nav-link active" data-scroll-target="#introduction-aux-métaheuristiques">Introduction aux Métaheuristiques</a>
+  <ul class="collapse">
+  <li><a href="#pour-commencer-un-exemple-illustratif" id="toc-pour-commencer-un-exemple-illustratif" class="nav-link" data-scroll-target="#pour-commencer-un-exemple-illustratif">Pour Commencer : Un Exemple Illustratif</a></li>
+  <li><a href="#quest-ce-quun-problème-doptimisation" id="toc-quest-ce-quun-problème-doptimisation" class="nav-link" data-scroll-target="#quest-ce-quun-problème-doptimisation">Qu’est-ce qu’un Problème d’Optimisation ?</a>
+  <ul class="collapse">
+  <li><a href="#recherche-dans-un-espace-de-solutions" id="toc-recherche-dans-un-espace-de-solutions" class="nav-link" data-scroll-target="#recherche-dans-un-espace-de-solutions">Recherche dans un Espace de Solutions</a></li>
+  <li><a href="#exemples-de-problèmes-et-de-classes" id="toc-exemples-de-problèmes-et-de-classes" class="nav-link" data-scroll-target="#exemples-de-problèmes-et-de-classes">Exemples de Problèmes et de Classes</a></li>
+  </ul></li>
+  <li><a href="#complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires" id="toc-complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires" class="nav-link" data-scroll-target="#complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires">Complexité Algorithmique : Pourquoi les Métaheuristiques sont Nécessaires</a>
+  <ul class="collapse">
+  <li><a href="#mesure-de-la-complexité" id="toc-mesure-de-la-complexité" class="nav-link" data-scroll-target="#mesure-de-la-complexité">Mesure de la Complexité</a></li>
+  <li><a href="#lapproche-métaheuristique" id="toc-lapproche-métaheuristique" class="nav-link" data-scroll-target="#lapproche-métaheuristique">L’Approche Métaheuristique</a></li>
+  </ul></li>
+  <li><a href="#principes-fondamentaux-des-métaheuristiques" id="toc-principes-fondamentaux-des-métaheuristiques" class="nav-link" data-scroll-target="#principes-fondamentaux-des-métaheuristiques">Principes Fondamentaux des Métaheuristiques</a>
+  <ul class="collapse">
+  <li><a href="#définitions-et-caractéristiques" id="toc-définitions-et-caractéristiques" class="nav-link" data-scroll-target="#définitions-et-caractéristiques">Définitions et Caractéristiques</a></li>
+  <li><a href="#ingénierie-de-la-recherche-représentation-et-voisinage" id="toc-ingénierie-de-la-recherche-représentation-et-voisinage" class="nav-link" data-scroll-target="#ingénierie-de-la-recherche-représentation-et-voisinage">Ingénierie de la Recherche : Représentation et Voisinage</a></li>
+  <li><a href="#stratégies-dexploration-et-paysage-de-fitness" id="toc-stratégies-dexploration-et-paysage-de-fitness" class="nav-link" data-scroll-target="#stratégies-dexploration-et-paysage-de-fitness">Stratégies d’Exploration et Paysage de Fitness</a></li>
+  <li><a href="#métaheuristiques-à-population" id="toc-métaheuristiques-à-population" class="nav-link" data-scroll-target="#métaheuristiques-à-population">Métaheuristiques à Population</a></li>
+  </ul></li>
+  <li><a href="#conclusion-du-chapitre" id="toc-conclusion-du-chapitre" class="nav-link" data-scroll-target="#conclusion-du-chapitre">Conclusion du Chapitre</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch1.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch1.html">Introduction aux Métaheuristiques</a></li></ol></nav></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
+
+
+
+<p>Salut ! Voici le chapitre restructuré selon tes consignes, en mettant l’accent sur une présentation pédagogique, synthétique et bien organisée.</p>
+<section id="introduction-aux-métaheuristiques" class="level1">
+<h1>Introduction aux Métaheuristiques</h1>
+<section id="pour-commencer-un-exemple-illustratif" class="level2">
+<h2 class="anchored" data-anchor-id="pour-commencer-un-exemple-illustratif">Pour Commencer : Un Exemple Illustratif</h2>
+<p>Prenons un problème d’optimisation géométrique simple pour illustrer la nécessité des métaheuristiques.</p>
+<p><strong>Problème :</strong> Trouver le point de rencontre optimal pour <code>n</code> personnes.</p>
+<p>Imaginons <code>n</code> personnes situées dans un espace 2D, chacune à une position <span class="math inline">\(x_i\)</span>. Le but est de trouver le point <span class="math inline">\(y\)</span> où elles doivent se rencontrer pour minimiser la somme des distances parcourues par chacune.</p>
+<p>Ce point est appelé la <strong>médiane géométrique</strong> et est défini par :</p>
+<p><span class="math display">\[
+y^* = \arg\min_{y \in \mathbb{R}^2} \sum_{i=1}^n \|x_i - y\|
+\]</span></p>
+<hr>
+<ul>
+<li>Il n’existe <strong>pas de solution analytique</strong> simple pour ce problème.</li>
+<li>Un algorithme itératif, comme l’<strong>algorithme de Weiszfeld</strong>, est nécessaire pour l’approcher.</li>
+<li>Ce type de problème, simple à énoncer mais difficile à résoudre exactement, est un candidat typique pour les méthodes métaheuristiques.</li>
+</ul>
+</section>
+<section id="quest-ce-quun-problème-doptimisation" class="level2">
+<h2 class="anchored" data-anchor-id="quest-ce-quun-problème-doptimisation">Qu’est-ce qu’un Problème d’Optimisation ?</h2>
+<section id="recherche-dans-un-espace-de-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="recherche-dans-un-espace-de-solutions">Recherche dans un Espace de Solutions</h3>
+<p>Un problème d’optimisation consiste à trouver la meilleure solution parmi un ensemble de solutions possibles.</p>
+<ul>
+<li><strong>Espace de recherche (S) :</strong> L’ensemble de toutes les solutions candidates. Il peut être discret (combinatoire) ou continu.</li>
+<li><strong>Fonction objectif (f) :</strong> Aussi appelée fonction de coût, d’énergie ou de <em>fitness</em>. C’est une fonction <span class="math inline">\(f : S \to \mathbb{R}\)</span> qui attribue un score à chaque solution. L’objectif est de la minimiser ou de la maximiser.</li>
+<li><strong>Solution optimale (<span class="math inline">\(x_{opt}\)</span>) :</strong> La solution qui donne la valeur extrême (min ou max) de la fonction objectif sur tout l’espace S.</li>
+</ul>
+<p>Formellement, on cherche :</p>
+<p><span class="math display">\[
+x_{\mathrm{opt}} = \underset {x\in S}{\mathrm{argmin}} \ f(x) \quad \text{ou} \quad x_{\mathrm{opt}} = \underset {x\in S}{\mathrm{argmax}} \ f(x)
+\]</span></p>
+<hr>
+<ul>
+<li><strong>Optimisation libre vs.&nbsp;contrainte :</strong> Les problèmes peuvent avoir des contraintes (ex: <span class="math inline">\(||x|| &lt; b\)</span>). Celles-ci sont généralement intégrées dans la définition de l’espace de recherche admissible.</li>
+<li><strong>La malédiction de la dimension :</strong> Pour des problèmes multidimensionnels où <span class="math inline">\(x = (x_1, ..., x_n)\)</span>, la cardinalité de <span class="math inline">\(S\)</span> croît souvent de manière <strong>exponentielle</strong> avec <span class="math inline">\(n\)</span> (la taille du problème). Une exploration exhaustive devient rapidement impossible.</li>
+</ul>
+</section>
+<section id="exemples-de-problèmes-et-de-classes" class="level3">
+<h3 class="anchored" data-anchor-id="exemples-de-problèmes-et-de-classes">Exemples de Problèmes et de Classes</h3>
+<p><strong>Problèmes Continus (<span class="math inline">\(S = \mathbb{R}^n\)</span>)</strong></p>
+<p>On peut utiliser des méthodes classiques (dérivées, multiplicateurs de Lagrange) pour trouver des optima locaux. L’analyse des conditions aux bornes est cruciale.</p>
+<hr>
+<p><strong>Programmation Linéaire</strong></p>
+<p>Maximiser une fonction linéaire <span class="math inline">\(z = c^T x\)</span> sous des contraintes linéaires <span class="math inline">\(Ax \leq b\)</span>. La solution se trouve sur le bord d’un polyèdre convexe (algorithme du Simplexe). La complexité augmente considérablement si les variables sont binaires (<span class="math inline">\(x_i \in \{0,1\}\)</span>).</p>
+<hr>
+<p><strong>Problèmes Combinatoires (NP-Difficiles)</strong></p>
+<p>Ce sont des problèmes discrets où l’espace de recherche est fini mais gigantesque.</p>
+<ul>
+<li><strong>Problème du Sac à Dos (Knapsack) :</strong> Choisir un sous-ensemble d’objets (de valeurs <span class="math inline">\(p_i\)</span> et poids <span class="math inline">\(w_i\)</span>) pour maximiser la valeur totale sans dépasser une capacité <span class="math inline">\(c\)</span>.</li>
+<li><strong>Problème du Voyageur de Commerce (TSP) :</strong> Trouver le circuit le plus court visitant une liste de villes données une et une seule fois.</li>
+<li><strong>Problèmes NK :</strong> Modèles synthétiques où la performance d’un système de <span class="math inline">\(N\)</span> agents binaires dépend des états de <span class="math inline">\(K\)</span> autres agents. Ils permettent d’étudier des paysages de <em>fitness</em> de complexité variable.</li>
+</ul>
+</section>
+</section>
+<section id="complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires" class="level2">
+<h2 class="anchored" data-anchor-id="complexité-algorithmique-pourquoi-les-métaheuristiques-sont-nécessaires">Complexité Algorithmique : Pourquoi les Métaheuristiques sont Nécessaires</h2>
+<section id="mesure-de-la-complexité" class="level3">
+<h3 class="anchored" data-anchor-id="mesure-de-la-complexité">Mesure de la Complexité</h3>
+<p>L’efficacité d’un algorithme est mesurée par sa complexité en temps <span class="math inline">\(T(n)\)</span> et en espace <span class="math inline">\(M(n)\)</span>, exprimées avec la notation Grand O <span class="math inline">\(O()\)</span>.</p>
+<p><span class="math display">\[
+T(n) = O(f(n)) \quad \Rightarrow \quad \exists \ k, n_0 \ \text{tels que} \ \forall n \ge n_0, \ T(n) \le k \cdot f(n)
+\]</span></p>
+<hr>
+<ul>
+<li><strong>Classe P :</strong> Problèmes pour lesquels il existe un algorithme de résolution exacte en temps polynomial (ex: <span class="math inline">\(O(n^2)\)</span>, <span class="math inline">\(O(n \log n)\)</span>).</li>
+<li><strong>Classe NP :</strong> Problèmes pour lesquels une <strong>solution proposée</strong> peut être <strong>vérifiée</strong> en temps polynomial.</li>
+<li><strong>NP-Complet / NP-Difficile :</strong> Les problèmes les plus difficiles de la classe NP. Aucun algorithme polynomial exact n’est connu (et il est fort probable qu’il n’en existe pas). Le TSP en est un exemple paradigmatique.</li>
+</ul>
+<p><strong>Intraitabilité des Problèmes Exponentiels :</strong> Pour les problèmes NP-difficiles, les algorithmes exacts ont une complexité exponentielle (ex: <span class="math inline">\(O(2^n)\)</span>). Même pour des tailles de problème modestes (<span class="math inline">\(n &gt; 50\)</span>), le temps de calcul devient prohibitif.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Tous les problèmes] --&gt; B{Peut-on vérifier une solution\n en temps polynomial?}
+    B --&gt;|Non| C[Autres classes]
+    B --&gt;|Oui| D[Classe NP]
+    D --&gt; E{Peut-on RÉSOUDRE le problème\n en temps polynomial?}
+    E --&gt;|Oui| F[Classe P]
+    E --&gt;|On ne sait pas / Non| G[Sous-ensemble NP]
+    G --&gt; H[Problèmes NP-Complets&lt;br&gt;ex: TSP, Coloration de graphe]
+    H --&gt; I[NP-Difficile&lt;br&gt;Au moins aussi dur qu'un NP-Complet]
+</pre>
 </div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="lapproche-métaheuristique" class="level3">
+<h3 class="anchored" data-anchor-id="lapproche-métaheuristique">L’Approche Métaheuristique</h3>
+<p>Face à ces problèmes <strong>d’optimisation difficile (Hard Optimization)</strong>, où une recherche déterministe exhaustive est impossible, les métaheuristiques offrent une alternative.</p>
+<ul>
+<li><strong>Objectif :</strong> Explorer l’espace de recherche <span class="math inline">\(S\)</span> de manière <strong>intelligente et efficace</strong> pour trouver une <strong>solution de bonne qualité en un temps acceptable</strong>, sans garantir l’optimalité globale.</li>
+<li><strong>Philosophie :</strong> Trouver un compromis (<em>trade-off</em>) entre la qualité de la solution trouvée et le coût computationnel (temps CPU).</li>
+</ul>
+</section>
+</section>
+<section id="principes-fondamentaux-des-métaheuristiques" class="level2">
+<h2 class="anchored" data-anchor-id="principes-fondamentaux-des-métaheuristiques">Principes Fondamentaux des Métaheuristiques</h2>
+<section id="définitions-et-caractéristiques" class="level3">
+<h3 class="anchored" data-anchor-id="définitions-et-caractéristiques">Définitions et Caractéristiques</h3>
+<ul>
+<li><strong>Heuristique :</strong> Méthode conçue pour un problème spécifique, exploitant ses propriétés intrinsèques (ex: une règle de sélection dans l’algorithme du Simplexe).</li>
+<li><strong>Métaheuristique :</strong> Schéma algorithmique <strong>général</strong> et souvent stochastique, qui peut être adapté à une large variété de problèmes. Exemples : Recuit Simulé, Algorithmes Évolutionnaires, Colonie de Fourmis.</li>
+</ul>
+<hr>
+<p><strong>Caractéristiques clés d’une métaheuristique :</strong></p>
+<ol type="1">
+<li><strong>Hypothèses minimales :</strong> Elle ne nécessite pas de propriétés mathématiques particulières de la fonction objectif <span class="math inline">\(f\)</span> (comme la dérivabilité), seulement la capacité à l’évaluer.</li>
+<li><strong>Paramètres :</strong> Son comportement est guidé par des paramètres (taille de voisinage, taux d’acceptation…) souvent réglés empiriquement.</li>
+<li><strong>Point de départ :</strong> Nécessite une solution initiale, générée aléatoirement ou via une heuristique simple.</li>
+<li><strong>Critère d’arrêt :</strong> Doit définir quand s’arrêter (ex: nombre max d’itérations, temps CPU, stagnation de la solution).</li>
+</ol>
+</section>
+<section id="ingénierie-de-la-recherche-représentation-et-voisinage" class="level3">
+<h3 class="anchored" data-anchor-id="ingénierie-de-la-recherche-représentation-et-voisinage">Ingénierie de la Recherche : Représentation et Voisinage</h3>
+<p>Pour appliquer une métaheuristique, deux choix conceptuels sont fondamentaux :</p>
+<p><strong>1. La Représentation</strong></p>
+<p>Comment coder une solution <span class="math inline">\(x\)</span> de l’espace <span class="math inline">\(S\)</span> sous une forme manipulable par l’algorithme ? Ce choix influe directement sur la difficulté du paysage de <em>fitness</em>.</p>
+<p><strong>2. La Définition du Voisinage <span class="math inline">\(V(x)\)</span></strong></p>
+<p>Pour chaque solution <span class="math inline">\(x\)</span>, on définit un ensemble de solutions “voisines” <span class="math inline">\(V(x)\)</span> qui peuvent être atteintes en une étape élémentaire. C’est le moteur de l’exploration.</p>
+<ul>
+<li>Le voisinage est généralement défini par un ensemble de <strong>mouvements élémentaires</strong> <span class="math inline">\(T_i\)</span>. <span class="math display">\[
+V(x) = \{ x' \in S \ | \ x' = T_i(x), \ i = 1, \ldots, \ell \}
+\]</span></li>
+<li><strong>Exemple 1 (Mouvements sur une grille) :</strong> Pour <span class="math inline">\(S = \mathbb{Z}^2\)</span>, <span class="math inline">\(V((i,j))\)</span> peut être défini par les 4 déplacements cardinaux {NORD, SUD, EST, OUEST}.</li>
+<li><strong>Exemple 2 (Espace de permutations) :</strong> Pour <span class="math inline">\(S\)</span> = ensemble des permutations de <span class="math inline">\(n\)</span> objets, un mouvement courant est la <strong>transposition</strong> de deux éléments.</li>
+</ul>
+</section>
+<section id="stratégies-dexploration-et-paysage-de-fitness" class="level3">
+<h3 class="anchored" data-anchor-id="stratégies-dexploration-et-paysage-de-fitness">Stratégies d’Exploration et Paysage de Fitness</h3>
+<p><strong>Paysage de Fitness</strong></p>
+<p>C’est la représentation graphique de la fonction objectif <span class="math inline">\(f\)</span> par rapport à la topologie induite par le voisinage. Sa structure (pics, vallées, plateaux) détermine la difficulté du problème.</p>
+<hr>
+<p><strong>Deux Forces Complémentaires : Exploitation vs Exploration</strong></p>
+<p>Toute métaheuristique doit gérer un équilibre subtil :</p>
+<ul>
+<li><strong>Intensification (Exploitation) :</strong> Concentrer la recherche autour des bonnes solutions déjà trouvées pour les améliorer localement.</li>
+<li><strong>Diversification (Exploration) :</strong> Explorer de nouvelles régions de l’espace <span class="math inline">\(S\)</span> pour éviter de rester piégé dans un optimum local de mauvaise qualité.</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    subgraph S [Espace de Recherche]
+        direction LR
+        A[Région explorée] -- Exploration --&gt; B[Nouvelle région]
+        B -- Intensification --&gt; C[Amélioration locale]
+        C -- Échappée / Perturbation --&gt; A
+    end
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Recherche Locale Itérée (Iterated Local Search)</strong></p>
+<p>Ce principe illustre cet équilibre :</p>
+<ol type="1">
+<li>On utilise d’abord une méthode de <strong>recherche locale</strong> (comme la montée de colline) pour trouver un optimum local.</li>
+<li>On applique une <strong>perturbation</strong> contrôlée à cette solution pour “sauter” dans un autre bassin d’attraction.</li>
+<li>On relance la recherche locale à partir de ce nouveau point.</li>
+<li>On répète le processus.</li>
+</ol>
+</section>
+<section id="métaheuristiques-à-population" class="level3">
+<h3 class="anchored" data-anchor-id="métaheuristiques-à-population">Métaheuristiques à Population</h3>
+<p>Au lieu de faire évoluer une seule solution, ces méthodes font évoluer un <strong>ensemble de solutions</strong> (une population) en parallèle.</p>
+<ul>
+<li><strong>Principe :</strong> L’exploration est conduite par les interactions (sélection, reproduction, partage d’information) entre les individus de la population.</li>
+<li><strong>Avantage :</strong> Maintient naturellement une diversité, permettant une exploration plus large. Les Algorithmes Évolutionnaires (ou Génétiques) en sont l’exemple canonique.</li>
+<li><strong>Espace de recherche étendu :</strong> On travaille dans <span class="math inline">\(S^N\)</span>, où <span class="math inline">\(N\)</span> est la taille de la population. Les opérateurs (mouvements) agissent souvent sur l’ensemble de la population.</li>
+</ul>
+</section>
+</section>
+<section id="conclusion-du-chapitre" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-du-chapitre">Conclusion du Chapitre</h2>
+<p>Les métaheuristiques sont des outils puissants pour aborder des problèmes d’optimisation difficiles, pour lesquels aucune méthode exacte et efficace n’existe. Leur succès repose sur une compréhension fine du problème (choix de représentation et de voisinage) et sur l’équilibre entre exploration et exploitation.</p>
+<p><strong>Règle d’or :</strong> Il ne faut recourir aux métaheuristiques que lorsqu’aucune méthode spécifique plus efficace (ex: algorithmes polynomiaux pour les problèmes convexes) ne peut être appliquée.</p>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

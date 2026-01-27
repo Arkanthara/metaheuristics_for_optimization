@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch8 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,6 +73,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch8.html">Performance of Metaheuristics</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -333,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch8.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch8.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Performance of Metaheuristics</span></a>
   </div>
 </li>
@@ -351,36 +380,170 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#performance-of-metaheuristics" id="toc-performance-of-metaheuristics" class="nav-link active" data-scroll-target="#performance-of-metaheuristics">Performance of Metaheuristics</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#challenges-in-performance-analysis" id="toc-challenges-in-performance-analysis" class="nav-link" data-scroll-target="#challenges-in-performance-analysis">Challenges in Performance Analysis</a></li>
+  <li><a href="#example-traveling-salesman-problem-tsp-with-simulated-annealing" id="toc-example-traveling-salesman-problem-tsp-with-simulated-annealing" class="nav-link" data-scroll-target="#example-traveling-salesman-problem-tsp-with-simulated-annealing">Example: Traveling Salesman Problem (TSP) with Simulated Annealing</a>
+  <ul class="collapse">
+  <li><a href="#idée-derrière-lexemple" id="toc-idée-derrière-lexemple" class="nav-link" data-scroll-target="#idée-derrière-lexemple">Idée derrière l’exemple</a></li>
+  <li><a href="#guided-parameters-du-recuit-simulé" id="toc-guided-parameters-du-recuit-simulé" class="nav-link" data-scroll-target="#guided-parameters-du-recuit-simulé">Guided Parameters du Recuit Simulé</a></li>
+  <li><a href="#résultats-synthétiques" id="toc-résultats-synthétiques" class="nav-link" data-scroll-target="#résultats-synthétiques">Résultats synthétiques</a></li>
+  </ul></li>
+  <li><a href="#example-nk-landscape" id="toc-example-nk-landscape" class="nav-link" data-scroll-target="#example-nk-landscape">Example: NK-landscape</a>
+  <ul class="collapse">
+  <li><a href="#idée-derrière-lexemple-1" id="toc-idée-derrière-lexemple-1" class="nav-link" data-scroll-target="#idée-derrière-lexemple-1">Idée derrière l’exemple</a></li>
+  <li><a href="#guided-parameters-de-lalgorithme-génétique" id="toc-guided-parameters-de-lalgorithme-génétique" class="nav-link" data-scroll-target="#guided-parameters-de-lalgorithme-génétique">Guided Parameters de l’Algorithme Génétique</a></li>
+  <li><a href="#résultats-synthétiques-1" id="toc-résultats-synthétiques-1" class="nav-link" data-scroll-target="#résultats-synthétiques-1">Résultats synthétiques</a></li>
+  </ul></li>
+  <li><a href="#performance-evaluation-general-concepts" id="toc-performance-evaluation-general-concepts" class="nav-link" data-scroll-target="#performance-evaluation-general-concepts">Performance Evaluation: General Concepts</a>
+  <ul class="collapse">
+  <li><a href="#performance-metrics" id="toc-performance-metrics" class="nav-link" data-scroll-target="#performance-metrics">Performance Metrics</a></li>
+  <li><a href="#computational-effort" id="toc-computational-effort" class="nav-link" data-scroll-target="#computational-effort">Computational Effort</a></li>
+  <li><a href="#quality-of-solution" id="toc-quality-of-solution" class="nav-link" data-scroll-target="#quality-of-solution">Quality of Solution</a></li>
+  <li><a href="#statistical-comparison" id="toc-statistical-comparison" class="nav-link" data-scroll-target="#statistical-comparison">Statistical Comparison</a></li>
+  </ul></li>
+  <li><a href="#the-no-free-lunch-theorem-nfl" id="toc-the-no-free-lunch-theorem-nfl" class="nav-link" data-scroll-target="#the-no-free-lunch-theorem-nfl">The “No Free Lunch” Theorem (NFL)</a>
+  <ul class="collapse">
+  <li><a href="#énoncé-verbal" id="toc-énoncé-verbal" class="nav-link" data-scroll-target="#énoncé-verbal">Énoncé verbal</a></li>
+  <li><a href="#hypothèses" id="toc-hypothèses" class="nav-link" data-scroll-target="#hypothèses">Hypothèses</a></li>
+  <li><a href="#énoncé-mathématique" id="toc-énoncé-mathématique" class="nav-link" data-scroll-target="#énoncé-mathématique">Énoncé mathématique</a></li>
+  <li><a href="#implications-pratiques" id="toc-implications-pratiques" class="nav-link" data-scroll-target="#implications-pratiques">Implications pratiques</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch8.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch8.html">Performance of Metaheuristics</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
+<section id="performance-of-metaheuristics" class="level1">
+<h1>Performance of Metaheuristics</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Contrairement aux algorithmes classiques (ex: tri), une analyse de complexité traditionnelle n’est tout simplement pas possible avec les métaheuristiques. Elles ne fournissent pas un temps d’exécution prévisible. Pour certaines, nous avons des résultats de convergence, mais malheureusement limités à des cas particuliers d’intérêt pratique limité.</p>
+<p>Par conséquent, les analyses de performance des métaheuristiques sont principalement empiriques et requièrent une approche statistique, car les métaheuristiques ne sont pas déterministes (elles comportent toutes de multiples composantes stochastiques).</p>
+</section>
+<section id="challenges-in-performance-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-in-performance-analysis">Challenges in Performance Analysis</h2>
+<p>Une liste non exhaustive des défis inclut :</p>
+<ul>
+<li><strong>Stochasticité et variance entre les exécutions</strong></li>
+<li><strong>Manque d’indicateurs de performance universels</strong></li>
+<li><strong>Dépendance aux paramètres de guidage</strong></li>
+<li><strong>Dépendance au problème et manque de généralité</strong></li>
+<li><strong>Difficulté à mesurer la convergence et l’effort de calcul</strong></li>
+<li><strong>Évolutivité et sensibilité à la dimensionalité</strong></li>
+<li><strong>Interactions complexes entre exploration et exploitation</strong></li>
+</ul>
+</section>
+<section id="example-traveling-salesman-problem-tsp-with-simulated-annealing" class="level2">
+<h2 class="anchored" data-anchor-id="example-traveling-salesman-problem-tsp-with-simulated-annealing">Example: Traveling Salesman Problem (TSP) with Simulated Annealing</h2>
+<section id="idée-derrière-lexemple" class="level3">
+<h3 class="anchored" data-anchor-id="idée-derrière-lexemple">Idée derrière l’exemple</h3>
+<p>Cet exemple illustre comment mesurer l’effort de calcul et la qualité de la solution pour une métaheuristique (Recuit Simulé) appliquée au TSP. Pour des problèmes de taille croissante, on observe un changement de régime de complexité.</p>
+</section>
+<section id="guided-parameters-du-recuit-simulé" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-du-recuit-simulé">Guided Parameters du Recuit Simulé</h3>
+<ul>
+<li><strong>Température initiale</strong> : Contrôle la probabilité d’accepter des solutions moins bonnes en début de recherche.</li>
+<li><strong>Calendrier de refroidissement (cooling schedule)</strong> : Fonction qui réduit la température au cours du temps (ex: décroissance géométrique).</li>
+<li><strong>Nombre d’itérations par palier de température</strong> : Définit l’équilibre thermique à chaque température.</li>
+<li><strong>Température finale</strong> : Critère d’arrêt lié à la température.</li>
+<li><strong>Critère d’arrêt alternatif</strong> : Nombre maximum d’itérations ou absence d’amélioration sur un certain nombre d’itérations.</li>
+</ul>
+</section>
+<section id="résultats-synthétiques" class="level3">
+<h3 class="anchored" data-anchor-id="résultats-synthétiques">Résultats synthétiques</h3>
+<p>Pour <span class="math inline">\(N\)</span> villes dans un domaine 2D, l’effort de calcul <span class="math inline">\(T(N)\)</span>, mesuré en nombre d’évaluations de la fonction objectif, croît approximativement comme <span class="math inline">\(T(N) = 7100 \times N^{1.14}\)</span> pour <span class="math inline">\(N\)</span> entre 20 et 2000. Pour des problèmes plus grands (<span class="math inline">\(N\)</span> entre 5000 et 50000), le taux de croissance est plus élevé, indiquant un changement de régime.</p>
+<p>La qualité de la solution (erreur relative par rapport à l’optimum connu) s’améliore avec l’augmentation de l’effort de calcul, et la probabilité de succès (trouver une solution dans une marge d’erreur <span class="math inline">\(\epsilon\)</span>) augmente également.</p>
+</section>
+</section>
+<section id="example-nk-landscape" class="level2">
+<h2 class="anchored" data-anchor-id="example-nk-landscape">Example: NK-landscape</h2>
+<section id="idée-derrière-lexemple-1" class="level3">
+<h3 class="anchored" data-anchor-id="idée-derrière-lexemple-1">Idée derrière l’exemple</h3>
+<p>Le modèle NK est un problème de benchmark synthétique où l’on peut contrôler la rugosité du paysage de fitness via les paramètres <span class="math inline">\(N\)</span> (nombre de gènes) et <span class="math inline">\(K\)</span> (épistasie). Il permet d’étudier la performance d’algorithmes génétiques sur des paysages de complexité variable.</p>
+</section>
+<section id="guided-parameters-de-lalgorithme-génétique" class="level3">
+<h3 class="anchored" data-anchor-id="guided-parameters-de-lalgorithme-génétique">Guided Parameters de l’Algorithme Génétique</h3>
+<ul>
+<li><strong>Taille de la population (number of individuals)</strong> : Influence la diversité génétique et l’exploration.</li>
+<li><strong>Opérateurs de sélection</strong> : Méthode pour choisir les parents (ex: roulette, tournoi).</li>
+<li><strong>Taux de croisement (crossover rate)</strong> : Probabilité d’appliquer l’opérateur de croisement.</li>
+<li><strong>Taux de mutation (mutation rate)</strong> : Probabilité de modifier un gène.</li>
+<li><strong>Critère d’arrêt</strong> : Nombre maximum de générations ou stagnation de la fitness.</li>
+</ul>
+</section>
+<section id="résultats-synthétiques-1" class="level3">
+<h3 class="anchored" data-anchor-id="résultats-synthétiques-1">Résultats synthétiques</h3>
+<p>Pour des problèmes avec <span class="math inline">\(N\)</span> entre 8 et 20 et <span class="math inline">\(K=5\)</span>, la complexité moyenne en temps (sur 500 problèmes générés aléatoirement) augmente avec <span class="math inline">\(N\)</span>. La fraction de problèmes pour lesquels l’optimum global n’est pas trouvé dans le temps alloué (80 générations) augmente également avec <span class="math inline">\(N\)</span>, et augmenter le nombre de générations n’améliore pas les résultats pour ces instances difficiles.</p>
+<p>La probabilité de succès (trouver une solution à <span class="math inline">\(\epsilon\)</span> près de l’optimum) et l’erreur relative moyenne dépendent fortement de l’effort de calcul (ajusté en variant le critère d’arrêt basé sur un plateau de fitness) et de la valeur de <span class="math inline">\(K\)</span> (plus <span class="math inline">\(K\)</span> est élevé, plus le paysage est complexe).</p>
+</section>
+</section>
+<section id="performance-evaluation-general-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="performance-evaluation-general-concepts">Performance Evaluation: General Concepts</h2>
+<p>Les métaheuristiques sont testées sur des problèmes de référence (benchmarks). Ces benchmarks peuvent être des problèmes réels ou synthétiques. Les problèmes synthétiques (comme les NK-landscapes) permettent de construire des espaces de recherche avec des niveaux de complexité croissants.</p>
+<section id="performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="performance-metrics">Performance Metrics</h3>
+<p>Les métriques clés pour évaluer la performance des métaheuristiques sont :</p>
+<ul>
+<li><strong>Effort de calcul</strong></li>
+<li><strong>Qualité de la solution</strong></li>
+<li><strong>Évolutivité</strong> (croissance du temps de calcul avec la taille du problème, en espérant qu’elle ne soit pas exponentielle)</li>
+</ul>
+<p>Pour déterminer ces métriques, une moyenne sur <span class="math inline">\(\mathcal{N} \in [100, 1000]\)</span> exécutions est typiquement nécessaire.</p>
+</section>
+<section id="computational-effort" class="level3">
+<h3 class="anchored" data-anchor-id="computational-effort">Computational Effort</h3>
+<p>L’effort de calcul peut être mesuré simplement par le temps écoulé (wall-clock time). C’est facile à obtenir mais dépendant de la machine.</p>
+<p>Alternativement, on peut compter le nombre total d’opérations (ou d’évaluations de la fonction objectif). Cela permet des comparaisons absolues entre métaheuristiques et machines, mais n’est pas applicable si la fonction objectif n’est pas mathématiquement connue (problèmes réels).</p>
+</section>
+<section id="quality-of-solution" class="level3">
+<h3 class="anchored" data-anchor-id="quality-of-solution">Quality of Solution</h3>
+<p>On estime statistiquement la probabilité de trouver une solution en fonction de l’effort de calcul. Cette probabilité est donnée par le taux de succès (nombre de fois où la solution a été trouvée sur <span class="math inline">\(\mathcal{N}\)</span> exécutions).</p>
+<p>Cette approche nécessite de connaître l’optimum global, ce qui est souvent le cas avec les benchmarks. Sinon, on peut utiliser la meilleure solution connue, ou estimer la probabilité de trouver une solution dont la fitness est à <span class="math inline">\(x\%\)</span> de la fitness optimale.</p>
+</section>
+<section id="statistical-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-comparison">Statistical Comparison</h3>
+<p>Pour comparer deux métaheuristiques appliquées au même problème, il est impératif d’utiliser des tests statistiques (ex: Kolmogorov-Smirnov) pour s’assurer que la différence de performance obtenue est statistiquement significative.</p>
+<p>La <strong>robustesse</strong> est une propriété critique : il s’agit de l’efficacité générale de l’approche sur une large classe de problèmes plutôt que d’être excellente pour seulement 1 ou 2 problèmes spécifiques.</p>
+</section>
+</section>
+<section id="the-no-free-lunch-theorem-nfl" class="level2">
+<h2 class="anchored" data-anchor-id="the-no-free-lunch-theorem-nfl">The “No Free Lunch” Theorem (NFL)</h2>
+<section id="énoncé-verbal" class="level3">
+<h3 class="anchored" data-anchor-id="énoncé-verbal">Énoncé verbal</h3>
+<p>Une métaheuristique, quelle qu’elle soit, ne peut pas surpasser une autre sur l’ensemble complet de tous les problèmes. Pour toute mesure de performance, aucun algorithme de recherche unique n’est meilleur qu’un autre lorsqu’ils sont comparés sur toutes les fonctions discrètes possibles. Si une méthode <span class="math inline">\(A\)</span> surpasse une méthode <span class="math inline">\(B\)</span> pour une classe de problèmes donnée, alors il existe une autre classe de problèmes pour laquelle <span class="math inline">\(B\)</span> surpasse <span class="math inline">\(A\)</span>.</p>
+</section>
+<section id="hypothèses" class="level3">
+<h3 class="anchored" data-anchor-id="hypothèses">Hypothèses</h3>
+<p>On considère un espace de recherche <span class="math inline">\(S\)</span> de dimension finie, de taille <span class="math inline">\(|S|\)</span>. On considère des fonctions de fitness <span class="math inline">\(f: S \to Y\)</span> où <span class="math inline">\(Y\)</span> est un sous-ensemble fini de <span class="math inline">\(\mathbb{R}\)</span>. Tous les problèmes possibles dans <span class="math inline">\(S\)</span> sont spécifiés par une fitness parmi les <span class="math inline">\(|Y|^{|S|}\)</span> possibles. On considère en outre que l’effort de calcul est <span class="math inline">\(m\)</span>, de sorte que la trajectoire exploratoire est une séquence <span class="math inline">\(d_m\)</span> qui contient <span class="math inline">\(m\)</span> couples <span class="math inline">\((x_i, f(x_i))\)</span>, pour <span class="math inline">\(i = 1, \ldots, m\)</span>.</p>
+</section>
+<section id="énoncé-mathématique" class="level3">
+<h3 class="anchored" data-anchor-id="énoncé-mathématique">Énoncé mathématique</h3>
+<p>Soit <span class="math inline">\(P(d_m | f, m, A)\)</span> la probabilité que la séquence <span class="math inline">\(d_m\)</span> générée par l’algorithme <span class="math inline">\(A\)</span> contienne l’optimum de <span class="math inline">\(f\)</span>. Le résultat principal du théorème NFL s’écrit :</p>
+<p><span class="math display">\[
+\sum_{f} P(d_m | f, m, A_1) = \sum_{f} P(d_m | f, m, A_2)
+\]</span></p>
+<p>Ainsi, la performance moyenne de <strong>TOUT</strong> algorithme de recherche sur <strong>TOUS</strong> les problèmes est identique.</p>
+</section>
+<section id="implications-pratiques" class="level3">
+<h3 class="anchored" data-anchor-id="implications-pratiques">Implications pratiques</h3>
+<p>En pratique, tous les problèmes ne sont pas équiprobables et les problèmes “pathologiques” sont moins fréquents. Par conséquent, on peut espérer que pour certaines classes de problèmes, certaines métaheuristiques surpassent les autres. Le théorème NFL nous rappelle qu’il n’existe pas de méthode universellement meilleure et qu’il est important de choisir l’algorithme adapté au problème.</p>
 
 
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

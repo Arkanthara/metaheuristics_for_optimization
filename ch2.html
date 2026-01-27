@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch2 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,6 +73,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch2.html">Recherche Tabou (Tabu Search)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -297,7 +326,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch2.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Recherche Tabou (Tabu Search)</span></a>
   </div>
 </li>
@@ -351,36 +380,201 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#recherche-tabou-tabu-search" id="toc-recherche-tabou-tabu-search" class="nav-link active" data-scroll-target="#recherche-tabou-tabu-search">Recherche Tabou (Tabu Search)</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#principes-de-base" id="toc-principes-de-base" class="nav-link" data-scroll-target="#principes-de-base">Principes de base</a>
+  <ul class="collapse">
+  <li><a href="#pourquoi-la-liste-taboue-ne-peut-elle-pas-être-permanente" id="toc-pourquoi-la-liste-taboue-ne-peut-elle-pas-être-permanente" class="nav-link" data-scroll-target="#pourquoi-la-liste-taboue-ne-peut-elle-pas-être-permanente">Pourquoi la liste taboue ne peut-elle pas être permanente ?</a></li>
+  <li><a href="#convergence-de-la-ts" id="toc-convergence-de-la-ts" class="nav-link" data-scroll-target="#convergence-de-la-ts">Convergence de la TS</a></li>
+  </ul></li>
+  <li><a href="#la-liste-taboue-ou-liste-dexclusion" id="toc-la-liste-taboue-ou-liste-dexclusion" class="nav-link" data-scroll-target="#la-liste-taboue-ou-liste-dexclusion">La liste taboue (ou liste d’exclusion)</a>
+  <ul class="collapse">
+  <li><a href="#objectifs" id="toc-objectifs" class="nav-link" data-scroll-target="#objectifs">Objectifs</a></li>
+  <li><a href="#construction-de-la-liste-taboue" id="toc-construction-de-la-liste-taboue" class="nav-link" data-scroll-target="#construction-de-la-liste-taboue">Construction de la liste taboue</a></li>
+  <li><a href="#gestion-de-la-liste-taboue" id="toc-gestion-de-la-liste-taboue" class="nav-link" data-scroll-target="#gestion-de-la-liste-taboue">Gestion de la liste taboue</a></li>
+  </ul></li>
+  <li><a href="#exploration-vs-exploitation" id="toc-exploration-vs-exploitation" class="nav-link" data-scroll-target="#exploration-vs-exploitation">Exploration vs exploitation</a></li>
+  <li><a href="#application-au-problème-daffectation-quadratique-qap" id="toc-application-au-problème-daffectation-quadratique-qap" class="nav-link" data-scroll-target="#application-au-problème-daffectation-quadratique-qap">Application au problème d’affectation quadratique (QAP)</a>
+  <ul class="collapse">
+  <li><a href="#définition-du-qap" id="toc-définition-du-qap" class="nav-link" data-scroll-target="#définition-du-qap">Définition du QAP</a></li>
+  <li><a href="#exemple-de-résolution-avec-la-recherche-tabou" id="toc-exemple-de-résolution-avec-la-recherche-tabou" class="nav-link" data-scroll-target="#exemple-de-résolution-avec-la-recherche-tabou">Exemple de résolution avec la recherche tabou</a></li>
+  <li><a href="#synthèse-de-lexemple" id="toc-synthèse-de-lexemple" class="nav-link" data-scroll-target="#synthèse-de-lexemple">Synthèse de l’exemple</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch2.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch2.html">Recherche Tabou (Tabu Search)</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
+<section id="recherche-tabou-tabu-search" class="level1">
+<h1>Recherche Tabou (Tabu Search)</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>La <strong>Recherche Tabou</strong> (Tabu Search, TS) est une métaheuristique introduite par Fred Glover en 1986. Elle est conçue pour guider les recherches locales au-delà des optima locaux en évitant de revenir à des solutions déjà visitées.</p>
+<p>Elle s’appuie sur des méthodes de recherche locale (comme la montée de colline) et utilise une structure de mémoire pour :</p>
+<ul>
+<li>Échapper aux optima locaux</li>
+<li>Éviter de revisiter des solutions récemment explorées</li>
+</ul>
+<p>Ainsi, elle explore l’espace de recherche de manière plus large et “intelligente”.</p>
+</section>
+<section id="principes-de-base" class="level2">
+<h2 class="anchored" data-anchor-id="principes-de-base">Principes de base</h2>
+<p>La TS est bien adaptée aux problèmes d’optimisation combinatoire, comme le problème d’affectation quadratique (QAP). Comme la plupart des métaheuristiques, ses principes fondamentaux sont assez simples.</p>
+<p>L’exploration se fait de voisin en voisin :</p>
+<p><span class="math display">\[
+x_{n} \to x_{n+1} \in V(x_{n})
+\]</span></p>
+<p>L’opération d’exploration cherche le “meilleur” voisin <span class="math inline">\(x_{n+1} \in V(x_{n})\)</span>, où “meilleur” signifie :</p>
+<ul>
+<li>Une solution non taboue</li>
+<li>Une fitness optimale dans <span class="math inline">\(V(x_{n}) \setminus \{x_{n}\}\)</span> (peu importe la valeur de <span class="math inline">\(f(x_{n})\)</span>, la fitness peut se dégrader)</li>
+<li>Si plusieurs points ont la même fitness optimale, on en sélectionne un au hasard</li>
+</ul>
+<p>La spécificité clé de la TS est l’existence de points ou de mouvements interdits (tabous). L’objectif de cette liste taboue est d’empêcher l’opérateur de recherche de revenir à des configurations déjà explorées.</p>
+<p>L’attribut tabou n’est pas permanent : les points/mouvements interdits sont stockés dans une mémoire à court terme, et la liste taboue est mise à jour constamment pendant le processus d’exploration.</p>
+<section id="pourquoi-la-liste-taboue-ne-peut-elle-pas-être-permanente" class="level3">
+<h3 class="anchored" data-anchor-id="pourquoi-la-liste-taboue-ne-peut-elle-pas-être-permanente">Pourquoi la liste taboue ne peut-elle pas être permanente ?</h3>
+<p>Si la liste taboue était permanente, elle pourrait bloquer le processus de recherche. Par exemple, dans un espace discret avec un voisinage de type NEWS (Nord, Est, Sud, Ouest), une liste permanente empêcherait tout mouvement après un certain temps, car tous les mouvements deviendraient interdits.</p>
+</section>
+<section id="convergence-de-la-ts" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-de-la-ts">Convergence de la TS</h3>
+<p>La convergence de la TS dépend de plusieurs facteurs :</p>
+<ul>
+<li>La longueur de la mémoire (taille de la liste taboue)</li>
+<li>La taille et la structure du voisinage</li>
+<li>La condition initiale</li>
+<li>Le critère d’arrêt</li>
+<li>Le paysage de fitness</li>
+</ul>
+<p>Un résultat mathématique assure que, sous certaines conditions (espace de recherche fini, voisinage symétrique, accessibilité en un nombre fini d’étapes), une TS qui stocke tous les points visités et peut revisiter le plus ancien point de la liste explorera tout l’espace de recherche et trouvera l’optimum global avec certitude.</p>
+<p>Cependant, ce résultat a peu de pertinence pratique car il ne donne pas d’indication sur le temps nécessaire (qui peut être exponentiel) et requiert une mémoire arbitrairement longue.</p>
+</section>
+</section>
+<section id="la-liste-taboue-ou-liste-dexclusion" class="level2">
+<h2 class="anchored" data-anchor-id="la-liste-taboue-ou-liste-dexclusion">La liste taboue (ou liste d’exclusion)</h2>
+<section id="objectifs" class="level3">
+<h3 class="anchored" data-anchor-id="objectifs">Objectifs</h3>
+<p>La liste taboue a pour buts :</p>
+<ul>
+<li>D’éviter de ré-échantillonner des configurations déjà visitées</li>
+<li>D’améliorer l’efficacité du processus d’exploration de l’espace de recherche <span class="math inline">\(S\)</span></li>
+</ul>
+</section>
+<section id="construction-de-la-liste-taboue" class="level3">
+<h3 class="anchored" data-anchor-id="construction-de-la-liste-taboue">Construction de la liste taboue</h3>
+<p>On peut inclure dans la liste taboue :</p>
+<ul>
+<li>Les configurations précédemment visitées</li>
+<li>Les attributs de ces configurations (comme la fitness)</li>
+<li>Souvent, les mouvements interdits <span class="math inline">\(m_j\)</span> parmi ceux définissant le voisinage</li>
+</ul>
+<p>Le voisinage est défini par un ensemble de mouvements :</p>
+<p><span class="math display">\[
+V(s) = \{ s' \in S \mid s' = m_i(s), i=1,\ldots,\ell \}
+\]</span></p>
+<p>On peut aussi interdire les mouvements inverses de ceux déjà effectués. Par exemple, pour un marcheur en 2D avec un voisinage NEWS :</p>
+<ul>
+<li>Après un mouvement Nord, on interdit le mouvement Sud</li>
+<li>Après un mouvement Est, on interdit le mouvement Ouest</li>
+</ul>
+<p>Ces stratégies évitent les cycles simples qui pourraient bloquer la recherche.</p>
+</section>
+<section id="gestion-de-la-liste-taboue" class="level3">
+<h3 class="anchored" data-anchor-id="gestion-de-la-liste-taboue">Gestion de la liste taboue</h3>
+<p>La liste taboue ne peut être permanente : des mécanismes sont nécessaires pour supprimer les éléments tabous. On distingue deux types de mémoire :</p>
+<ul>
+<li>Mémoire à court terme</li>
+<li>Mémoire à long terme</li>
+</ul>
+<section id="mémoire-à-court-terme" class="level4">
+<h4 class="anchored" data-anchor-id="mémoire-à-court-terme">Mémoire à court terme</h4>
+<p>La mémoire à court terme a une taille limitée <span class="math inline">\(M\)</span>. Elle peut être gérée de deux façons :</p>
+<ol type="1">
+<li>Utiliser une liste taboue de taille finie et ne conserver que les exclusions les plus récentes (FIFO : premier entré, premier sorti)</li>
+<li>Associer aux données de la liste taboue une durée d’exclusion (temps de bannissement <span class="math inline">\(k\)</span>)</li>
+</ol>
+<p>L’approche la plus courante est la seconde : chaque mouvement tabou est conservé pendant <span class="math inline">\(k\)</span> itérations. <span class="math inline">\(k\)</span> est appelé le <em>temps de bannissement</em> ou <em>tabu tenure</em>. La valeur optimale de <span class="math inline">\(k\)</span> n’est pas connue et est généralement choisie aléatoirement selon une distribution de probabilité dont les paramètres sont déterminés empiriquement.</p>
+</section>
+<section id="mémoire-à-long-terme" class="level4">
+<h4 class="anchored" data-anchor-id="mémoire-à-long-terme">Mémoire à long terme</h4>
+<p>L’utilisation répétée du même mouvement peut être acceptable à court terme, mais pas à long terme. Pour éviter des biais dans la sélection des mouvements, on peut :</p>
+<ul>
+<li>Collecter des informations sur toute la trajectoire d’exploration depuis le début</li>
+<li>Générer des statistiques sur les mouvements/attributs/solutions passés</li>
+<li>Pénaliser les mouvements trop fréquents pour favoriser les moins fréquents (promouvoir l’exploration)</li>
+</ul>
+<p>Ce système de bonus-malus peut être modulé par la valeur de la fitness pour équilibrer exploration et exploitation.</p>
+</section>
+<section id="utilisation-combinée-des-mémoires" class="level4">
+<h4 class="anchored" data-anchor-id="utilisation-combinée-des-mémoires">Utilisation combinée des mémoires</h4>
+<p>On peut combiner et/ou alterner l’utilisation des mémoires à court et à long terme. Il faut introduire des paramètres de contrôle pour les deux types de mémoire, qui s’ajoutent aux autres paramètres de la métaheuristique (comme <span class="math inline">\(M\)</span> et <span class="math inline">\(k\)</span>). Les valeurs optimales de ces paramètres ne sont pas connues.</p>
+</section>
+</section>
+</section>
+<section id="exploration-vs-exploitation" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-vs-exploitation">Exploration vs exploitation</h2>
+<p>Le nombre d’entrées taboues ou de mouvements tabous influence le processus d’exploration :</p>
+<ul>
+<li>Plus le nombre de mouvements interdits est grand, plus on choisit des voisins avec une fitness plus faible : c’est l’<strong>exploration</strong> ou <strong>diversification</strong></li>
+<li>Si ce nombre est petit, on est libre d’utiliser des solutions à haute fitness : c’est l’<strong>exploitation</strong> ou <strong>intensification</strong></li>
+</ul>
+<p>Un autre ingrédient peut être intégré : l’<strong>aspiration</strong>. Si un point dans le voisinage a une fitness supérieure à celles rencontrées auparavant, ce point est sélectionné, même si le mouvement est interdit (tabou contourné).</p>
+</section>
+<section id="application-au-problème-daffectation-quadratique-qap" class="level2">
+<h2 class="anchored" data-anchor-id="application-au-problème-daffectation-quadratique-qap">Application au problème d’affectation quadratique (QAP)</h2>
+<section id="définition-du-qap" class="level3">
+<h3 class="anchored" data-anchor-id="définition-du-qap">Définition du QAP</h3>
+<p>Le QAP est un problème d’optimisation combinatoire important et difficile. On dispose de :</p>
+<ul>
+<li><span class="math inline">\(n\)</span> objets et <span class="math inline">\(n\)</span> emplacements possibles pour ces objets</li>
+<li>Des distances <span class="math inline">\(d_{rs}\)</span> entre les emplacements <span class="math inline">\(r\)</span> et <span class="math inline">\(s\)</span></li>
+<li>Des poids ou flux <span class="math inline">\(f_{ij}\)</span> entre les paires d’objets <span class="math inline">\((i, j)\)</span></li>
+</ul>
+<p>Le but est de trouver le placement optimal (une permutation) des <span class="math inline">\(n\)</span> objets sur les <span class="math inline">\(n\)</span> emplacements pour minimiser la fitness :</p>
+<p><span class="math display">\[
+f = \sum_{i,j} f_{ij} \, d_{r_i, r_j}
+\]</span></p>
+<p>où <span class="math inline">\(r_i\)</span> est la position de l’objet <span class="math inline">\(i\)</span>. L’espace de recherche <span class="math inline">\(S\)</span> est l’ensemble des permutations de <span class="math inline">\(n\)</span> objets.</p>
+<p>Le QAP apparaît dans de nombreux domaines : agencement d’installations, conception électronique, analyse de données, conception d’hôpitaux, ordonnancement, etc.</p>
+</section>
+<section id="exemple-de-résolution-avec-la-recherche-tabou" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-de-résolution-avec-la-recherche-tabou">Exemple de résolution avec la recherche tabou</h3>
+<p>Pour résoudre le QAP avec la TS, on définit :</p>
+<ul>
+<li>L’espace de recherche : toutes les permutations</li>
+<li>Le voisinage : on peut échanger deux objets contigus, échanger deux objets quelconques, ou déplacer et insérer un objet</li>
+</ul>
+<p>L’évaluation du voisinage peut être faite efficacement en calculant la différence de fitness <span class="math inline">\(\Delta_i = f(m_i(\mathbf{p})) - f(\mathbf{p})\)</span> pour chaque mouvement <span class="math inline">\(m_i\)</span>. Pour une minimisation, on cherche <span class="math inline">\(\Delta_i &lt; 0\)</span>.</p>
+<p>La liste taboue peut être implémentée sous forme d’une matrice <span class="math inline">\(n \times n\)</span> <span class="math inline">\(T\)</span>, où l’entrée <span class="math inline">\(T_{ir}\)</span> correspond à l’itération à laquelle l’objet <span class="math inline">\(i\)</span> a quitté l’emplacement <span class="math inline">\(r\)</span>, à laquelle on ajoute le temps de bannissement <span class="math inline">\(k\)</span>. Un mouvement <span class="math inline">\((r,s)\)</span> est interdit si <span class="math inline">\(T_{i_s r}\)</span> et <span class="math inline">\(T_{i_r s}\)</span> contiennent toutes deux une valeur supérieure au compteur d’itérations courant.</p>
+<p>Le temps de bannissement <span class="math inline">\(k\)</span> est généralement tiré aléatoirement dans un intervalle, par exemple <span class="math inline">\(k \in [0.9 \times n, 1.1 \times n + 4]\)</span>.</p>
+<p>Un exemple classique est le problème benchmark NUG5 (<span class="math inline">\(n=5\)</span>). La TS peut trouver l’optimum global en acceptant parfois une dégradation de la fitness pour explorer de nouvelles régions de l’espace de recherche.</p>
+</section>
+<section id="synthèse-de-lexemple" class="level3">
+<h3 class="anchored" data-anchor-id="synthèse-de-lexemple">Synthèse de l’exemple</h3>
+<p>L’idée derrière l’exemple est de montrer comment la TS, en utilisant une liste taboue adaptative, peut éviter les cycles et échapper aux optima locaux. En acceptant temporairement des solutions moins bonnes, l’algorithme peut explorer davantage l’espace et finalement converger vers une solution de haute qualité.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>La recherche tabou est une métaheuristique puissante pour l’optimisation combinatoire. Son principe de base est simple : utiliser une mémoire (liste taboue) pour éviter de revisiter des solutions et ainsi explorer l’espace de recherche plus efficacement. La gestion de la liste taboue (mémoire à court et long terme) et l’équilibre entre exploration et exploitation sont des aspects clés de la méthode.</p>
+<p>Son application à des problèmes comme le QAP montre son efficacité pratique. Cependant, comme pour beaucoup de métaheuristiques, le réglage des paramètres (taille de la liste, temps de bannissement, etc.) reste un défi et est souvent empirique.</p>
+<p>La TS est un outil important dans la boîte à outils de l’optimisation, en particulier pour les problèmes difficiles où les méthodes exactes ne sont pas réalisables.</p>
 
 
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

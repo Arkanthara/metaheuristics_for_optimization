@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch9 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,6 +73,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch9.html">Chapitre 9 : Transitions de phase en optimisation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -339,7 +368,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch9.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch9.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Chapitre 9 : Transitions de phase en optimisation</span></a>
   </div>
 </li>
@@ -351,36 +380,214 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapitre-9-transitions-de-phase-en-optimisation" id="toc-chapitre-9-transitions-de-phase-en-optimisation" class="nav-link active" data-scroll-target="#chapitre-9-transitions-de-phase-en-optimisation">Chapitre 9 : Transitions de phase en optimisation</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#le-problème-de-satisfaisabilité-sat-et-xorsat" id="toc-le-problème-de-satisfaisabilité-sat-et-xorsat" class="nav-link" data-scroll-target="#le-problème-de-satisfaisabilité-sat-et-xorsat">Le problème de satisfaisabilité (SAT) et XORSAT</a>
+  <ul class="collapse">
+  <li><a href="#le-problème-xorsat" id="toc-le-problème-xorsat" class="nav-link" data-scroll-target="#le-problème-xorsat">Le problème XORSAT</a></li>
+  </ul></li>
+  <li><a href="#problèmes-k-xorsat-et-transition-de-phase" id="toc-problèmes-k-xorsat-et-transition-de-phase" class="nav-link" data-scroll-target="#problèmes-k-xorsat-et-transition-de-phase">Problèmes k-XORSAT et transition de phase</a>
+  <ul class="collapse">
+  <li><a href="#transition-de-phase" id="toc-transition-de-phase" class="nav-link" data-scroll-target="#transition-de-phase">Transition de phase</a></li>
+  </ul></li>
+  <li><a href="#espace-des-solutions-pour-k123" id="toc-espace-des-solutions-pour-k123" class="nav-link" data-scroll-target="#espace-des-solutions-pour-k123">Espace des solutions pour k=1,2,3</a>
+  <ul class="collapse">
+  <li><a href="#cas-du-1-xorsat" id="toc-cas-du-1-xorsat" class="nav-link" data-scroll-target="#cas-du-1-xorsat">Cas du 1-XORSAT</a></li>
+  <li><a href="#cas-du-2-xorsat" id="toc-cas-du-2-xorsat" class="nav-link" data-scroll-target="#cas-du-2-xorsat">Cas du 2-XORSAT</a></li>
+  <li><a href="#cas-du-3-xorsat" id="toc-cas-du-3-xorsat" class="nav-link" data-scroll-target="#cas-du-3-xorsat">Cas du 3-XORSAT</a></li>
+  </ul></li>
+  <li><a href="#comportement-dune-métaheuristique-de-recherche" id="toc-comportement-dune-métaheuristique-de-recherche" class="nav-link" data-scroll-target="#comportement-dune-métaheuristique-de-recherche">Comportement d’une métaheuristique de recherche</a>
+  <ul class="collapse">
+  <li><a href="#lalgorithme-rwsat-random-walk-sat" id="toc-lalgorithme-rwsat-random-walk-sat" class="nav-link" data-scroll-target="#lalgorithme-rwsat-random-walk-sat">L’algorithme RWSAT (Random Walk SAT)</a></li>
+  <li><a href="#comportement-en-fonction-de-alpha" id="toc-comportement-en-fonction-de-alpha" class="nav-link" data-scroll-target="#comportement-en-fonction-de-alpha">Comportement en fonction de <span class="math inline">\(\alpha\)</span></a></li>
+  </ul></li>
+  <li><a href="#algorithmes-de-backtracking" id="toc-algorithmes-de-backtracking" class="nav-link" data-scroll-target="#algorithmes-de-backtracking">Algorithmes de backtracking</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch9.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch9.html">Chapitre 9 : Transitions de phase en optimisation</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
+<section id="chapitre-9-transitions-de-phase-en-optimisation" class="level1">
+<h1>Chapitre 9 : Transitions de phase en optimisation</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Nous cherchons à analyser statistiquement le comportement des métaheuristiques face à des problèmes d’optimisation de plus en plus difficiles.</p>
+<p>Nous considérons une métaheuristique appliquée à des problèmes de satisfaisabilité (SAT) en logique booléenne :</p>
+<ul>
+<li>La difficulté peut être ajustée via un paramètre de contrôle continu.</li>
+<li>Ces problèmes sont théoriquement analysables.</li>
+<li>On peut définir la probabilité qu’une instance donnée ait des solutions.</li>
+<li>On peut étudier si la métaheuristique choisie peut les trouver.</li>
+</ul>
+<p>Lorsque la difficulté augmente, on observe une transition :</p>
+<ul>
+<li>On passe d’une situation où de nombreuses solutions sont trouvées à une situation sans aucune solution.</li>
+<li>La complexité de la métaheuristique passe d’une complexité linéaire (en moyenne) à une complexité exponentielle.</li>
+</ul>
+<p>Ce phénomène est appelé <strong>transition de phase</strong>, en référence aux transitions de phase en physique (eau liquide → glace, matériaux magnétiques).</p>
+<p>Ce comportement provient de l’organisation des solutions dans l’espace de recherche.</p>
+</section>
+<section id="le-problème-de-satisfaisabilité-sat-et-xorsat" class="level2">
+<h2 class="anchored" data-anchor-id="le-problème-de-satisfaisabilité-sat-et-xorsat">Le problème de satisfaisabilité (SAT) et XORSAT</h2>
+<p>Un problème SAT est composé de <span class="math inline">\(N\)</span> variables booléennes contraintes par <span class="math inline">\(M\)</span> équations booléennes.</p>
+<p>Il s’agit d’une classe canonique de problèmes de décision en logique propositionnelle.</p>
+<p>Le but est de trouver une assignation des <span class="math inline">\(N\)</span> variables qui satisfait les <span class="math inline">\(M\)</span> équations, ou plus généralement, qui minimise le nombre de contraintes non satisfaites.</p>
+<p>Le nombre d’équations non satisfaites est appelé <strong>Énergie <span class="math inline">\(E\)</span></strong>. On cherche donc à minimiser <span class="math inline">\(E\)</span>.</p>
+<p>Le problème est dit <strong>satisfaisable</strong> si on peut avoir <span class="math inline">\(E = 0\)</span>.</p>
+<section id="le-problème-xorsat" class="level3">
+<h3 class="anchored" data-anchor-id="le-problème-xorsat">Le problème XORSAT</h3>
+<p>Le problème XORSAT est un cas particulier où les <span class="math inline">\(M\)</span> équations de contraintes linéaires ne contiennent que des opérations XOR (ou exclusif).</p>
+<p>On a un problème linéaire en arithmétique modulo 2.</p>
+<p>Exemple :</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{c}
+x_{1} + x_{2} + x_{3} = 1 \\
+x_{2} + x_{4} = 0 \\
+x_{1} + x_{4} = 1
+\end{array}
+\right.
+\]</span></p>
+<p>Les <span class="math inline">\(x_i\)</span> sont des variables booléennes (<span class="math inline">\(x_i \in \{0,1\}\)</span>).</p>
+<p>Le symbole <span class="math inline">\(+\)</span> désigne l’addition modulo 2 (XOR).</p>
+<p>Un problème XORSAT peut être résolu par élimination de Gauss (en arithmétique modulo 2) en temps <span class="math inline">\(\mathcal{O}(N^3)\)</span> si <span class="math inline">\(N = M\)</span>.</p>
+<p>Ainsi, tous les problèmes XORSAT sont dans la classe <strong>P</strong> (temps polynomial), contrairement aux problèmes SAT non linéaires qui peuvent contenir des opérateurs logiques quelconques (AND, OR, NOT) et sont souvent NP-difficiles.</p>
+</section>
+</section>
+<section id="problèmes-k-xorsat-et-transition-de-phase" class="level2">
+<h2 class="anchored" data-anchor-id="problèmes-k-xorsat-et-transition-de-phase">Problèmes k-XORSAT et transition de phase</h2>
+<p>Nous nous limitons à une sous-classe particulière de problèmes XORSAT : les <strong>k-XORSAT</strong>.</p>
+<p>Les <span class="math inline">\(M\)</span> équations du système contiennent exactement <span class="math inline">\(k\)</span> variables parmi les <span class="math inline">\(N\)</span>.</p>
+<p>On introduit le paramètre <span class="math inline">\(\alpha = \frac{M}{N}\)</span>.</p>
+<p>On s’intéresse à la probabilité de satisfaisabilité <span class="math inline">\(P_{SAT}(N, \alpha)\)</span> pour des valeurs fixes de <span class="math inline">\(k\)</span>.</p>
+<p>Lorsque <span class="math inline">\(\alpha\)</span> augmente, le problème devient plus difficile (plus de contraintes).</p>
+<p>On s’attend donc à ce que <span class="math inline">\(P_{SAT}\)</span> diminue avec <span class="math inline">\(\alpha\)</span>.</p>
+<section id="transition-de-phase" class="level3">
+<h3 class="anchored" data-anchor-id="transition-de-phase">Transition de phase</h3>
+<p>Si <span class="math inline">\(N \to \infty\)</span> et <span class="math inline">\(k \geq 2\)</span>, on observe que <span class="math inline">\(P_{SAT}(N, \alpha)\)</span> subit une <strong>transition de phase</strong> pour une valeur critique <span class="math inline">\(\alpha_c(k)\)</span>.</p>
+<ul>
+<li>Pour <span class="math inline">\(\alpha &lt; \alpha_c\)</span> : presque tous les problèmes sont satisfaisables.</li>
+<li>Pour <span class="math inline">\(\alpha &gt; \alpha_c\)</span> : presque aucun ne l’est.</li>
+</ul>
+</section>
+</section>
+<section id="espace-des-solutions-pour-k123" class="level2">
+<h2 class="anchored" data-anchor-id="espace-des-solutions-pour-k123">Espace des solutions pour k=1,2,3</h2>
+<section id="cas-du-1-xorsat" class="level3">
+<h3 class="anchored" data-anchor-id="cas-du-1-xorsat">Cas du 1-XORSAT</h3>
+<p>Un problème 1-XORSAT consiste en <span class="math inline">\(M\)</span> équations de la forme <span class="math inline">\(x_i = \nu\)</span>.</p>
+<p>Le système est satisfaisable si aucune variable n’apparaît plus d’une fois avec des valeurs contradictoires.</p>
+<p>La probabilité de satisfaisabilité peut être estimée par :</p>
+<p><span class="math display">\[
+P_{SAT} \approx \exp\left(-\frac{\alpha^2 N}{2}\right)
+\]</span></p>
+<p>Pour maintenir une probabilité constante, il faut que <span class="math inline">\(M^2/N\)</span> soit constant.</p>
+</section>
+<section id="cas-du-2-xorsat" class="level3">
+<h3 class="anchored" data-anchor-id="cas-du-2-xorsat">Cas du 2-XORSAT</h3>
+<p>Les équations sont de la forme <span class="math inline">\(x_{i_1} + x_{i_2} = \nu\)</span>.</p>
+<p>On peut représenter le système par un graphe :</p>
+<ul>
+<li>Les nœuds sont les variables <span class="math inline">\(x_i\)</span>.</li>
+<li>Une arête entre deux nœuds existe s’ils apparaissent dans une même équation, avec un poids binaire <span class="math inline">\(\nu\)</span>.</li>
+</ul>
+<p>Le graphe a <span class="math inline">\(M = \alpha N\)</span> arêtes.</p>
+<p>Si le graphe est une forêt (ensemble d’arbres disjoints), le système est satisfaisable.</p>
+<p>S’il contient des cycles, la satisfaisabilité dépend de la parité du nombre d’arêtes de poids 1 dans le cycle.</p>
+<p>La satisfaisabilité d’un problème 2-XORSAT se ramène à estimer la probabilité qu’un graphe aléatoire ait des cycles avec un nombre impair de 1.</p>
+<p>La valeur critique est <span class="math inline">\(\alpha_c = 1/2\)</span>.</p>
+</section>
+<section id="cas-du-3-xorsat" class="level3">
+<h3 class="anchored" data-anchor-id="cas-du-3-xorsat">Cas du 3-XORSAT</h3>
+<p>Les équations sont de la forme <span class="math inline">\(x_{i1} + x_{i2} + x_{i3} = \nu\)</span>.</p>
+<p>On peut simplifier le problème par élimination itérative des variables qui n’apparaissent qu’une seule fois.</p>
+<p>Pour <span class="math inline">\(N\)</span> grand, on observe :</p>
+<ul>
+<li><span class="math inline">\(\alpha &lt; \alpha_d = 0.8184\)</span> : le problème est satisfaisable avec un espace de solutions homogène.</li>
+<li><span class="math inline">\(\alpha_d \leq \alpha &lt; \alpha_c = 0.9179\)</span> : les solutions sont regroupées en clusters.</li>
+<li><span class="math inline">\(\alpha &gt; \alpha_c\)</span> : aucune solution (avec haute probabilité).</li>
+</ul>
+<p>Transition de phase à <span class="math inline">\(\alpha_c = 0.9179\)</span>.</p>
+</section>
+</section>
+<section id="comportement-dune-métaheuristique-de-recherche" class="level2">
+<h2 class="anchored" data-anchor-id="comportement-dune-métaheuristique-de-recherche">Comportement d’une métaheuristique de recherche</h2>
+<p>Nous analysons le comportement d’une métaheuristique (RWSAT) sur des instances de 3-XORSAT.</p>
+<p>Bien que le problème soit polynomial (résoluble par élimination de Gauss), l’étude de la métaheuristique permet d’observer comment la difficulté évolue avec <span class="math inline">\(\alpha\)</span>.</p>
+<section id="lalgorithme-rwsat-random-walk-sat" class="level3">
+<h3 class="anchored" data-anchor-id="lalgorithme-rwsat-random-walk-sat">L’algorithme RWSAT (Random Walk SAT)</h3>
+<p>Principe :</p>
+<ol type="1">
+<li>Choisir aléatoirement une assignation des <span class="math inline">\(N\)</span> variables.</li>
+<li>Lister toutes les équations non satisfaites.</li>
+<li>Parmi elles, en choisir une aléatoirement et modifier la valeur d’une de ses 3 variables (choisie aléatoirement).</li>
+<li>Répéter jusqu’à ce que toutes les équations soient satisfaites ou jusqu’à un temps maximal.</li>
+</ol>
+<p>On mesure le nombre de contraintes non satisfaites <span class="math inline">\(E\)</span> (à minimiser).</p>
+<p>Pseudo-code :</p>
+<pre><code>Initialiser toutes les variables aléatoirement
+Calculer E
+t = 0
+Tant que (E &gt; 0 et t &lt; max)
+    Choisir aléatoirement une équation non satisfaite
+    Choisir aléatoirement une de ses trois variables
+    Changer la valeur de cette variable (complément)
+    Calculer E
+    t = t + 1
+Fin Tant que
+Afficher E, t</code></pre>
+</section>
+<section id="comportement-en-fonction-de-alpha" class="level3">
+<h3 class="anchored" data-anchor-id="comportement-en-fonction-de-alpha">Comportement en fonction de <span class="math inline">\(\alpha\)</span></h3>
+<ul>
+<li><p><strong>Régime petit <span class="math inline">\(\alpha\)</span></strong> : <span class="math inline">\(E\)</span> décroît lentement jusqu’à 0. Temps de résolution linéaire en <span class="math inline">\(N\)</span>.</p></li>
+<li><p><strong>Régime grand <span class="math inline">\(\alpha\)</span></strong> : <span class="math inline">\(E\)</span> fluctue autour d’un plateau <span class="math inline">\(e_{\mathrm{plateau}} &gt; 0\)</span>. Temps de résolution exponentiel en <span class="math inline">\(N\)</span>.</p></li>
+</ul>
+<p>Il existe une transition de phase vers une complexité algorithmique exponentielle à <span class="math inline">\(\alpha_E = 0.33\)</span> pour RWSAT.</p>
+</section>
+</section>
+<section id="algorithmes-de-backtracking" class="level2">
+<h2 class="anchored" data-anchor-id="algorithmes-de-backtracking">Algorithmes de backtracking</h2>
+<p>Le défi avec RWSAT est la raréfaction des solutions dans l’espace de recherche.</p>
+<p>L’algorithme de backtracking :</p>
+<ul>
+<li>Assigner progressivement les variables <span class="math inline">\(x_i\)</span> selon un arbre binaire parcouru en profondeur.</li>
+<li>Pour chaque nouvelle assignation, vérifier qu’il n’y a pas de conflit avec les équations déjà fixées.</li>
+<li>En cas de contradiction, revenir en arrière (backtracking).</li>
+</ul>
+<p>Le temps de calcul est proportionnel au nombre de nœuds de l’arbre explorés.</p>
+<p>On observe également une transition de phase :</p>
+<ul>
+<li>Pour <span class="math inline">\(\alpha &lt; \alpha_c\)</span> (différent de RWSAT), temps linéaire.</li>
+<li>Pour <span class="math inline">\(\alpha &gt; \alpha_c\)</span>, temps exponentiel.</li>
+</ul>
+<p>La valeur critique <span class="math inline">\(\alpha_c\)</span> dépend de la stratégie d’assignation des variables :</p>
+<ul>
+<li>Assignation aléatoire : <span class="math inline">\(\alpha_c = 2/3\)</span>.</li>
+<li>Assignation prioritaire aux variables apparaissant dans des équations avec deux variables libres : <span class="math inline">\(\alpha_c = 0.7507\)</span>.</li>
+</ul>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Les transitions de phase dans les problèmes d’optimisation (comme k-XORSAT) ont un impact direct sur la performance des métaheuristiques.</p>
+<p>La complexité algorithmique peut passer brutalement de linéaire à exponentielle lorsque le paramètre de difficulté <span class="math inline">\(\alpha\)</span> dépasse un seuil critique.</p>
+<p>Cette analyse permet de mieux comprendre les limites des méthodes de recherche et d’ajuster les paramètres pour rester dans un régime “facile”.</p>
 
 
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

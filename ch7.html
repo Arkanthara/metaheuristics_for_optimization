@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch7 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,6 +73,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch7.html">Programmation Génétique (Genetic Programming, GP)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -327,7 +356,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch7.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch7.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Programmation Génétique (Genetic Programming, GP)</span></a>
   </div>
 </li>
@@ -351,36 +380,236 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#programmation-génétique-genetic-programming-gp" id="toc-programmation-génétique-genetic-programming-gp" class="nav-link active" data-scroll-target="#programmation-génétique-genetic-programming-gp">Programmation Génétique (Genetic Programming, GP)</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#régression-symbolique" id="toc-régression-symbolique" class="nav-link" data-scroll-target="#régression-symbolique">Régression Symbolique</a></li>
+  <li><a href="#inférence-de-comportement" id="toc-inférence-de-comportement" class="nav-link" data-scroll-target="#inférence-de-comportement">Inférence de Comportement</a></li>
+  <li><a href="#codage-des-programmes" id="toc-codage-des-programmes" class="nav-link" data-scroll-target="#codage-des-programmes">Codage des Programmes</a>
+  <ul class="collapse">
+  <li><a href="#défis-et-approches" id="toc-défis-et-approches" class="nav-link" data-scroll-target="#défis-et-approches">Défis et Approches</a></li>
+  <li><a href="#calcul-de-la-fitness-régression-symbolique" id="toc-calcul-de-la-fitness-régression-symbolique" class="nav-link" data-scroll-target="#calcul-de-la-fitness-régression-symbolique">Calcul de la Fitness (Régression Symbolique)</a></li>
+  <li><a href="#codage-par-s-expressions-arbres" id="toc-codage-par-s-expressions-arbres" class="nav-link" data-scroll-target="#codage-par-s-expressions-arbres">Codage par S-expressions (Arbres)</a></li>
+  <li><a href="#ensembles-de-fonctions-et-de-terminaux" id="toc-ensembles-de-fonctions-et-de-terminaux" class="nav-link" data-scroll-target="#ensembles-de-fonctions-et-de-terminaux">Ensembles de Fonctions et de Terminaux</a></li>
+  <li><a href="#propriété-de-clôture-closure-property" id="toc-propriété-de-clôture-closure-property" class="nav-link" data-scroll-target="#propriété-de-clôture-closure-property">Propriété de Clôture (Closure Property)</a></li>
+  <li><a href="#population-initiale" id="toc-population-initiale" class="nav-link" data-scroll-target="#population-initiale">Population Initiale</a></li>
+  <li><a href="#opérateurs-génétiques-arbres" id="toc-opérateurs-génétiques-arbres" class="nav-link" data-scroll-target="#opérateurs-génétiques-arbres">Opérateurs Génétiques (Arbres)</a></li>
+  </ul></li>
+  <li><a href="#exemple-recherche-de-modèles-de-trading-optimaux" id="toc-exemple-recherche-de-modèles-de-trading-optimaux" class="nav-link" data-scroll-target="#exemple-recherche-de-modèles-de-trading-optimaux">Exemple : Recherche de Modèles de Trading Optimaux</a></li>
+  <li><a href="#programmes-génétiques-linéaires-basés-sur-une-pile" id="toc-programmes-génétiques-linéaires-basés-sur-une-pile" class="nav-link" data-scroll-target="#programmes-génétiques-linéaires-basés-sur-une-pile">Programmes Génétiques Linéaires Basés sur une Pile</a>
+  <ul class="collapse">
+  <li><a href="#principe" id="toc-principe" class="nav-link" data-scroll-target="#principe">Principe</a></li>
+  <li><a href="#opérateurs-génétiques-linéaire" id="toc-opérateurs-génétiques-linéaire" class="nav-link" data-scroll-target="#opérateurs-génétiques-linéaire">Opérateurs Génétiques (Linéaire)</a></li>
+  <li><a href="#exemples" id="toc-exemples" class="nav-link" data-scroll-target="#exemples">Exemples</a></li>
+  <li><a href="#contrôle-de-flux" id="toc-contrôle-de-flux" class="nav-link" data-scroll-target="#contrôle-de-flux">Contrôle de Flux</a></li>
+  </ul></li>
+  <li><a href="#guided-parameters-paramètres-guidés" id="toc-guided-parameters-paramètres-guidés" class="nav-link" data-scroll-target="#guided-parameters-paramètres-guidés">Guided Parameters (Paramètres Guidés)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch7.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch7.html">Programmation Génétique (Genetic Programming, GP)</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
+<section id="programmation-génétique-genetic-programming-gp" class="level1">
+<h1>Programmation Génétique (Genetic Programming, GP)</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>La <strong>Programmation Génétique</strong> (GP) a été introduite et développée par John Koza au début des années 1990.</p>
+<p>L’objectif principal est d’appliquer les concepts évolutionnistes à des programmes informatiques, plutôt qu’à un ensemble de valeurs numériques.</p>
+<p>On cherche à faire évoluer un programme de manière à ce qu’il puisse résoudre un problème donné de manière optimale, ouvrant ainsi la voie à la robotique évolutionniste.</p>
+<p>Pour cela, on considère une population de programmes et on applique des opérateurs de sélection et de recombination (dont le crossover) afin d’obtenir le programme désiré. Au lieu d’optimiser des paramètres numériques, la GP fait évoluer les programmes eux-mêmes jusqu’à ce qu’ils accomplissent la tâche souhaitée.</p>
+<p>Un tel programme doit :</p>
+<ul>
+<li>Produire une sortie correcte pour toute entrée possible</li>
+<li>Découvrir la fonction liant les données d’entrée aux données de sortie</li>
+</ul>
+<p>Il peut être appliqué à :</p>
+<ul>
+<li>L’ajustement de courbes algébriques, la régression symbolique, la classification</li>
+<li>La construction de modèles de trading en finance</li>
+<li>La détermination de conditions aux limites à partir de données empiriques</li>
+<li>Le contrôle du mouvement de robots dans des environnements complexes</li>
+</ul>
+<p>Ce processus est typique de l’apprentissage automatique (ML), mais peut aussi être vu comme une tâche d’optimisation : minimiser la différence entre la sortie spécifiée et celle obtenue par la GP. Cela montre la frontière ténue entre ML et optimisation.</p>
+<hr>
+</section>
+<section id="régression-symbolique" class="level2">
+<h2 class="anchored" data-anchor-id="régression-symbolique">Régression Symbolique</h2>
+<p>Le but de la <strong>régression symbolique</strong> (SR) est de construire un programme qui relie les données d’entrée aux données de sortie sans prédéfinir la forme fonctionnelle.</p>
+<p>La SR explore l’immense espace de toutes les expressions symboliques possibles, construites à partir d’un ensemble de fonctions et de variables.</p>
+<p>On utilise un ensemble d’apprentissage (training set) composé de paires (entrée, sortie) pour générer des programmes. Le but est qu’un programme construit sur cet ensemble soit capable de généraliser, c’est-à-dire de détecter la relation sous-jacente entre les données d’entrée et de sortie.</p>
+<p>Cette généralisation est testée sur un ensemble de test (test set) qui ne fait pas partie de l’ensemble d’apprentissage. Il existe un risque de surapprentissage (overfitting) : excellente performance sur l’ensemble d’apprentissage, mais très mauvaise sur l’ensemble de test.</p>
+<p>La SR est puissante car :</p>
+<ul>
+<li>Elle n’a pas de structure de modèle prédéfinie</li>
+<li>Elle peut découvrir : polynômes, expressions rationnelles, exponentielles, compositions imbriquées, modèles hybrides</li>
+<li>Elle est interprétable : contrairement aux réseaux de neurones, elle produit des formules explicites et lisibles</li>
+<li>Elle permet la construction automatique de caractéristiques (features)</li>
+<li>Elle explore naturellement des mappings non linéaires</li>
+</ul>
+<hr>
+</section>
+<section id="inférence-de-comportement" class="level2">
+<h2 class="anchored" data-anchor-id="inférence-de-comportement">Inférence de Comportement</h2>
+<p>Lorsque le but est de déterminer le comportement d’un robot (ou d’un groupe de robots) à partir de sa perception de l’environnement, on peut simuler le comportement induit par la GP et évaluer sa performance dans des environnements générés aléatoirement.</p>
+<p>On mesure le taux de succès ou d’échec pour les tâches attendues. Cette approche est liée à l’apprentissage par renforcement (Reinforcement Learning, RL).</p>
+<hr>
+</section>
+<section id="codage-des-programmes" class="level2">
+<h2 class="anchored" data-anchor-id="codage-des-programmes">Codage des Programmes</h2>
+<section id="défis-et-approches" class="level3">
+<h3 class="anchored" data-anchor-id="défis-et-approches">Défis et Approches</h3>
+<p>Le défi principal est de coder un programme de manière à pouvoir lui appliquer des opérateurs évolutionnistes tout en générant des individus valides (programmes syntaxiquement corrects et exécutables).</p>
+<p>Deux approches distinctes sont généralement utilisées :</p>
+<ul>
+<li>Les arbres (tree-based)</li>
+<li>Les programmes linéaires basés sur une pile (stack-based linear programs)</li>
+</ul>
+<p>Dans tous les cas, l’espace de recherche (l’espace de tous les programmes possibles) est limité par la nature des langages de programmation existants.</p>
+</section>
+<section id="calcul-de-la-fitness-régression-symbolique" class="level3">
+<h3 class="anchored" data-anchor-id="calcul-de-la-fitness-régression-symbolique">Calcul de la Fitness (Régression Symbolique)</h3>
+<p>Soit <span class="math inline">\(p\)</span> un programme tel que <span class="math inline">\(y = p(x)\)</span> est la sortie générée par <span class="math inline">\(p\)</span> pour l’entrée <span class="math inline">\(x\)</span>. Notez que <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> peuvent être des structures de données.</p>
+<p>Soit <span class="math inline">\(A = \{ \langle x_1, y_1 \rangle, \ldots, \langle x_k, y_k \rangle \}\)</span> un ensemble d’apprentissage composé de <span class="math inline">\(k\)</span> paires (entrée, sortie).</p>
+<p>La fitness (ou fonction de perte) du programme <span class="math inline">\(p\)</span> est définie par :</p>
+<p><span class="math display">\[
+f(p) = \sum_{i=1}^{k} |y_i - p(x_i)|
+\]</span></p>
+<p>C’est la capacité du programme <span class="math inline">\(p\)</span> à générer la sortie attendue à partir de l’entrée donnée.</p>
+<p>Dans la majorité des cas en GP, on cherche une représentation algébrique d’une expression booléenne ou arithmétique. Par exemple, à partir d’observations <span class="math inline">\(\{(x_i, y_i)\}\)</span>, on cherche une relation <span class="math inline">\(y = g(x)\)</span> où <span class="math inline">\(g\)</span> est donnée algébriquement, par exemple <span class="math inline">\(g(x) = 2x^2 - 3x + 1\)</span>.</p>
+<p>Important : Essayer de faire évoluer des programmes écrits en C, Java, Python, etc. à l’aide d’opérations de crossover et de mutation est voué à l’échec car la plupart des recombinaisons produiraient des programmes syntaxiquement invalides.</p>
+</section>
+<section id="codage-par-s-expressions-arbres" class="level3">
+<h3 class="anchored" data-anchor-id="codage-par-s-expressions-arbres">Codage par S-expressions (Arbres)</h3>
+<p>Koza a proposé de coder les programmes avec un langage fonctionnel (similaire à Lisp), basé sur des instructions appelées S-expressions (expressions symboliques).</p>
+<p>Par exemple, <span class="math inline">\((+ \; x \; 2)\)</span> signifie <span class="math inline">\(x + 2\)</span>. L’expression <span class="math inline">\(2x^2 + 3x + 1\)</span> devient :</p>
+<p><span class="math display">\[
+(+ \; (* \; (* \; x \; x) \; 2) \; (+ \; (* \; 3 \; x) \; 1))
+\]</span></p>
+<p>Si on remplace un opérateur dans une S-expression par une autre S-expression, on obtient une commande valide. On peut donc définir des opérateurs génétiques (crossover et mutation) sur les S-expressions.</p>
+<p>Le codage par arbre est équivalent aux S-expressions, mais plus facile à comprendre.</p>
+</section>
+<section id="ensembles-de-fonctions-et-de-terminaux" class="level3">
+<h3 class="anchored" data-anchor-id="ensembles-de-fonctions-et-de-terminaux">Ensembles de Fonctions et de Terminaux</h3>
+<p>L’espace de recherche des GP est spécifié par un ensemble <span class="math inline">\(F\)</span> de fonctions et un ensemble <span class="math inline">\(T\)</span> de terminaux.</p>
+<ul>
+<li><span class="math inline">\(F\)</span> contient toutes les opérations possibles (par exemple, <span class="math inline">\(F = \{+, -, *, /\}\)</span>)</li>
+<li><span class="math inline">\(T\)</span> contient toutes les variables et constantes possibles (par exemple, <span class="math inline">\(T = \{A, B, C, D\}\)</span>)</li>
+</ul>
+<p>Pour les fonctions booléennes, on pourrait avoir <span class="math inline">\(F = \{\text{AND, OR, NOT}\}\)</span> et <span class="math inline">\(T = \{b_1, b_2, b_3, \ldots, \text{TRUE, FALSE}\}\)</span>.</p>
+<p>On peut aussi inclure des opérateurs de contrôle, comme IF. Par exemple, (IF A B C D) est une fonction à 4 arguments : si A == B, alors retourne C, sinon D.</p>
+</section>
+<section id="propriété-de-clôture-closure-property" class="level3">
+<h3 class="anchored" data-anchor-id="propriété-de-clôture-closure-property">Propriété de Clôture (Closure Property)</h3>
+<p>Chaque fonction doit être capable d’accepter comme argument toutes les valeurs retournées par d’autres fonctions et toutes les valeurs de l’ensemble terminal <span class="math inline">\(T\)</span>.</p>
+<p>Des opérateurs comme la division doivent être augmentés pour accepter toute paire d’arguments (par exemple, gérer la division par zéro).</p>
+<p>L’espace de tous les programmes admissibles est constitué de toutes les compositions de fonctions disponibles à partir de <span class="math inline">\(F\)</span> avec des éléments terminaux de <span class="math inline">\(T\)</span>.</p>
+<p>Cet espace a potentiellement une dimension infinie et la taille des individus est arbitraire. Il est pratiquement nécessaire de limiter leur taille. Certains morceaux de programmes peuvent ne rien faire (par exemple, <span class="math inline">\((- x x)\)</span> qui peut être simplifié en 0), c’est le problème de “bloat”.</p>
+<p>La propriété de clôture est une contrainte fondamentale pour la GP. Des exemples de problèmes incluent la division par zéro, l’incompatibilité de type, les erreurs de domaine, et les structures de contrôle mal utilisées (par exemple, (if x y z) avec x numérique et non booléen).</p>
+</section>
+<section id="population-initiale" class="level3">
+<h3 class="anchored" data-anchor-id="population-initiale">Population Initiale</h3>
+<p>À partir des ensembles <span class="math inline">\(F\)</span> et <span class="math inline">\(T\)</span>, on peut générer une population initiale de programmes valides.</p>
+<p>Chaque nœud est tiré aléatoirement de <span class="math inline">\(F\)</span> ou <span class="math inline">\(T\)</span>. Si c’est un terminal, la branche se termine. Sinon, il faut tirer autant d’éléments que requis par l’opérateur de <span class="math inline">\(F\)</span>.</p>
+<p>On peut biaiser le choix entre <span class="math inline">\(F\)</span> et <span class="math inline">\(T\)</span> en fonction de la profondeur : près de la racine, on a une probabilité plus élevée de choisir une fonction, puis une probabilité plus élevée de tirer un terminal en s’éloignant de la racine. Ces probabilités définissent la profondeur moyenne des programmes.</p>
+</section>
+<section id="opérateurs-génétiques-arbres" class="level3">
+<h3 class="anchored" data-anchor-id="opérateurs-génétiques-arbres">Opérateurs Génétiques (Arbres)</h3>
+<p><strong>Crossover (à la Koza)</strong> : On choisit aléatoirement un lien dans l’arbre représentant chaque parent et on échange les sous-arbres correspondants. Les points de crossover sont typiquement choisis avec une probabilité non uniforme pour favoriser les nœuds internes par rapport aux feuilles.</p>
+<p><strong>Mutation (à la Koza)</strong> : On sélectionne aléatoirement un sous-arbre du programme et on le remplace par un autre sous-arbre généré aléatoirement à partir de <span class="math inline">\(F\)</span> et <span class="math inline">\(T\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="exemple-recherche-de-modèles-de-trading-optimaux" class="level2">
+<h2 class="anchored" data-anchor-id="exemple-recherche-de-modèles-de-trading-optimaux">Exemple : Recherche de Modèles de Trading Optimaux</h2>
+<p>But : Faire évoluer un programme qui formule des recommandations d’investissement sur le marché des changes (forex).</p>
+<p>On dispose d’indicateurs de marché <span class="math inline">\(\{I_k(t)\}\)</span>, <span class="math inline">\(k=1,\ldots,m\)</span>, qui sont typiquement des moyennes mobiles des taux de change à différentes échelles de temps.</p>
+<p>On cherche un programme qui prend les <span class="math inline">\(\{I_k(t)\}\)</span> en entrée et produit trois sorties possibles : 0 (ne rien faire), -1 (vendre), 1 (acheter).</p>
+<p>La fitness est définie comme le rendement moyen généré par ce modèle s’il avait été utilisé sur les années passées, auquel on soustrait le risque associé mesuré par sa variance.</p>
+<p>Un exemple d’arbre obtenu pourrait utiliser des indicateurs complexes <span class="math inline">\(I_1, I_2, I_3, I_4\)</span> basés sur des moyennes mobiles de séries temporelles longues, avec des constantes empiriques. Le rendement est bon, mais pas exceptionnel.</p>
+<hr>
+</section>
+<section id="programmes-génétiques-linéaires-basés-sur-une-pile" class="level2">
+<h2 class="anchored" data-anchor-id="programmes-génétiques-linéaires-basés-sur-une-pile">Programmes Génétiques Linéaires Basés sur une Pile</h2>
+<section id="principe" class="level3">
+<h3 class="anchored" data-anchor-id="principe">Principe</h3>
+<p>Pour suivre l’approche des langages procéduraux, on code les GP avec une série d’instructions exécutées séquentiellement. Pour garantir la validité syntaxique après crossover/mutation, on utilise une approche basée sur une pile.</p>
+<p>Par exemple :</p>
+<ul>
+<li>Instruction A : place la valeur de la variable <span class="math inline">\(A\)</span> dans la pile</li>
+<li>Instruction B : place la valeur de <span class="math inline">\(B\)</span> dans la pile</li>
+<li>Instruction ADD : retire les deux éléments du sommet de la pile, les additionne et empile le résultat</li>
+</ul>
+<p>Ainsi, le programme <code>A B ADD C MUL 2 sqrt DIV</code> correspond à :</p>
+<p><span class="math display">\[
+\frac{(A + B) \times C}{\sqrt{2}}
+\]</span></p>
+<p>Les opérations doivent être adaptées pour tolérer le manque d’arguments dans la pile.</p>
+</section>
+<section id="opérateurs-génétiques-linéaire" class="level3">
+<h3 class="anchored" data-anchor-id="opérateurs-génétiques-linéaire">Opérateurs Génétiques (Linéaire)</h3>
+<p><strong>Crossover</strong> : Similaire au crossover sur une chaîne de bits. On choisit un point de crossover dans deux programmes et on échange les parties.</p>
+<p>Exemple :</p>
+<ul>
+<li>P1 : <code>A B ADD | C MUL 2 sqrt DIV</code></li>
+<li>P2 : <code>1 B SUB | A A MUL ADD 3</code></li>
+</ul>
+<p>Les descendants sont :</p>
+<ul>
+<li>P1’ : <code>A B ADD A A MUL ADD 3</code></li>
+<li>P2’ : <code>1 B SUB C MUL 2 sqrt DIV</code></li>
+</ul>
+<p>P1’ laisse dans la pile deux valeurs : <span class="math inline">\(A + B + A^2\)</span> et 3. P2’ laisse une valeur : <span class="math inline">\((1 - B) * C / \sqrt{2}\)</span>.</p>
+<p><strong>Mutation</strong> : On change aléatoirement une instruction en une autre.</p>
+<p>Exemple : <code>A B ADD C MUL 2 sqrt DIV</code> devient <code>A B MUL C MUL 2 sqrt DIV</code>, qui laisse dans la pile <span class="math inline">\((A * B) * C / \sqrt{2}\)</span>.</p>
+</section>
+<section id="exemples" class="level3">
+<h3 class="anchored" data-anchor-id="exemples">Exemples</h3>
+<p><strong>Exemple booléen</strong> : On cherche l’expression algébrique de la fonction booléenne <span class="math inline">\(f(x_0, x_1, x_2) = x_0 \text{ AND } x_1 \text{ AND } x_2\)</span>.</p>
+<p>Avec <span class="math inline">\(T = \{X_0, X_1, X_2\}\)</span> et <span class="math inline">\(F = \{\text{AND, OR, NOT}\}\)</span>, on considère des programmes de 5 instructions. Avec 6 choix par instruction (3 terminaux + 3 fonctions), on a <span class="math inline">\(6^5 = 7776\)</span> programmes possibles.</p>
+<p>La fitness est le nombre de lignes de la table de vérité correctement calculées (optimum = 8).</p>
+<p><strong>Exemple arithmétique</strong> : On cherche à approximer la fonction <span class="math inline">\(F(x_0, x_1) = (x_0 + x_1)^2\)</span>.</p>
+<p>Avec <span class="math inline">\(F = \{\text{ADD, MUL, DUP, SUB}\}\)</span> et <span class="math inline">\(T = \{X_0, X_1\}\)</span>, et un ensemble d’apprentissage de paires <span class="math inline">\((x_0, x_1, F(x_0, x_1))\)</span>, on minimise la somme des valeurs absolues des différences.</p>
+</section>
+<section id="contrôle-de-flux" class="level3">
+<h3 class="anchored" data-anchor-id="contrôle-de-flux">Contrôle de Flux</h3>
+<p>On peut définir des structures de contrôle comme des instructions conditionnelles IF ou des boucles.</p>
+<p><strong>IF</strong> : Prend l’élément du sommet de la pile <span class="math inline">\(\alpha\)</span> et le compare à 0. Si <span class="math inline">\(\alpha \geq 0\)</span>, les instructions suivantes sont exécutées normalement jusqu’à ENDIF. Sinon, elles sont ignorées.</p>
+<p><strong>Boucles</strong> : On utilise une pile de contrôle en plus de la pile de données. La pile de contrôle contient la position de l’instruction LOOP et le nombre d’itérations (pris du sommet de la pile de données).</p>
+<p>Quand on rencontre END-LOOP, on décrémente le nombre d’itérations et on revient à la position LOOP, sauf si le nombre d’itérations est nul. On travaille avec le sommet de la pile de contrôle, permettant des boucles imbriquées.</p>
+<p>Exemple : Programme <code>[ X1, LOOP, X0, ADD, END-LOOP ]</code> pour calculer la somme de X0 répétée X1 fois (c’est-à-dire X0 * X1). Avec X0=3 et X1=2, on obtient 6.</p>
+<hr>
+</section>
+</section>
+<section id="guided-parameters-paramètres-guidés" class="level2">
+<h2 class="anchored" data-anchor-id="guided-parameters-paramètres-guidés">Guided Parameters (Paramètres Guidés)</h2>
+<ul>
+<li><strong>Fonction set (<span class="math inline">\(F\)</span>) et Terminal set (<span class="math inline">\(T\)</span>)</strong> : Choix des opérations et variables/constantes autorisées.</li>
+<li><strong>Taille de la population</strong> : Nombre de programmes dans la population.</li>
+<li><strong>Nombre de générations</strong> : Combien d’itérations de l’évolution.</li>
+<li><strong>Probabilités des opérateurs</strong> : Probabilités d’appliquer le crossover, la mutation, etc.</li>
+<li><strong>Méthode de sélection</strong> : Par exemple, sélection par tournoi, roulette, etc.</li>
+<li><strong>Limites de taille/depth</strong> : Pour contrôler le “bloat” (taille maximale des arbres, profondeur maximale).</li>
+<li><strong>Critère d’arrêt</strong> : Fitness cible atteinte, nombre maximal de générations, stagnation, etc.</li>
+<li><strong>Fonction de fitness</strong> : Définition de la mesure de performance (par exemple, erreur absolue moyenne, précision, etc.).</li>
+<li><strong>Taux de mutation</strong> : Probabilité de muter un nœud.</li>
+<li><strong>Taux de crossover</strong> : Probabilité d’effectuer un crossover.</li>
+<li><strong>Méthode de génération de la population initiale</strong> : Aléatoire, avec biais de profondeur, etc.</li>
+</ul>
+<p>Ces paramètres doivent être ajustés en fonction du problème pour obtenir de bonnes performances.</p>
 
 
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

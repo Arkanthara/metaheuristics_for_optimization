@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch5 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,6 +73,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -315,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch5.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch5.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</span></a>
   </div>
 </li>
@@ -351,36 +380,182 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search" id="toc-métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search" class="nav-link active" data-scroll-target="#métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</a>
+  <ul class="collapse">
+  <li><a href="#particle-swarm-optimization-pso" id="toc-particle-swarm-optimization-pso" class="nav-link" data-scroll-target="#particle-swarm-optimization-pso">Particle Swarm Optimization (PSO)</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#algorithme-pso" id="toc-algorithme-pso" class="nav-link" data-scroll-target="#algorithme-pso">Algorithme PSO</a></li>
+  </ul></li>
+  <li><a href="#firefly-algorithm" id="toc-firefly-algorithm" class="nav-link" data-scroll-target="#firefly-algorithm">Firefly Algorithm</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#règle-de-déplacement" id="toc-règle-de-déplacement" class="nav-link" data-scroll-target="#règle-de-déplacement">Règle de déplacement</a></li>
+  </ul></li>
+  <li><a href="#cuckoo-search" id="toc-cuckoo-search" class="nav-link" data-scroll-target="#cuckoo-search">Cuckoo Search</a>
+  <ul class="collapse">
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2">Introduction</a></li>
+  <li><a href="#algorithme-1" id="toc-algorithme-1" class="nav-link" data-scroll-target="#algorithme-1">Algorithme</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch5.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch5.html">Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
+<section id="métaheuristiques-doptimisation-pso-firefly-algorithm-cuckoo-search" class="level1">
+<h1>Métaheuristiques d’optimisation : PSO, Firefly Algorithm, Cuckoo Search</h1>
+<section id="particle-swarm-optimization-pso" class="level2">
+<h2 class="anchored" data-anchor-id="particle-swarm-optimization-pso">Particle Swarm Optimization (PSO)</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>La méthode d’optimisation par essaim particulaire (PSO) a été introduite par Eberhart &amp; Kennedy en 1995. Inspirée du comportement collectif d’animaux sociaux (comme les vols d’oiseaux ou les bancs de poissons), elle est adaptée aux problèmes d’optimisation continue.</p>
+<section id="principes-fondamentaux" class="level4">
+<h4 class="anchored" data-anchor-id="principes-fondamentaux">Principes fondamentaux</h4>
+<ul>
+<li>C’est une <strong>métaheuristique basée sur une population</strong> d’agents (particules).</li>
+<li>Chaque particule explore l’espace de recherche et ajuste sa trajectoire en fonction de deux expériences :
+<ul>
+<li>Son <strong>expérience personnelle</strong> (meilleure position qu’elle a trouvée).</li>
+<li>L’<strong>expérience sociale</strong> (meilleure position trouvée par l’ensemble de l’essaim).</li>
+</ul></li>
+<li>Un troisième facteur, <strong>l’inertie</strong>, préserve une partie de la vitesse précédente.</li>
+</ul>
+</section>
+</section>
+<section id="algorithme-pso" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme-pso">Algorithme PSO</h3>
+<p>On initialise un essaim de <span class="math inline">\(N\)</span> particules, chacune ayant une position <span class="math inline">\(\mathbf{x}_i(t)\)</span> et une vitesse <span class="math inline">\(\mathbf{v}_i(t)\)</span> à l’itération <span class="math inline">\(t\)</span>.</p>
+<section id="mise-à-jour-de-la-vitesse-et-de-la-position" class="level4">
+<h4 class="anchored" data-anchor-id="mise-à-jour-de-la-vitesse-et-de-la-position">Mise à jour de la vitesse et de la position</h4>
+<p>La vitesse est mise à jour selon trois composantes :</p>
+<p><span class="math display">\[
+\mathbf{v}_i(t+1) = \omega \mathbf{v}_i(t) + c_1 r_1(t+1)[\mathbf{x}_i^{\text{best}}(t) - \mathbf{x}_i(t)] + c_2 r_2(t+1)[\mathbf{B}(t) - \mathbf{x}_i(t)]
+\]</span></p>
+<p>Puis la position est mise à jour :</p>
+<p><span class="math display">\[
+\mathbf{x}_i(t+1) = \mathbf{x}_i(t) + \mathbf{v}_i(t+1)
+\]</span></p>
+</section>
+<section id="paramètres-guidés-guided-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés-guided-parameters">Paramètres guidés (guided parameters)</h4>
+<ul>
+<li><strong><span class="math inline">\(\omega\)</span> (coefficient d’inertie)</strong> : Contrôle la persistance de la vitesse précédente. Typiquement légèrement inférieur à 1 (p.&nbsp;ex. 0.9).</li>
+<li><strong><span class="math inline">\(c_1\)</span> (coefficient cognitif)</strong> : Pondère l’attraction vers la meilleure position personnelle (expérience individuelle). Classiquement <span class="math inline">\(c_1 \approx 2\)</span>.</li>
+<li><strong><span class="math inline">\(c_2\)</span> (coefficient social)</strong> : Pondère l’attraction vers la meilleure position globale (expérience collective). Classiquement <span class="math inline">\(c_2 \approx 2\)</span>.</li>
+<li><strong><span class="math inline">\(r_1, r_2\)</span></strong> : Nombres aléatoires uniformes dans <span class="math inline">\([0,1[\)</span> introduisant une <strong>stochasticité</strong>.</li>
+</ul>
+</section>
+<section id="remarques-générales" class="level4">
+<h4 class="anchored" data-anchor-id="remarques-générales">Remarques générales</h4>
+<ul>
+<li>On limite souvent la vitesse (<span class="math inline">\(\mathbf{v}_{\text{max}}\)</span>) et la position (<span class="math inline">\(\mathbf{x}_{\text{max}}\)</span>) pour éviter des dépassements.</li>
+<li>Le PSO converge généralement rapidement.</li>
+<li>Il existe des variantes pour problèmes combinatoires (arrondi, codages spécifiques).</li>
+</ul>
+</section>
+<section id="exemple-synthétique" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-synthétique">Exemple synthétique</h4>
+<p>Pour un problème simple à une dimension, on observe comment deux particules s’attirent mutuellement vers l’optimum. La particule au voisinage de l’optimum devient le <em>global-best</em>, attirant l’autre particule, qui peut à son tour la dépasser et devenir le nouveau guide. Le processus itératif mène à une convergence rapide vers la région optimale.</p>
+</section>
+</section>
+</section>
+<section id="firefly-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="firefly-algorithm">Firefly Algorithm</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
+<p>L’algorithme des lucioles (Firefly Algorithm), introduit par Xin-She Yang (2009), s’inspire du comportement de bioluminescence des lucioles pour attirer des partenaires ou des proies.</p>
+<section id="principes-de-base" class="level4">
+<h4 class="anchored" data-anchor-id="principes-de-base">Principes de base</h4>
+<ul>
+<li>Chaque luciole <span class="math inline">\(i\)</span> représente une solution candidate <span class="math inline">\(\mathbf{x}_i\)</span> dans l’espace de recherche.</li>
+<li>L’intensité lumineuse <span class="math inline">\(I_i\)</span> d’une luciole est proportionnelle à la qualité (fitness) de sa solution : <span class="math inline">\(I_i(t) = f(\mathbf{x}_i(t))\)</span> pour une maximisation.</li>
+<li>Les lucioles moins brillantes sont attirées par les plus brillantes.</li>
+</ul>
+</section>
+</section>
+<section id="règle-de-déplacement" class="level3">
+<h3 class="anchored" data-anchor-id="règle-de-déplacement">Règle de déplacement</h3>
+<p>La luciole <span class="math inline">\(i\)</span> (moins brillante) se déplace vers la luciole <span class="math inline">\(j\)</span> (plus brillante) selon :</p>
+<p><span class="math display">\[
+\mathbf{x}_i^{\text{new}} = \mathbf{x}_i + \beta_0 \exp(-\gamma r_{ij}^2)(\mathbf{x}_j - \mathbf{x}_i) + \alpha \boldsymbol{\epsilon}
+\]</span></p>
+<section id="paramètres-guidés" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés">Paramètres guidés</h4>
+<ul>
+<li><strong><span class="math inline">\(\beta_0\)</span></strong> : Attractivité de base (souvent fixée à 1).</li>
+<li><strong><span class="math inline">\(\gamma\)</span></strong> : Coefficient d’absorption de la lumière. Il règle l’équilibre exploration/exploitation :
+<ul>
+<li>Petit <span class="math inline">\(\gamma\)</span> : La lumière porte loin → attractivité des lucioles lointaines → favorise <strong>l’exploration</strong>.</li>
+<li>Grand <span class="math inline">\(\gamma\)</span> : La lumière est vite absorbée → attractivité forte vers les meilleures solutions → favorise <strong>l’exploitation</strong>.</li>
+</ul></li>
+<li><strong><span class="math inline">\(\alpha\)</span></strong> : Paramètre de randomisation (typiquement <span class="math inline">\(\alpha \in [0,1]\)</span>).</li>
+<li><strong><span class="math inline">\(\boldsymbol{\epsilon}\)</span></strong> : Vecteur de bruit aléatoire (distribution uniforme, normale ou de Lévy).</li>
+</ul>
+</section>
+<section id="algorithme" class="level4">
+<h4 class="anchored" data-anchor-id="algorithme">Algorithme</h4>
+<ol type="1">
+<li>Initialiser la population de lucioles.</li>
+<li>Pour chaque paire <span class="math inline">\((i, j)\)</span>, si <span class="math inline">\(I_i &lt; I_j\)</span>, déplacer <span class="math inline">\(i\)</span> vers <span class="math inline">\(j\)</span>.</li>
+<li>Mettre à jour les intensités.</li>
+<li>Répéter jusqu’à convergence.</li>
+</ol>
+</section>
+<section id="exemple-synthétique-1" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-synthétique-1">Exemple synthétique</h4>
+<p>Dans un espace de recherche 2D, plusieurs lucioles convergent progressivement vers l’optimum global. L’attractivité décroît exponentiellement avec la distance, ce qui permet à l’essaim d’explorer largement au début, puis de se concentrer (exploiter) autour des bonnes solutions.</p>
+</section>
+</section>
+</section>
+<section id="cuckoo-search" class="level2">
+<h2 class="anchored" data-anchor-id="cuckoo-search">Cuckoo Search</h2>
+<section id="introduction-2" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-2">Introduction</h3>
+<p>Le Cuckoo Search, introduit par Yang &amp; Deb (2010), s’inspire du parasitisme de couvée de certains coucous.</p>
+<section id="principes-de-base-1" class="level4">
+<h4 class="anchored" data-anchor-id="principes-de-base-1">Principes de base</h4>
+<ul>
+<li><strong>Nids</strong> : Chaque nid héberge une solution candidate (un “œuf”).</li>
+<li><strong>Parasitisme</strong> : Un coucou dépose son œuf (nouvelle solution) dans un nid choisi au hasard.</li>
+<li><strong>Découverte</strong> : L’oiseau hôte peut découvrir l’œuf étranger (avec probabilité <span class="math inline">\(p_a\)</span>) et l’abandonner.</li>
+</ul>
+</section>
+</section>
+<section id="algorithme-1" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme-1">Algorithme</h3>
+<p>À chaque itération :</p>
+<ol type="1">
+<li>Générer une nouvelle solution (œuf) par un <strong>vol de Lévy</strong> (mécanisme d’exploration).</li>
+<li>Choisir un nid <span class="math inline">\(j\)</span> au hasard.</li>
+<li>Si la nouvelle solution est meilleure que celle du nid <span class="math inline">\(j\)</span>, la remplacer.</li>
+<li>Avec une probabilité <span class="math inline">\(p_a\)</span>, abandonner une fraction des pires nids et en créer de nouveaux aléatoirement (mécanisme d’exploitation).</li>
+</ol>
+<section id="paramètres-guidés-1" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-guidés-1">Paramètres guidés</h4>
+<ul>
+<li><strong><span class="math inline">\(p_a\)</span> (probabilité d’abandon)</strong> : Contrôle la fraction de pires solutions qui sont remplacées à chaque itération. Typiquement <span class="math inline">\(p_a \approx 0.25\)</span>.</li>
+<li><strong>Paramètres du vol de Lévy</strong> : L’exposant <span class="math inline">\(\alpha\)</span> de la distribution de Lévy contrôle la longueur des sauts exploratoires.</li>
+</ul>
+</section>
+<section id="exemple-synthétique-2" class="level4">
+<h4 class="anchored" data-anchor-id="exemple-synthétique-2">Exemple synthétique</h4>
+<p>Pour maximiser une fonction à une variable avec 4 nids, on observe qu’une petite fraction des nids (les pires) est régulièrement remplacée par des solutions aléatoires. Ce processus permet une exploration soutenue tout en conservant et en améliorant les bonnes solutions. L’algorithme trouve souvent une solution proche de l’optimum global avec un effort de calcul moindre qu’une recherche exhaustive.</p>
 
 
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

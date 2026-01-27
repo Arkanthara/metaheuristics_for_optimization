@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Redirection… – Meta</title>
+<title>ch6 – Meta</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -260,7 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Redirection…</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch6.html">Algorithmes Évolutionnaires</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -321,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch6.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch6.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Algorithmes Évolutionnaires</span></a>
   </div>
 </li>
@@ -351,36 +383,349 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#algorithmes-évolutionnaires" id="toc-algorithmes-évolutionnaires" class="nav-link active" data-scroll-target="#algorithmes-évolutionnaires">Algorithmes Évolutionnaires</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#familles-dalgorithmes-évolutionnaires" id="toc-familles-dalgorithmes-évolutionnaires" class="nav-link" data-scroll-target="#familles-dalgorithmes-évolutionnaires">Familles d’Algorithmes Évolutionnaires</a></li>
+  </ul></li>
+  <li><a href="#principes-fondamentaux-des-algorithmes-génétiques" id="toc-principes-fondamentaux-des-algorithmes-génétiques" class="nav-link" data-scroll-target="#principes-fondamentaux-des-algorithmes-génétiques">Principes Fondamentaux des Algorithmes Génétiques</a>
+  <ul class="collapse">
+  <li><a href="#caractéristiques-clés" id="toc-caractéristiques-clés" class="nav-link" data-scroll-target="#caractéristiques-clés">Caractéristiques Clés</a></li>
+  <li><a href="#représentation-et-encodage" id="toc-représentation-et-encodage" class="nav-link" data-scroll-target="#représentation-et-encodage">Représentation et Encodage</a></li>
+  </ul></li>
+  <li><a href="#processus-évolutionnaire-dun-algorithme-génétique" id="toc-processus-évolutionnaire-dun-algorithme-génétique" class="nav-link" data-scroll-target="#processus-évolutionnaire-dun-algorithme-génétique">Processus Évolutionnaire d’un Algorithme Génétique</a>
+  <ul class="collapse">
+  <li><a href="#étapes-détaillées" id="toc-étapes-détaillées" class="nav-link" data-scroll-target="#étapes-détaillées">Étapes Détaillées</a></li>
+  <li><a href="#paramètres-guidés-guiding-parameters" id="toc-paramètres-guidés-guiding-parameters" class="nav-link" data-scroll-target="#paramètres-guidés-guiding-parameters">Paramètres Guidés (Guiding Parameters)</a></li>
+  </ul></li>
+  <li><a href="#exploration-vs-exploitation" id="toc-exploration-vs-exploitation" class="nav-link" data-scroll-target="#exploration-vs-exploitation">Exploration vs Exploitation</a></li>
+  <li><a href="#opérateurs-de-sélection-alternatives" id="toc-opérateurs-de-sélection-alternatives" class="nav-link" data-scroll-target="#opérateurs-de-sélection-alternatives">Opérateurs de Sélection Alternatives</a>
+  <ul class="collapse">
+  <li><a href="#sélection-proportionnelle-à-la-fitness-roulette-wheel" id="toc-sélection-proportionnelle-à-la-fitness-roulette-wheel" class="nav-link" data-scroll-target="#sélection-proportionnelle-à-la-fitness-roulette-wheel">1. Sélection Proportionnelle à la Fitness (Roulette Wheel)</a></li>
+  <li><a href="#sélection-par-rang-rank-selection" id="toc-sélection-par-rang-rank-selection" class="nav-link" data-scroll-target="#sélection-par-rang-rank-selection">2. Sélection par Rang (Rank Selection)</a></li>
+  <li><a href="#sélection-par-tournoi-tournament-selection" id="toc-sélection-par-tournoi-tournament-selection" class="nav-link" data-scroll-target="#sélection-par-tournoi-tournament-selection">3. Sélection par Tournoi (Tournament Selection)</a></li>
+  </ul></li>
+  <li><a href="#temps-de-prise-de-contrôle-takeover-time" id="toc-temps-de-prise-de-contrôle-takeover-time" class="nav-link" data-scroll-target="#temps-de-prise-de-contrôle-takeover-time">Temps de Prise de Contrôle (Takeover Time)</a></li>
+  <li><a href="#opérateurs-de-croisement-et-mutation-avancés" id="toc-opérateurs-de-croisement-et-mutation-avancés" class="nav-link" data-scroll-target="#opérateurs-de-croisement-et-mutation-avancés">Opérateurs de Croisement et Mutation Avancés</a>
+  <ul class="collapse">
+  <li><a href="#croisement" id="toc-croisement" class="nav-link" data-scroll-target="#croisement">Croisement</a></li>
+  <li><a href="#mutation-1" id="toc-mutation-1" class="nav-link" data-scroll-target="#mutation-1">Mutation</a></li>
+  </ul></li>
+  <li><a href="#populations-structurées" id="toc-populations-structurées" class="nav-link" data-scroll-target="#populations-structurées">Populations Structurées</a>
+  <ul class="collapse">
+  <li><a href="#populations-multiples-îles" id="toc-populations-multiples-îles" class="nav-link" data-scroll-target="#populations-multiples-îles">1. Populations Multiples (Îles)</a></li>
+  <li><a href="#populations-cellulaires" id="toc-populations-cellulaires" class="nav-link" data-scroll-target="#populations-cellulaires">2. Populations Cellulaires</a></li>
+  </ul></li>
+  <li><a href="#théorème-des-schémas-schema-theorem" id="toc-théorème-des-schémas-schema-theorem" class="nav-link" data-scroll-target="#théorème-des-schémas-schema-theorem">Théorème des Schémas (Schema Theorem)</a></li>
+  <li><a href="#application-à-loptimisation-continue" id="toc-application-à-loptimisation-continue" class="nav-link" data-scroll-target="#application-à-loptimisation-continue">Application à l’Optimisation Continue</a>
+  <ul class="collapse">
+  <li><a href="#encodage-en-virgule-flottante" id="toc-encodage-en-virgule-flottante" class="nav-link" data-scroll-target="#encodage-en-virgule-flottante">Encodage en Virgule Flottante</a></li>
+  </ul></li>
+  <li><a href="#exemple-synthétique-optimisation-de-couverture-gsm" id="toc-exemple-synthétique-optimisation-de-couverture-gsm" class="nav-link" data-scroll-target="#exemple-synthétique-optimisation-de-couverture-gsm">Exemple Synthétique : Optimisation de Couverture GSM</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ch6.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch1.html">Cours</a></li><li class="breadcrumb-item"><a href="./ch6.html">Algorithmes Évolutionnaires</a></li></ol></nav></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Redirection…</h1>
+
+
+
+<section id="algorithmes-évolutionnaires" class="level1">
+<h1>Algorithmes Évolutionnaires</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Les algorithmes évolutionnaires (AE) sont une famille de métaheuristiques stochastiques inspirées du processus d’évolution naturelle darwinienne. Introduits dans les années 1970, ils sont parmi les premières méthodes de ce type.</p>
+<p>Le principe central est la <strong>sélection naturelle</strong> ou “survivance du plus apte” : les individus les mieux adaptés ont une plus grande probabilité de se reproduire et de transmettre leurs caractéristiques à la génération suivante.</p>
+<p>Cette approche permet de faire émerger des solutions de haute qualité pour un problème donné en faisant <strong>évoluer une population de solutions candidates</strong> à travers des opérateurs de variation (mutation, croisement) et de sélection.</p>
+<section id="familles-dalgorithmes-évolutionnaires" class="level3">
+<h3 class="anchored" data-anchor-id="familles-dalgorithmes-évolutionnaires">Familles d’Algorithmes Évolutionnaires</h3>
+<ul>
+<li><strong>Algorithmes Génétiques (GA)</strong> – John Holland</li>
+<li><strong>Stratégies d’Évolution (ES)</strong> – Ingo Rechenberg</li>
+<li><strong>Programmation Génétique (GP)</strong> – Lawrence J. Fogel, John R. Koza</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="principes-fondamentaux-des-algorithmes-génétiques" class="level2">
+<h2 class="anchored" data-anchor-id="principes-fondamentaux-des-algorithmes-génétiques">Principes Fondamentaux des Algorithmes Génétiques</h2>
+<section id="caractéristiques-clés" class="level3">
+<h3 class="anchored" data-anchor-id="caractéristiques-clés">Caractéristiques Clés</h3>
+<ul>
+<li><strong>Basés sur une population</strong> : explorent simultanément plusieurs régions de l’espace de recherche.</li>
+<li><strong>Opérateurs probabilistes</strong> : utilisent le hasard mais sont guidés par la fitness (adaptation).</li>
+<li><strong>Capacité de recherche globale</strong> : moins sujets aux minima locaux que les méthodes purement déterministes.</li>
+<li><strong>Optimisation “boîte noire”</strong> : ne nécessitent pas d’informations sur les dérivées ou le gradient.</li>
+</ul>
+</section>
+<section id="représentation-et-encodage" class="level3">
+<h3 class="anchored" data-anchor-id="représentation-et-encodage">Représentation et Encodage</h3>
+<p>Chaque individu de la population correspond à une solution (un point dans l’espace de recherche <span class="math inline">\(S\)</span>). Le choix de la représentation est crucial.</p>
+<p><strong>Types d’encodage courants :</strong> - <strong>Encodage binaire</strong> : pour des problèmes comme MaxOne. - <strong>Encodage à valeur réelle</strong> : pour l’optimisation continue. - <strong>Encodage par permutation</strong> : pour les problèmes d’ordonnancement (ex : TSP).</p>
+<p>Le niveau d’adaptation d’un individu est mesuré par sa <strong>fitness</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="processus-évolutionnaire-dun-algorithme-génétique" class="level2">
+<h2 class="anchored" data-anchor-id="processus-évolutionnaire-dun-algorithme-génétique">Processus Évolutionnaire d’un Algorithme Génétique</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Initialisation aléatoire&lt;br&gt;de la population P(t)] --&gt; B[Évaluation de la fitness&lt;br&gt;de chaque individu]
+    B --&gt; C{Sélection des parents&lt;br&gt;P(t) → P'(t)}
+    C --&gt; D[Croisement&lt;br&gt;P'(t) → P''(t)]
+    D --&gt; E[Mutation&lt;br&gt;P''(t) → P'''(t)]
+    E --&gt; F[Insertion élitiste&lt;br&gt;du meilleur individu]
+    F --&gt; G{Critère d'arrêt&lt;br&gt;atteint ?}
+    G --&gt;|Non| H[t = t+1&lt;br&gt;P(t+1) = P'''(t)]
+    H --&gt; B
+    G --&gt;|Oui| I[Retour de la&lt;br&gt;meilleure solution]
+</pre>
 </div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="étapes-détaillées" class="level3">
+<h3 class="anchored" data-anchor-id="étapes-détaillées">Étapes Détaillées</h3>
+<section id="initialisation" class="level4">
+<h4 class="anchored" data-anchor-id="initialisation">1. Initialisation</h4>
+<ul>
+<li>Génération aléatoire d’une population de <span class="math inline">\(n\)</span> individus (typiquement quelques dizaines à quelques centaines).</li>
+<li>Pas de connaissance a priori nécessaire.</li>
+</ul>
+</section>
+<section id="évaluation" class="level4">
+<h4 class="anchored" data-anchor-id="évaluation">2. Évaluation</h4>
+<ul>
+<li>Calcul de la fonction de fitness pour chaque individu.</li>
+<li>Dans ce cours, on se concentre sur la <strong>maximisation</strong> de la fitness.</li>
+</ul>
+</section>
+<section id="sélection" class="level4">
+<h4 class="anchored" data-anchor-id="sélection">3. Sélection</h4>
+<ul>
+<li>Choix des individus qui deviendront parents de la génération suivante.</li>
+<li>Principe de <strong>proportionnalité à la fitness</strong> : les individus les plus aptes ont une probabilité plus élevée d’être sélectionnés.</li>
+<li>Préservation d’une certaine stochasticité : les individus moins aptes peuvent parfois se reproduire, ce qui maintient la diversité.</li>
+</ul>
+</section>
+<section id="croisement-crossover" class="level4">
+<h4 class="anchored" data-anchor-id="croisement-crossover">4. Croisement (Crossover)</h4>
+<ul>
+<li>Mélange d’information entre deux parents pour créer une descendance combinant leurs traits avantageux.</li>
+<li>Appliqué avec une probabilité <span class="math inline">\(p_{\text{crossover}}\)</span>.</li>
+<li>Si non appliqué, la descendance est une copie exacte des parents.</li>
+</ul>
+</section>
+<section id="mutation" class="level4">
+<h4 class="anchored" data-anchor-id="mutation">5. Mutation</h4>
+<ul>
+<li>Source principale de nouveauté génétique, essentielle pour maintenir l’exploration.</li>
+<li>Appliquée avec une probabilité <span class="math inline">\(p_{\text{mutation}}\)</span> sur chaque gène de chaque individu.</li>
+<li>Simule des erreurs de transcription et du bruit exogène.</li>
+</ul>
+</section>
+<section id="élitisme" class="level4">
+<h4 class="anchored" data-anchor-id="élitisme">6. Élitisme</h4>
+<ul>
+<li>Pour ne pas perdre la meilleure solution trouvée jusqu’à présent, elle est automatiquement insérée dans la nouvelle génération.</li>
+<li>Implémenté en remplaçant l’individu le moins apte par le meilleur.</li>
+</ul>
+</section>
+</section>
+<section id="paramètres-guidés-guiding-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="paramètres-guidés-guiding-parameters">Paramètres Guidés (Guiding Parameters)</h3>
+<ul>
+<li><strong>Taille de la population (<span class="math inline">\(n\)</span>)</strong> : contrôle l’exploration simultanée.</li>
+<li><strong>Probabilité de croisement (<span class="math inline">\(p_{\text{crossover}}\)</span>)</strong> : contrôle la recombination des solutions.</li>
+<li><strong>Probabilité de mutation (<span class="math inline">\(p_{\text{mutation}}\)</span>)</strong> : contrôle l’introduction de nouveauté.</li>
+<li><strong>Taux d’élitisme</strong> : nombre d’individus directement conservés.</li>
+<li><strong>Pression de sélection</strong> : force avec laquelle la sélection favorise les meilleurs individus.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exploration-vs-exploitation" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-vs-exploitation">Exploration vs Exploitation</h2>
+<p>L’efficacité des AE repose sur l’équilibre entre deux forces :</p>
+<ul>
+<li><strong>Exploitation (Intensification)</strong> : raffiner les bonnes solutions déjà trouvées.
+<ul>
+<li><em>Opérateur principal</em> : Sélection</li>
+</ul></li>
+<li><strong>Exploration (Diversification)</strong> : rechercher dans de nouvelles régions de l’espace.
+<ul>
+<li><em>Opérateur principal</em> : Mutation</li>
+<li><em>Contribution secondaire</em> : Croisement</li>
+</ul></li>
+</ul>
+<p>Les paramètres <span class="math inline">\(p_{\text{mutation}}\)</span> et <span class="math inline">\(p_{\text{crossover}}\)</span> permettent d’ajuster cet équilibre.</p>
+<hr>
+</section>
+<section id="opérateurs-de-sélection-alternatives" class="level2">
+<h2 class="anchored" data-anchor-id="opérateurs-de-sélection-alternatives">Opérateurs de Sélection Alternatives</h2>
+<section id="sélection-proportionnelle-à-la-fitness-roulette-wheel" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-proportionnelle-à-la-fitness-roulette-wheel">1. Sélection Proportionnelle à la Fitness (Roulette Wheel)</h3>
+<ul>
+<li>Probabilité <span class="math inline">\(p_i = \frac{f_i}{\sum_j f_j}\)</span></li>
+<li>Limitation : perte de sélectivité lorsque les fitness se rapprochent.</li>
+</ul>
+</section>
+<section id="sélection-par-rang-rank-selection" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-par-rang-rank-selection">2. Sélection par Rang (Rank Selection)</h3>
+<ul>
+<li>Basée sur le rang des individus (après tri par fitness), pas sur leur valeur absolue.</li>
+<li>Évite les problèmes de sensibilité aux valeurs extrêmes.</li>
+</ul>
+<p><strong>Sélection Linéaire par Rang :</strong> <span class="math display">\[
+p_i = \frac{1}{n} \left[ \beta - 2(\beta - 1) \frac{i-1}{n-1} \right], \quad i = 1, \ldots, n
+\]</span> où <span class="math inline">\(\beta \in [1, 2]\)</span> contrôle la pression de sélection.</p>
+</section>
+<section id="sélection-par-tournoi-tournament-selection" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-par-tournoi-tournament-selection">3. Sélection par Tournoi (Tournament Selection)</h3>
+<ul>
+<li>Tirage aléatoire de <span class="math inline">\(k\)</span> individus, sélection du meilleur.</li>
+<li>Contrôle précis de la pression via <span class="math inline">\(k\)</span> (taille du tournoi).</li>
+<li>Avantages : simple, robuste, ne nécessite pas de fitness normalisées.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="temps-de-prise-de-contrôle-takeover-time" class="level2">
+<h2 class="anchored" data-anchor-id="temps-de-prise-de-contrôle-takeover-time">Temps de Prise de Contrôle (Takeover Time)</h2>
+<p>Concept théorique mesurant l’intensité de la sélection :</p>
+<ul>
+<li><strong>Temps de prise de contrôle (<span class="math inline">\(\tau\)</span>)</strong> : nombre de générations nécessaires (sans croisement ni mutation) pour que le meilleur individu domine toute la population.</li>
+<li><span class="math inline">\(\tau\)</span> petit → sélection forte (convergence rapide, risque de convergence prématurée).</li>
+<li><span class="math inline">\(\tau\)</span> grand → sélection faible (meilleure diversité, convergence lente).</li>
+</ul>
+<p>Modélisation par équation logistique : <span class="math display">\[
+\frac{dm}{dt} = \alpha m\left(1 - \frac{m}{n}\right)
+\]</span> où <span class="math inline">\(m(t)\)</span> est le nombre de copies du meilleur individu.</p>
+<hr>
+</section>
+<section id="opérateurs-de-croisement-et-mutation-avancés" class="level2">
+<h2 class="anchored" data-anchor-id="opérateurs-de-croisement-et-mutation-avancés">Opérateurs de Croisement et Mutation Avancés</h2>
+<section id="croisement" class="level3">
+<h3 class="anchored" data-anchor-id="croisement">Croisement</h3>
+<ul>
+<li><strong>À un point (single-point)</strong> : coupe en un point aléatoire.</li>
+<li><strong>À deux points (two-point)</strong> : échange d’un segment entre deux points.</li>
+<li><strong>Uniforme (uniform)</strong> : chaque gène choisi aléatoirement d’un parent ou de l’autre.</li>
+</ul>
+</section>
+<section id="mutation-1" class="level3">
+<h3 class="anchored" data-anchor-id="mutation-1">Mutation</h3>
+<p>Pour des espaces de recherche complexes (ex : permutations pour le TSP), des opérateurs spécifiques sont nécessaires :</p>
+<ul>
+<li>Déplacement d’une ville</li>
+<li>Échange de deux villes</li>
+<li>Échange de deux segments</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="populations-structurées" class="level2">
+<h2 class="anchored" data-anchor-id="populations-structurées">Populations Structurées</h2>
+<p>Alternative aux populations panmictiques (où tous les individus peuvent interagir) :</p>
+<section id="populations-multiples-îles" class="level3">
+<h3 class="anchored" data-anchor-id="populations-multiples-îles">1. Populations Multiples (Îles)</h3>
+<ul>
+<li>Plusieurs sous-populations évoluant en parallèle.</li>
+<li><strong>Migrations</strong> périodiques d’individus entre îles (typiquement les meilleurs).</li>
+<li>Avantages : meilleure diversité, parallélisation naturelle, convergence plus rapide.</li>
+</ul>
+</section>
+<section id="populations-cellulaires" class="level3">
+<h3 class="anchored" data-anchor-id="populations-cellulaires">2. Populations Cellulaires</h3>
+<ul>
+<li>Individus organisés sur une grille régulière.</li>
+<li>Sélection et croisement uniquement avec les voisins proches.</li>
+<li>Avantage : propagation spatiale des bonnes solutions, meilleure exploration.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="théorème-des-schémas-schema-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="théorème-des-schémas-schema-theorem">Théorème des Schémas (Schema Theorem)</h2>
+<p>Explication théorique du fonctionnement des AG :</p>
+<ul>
+<li><strong>Schéma</strong> : motif binaire avec des positions fixes (0,1) et libres (*).</li>
+<li>Exemple : <span class="math inline">\(1**1*0\)</span> est un schéma d’ordre 3 (3 positions fixes).</li>
+</ul>
+<p>Le théorème montre que les schémas <strong>courts</strong> (<span class="math inline">\(\delta(S)\)</span> petit), de <strong>faible ordre</strong> (<span class="math inline">\(o(S)\)</span> petit), et <strong>supérieurs à la moyenne</strong> (<span class="math inline">\(f(S) &gt; \bar{F}\)</span>) sont amplifiés de façon exponentielle.</p>
+<p><span class="math display">\[
+M(t+1, S) \geq \frac{M(t, S)f(S, t)}{F(t)} \left[ 1 - p_c \frac{\delta(S)}{m-1} - o(S)p_m \right]
+\]</span></p>
+<p>Les solutions optimales sont construites par concaténation de ces “blocs de construction” (building blocks).</p>
+<hr>
+</section>
+<section id="application-à-loptimisation-continue" class="level2">
+<h2 class="anchored" data-anchor-id="application-à-loptimisation-continue">Application à l’Optimisation Continue</h2>
+<p>Pour les fonctions <span class="math inline">\(f: \mathbb{R}^d \to \mathbb{R}\)</span>, l’encodage binaire simple présente des limites de précision.</p>
+<section id="encodage-en-virgule-flottante" class="level3">
+<h3 class="anchored" data-anchor-id="encodage-en-virgule-flottante">Encodage en Virgule Flottante</h3>
+<p>Représentation d’un nombre réel <span class="math inline">\(x = s \times 2^t\)</span> où :</p>
+<ul>
+<li><span class="math inline">\(s\)</span> : mantisse (précision <span class="math inline">\(p\)</span> bits)</li>
+<li><span class="math inline">\(t\)</span> : exposant (<span class="math inline">\(q\)</span> bits)</li>
+</ul>
+<p><strong>Standard IEEE 754</strong> :</p>
+<ul>
+<li>Double précision (64 bits) : 1 bit signe, <span class="math inline">\(p=52\)</span>, <span class="math inline">\(q=11\)</span> → ~16 chiffres décimaux significatifs.</li>
+<li>Simple précision (32 bits) : 1 bit signe, <span class="math inline">\(p=23\)</span>, <span class="math inline">\(q=8\)</span> → ~7 chiffres décimaux significatifs.</li>
+</ul>
+<p>Les opérateurs de croisement et mutation sont appliqués séparément sur la mantisse et l’exposant.</p>
+<hr>
+</section>
+</section>
+<section id="exemple-synthétique-optimisation-de-couverture-gsm" class="level2">
+<h2 class="anchored" data-anchor-id="exemple-synthétique-optimisation-de-couverture-gsm">Exemple Synthétique : Optimisation de Couverture GSM</h2>
+<p><strong>Problème</strong> : Positionner des antennes GSM dans une ville pour minimiser les zones de recouvrement tout en maximisant la couverture.</p>
+<p><strong>Solution par AG</strong> :</p>
+<ul>
+<li><strong>Individu</strong> : carte d’intensité avec positions d’antennes.</li>
+<li><strong>Fitness</strong> : qualité de couverture (calcul complexe, potentiellement coûteux).</li>
+<li><strong>Mutation</strong> : déplacement d’antennes vers des positions acceptables.</li>
+<li><strong>Croisement</strong> : fusion de régions complémentaires de deux cartes.</li>
+<li><strong>Avantage des AE</strong> : capable de traiter cette fonction objectif complexe, multimodale, sans information de gradient.</li>
+</ul>
+<p><strong>Paramètres typiques</strong> :</p>
+<ul>
+<li>Taille population : 50-100</li>
+<li><span class="math inline">\(p_{\text{crossover}}\)</span> : 0.6-0.8</li>
+<li><span class="math inline">\(p_{\text{mutation}}\)</span> : 0.01-0.1</li>
+<li>Critère d’arrêt : 100-500 générations ou stagnation</li>
+</ul>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Les algorithmes évolutionnaires, et particulièrement les algorithmes génétiques, sont des métaheuristiques puissantes pour l’optimisation difficile, notamment lorsque :</p>
+<ul>
+<li>La fonction objectif est complexe, multimodale, non différentiable.</li>
+<li>L’espace de recherche est vaste et mal structuré.</li>
+<li>Aucune information de gradient n’est disponible.</li>
+</ul>
+<p>Leur force réside dans l’équilibre entre exploration et exploitation, maintenu par des opérateurs stochastiques et des mécanismes comme l’élitisme. Le réglage des paramètres (taille de population, probabilités d’opérateurs) reste crucial pour les performances.</p>
+<p>Les variantes avancées (populations structurées, sélection par tournoi, encodage réel) étendent leur applicabilité à une large gamme de problèmes pratiques, de l’optimisation combinatoire à l’optimisation continue de haute dimension.</p>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<meta http-equiv="refresh" content="0; url=ch1.html">
-<p>Si vous n’êtes pas redirigés automatiquement,<br>
-<a href="ch1.html">cliquez ici pour aller au Cours</a>.</p>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
