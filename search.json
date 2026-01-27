@@ -934,426 +934,670 @@
     "href": "recap.html",
     "title": "Recherche Tabou",
     "section": "",
-    "text": "Étapes :\n\nInitialiser une solution \\(x_0\\), liste taboue vide \\(T\\), paramètres (\\(M\\), \\(k\\))\nTant que critère d’arrêt non atteint :\n\nGénérer voisinage \\(V(x_c)\\)\nChoisir le meilleur \\(x' \\in V(x_c)\\) non-tabou (ou avec aspiration)\n\\(x_c \\leftarrow x'\\)\nMettre à jour \\(T\\) (ajouter mouvement inverse, FIFO ou temps \\(k\\))\n(Optionnel) Mettre à jour mémoire long terme\n\nRetourner meilleure solution trouvée\n\n\n\n\n\nFitness QAP :\n\\[\nf = \\sum_{i,j} f_{ij} \\cdot d_{r_i r_j}\n\\]\nÉvaluation voisin :\n\\[\n\\Delta = f(x') - f(x)\n\\]\nCondition tabou (exemple) : mouvement \\((r,s)\\) interdit si\n\\[\nT_{i_s r} &gt; t \\quad \\text{et} \\quad T_{i_r s} &gt; t\n\\]\noù \\(T\\) est la matrice tabou, \\(t\\) l’itération actuelle.\n\n\n\n\nEspace de recherche : Combinatoire (permutations, graphes, etc.)\nConvergence : Conditionnelle (si espace fini, voisinage symétrique, accessibilité), mais temps exponentiel possible.\nMémoire : Court terme (liste taboue FIFO/tenure \\(k\\)) + long terme (fréquences des mouvements).\nAspiration : Outrepasser tabou si solution meilleure que toutes précédentes.\n\n\n\n\n\nTaille liste taboue (\\(M\\)) : contrôle mémoire court terme\nTemps de bannissement (\\(k\\)) : durée d’interdiction d’un mouvement\nStructure du voisinage : type et nombre de mouvements\nCritère d’aspiration : condition pour ignorer tabou"
+    "text": "Étapes :\n\nInitialiser une solution \\(x_0\\), liste taboue vide \\(T\\), paramètres (\\(M\\), \\(k\\))\nTant que critère d’arrêt non atteint :\n\nGénérer voisinage \\(V(x_c)\\)\nChoisir le meilleur \\(x' \\in V(x_c)\\) non-tabou (ou avec aspiration)\n\\(x_c \\leftarrow x'\\)\nMettre à jour \\(T\\) (ajouter mouvement inverse, FIFO ou temps \\(k\\))\n(Optionnel) Mettre à jour mémoire long terme\n\nRetourner meilleure solution trouvée\n\n\n\n\n\nFitness QAP :\n\\[\nf = \\sum_{i,j} f_{ij} \\cdot d_{r_i r_j}\n\\]\nÉvaluation voisin :\n\\[\n\\Delta = f(x') - f(x)\n\\]\nCondition tabou (exemple) : mouvement \\((r,s)\\) interdit si\n\\[\nT_{i_s r} &gt; t \\quad \\text{et} \\quad T_{i_r s} &gt; t\n\\]\noù \\(T\\) est la matrice tabou, \\(t\\) l’itération actuelle.\n\n\n\n\nEspace de recherche : Combinatoire (permutations, graphes, etc.)\nConvergence : Conditionnelle (si espace fini, voisinage symétrique, accessibilité), mais temps exponentiel possible.\nMémoire : Court terme (liste taboue FIFO/tenure \\(k\\)) + long terme (fréquences des mouvements).\nAspiration : Outrepasser tabou si solution meilleure que toutes précédentes.\n\n\n\n\n\nTaille liste taboue (\\(M\\)) : contrôle mémoire court terme\nTemps de bannissement (\\(k\\)) : durée d’interdiction d’un mouvement\nStructure du voisinage : type et nombre de mouvements\nCritère d’aspiration : condition pour ignorer tabou",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme",
     "href": "recap.html#algorithme",
     "title": "Recherche Tabou",
     "section": "",
-    "text": "Étapes :\n\nInitialiser une solution \\(x_0\\), liste taboue vide \\(T\\), paramètres (\\(M\\), \\(k\\))\nTant que critère d’arrêt non atteint :\n\nGénérer voisinage \\(V(x_c)\\)\nChoisir le meilleur \\(x' \\in V(x_c)\\) non-tabou (ou avec aspiration)\n\\(x_c \\leftarrow x'\\)\nMettre à jour \\(T\\) (ajouter mouvement inverse, FIFO ou temps \\(k\\))\n(Optionnel) Mettre à jour mémoire long terme\n\nRetourner meilleure solution trouvée"
+    "text": "Étapes :\n\nInitialiser une solution \\(x_0\\), liste taboue vide \\(T\\), paramètres (\\(M\\), \\(k\\))\nTant que critère d’arrêt non atteint :\n\nGénérer voisinage \\(V(x_c)\\)\nChoisir le meilleur \\(x' \\in V(x_c)\\) non-tabou (ou avec aspiration)\n\\(x_c \\leftarrow x'\\)\nMettre à jour \\(T\\) (ajouter mouvement inverse, FIFO ou temps \\(k\\))\n(Optionnel) Mettre à jour mémoire long terme\n\nRetourner meilleure solution trouvée",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-clés",
     "href": "recap.html#formules-clés",
     "title": "Recherche Tabou",
     "section": "",
-    "text": "Fitness QAP :\n\\[\nf = \\sum_{i,j} f_{ij} \\cdot d_{r_i r_j}\n\\]\nÉvaluation voisin :\n\\[\n\\Delta = f(x') - f(x)\n\\]\nCondition tabou (exemple) : mouvement \\((r,s)\\) interdit si\n\\[\nT_{i_s r} &gt; t \\quad \\text{et} \\quad T_{i_r s} &gt; t\n\\]\noù \\(T\\) est la matrice tabou, \\(t\\) l’itération actuelle."
+    "text": "Fitness QAP :\n\\[\nf = \\sum_{i,j} f_{ij} \\cdot d_{r_i r_j}\n\\]\nÉvaluation voisin :\n\\[\n\\Delta = f(x') - f(x)\n\\]\nCondition tabou (exemple) : mouvement \\((r,s)\\) interdit si\n\\[\nT_{i_s r} &gt; t \\quad \\text{et} \\quad T_{i_r s} &gt; t\n\\]\noù \\(T\\) est la matrice tabou, \\(t\\) l’itération actuelle.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques",
     "href": "recap.html#caractéristiques",
     "title": "Recherche Tabou",
     "section": "",
-    "text": "Espace de recherche : Combinatoire (permutations, graphes, etc.)\nConvergence : Conditionnelle (si espace fini, voisinage symétrique, accessibilité), mais temps exponentiel possible.\nMémoire : Court terme (liste taboue FIFO/tenure \\(k\\)) + long terme (fréquences des mouvements).\nAspiration : Outrepasser tabou si solution meilleure que toutes précédentes."
+    "text": "Espace de recherche : Combinatoire (permutations, graphes, etc.)\nConvergence : Conditionnelle (si espace fini, voisinage symétrique, accessibilité), mais temps exponentiel possible.\nMémoire : Court terme (liste taboue FIFO/tenure \\(k\\)) + long terme (fréquences des mouvements).\nAspiration : Outrepasser tabou si solution meilleure que toutes précédentes.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#paramètres-de-guidage",
     "href": "recap.html#paramètres-de-guidage",
     "title": "Recherche Tabou",
     "section": "",
-    "text": "Taille liste taboue (\\(M\\)) : contrôle mémoire court terme\nTemps de bannissement (\\(k\\)) : durée d’interdiction d’un mouvement\nStructure du voisinage : type et nombre de mouvements\nCritère d’aspiration : condition pour ignorer tabou"
+    "text": "Taille liste taboue (\\(M\\)) : contrôle mémoire court terme\nTemps de bannissement (\\(k\\)) : durée d’interdiction d’un mouvement\nStructure du voisinage : type et nombre de mouvements\nCritère d’aspiration : condition pour ignorer tabou",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-1",
     "href": "recap.html#algorithme-1",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nRecuit Simulé Standard\n\nInitialisation\n\nChoisir une solution initiale \\(x_{\\text{current}}\\).\nChoisir une température initiale élevée \\(T_0\\).\nDéfinir un planning de refroidissement et un critère d’arrêt.\n\nBoucle principale (jusqu’à ce que le critère d’arrêt soit satisfait)\n\nPour un nombre donné d’itérations à cette température :\n\nGénérer une solution voisine \\(x_{\\text{new}}\\) à partir de \\(x_{\\text{current}}\\) (mouvement élémentaire).\nCalculer \\(\\Delta E = E(x_{\\text{new}}) - E(x_{\\text{current}})\\).\nSi \\(\\Delta E \\leq 0\\), accepter \\(x_{\\text{new}}\\) (\\(x_{\\text{current}} \\leftarrow x_{\\text{new}}\\)).\nSinon, accepter \\(x_{\\text{new}}\\) avec probabilité \\(p = \\exp(-\\Delta E / T)\\) (Règle de Metropolis).\n\nDiminuer la température \\(T\\) selon le planning de refroidissement.\n\nRésultat\n\nRetourner la meilleure solution rencontrée.\n\n\n\n\nRecuit Parallèle (Parallel Tempering)\n\nInitialisation\n\nLancer \\(M\\) replicas du système avec des températures fixes \\(T_1 &lt; T_2 &lt; ... &lt; T_M\\).\nInitialiser une configuration aléatoire pour chaque replica.\n\nBoucle principale\n\nPour chaque replica \\(i\\) de manière (quasi-)indépendante :\n\nEffectuer des étapes de Recuit Simulé standard à température constante \\(T_i\\).\n\nPériodiquement, proposer un échange de configurations entre deux replicas adjacents en température (\\(i\\) et \\(i+1\\)).\nAccepter l’échange avec probabilité \\(p = \\min(1, e^{-\\Delta_{ij}})\\) où \\(\\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\\)."
+    "text": "Algorithme\n\nRecuit Simulé Standard\n\nInitialisation\n\nChoisir une solution initiale \\(x_{\\text{current}}\\).\nChoisir une température initiale élevée \\(T_0\\).\nDéfinir un planning de refroidissement et un critère d’arrêt.\n\nBoucle principale (jusqu’à ce que le critère d’arrêt soit satisfait)\n\nPour un nombre donné d’itérations à cette température :\n\nGénérer une solution voisine \\(x_{\\text{new}}\\) à partir de \\(x_{\\text{current}}\\) (mouvement élémentaire).\nCalculer \\(\\Delta E = E(x_{\\text{new}}) - E(x_{\\text{current}})\\).\nSi \\(\\Delta E \\leq 0\\), accepter \\(x_{\\text{new}}\\) (\\(x_{\\text{current}} \\leftarrow x_{\\text{new}}\\)).\nSinon, accepter \\(x_{\\text{new}}\\) avec probabilité \\(p = \\exp(-\\Delta E / T)\\) (Règle de Metropolis).\n\nDiminuer la température \\(T\\) selon le planning de refroidissement.\n\nRésultat\n\nRetourner la meilleure solution rencontrée.\n\n\n\n\nRecuit Parallèle (Parallel Tempering)\n\nInitialisation\n\nLancer \\(M\\) replicas du système avec des températures fixes \\(T_1 &lt; T_2 &lt; ... &lt; T_M\\).\nInitialiser une configuration aléatoire pour chaque replica.\n\nBoucle principale\n\nPour chaque replica \\(i\\) de manière (quasi-)indépendante :\n\nEffectuer des étapes de Recuit Simulé standard à température constante \\(T_i\\).\n\nPériodiquement, proposer un échange de configurations entre deux replicas adjacents en température (\\(i\\) et \\(i+1\\)).\nAccepter l’échange avec probabilité \\(p = \\min(1, e^{-\\Delta_{ij}})\\) où \\(\\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\\).",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-essentielles",
     "href": "recap.html#formules-mathématiques-essentielles",
     "title": "Recherche Tabou",
     "section": "Formules Mathématiques Essentielles",
-    "text": "Formules Mathématiques Essentielles\n\nRègle d’Acceptation de Metropolis\nProbabilité d’accepter une solution plus mauvaise :\n\\[p_{\\text{accept}} = \\min \\left(1, \\exp\\left(-\\frac{\\Delta E}{T}\\right)\\right)\\]\navec \\(\\Delta E = E_{\\text{new}} - E_{\\text{old}}\\).\n\n\nPlanning de Refroidissement Typique (Géométrique)\n\\[T_{k+1} = \\alpha \\cdot T_k\\]\navec \\(\\alpha \\in ]0,1[\\), souvent \\(\\alpha=0.9\\)."
+    "text": "Formules Mathématiques Essentielles\n\nRègle d’Acceptation de Metropolis\nProbabilité d’accepter une solution plus mauvaise :\n\\[p_{\\text{accept}} = \\min \\left(1, \\exp\\left(-\\frac{\\Delta E}{T}\\right)\\right)\\]\navec \\(\\Delta E = E_{\\text{new}} - E_{\\text{old}}\\).\n\n\nPlanning de Refroidissement Typique (Géométrique)\n\\[T_{k+1} = \\alpha \\cdot T_k\\]\navec \\(\\alpha \\in ]0,1[\\), souvent \\(\\alpha=0.9\\).",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-1",
     "href": "recap.html#caractéristiques-1",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de Recherche et Voisinage\n\nEspace : Discrét ou continu. Représentation des solutions cruciale.\nMouvements : Doivent être réversibles et connecter l’espace. Choix impactant fortement la performance (ex. 2-opt pour TSP).\n\n\n\nConvergence\n\nConvergence théorique : Sous conditions (température initiale assez haute, refroidissement assez lent \\(T(t) \\propto C/\\log(t)\\)), convergence en probabilité vers l’optimum global.\nPratique : La convergence garantie est souvent trop lente. Les paramètres sont réglés pour un compromis temps/qualité.\n\n\n\nParamètres Guidés (Guiding Parameters)\n\nTempérature Initiale \\(T_0\\)\n\nDoit permettre une exploration large.\nHeuristique : \\(T_0\\) tel que \\(\\exp(-\\langle |\\Delta E| \\rangle / T_0) = \\tau_0\\), avec \\(\\tau_0 \\approx 0.5\\).\n\nLoi de Refroidissement\n\nVitesse de décroissance (\\(\\alpha\\)).\nNombre d’itérations par palier de température.\n\nCritère d’Arrêt\n\nTempérature minimale \\(T_{\\text{min}}\\).\nNombre maximum d’itérations.\nAbsence d’amélioration après plusieurs paliers.\n\n(Pour Recuit Parallèle)\n\nNombre de replicas \\(M\\) (souvent \\(M \\approx \\sqrt{N}\\)).\nSéquence des températures \\(\\{T_i\\}\\).\nFréquence des échanges."
+    "text": "Caractéristiques\n\nEspace de Recherche et Voisinage\n\nEspace : Discrét ou continu. Représentation des solutions cruciale.\nMouvements : Doivent être réversibles et connecter l’espace. Choix impactant fortement la performance (ex. 2-opt pour TSP).\n\n\n\nConvergence\n\nConvergence théorique : Sous conditions (température initiale assez haute, refroidissement assez lent \\(T(t) \\propto C/\\log(t)\\)), convergence en probabilité vers l’optimum global.\nPratique : La convergence garantie est souvent trop lente. Les paramètres sont réglés pour un compromis temps/qualité.\n\n\n\nParamètres Guidés (Guiding Parameters)\n\nTempérature Initiale \\(T_0\\)\n\nDoit permettre une exploration large.\nHeuristique : \\(T_0\\) tel que \\(\\exp(-\\langle |\\Delta E| \\rangle / T_0) = \\tau_0\\), avec \\(\\tau_0 \\approx 0.5\\).\n\nLoi de Refroidissement\n\nVitesse de décroissance (\\(\\alpha\\)).\nNombre d’itérations par palier de température.\n\nCritère d’Arrêt\n\nTempérature minimale \\(T_{\\text{min}}\\).\nNombre maximum d’itérations.\nAbsence d’amélioration après plusieurs paliers.\n\n(Pour Recuit Parallèle)\n\nNombre de replicas \\(M\\) (souvent \\(M \\approx \\sqrt{N}\\)).\nSéquence des températures \\(\\{T_i\\}\\).\nFréquence des échanges.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés",
     "href": "recap.html#informations-clés",
     "title": "Recherche Tabou",
     "section": "Informations Clés",
-    "text": "Informations Clés\n\nMétaheuristique : Inspirée de la physique (recuit métallurgique).\nGestion Exploration/Exploitation : Contrôlée par la température \\(T\\).\nAvantage Principal : Capacité à échapper aux minima locaux en acceptant des dégradations temporaires.\nInconvénient Principal : Nombreux paramètres à régler, performance dépendante de ce réglage.\nVariante Majeure : Parallel Tempering pour améliorer l’exploration et permettre le parallélisme.\n\n\n\n\n\n\n\nNoneRecuit Simulé\n\n\n\n\n\n\nAlgorithme\n\nStandard\n\nInitialiser solution \\(x\\), température \\(T\\)\nTant que critère non atteint :\n\nGénérer voisin \\(x'\\)\n\\(\\Delta E = E(x') - E(x)\\)\nSi \\(\\Delta E \\leq 0\\) : \\(x \\leftarrow x'\\)\nSinon : \\(x \\leftarrow x'\\) avec proba \\(e^{-\\Delta E/T}\\)\nDiminuer \\(T\\) selon planning\n\n\n\n\nParallèle\n\nLancer \\(M\\) replicas à températures fixes \\(T_1 &lt; ... &lt; T_M\\)\nParallèlement :\n\nChaque replica évolue indépendamment\nÉchanges périodiques entre replicas adjacents selon \\(p = \\min(1,e^{-\\Delta_{ij}})\\)\n\n\n\n\n\nFormules\n\\[p_{\\text{accept}} = \\min(1, e^{-\\Delta E/T})\\] \\[T_{k+1} = \\alpha T_k \\quad (0&lt;\\alpha&lt;1)\\] \\[\\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\\]\n\n\nCaractéristiques\nEspace : Continu ou discret\nConvergence : Probabiliste vers optimum global si \\(T(t) \\propto C/\\log(t)\\)\nParamètres :\n- \\(T_0\\) (température initiale)\n- Planning refroidissement (\\(\\alpha\\), itérations/palier)\n- Critère d’arrêt\n- Mouvements élémentaires"
+    "text": "Informations Clés\n\nMétaheuristique : Inspirée de la physique (recuit métallurgique).\nGestion Exploration/Exploitation : Contrôlée par la température \\(T\\).\nAvantage Principal : Capacité à échapper aux minima locaux en acceptant des dégradations temporaires.\nInconvénient Principal : Nombreux paramètres à régler, performance dépendante de ce réglage.\nVariante Majeure : Parallel Tempering pour améliorer l’exploration et permettre le parallélisme.\n\n\n\n\n\n\n\nNoneRecuit Simulé\n\n\n\n\n\n\nAlgorithme\n\nStandard\n\nInitialiser solution \\(x\\), température \\(T\\)\nTant que critère non atteint :\n\nGénérer voisin \\(x'\\)\n\\(\\Delta E = E(x') - E(x)\\)\nSi \\(\\Delta E \\leq 0\\) : \\(x \\leftarrow x'\\)\nSinon : \\(x \\leftarrow x'\\) avec proba \\(e^{-\\Delta E/T}\\)\nDiminuer \\(T\\) selon planning\n\n\n\n\nParallèle\n\nLancer \\(M\\) replicas à températures fixes \\(T_1 &lt; ... &lt; T_M\\)\nParallèlement :\n\nChaque replica évolue indépendamment\nÉchanges périodiques entre replicas adjacents selon \\(p = \\min(1,e^{-\\Delta_{ij}})\\)\n\n\n\n\n\nFormules\n\\[p_{\\text{accept}} = \\min(1, e^{-\\Delta E/T})\\] \\[T_{k+1} = \\alpha T_k \\quad (0&lt;\\alpha&lt;1)\\] \\[\\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\\]\n\n\nCaractéristiques\nEspace : Continu ou discret\nConvergence : Probabiliste vers optimum global si \\(T(t) \\propto C/\\log(t)\\)\nParamètres :\n- \\(T_0\\) (température initiale)\n- Planning refroidissement (\\(\\alpha\\), itérations/palier)\n- Critère d’arrêt\n- Mouvements élémentaires",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-2",
     "href": "recap.html#algorithme-2",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nStandard\n\nInitialiser solution \\(x\\), température \\(T\\)\nTant que critère non atteint :\n\nGénérer voisin \\(x'\\)\n\\(\\Delta E = E(x') - E(x)\\)\nSi \\(\\Delta E \\leq 0\\) : \\(x \\leftarrow x'\\)\nSinon : \\(x \\leftarrow x'\\) avec proba \\(e^{-\\Delta E/T}\\)\nDiminuer \\(T\\) selon planning\n\n\n\n\nParallèle\n\nLancer \\(M\\) replicas à températures fixes \\(T_1 &lt; ... &lt; T_M\\)\nParallèlement :\n\nChaque replica évolue indépendamment\nÉchanges périodiques entre replicas adjacents selon \\(p = \\min(1,e^{-\\Delta_{ij}})\\)"
+    "text": "Algorithme\n\nStandard\n\nInitialiser solution \\(x\\), température \\(T\\)\nTant que critère non atteint :\n\nGénérer voisin \\(x'\\)\n\\(\\Delta E = E(x') - E(x)\\)\nSi \\(\\Delta E \\leq 0\\) : \\(x \\leftarrow x'\\)\nSinon : \\(x \\leftarrow x'\\) avec proba \\(e^{-\\Delta E/T}\\)\nDiminuer \\(T\\) selon planning\n\n\n\n\nParallèle\n\nLancer \\(M\\) replicas à températures fixes \\(T_1 &lt; ... &lt; T_M\\)\nParallèlement :\n\nChaque replica évolue indépendamment\nÉchanges périodiques entre replicas adjacents selon \\(p = \\min(1,e^{-\\Delta_{ij}})\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules",
     "href": "recap.html#formules",
     "title": "Recherche Tabou",
     "section": "Formules",
-    "text": "Formules\n\\[p_{\\text{accept}} = \\min(1, e^{-\\Delta E/T})\\] \\[T_{k+1} = \\alpha T_k \\quad (0&lt;\\alpha&lt;1)\\] \\[\\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\\]"
+    "text": "Formules\n\\[p_{\\text{accept}} = \\min(1, e^{-\\Delta E/T})\\] \\[T_{k+1} = \\alpha T_k \\quad (0&lt;\\alpha&lt;1)\\] \\[\\Delta_{ij} = (E_i - E_j)(1/T_j - 1/T_i)\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-2",
     "href": "recap.html#caractéristiques-2",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\nEspace : Continu ou discret\nConvergence : Probabiliste vers optimum global si \\(T(t) \\propto C/\\log(t)\\)\nParamètres :\n- \\(T_0\\) (température initiale)\n- Planning refroidissement (\\(\\alpha\\), itérations/palier)\n- Critère d’arrêt\n- Mouvements élémentaires"
+    "text": "Caractéristiques\nEspace : Continu ou discret\nConvergence : Probabiliste vers optimum global si \\(T(t) \\propto C/\\log(t)\\)\nParamètres :\n- \\(T_0\\) (température initiale)\n- Planning refroidissement (\\(\\alpha\\), itérations/palier)\n- Critère d’arrêt\n- Mouvements élémentaires",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-3",
     "href": "recap.html#algorithme-3",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\nÉtapes principales de l’Ant System (AS) :\n\nInitialisation : Déposer une petite quantité de phéromone \\(\\tau_{ij}(0)\\) sur chaque arête.\nConstruction des solutions : Pour chaque fourmi \\(k\\) :\n\nConstruire une solution complète par séquences de choix probabilistes.\nLa probabilité de choisir l’élément \\(j\\) depuis l’état \\(i\\) dépend de la phéromone \\(\\tau_{ij}\\) et d’une heuristique \\(\\eta_{ij}\\).\n\nÉvaluation : Calculer la qualité \\(f(s_k)\\) de chaque solution construite.\nMise à jour des phéromones :\n\nÉvaporation : Réduire toutes les phéromones par un facteur \\((1-\\rho)\\).\nDépôt : Ajouter de la phéromone sur les composants des bonnes solutions.\n\nItération : Répéter les étapes 2-4 jusqu’à critère d’arrêt."
+    "text": "Algorithme\nÉtapes principales de l’Ant System (AS) :\n\nInitialisation : Déposer une petite quantité de phéromone \\(\\tau_{ij}(0)\\) sur chaque arête.\nConstruction des solutions : Pour chaque fourmi \\(k\\) :\n\nConstruire une solution complète par séquences de choix probabilistes.\nLa probabilité de choisir l’élément \\(j\\) depuis l’état \\(i\\) dépend de la phéromone \\(\\tau_{ij}\\) et d’une heuristique \\(\\eta_{ij}\\).\n\nÉvaluation : Calculer la qualité \\(f(s_k)\\) de chaque solution construite.\nMise à jour des phéromones :\n\nÉvaporation : Réduire toutes les phéromones par un facteur \\((1-\\rho)\\).\nDépôt : Ajouter de la phéromone sur les composants des bonnes solutions.\n\nItération : Répéter les étapes 2-4 jusqu’à critère d’arrêt.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-essentielles-1",
     "href": "recap.html#formules-mathématiques-essentielles-1",
     "title": "Recherche Tabou",
     "section": "Formules Mathématiques Essentielles",
-    "text": "Formules Mathématiques Essentielles\nRègle de décision probabiliste (AS) :\n\\[\np_{ij}^k = \\frac{[\\tau_{ij}]^{\\alpha} \\cdot [\\eta_{ij}]^{\\beta}}{\\sum_{l \\in N_i^k} [\\tau_{il}]^{\\alpha} \\cdot [\\eta_{il}]^{\\beta}}\n\\]\nMise à jour des phéromones (AS) :\n\\[\n\\tau_{ij} \\leftarrow (1-\\rho)\\tau_{ij} + \\sum_{k=1}^m \\Delta\\tau_{ij}^k\n\\]\navec \\(\\Delta\\tau_{ij}^k = \\frac{Q}{L_k}\\) si l’arête \\((i,j)\\) est dans le tour de la fourmi \\(k\\).\nRègle de transition pseudo-aléatoire (ACS) :\n\\[\nj = \\begin{cases}\n\\arg\\max_{l \\in N_i^k} \\{[\\tau_{il}] \\cdot [\\eta_{il}]^\\beta\\} & \\text{si } q \\leq q_0 \\\\\n\\text{règle proportionnelle de l'AS} & \\text{sinon}\n\\end{cases}\n\\]"
+    "text": "Formules Mathématiques Essentielles\nRègle de décision probabiliste (AS) :\n\\[\np_{ij}^k = \\frac{[\\tau_{ij}]^{\\alpha} \\cdot [\\eta_{ij}]^{\\beta}}{\\sum_{l \\in N_i^k} [\\tau_{il}]^{\\alpha} \\cdot [\\eta_{il}]^{\\beta}}\n\\]\nMise à jour des phéromones (AS) :\n\\[\n\\tau_{ij} \\leftarrow (1-\\rho)\\tau_{ij} + \\sum_{k=1}^m \\Delta\\tau_{ij}^k\n\\]\navec \\(\\Delta\\tau_{ij}^k = \\frac{Q}{L_k}\\) si l’arête \\((i,j)\\) est dans le tour de la fourmi \\(k\\).\nRègle de transition pseudo-aléatoire (ACS) :\n\\[\nj = \\begin{cases}\n\\arg\\max_{l \\in N_i^k} \\{[\\tau_{il}] \\cdot [\\eta_{il}]^\\beta\\} & \\text{si } q \\leq q_0 \\\\\n\\text{règle proportionnelle de l'AS} & \\text{sinon}\n\\end{cases}\n\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-3",
     "href": "recap.html#caractéristiques-3",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de Recherche\n\nProblèmes combinatoires (TSP, QAP, ordonnancement).\nSolutions construites incrémentalement.\nEspace exploré via mémoire collective (phéromones).\n\n\n\nConvergence\n\nConvergence asymptotique vers l’optimum garanti avec paramètres adaptés.\nÉquilibre exploration/exploitation crucial.\nRisque de stagnation/prématurité si mauvais réglage.\n\n\n\nParamètres Guidés (Guided Parameters)\n\nAnt System (AS)\n\n\\(\\alpha\\) ≥ 0 : Poids de la phéromone (exploitation)\n\\(\\beta\\) ≥ 0 : Poids de l’heuristique (exploration)\n\\(\\rho\\) ∈ [0,1] : Taux d’évaporation (oubli)\n\\(Q\\) &gt; 0 : Constante de dépôt (échelle phéromonale)\n\\(m\\) : Nombre de fourmis (parallélisme)\n\n\n\nAnt Colony System (ACS)\n\n\\(q_0\\) ∈ [0,1] : Seuil de décision déterministe\n\\(\\phi\\) ∈ [0,1] : Taux d’évaporation locale\n\nValeurs typiques (TSP) : \\[\n\\alpha = 1,\\quad \\beta = 5,\\quad \\rho = 0.5,\\quad m = n,\\quad Q = 1\n\\]"
+    "text": "Caractéristiques\n\nEspace de Recherche\n\nProblèmes combinatoires (TSP, QAP, ordonnancement).\nSolutions construites incrémentalement.\nEspace exploré via mémoire collective (phéromones).\n\n\n\nConvergence\n\nConvergence asymptotique vers l’optimum garanti avec paramètres adaptés.\nÉquilibre exploration/exploitation crucial.\nRisque de stagnation/prématurité si mauvais réglage.\n\n\n\nParamètres Guidés (Guided Parameters)\n\nAnt System (AS)\n\n\\(\\alpha\\) ≥ 0 : Poids de la phéromone (exploitation)\n\\(\\beta\\) ≥ 0 : Poids de l’heuristique (exploration)\n\\(\\rho\\) ∈ [0,1] : Taux d’évaporation (oubli)\n\\(Q\\) &gt; 0 : Constante de dépôt (échelle phéromonale)\n\\(m\\) : Nombre de fourmis (parallélisme)\n\n\n\nAnt Colony System (ACS)\n\n\\(q_0\\) ∈ [0,1] : Seuil de décision déterministe\n\\(\\phi\\) ∈ [0,1] : Taux d’évaporation locale\n\nValeurs typiques (TSP) : \\[\n\\alpha = 1,\\quad \\beta = 5,\\quad \\rho = 0.5,\\quad m = n,\\quad Q = 1\n\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-1",
     "href": "recap.html#informations-clés-1",
     "title": "Recherche Tabou",
     "section": "Informations Clés",
-    "text": "Informations Clés\n\nMécanismes Fondamentaux\n\nStigmergie : Coordination indirecte via modification environnement (phéromones).\nAuto-organisation : Ordre global émerge d’interactions locales simples.\nBoucle de rétroaction positive : Renforcement des bonnes solutions.\n\n\n\nAvantages\n\nRobuste : Tolère perte d’agents/erreurs.\nParallélisable : Fourmis indépendantes.\nFlexible : Adaptable à divers problèmes.\nÉquilibré : Gère naturellement exploration/exploitation.\n\n\n\nLimites\n\nNombreux paramètres à régler.\nConvergence lente sur grands problèmes.\nPerformance dépend fortement de l’heuristique choisie.\nStagnation possible (tous les agents suivent même chemin).\n\n\n\nVariantes Principales\n\nAnt System (AS) : Version originale.\nAnt Colony System (ACS) : Avec règle pseudo-aléatoire et mise à jour élitiste.\nMAX-MIN Ant System : Bornes sur les phéromones pour éviter stagnation.\n\n\n\nDomaines d’Application\n\nRoutage réseaux\nOrdonnancement\nClassification données\nApprentissage automatique\nRobotique en essaim\n\n\n\n\n\n\n\nNoneACO\n\n\n\n\n\n\nAlgorithme\nAS (Ant System) :\n\nInitialiser les phéromones\nChaque fourmi construit une solution via choix probabilistes basés sur phéromones \\(\\tau\\) et heuristique \\(\\eta\\)\nÉvaluer les solutions\nÉvaporer les phéromones : \\(\\tau \\leftarrow (1-\\rho)\\tau\\)\nDéposer des phéromones sur les bonnes solutions\nRépéter 2-5\n\nACS (Ant Colony System) différences :\n\nRègle de décision : avec proba \\(q_0\\), choix déterministe (max \\([\\tau][\\eta]^\\beta\\)) ; sinon règle AS\nMise à jour locale immédiate de l’évaporation après chaque choix\nSeule la meilleure fourmi globale dépose des phéromones\n\n\n\nFormules\nRègle de décision AS : \\[\np_{ij} = \\frac{[\\tau_{ij}]^\\alpha [\\eta_{ij}]^\\beta}{\\sum [\\tau_{il}]^\\alpha [\\eta_{il}]^\\beta}\n\\]\nMise à jour phéromones AS : \\[\n\\tau_{ij} \\leftarrow (1-\\rho)\\tau_{ij} + \\sum_{k} \\Delta\\tau_{ij}^k\n\\] avec \\(\\Delta\\tau_{ij}^k = Q/L_k\\) si arête dans solution \\(k\\)\n\n\nCaractéristiques\nEspace recherche : Combinatoire, construction incrémentale\nConvergence : Asymptotique, risque de stagnation, équilibre exploration/exploitation critique\nParamètres guidés :\n\nAS : \\(\\alpha\\) (phéromone), \\(\\beta\\) (heuristique), \\(\\rho\\) (évaporation), \\(m\\) (#fourmis), \\(Q\\)\nACS : + \\(q_0\\) (seuil déterministe), \\(\\phi\\) (évaporation locale)\n\nValeurs typiques TSP : \\(\\alpha=1\\), \\(\\beta=5\\), \\(\\rho=0.5\\), \\(m=n\\), \\(Q=1\\)"
+    "text": "Informations Clés\n\nMécanismes Fondamentaux\n\nStigmergie : Coordination indirecte via modification environnement (phéromones).\nAuto-organisation : Ordre global émerge d’interactions locales simples.\nBoucle de rétroaction positive : Renforcement des bonnes solutions.\n\n\n\nAvantages\n\nRobuste : Tolère perte d’agents/erreurs.\nParallélisable : Fourmis indépendantes.\nFlexible : Adaptable à divers problèmes.\nÉquilibré : Gère naturellement exploration/exploitation.\n\n\n\nLimites\n\nNombreux paramètres à régler.\nConvergence lente sur grands problèmes.\nPerformance dépend fortement de l’heuristique choisie.\nStagnation possible (tous les agents suivent même chemin).\n\n\n\nVariantes Principales\n\nAnt System (AS) : Version originale.\nAnt Colony System (ACS) : Avec règle pseudo-aléatoire et mise à jour élitiste.\nMAX-MIN Ant System : Bornes sur les phéromones pour éviter stagnation.\n\n\n\nDomaines d’Application\n\nRoutage réseaux\nOrdonnancement\nClassification données\nApprentissage automatique\nRobotique en essaim\n\n\n\n\n\n\n\nNoneACO\n\n\n\n\n\n\nAlgorithme\nAS (Ant System) :\n\nInitialiser les phéromones\nChaque fourmi construit une solution via choix probabilistes basés sur phéromones \\(\\tau\\) et heuristique \\(\\eta\\)\nÉvaluer les solutions\nÉvaporer les phéromones : \\(\\tau \\leftarrow (1-\\rho)\\tau\\)\nDéposer des phéromones sur les bonnes solutions\nRépéter 2-5\n\nACS (Ant Colony System) différences :\n\nRègle de décision : avec proba \\(q_0\\), choix déterministe (max \\([\\tau][\\eta]^\\beta\\)) ; sinon règle AS\nMise à jour locale immédiate de l’évaporation après chaque choix\nSeule la meilleure fourmi globale dépose des phéromones\n\n\n\nFormules\nRègle de décision AS : \\[\np_{ij} = \\frac{[\\tau_{ij}]^\\alpha [\\eta_{ij}]^\\beta}{\\sum [\\tau_{il}]^\\alpha [\\eta_{il}]^\\beta}\n\\]\nMise à jour phéromones AS : \\[\n\\tau_{ij} \\leftarrow (1-\\rho)\\tau_{ij} + \\sum_{k} \\Delta\\tau_{ij}^k\n\\] avec \\(\\Delta\\tau_{ij}^k = Q/L_k\\) si arête dans solution \\(k\\)\n\n\nCaractéristiques\nEspace recherche : Combinatoire, construction incrémentale\nConvergence : Asymptotique, risque de stagnation, équilibre exploration/exploitation critique\nParamètres guidés :\n\nAS : \\(\\alpha\\) (phéromone), \\(\\beta\\) (heuristique), \\(\\rho\\) (évaporation), \\(m\\) (#fourmis), \\(Q\\)\nACS : + \\(q_0\\) (seuil déterministe), \\(\\phi\\) (évaporation locale)\n\nValeurs typiques TSP : \\(\\alpha=1\\), \\(\\beta=5\\), \\(\\rho=0.5\\), \\(m=n\\), \\(Q=1\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-4",
     "href": "recap.html#algorithme-4",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\nAS (Ant System) :\n\nInitialiser les phéromones\nChaque fourmi construit une solution via choix probabilistes basés sur phéromones \\(\\tau\\) et heuristique \\(\\eta\\)\nÉvaluer les solutions\nÉvaporer les phéromones : \\(\\tau \\leftarrow (1-\\rho)\\tau\\)\nDéposer des phéromones sur les bonnes solutions\nRépéter 2-5\n\nACS (Ant Colony System) différences :\n\nRègle de décision : avec proba \\(q_0\\), choix déterministe (max \\([\\tau][\\eta]^\\beta\\)) ; sinon règle AS\nMise à jour locale immédiate de l’évaporation après chaque choix\nSeule la meilleure fourmi globale dépose des phéromones"
+    "text": "Algorithme\nAS (Ant System) :\n\nInitialiser les phéromones\nChaque fourmi construit une solution via choix probabilistes basés sur phéromones \\(\\tau\\) et heuristique \\(\\eta\\)\nÉvaluer les solutions\nÉvaporer les phéromones : \\(\\tau \\leftarrow (1-\\rho)\\tau\\)\nDéposer des phéromones sur les bonnes solutions\nRépéter 2-5\n\nACS (Ant Colony System) différences :\n\nRègle de décision : avec proba \\(q_0\\), choix déterministe (max \\([\\tau][\\eta]^\\beta\\)) ; sinon règle AS\nMise à jour locale immédiate de l’évaporation après chaque choix\nSeule la meilleure fourmi globale dépose des phéromones",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-1",
     "href": "recap.html#formules-1",
     "title": "Recherche Tabou",
     "section": "Formules",
-    "text": "Formules\nRègle de décision AS : \\[\np_{ij} = \\frac{[\\tau_{ij}]^\\alpha [\\eta_{ij}]^\\beta}{\\sum [\\tau_{il}]^\\alpha [\\eta_{il}]^\\beta}\n\\]\nMise à jour phéromones AS : \\[\n\\tau_{ij} \\leftarrow (1-\\rho)\\tau_{ij} + \\sum_{k} \\Delta\\tau_{ij}^k\n\\] avec \\(\\Delta\\tau_{ij}^k = Q/L_k\\) si arête dans solution \\(k\\)"
+    "text": "Formules\nRègle de décision AS : \\[\np_{ij} = \\frac{[\\tau_{ij}]^\\alpha [\\eta_{ij}]^\\beta}{\\sum [\\tau_{il}]^\\alpha [\\eta_{il}]^\\beta}\n\\]\nMise à jour phéromones AS : \\[\n\\tau_{ij} \\leftarrow (1-\\rho)\\tau_{ij} + \\sum_{k} \\Delta\\tau_{ij}^k\n\\] avec \\(\\Delta\\tau_{ij}^k = Q/L_k\\) si arête dans solution \\(k\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-4",
     "href": "recap.html#caractéristiques-4",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\nEspace recherche : Combinatoire, construction incrémentale\nConvergence : Asymptotique, risque de stagnation, équilibre exploration/exploitation critique\nParamètres guidés :\n\nAS : \\(\\alpha\\) (phéromone), \\(\\beta\\) (heuristique), \\(\\rho\\) (évaporation), \\(m\\) (#fourmis), \\(Q\\)\nACS : + \\(q_0\\) (seuil déterministe), \\(\\phi\\) (évaporation locale)\n\nValeurs typiques TSP : \\(\\alpha=1\\), \\(\\beta=5\\), \\(\\rho=0.5\\), \\(m=n\\), \\(Q=1\\)"
+    "text": "Caractéristiques\nEspace recherche : Combinatoire, construction incrémentale\nConvergence : Asymptotique, risque de stagnation, équilibre exploration/exploitation critique\nParamètres guidés :\n\nAS : \\(\\alpha\\) (phéromone), \\(\\beta\\) (heuristique), \\(\\rho\\) (évaporation), \\(m\\) (#fourmis), \\(Q\\)\nACS : + \\(q_0\\) (seuil déterministe), \\(\\phi\\) (évaporation locale)\n\nValeurs typiques TSP : \\(\\alpha=1\\), \\(\\beta=5\\), \\(\\rho=0.5\\), \\(m=n\\), \\(Q=1\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-5",
     "href": "recap.html#algorithme-5",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nInitialiser un essaim de \\(N\\) particules avec positions aléatoires \\(\\mathbf{x}_i(0)\\) et vitesses nulles \\(\\mathbf{v}_i(0)\\) dans l’espace de recherche borné \\(S\\).\nÉvaluer la fitness \\(f(\\mathbf{x}_i(t))\\) pour chaque particule.\nMettre à jour pour chaque particule :\n\nSa meilleure position personnelle \\(\\mathbf{x}_i^{\\text{best}}(t)\\)\nLa meilleure position globale \\(\\mathbf{B}(t)\\) de l’essaim\n\nMettre à jour la vitesse et la position de chaque particule selon les équations de mouvement.\nRépéter les étapes 2-4 jusqu’à convergence ou nombre maximal d’itérations."
+    "text": "Algorithme\n\nInitialiser un essaim de \\(N\\) particules avec positions aléatoires \\(\\mathbf{x}_i(0)\\) et vitesses nulles \\(\\mathbf{v}_i(0)\\) dans l’espace de recherche borné \\(S\\).\nÉvaluer la fitness \\(f(\\mathbf{x}_i(t))\\) pour chaque particule.\nMettre à jour pour chaque particule :\n\nSa meilleure position personnelle \\(\\mathbf{x}_i^{\\text{best}}(t)\\)\nLa meilleure position globale \\(\\mathbf{B}(t)\\) de l’essaim\n\nMettre à jour la vitesse et la position de chaque particule selon les équations de mouvement.\nRépéter les étapes 2-4 jusqu’à convergence ou nombre maximal d’itérations.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-importantes",
     "href": "recap.html#formules-mathématiques-importantes",
     "title": "Recherche Tabou",
     "section": "Formules mathématiques importantes",
-    "text": "Formules mathématiques importantes\n\nMise à jour de la vitesse\n\\[\n\\mathbf{v}_i(t+1) = \\omega \\mathbf{v}_i(t) + c_1 r_1[\\mathbf{x}_i^{\\text{best}}(t) - \\mathbf{x}_i(t)] + c_2 r_2[\\mathbf{B}(t) - \\mathbf{x}_i(t)]\n\\]\n\n\nMise à jour de la position\n\\[\n\\mathbf{x}_i(t+1) = \\mathbf{x}_i(t) + \\mathbf{v}_i(t+1)\n\\]\n\n\nMeilleure position personnelle\n\\[\n\\mathbf{x}_i^{\\text{best}}(t) =\n\\begin{cases}\n\\mathbf{x}_i(t) & \\text{si } f(\\mathbf{x}_i(t)) \\text{ meilleure que } f(\\mathbf{x}_i^{\\text{best}}(t-1)) \\\\\n\\mathbf{x}_i^{\\text{best}}(t-1) & \\text{sinon}\n\\end{cases}\n\\]\n\n\nMeilleure position globale\n\\[\n\\mathbf{B}(t) = \\arg\\max_{\\mathbf{x}_i^{\\text{best}}(t)} f(\\mathbf{x}_i^{\\text{best}}(t))\n\\]"
+    "text": "Formules mathématiques importantes\n\nMise à jour de la vitesse\n\\[\n\\mathbf{v}_i(t+1) = \\omega \\mathbf{v}_i(t) + c_1 r_1[\\mathbf{x}_i^{\\text{best}}(t) - \\mathbf{x}_i(t)] + c_2 r_2[\\mathbf{B}(t) - \\mathbf{x}_i(t)]\n\\]\n\n\nMise à jour de la position\n\\[\n\\mathbf{x}_i(t+1) = \\mathbf{x}_i(t) + \\mathbf{v}_i(t+1)\n\\]\n\n\nMeilleure position personnelle\n\\[\n\\mathbf{x}_i^{\\text{best}}(t) =\n\\begin{cases}\n\\mathbf{x}_i(t) & \\text{si } f(\\mathbf{x}_i(t)) \\text{ meilleure que } f(\\mathbf{x}_i^{\\text{best}}(t-1)) \\\\\n\\mathbf{x}_i^{\\text{best}}(t-1) & \\text{sinon}\n\\end{cases}\n\\]\n\n\nMeilleure position globale\n\\[\n\\mathbf{B}(t) = \\arg\\max_{\\mathbf{x}_i^{\\text{best}}(t)} f(\\mathbf{x}_i^{\\text{best}}(t))\n\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-5",
     "href": "recap.html#caractéristiques-5",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de recherche\n\nOptimisation continue (\\(S \\subset \\mathbb{R}^n\\))\nExtensions possibles pour problèmes discrets/combinatoires via méthodes d’arrondi\n\n\n\nConvergence\n\nConvergence rapide vers un optimum (local ou global)\nCaractérisée par un équilibre exploration/exploitation\n\n\n\nGuided parameters\n\n\\(\\omega\\) (coefficient d’inertie) : Contrôle la persistance de la vitesse précédente\n\nTypiquement \\(\\omega \\in [0.4, 0.9]\\)\nValeur courante : \\(\\omega \\approx 0.9\\)\n\n\\(c_1\\) (coefficient cognitif) : Pondère l’attraction vers la meilleure position personnelle\n\nValeur courante : \\(c_1 \\approx 2\\)\n\n\\(c_2\\) (coefficient social) : Pondère l’attraction vers la meilleure position globale\n\nValeur courante : \\(c_2 \\approx 2\\)\n\n\\(r_1, r_2\\) : Nombres aléatoires uniformes dans \\([0,1[\\) pour stochasticité\n\\(\\mathbf{v}_{\\text{max}}\\) : Limite de vitesse pour éviter l’explosion des valeurs"
+    "text": "Caractéristiques\n\nEspace de recherche\n\nOptimisation continue (\\(S \\subset \\mathbb{R}^n\\))\nExtensions possibles pour problèmes discrets/combinatoires via méthodes d’arrondi\n\n\n\nConvergence\n\nConvergence rapide vers un optimum (local ou global)\nCaractérisée par un équilibre exploration/exploitation\n\n\n\nGuided parameters\n\n\\(\\omega\\) (coefficient d’inertie) : Contrôle la persistance de la vitesse précédente\n\nTypiquement \\(\\omega \\in [0.4, 0.9]\\)\nValeur courante : \\(\\omega \\approx 0.9\\)\n\n\\(c_1\\) (coefficient cognitif) : Pondère l’attraction vers la meilleure position personnelle\n\nValeur courante : \\(c_1 \\approx 2\\)\n\n\\(c_2\\) (coefficient social) : Pondère l’attraction vers la meilleure position globale\n\nValeur courante : \\(c_2 \\approx 2\\)\n\n\\(r_1, r_2\\) : Nombres aléatoires uniformes dans \\([0,1[\\) pour stochasticité\n\\(\\mathbf{v}_{\\text{max}}\\) : Limite de vitesse pour éviter l’explosion des valeurs",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-2",
     "href": "recap.html#informations-clés-2",
     "title": "Recherche Tabou",
     "section": "Informations clés",
-    "text": "Informations clés\n\nPrincipes fondamentaux\n\nMétaheuristique basée sur une population (essaim de particules)\nInspirée du comportement collectif d’animaux sociaux (vol d’oiseaux, bancs de poissons)\nChaque particule représente une solution candidate\n\n\n\nForces agissantes\n\nInertie : Persistance du mouvement précédent\nAttraction cognitive : Vers la meilleure position personnelle (\\(\\mathbf{x}_i^{\\text{best}}\\))\nAttraction sociale : Vers la meilleure position globale (\\(\\mathbf{B}\\))\n\n\n\nÉquilibre exploration/exploitation\n\nExploration : Promue par l’inertie et la stochasticité\nExploitation : Promue par les attractions cognitive et sociale\n\n\n\nAvantages\n\nSimplicité d’implémentation\nPeu de paramètres à régler\nConvergence rapide\nAdaptable à divers types de problèmes\n\n\n\nLimites\n\nPrincipalement conçu pour l’optimisation continue\nRisque de convergence prématurée vers un optimum local\nPerformance sensible au réglage des paramètres\n\n\n\nVariantes courantes\n\nPSO avec voisinage (social local au lieu de global)\nPSO avec constriction coefficient\nPSO pour optimisation discrète/combinatoire\n\n\n\n\n\n\n\nNoneParticle Swarm Optimization (PSO)\n\n\n\n\n\nAlgorithme\n\nInitialiser essaim aléatoire\nPour chaque particule, mettre à jour vitesse et position\nMettre à jour meilleures positions personnelle et globale\nRépéter\n\nFormules \\[\n\\mathbf{v}_i = \\omega \\mathbf{v}_i + c_1 r_1 (\\mathbf{x}_i^{\\text{best}} - \\mathbf{x}_i) + c_2 r_2 (\\mathbf{B} - \\mathbf{x}_i)\n\\] \\[\n\\mathbf{x}_i = \\mathbf{x}_i + \\mathbf{v}_i\n\\]\nCaractéristiques\n\nEspace : Continu (extensions discrètes)\nConvergence : Rapide\nGuided parameters : ω, c₁, c₂"
+    "text": "Informations clés\n\nPrincipes fondamentaux\n\nMétaheuristique basée sur une population (essaim de particules)\nInspirée du comportement collectif d’animaux sociaux (vol d’oiseaux, bancs de poissons)\nChaque particule représente une solution candidate\n\n\n\nForces agissantes\n\nInertie : Persistance du mouvement précédent\nAttraction cognitive : Vers la meilleure position personnelle (\\(\\mathbf{x}_i^{\\text{best}}\\))\nAttraction sociale : Vers la meilleure position globale (\\(\\mathbf{B}\\))\n\n\n\nÉquilibre exploration/exploitation\n\nExploration : Promue par l’inertie et la stochasticité\nExploitation : Promue par les attractions cognitive et sociale\n\n\n\nAvantages\n\nSimplicité d’implémentation\nPeu de paramètres à régler\nConvergence rapide\nAdaptable à divers types de problèmes\n\n\n\nLimites\n\nPrincipalement conçu pour l’optimisation continue\nRisque de convergence prématurée vers un optimum local\nPerformance sensible au réglage des paramètres\n\n\n\nVariantes courantes\n\nPSO avec voisinage (social local au lieu de global)\nPSO avec constriction coefficient\nPSO pour optimisation discrète/combinatoire\n\n\n\n\n\n\n\nNoneParticle Swarm Optimization (PSO)\n\n\n\n\n\nAlgorithme\n\nInitialiser essaim aléatoire\nPour chaque particule, mettre à jour vitesse et position\nMettre à jour meilleures positions personnelle et globale\nRépéter\n\nFormules \\[\n\\mathbf{v}_i = \\omega \\mathbf{v}_i + c_1 r_1 (\\mathbf{x}_i^{\\text{best}} - \\mathbf{x}_i) + c_2 r_2 (\\mathbf{B} - \\mathbf{x}_i)\n\\] \\[\n\\mathbf{x}_i = \\mathbf{x}_i + \\mathbf{v}_i\n\\]\nCaractéristiques\n\nEspace : Continu (extensions discrètes)\nConvergence : Rapide\nGuided parameters : ω, c₁, c₂",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-6",
     "href": "recap.html#algorithme-6",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nInitialiser une population de \\(n\\) lucioles avec positions aléatoires \\(\\mathbf{x}_i\\).\nCalculer l’intensité lumineuse \\(I_i = f(\\mathbf{x}_i)\\) pour chaque luciole.\nPour chaque paire de lucioles \\((i,j)\\) où \\(I_i &lt; I_j\\) :\n\nDéplacer la luciole \\(i\\) vers \\(j\\) selon la règle de déplacement.\nMettre à jour l’intensité de \\(i\\).\n\nTrier les lucioles et mettre à jour la meilleure solution globale.\nRépéter jusqu’à convergence."
+    "text": "Algorithme\n\nInitialiser une population de \\(n\\) lucioles avec positions aléatoires \\(\\mathbf{x}_i\\).\nCalculer l’intensité lumineuse \\(I_i = f(\\mathbf{x}_i)\\) pour chaque luciole.\nPour chaque paire de lucioles \\((i,j)\\) où \\(I_i &lt; I_j\\) :\n\nDéplacer la luciole \\(i\\) vers \\(j\\) selon la règle de déplacement.\nMettre à jour l’intensité de \\(i\\).\n\nTrier les lucioles et mettre à jour la meilleure solution globale.\nRépéter jusqu’à convergence.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-importantes-1",
     "href": "recap.html#formules-mathématiques-importantes-1",
     "title": "Recherche Tabou",
     "section": "Formules mathématiques importantes",
-    "text": "Formules mathématiques importantes\n\nAttractivité entre lucioles\n\\[\n\\beta(r_{ij}) = \\beta_0 \\exp(-\\gamma r_{ij}^2)\n\\]\n\n\nRègle de déplacement\n\\[\n\\mathbf{x}_i^{\\text{new}} = \\mathbf{x}_i + \\beta_0 \\exp(-\\gamma r_{ij}^2)(\\mathbf{x}_j - \\mathbf{x}_i) + \\alpha \\boldsymbol{\\epsilon}\n\\]"
+    "text": "Formules mathématiques importantes\n\nAttractivité entre lucioles\n\\[\n\\beta(r_{ij}) = \\beta_0 \\exp(-\\gamma r_{ij}^2)\n\\]\n\n\nRègle de déplacement\n\\[\n\\mathbf{x}_i^{\\text{new}} = \\mathbf{x}_i + \\beta_0 \\exp(-\\gamma r_{ij}^2)(\\mathbf{x}_j - \\mathbf{x}_i) + \\alpha \\boldsymbol{\\epsilon}\n\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-6",
     "href": "recap.html#caractéristiques-6",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de recherche\n\nOptimisation continue principalement\nVersions discrètes existent\n\n\n\nConvergence\n\nConvergence progressive vers les régions prometteuses\nBon équilibre exploration/exploitation via \\(\\gamma\\)\n\n\n\nGuided parameters\n\n\\(\\beta_0\\) : Attractivité de base (typiquement 1)\n\\(\\gamma\\) : Coefficient d’absorption lumineuse\n\nPetit \\(\\gamma\\) → exploration accrue\nGrand \\(\\gamma\\) → exploitation accrue\n\n\\(\\alpha\\) : Paramètre de randomisation (typiquement \\(\\in [0,1]\\))\n\\(\\boldsymbol{\\epsilon}\\) : Bruit aléatoire (distribution uniforme, normale ou Lévy)"
+    "text": "Caractéristiques\n\nEspace de recherche\n\nOptimisation continue principalement\nVersions discrètes existent\n\n\n\nConvergence\n\nConvergence progressive vers les régions prometteuses\nBon équilibre exploration/exploitation via \\(\\gamma\\)\n\n\n\nGuided parameters\n\n\\(\\beta_0\\) : Attractivité de base (typiquement 1)\n\\(\\gamma\\) : Coefficient d’absorption lumineuse\n\nPetit \\(\\gamma\\) → exploration accrue\nGrand \\(\\gamma\\) → exploitation accrue\n\n\\(\\alpha\\) : Paramètre de randomisation (typiquement \\(\\in [0,1]\\))\n\\(\\boldsymbol{\\epsilon}\\) : Bruit aléatoire (distribution uniforme, normale ou Lévy)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-3",
     "href": "recap.html#informations-clés-3",
     "title": "Recherche Tabou",
     "section": "Informations clés",
-    "text": "Informations clés\n\nInspiré du comportement de bioluminescence des lucioles\nChaque luciole représente une solution candidate\nL’intensité lumineuse correspond à la qualité de la solution\nLes lucioles moins brillantes sont attirées par les plus brillantes\nL’attractivité diminue exponentiellement avec la distance\nDeux composantes de déplacement : attraction déterministe + bruit aléatoire\nAdaptable à divers problèmes d’optimisation difficile"
+    "text": "Informations clés\n\nInspiré du comportement de bioluminescence des lucioles\nChaque luciole représente une solution candidate\nL’intensité lumineuse correspond à la qualité de la solution\nLes lucioles moins brillantes sont attirées par les plus brillantes\nL’attractivité diminue exponentiellement avec la distance\nDeux composantes de déplacement : attraction déterministe + bruit aléatoire\nAdaptable à divers problèmes d’optimisation difficile",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-7",
     "href": "recap.html#algorithme-7",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nInitialiser \\(n\\) nids avec solutions aléatoires \\(\\mathbf{x}_i\\).\nGénérer une nouvelle solution par vol de Lévy.\nChoisir un nid \\(j\\) aléatoirement.\nSi la nouvelle solution est meilleure, remplacer la solution du nid \\(j\\).\nAbandonner une fraction \\(p_a\\) des pires nids, créer de nouveaux nids aléatoirement.\nGarder la meilleure solution.\nRépéter jusqu’à convergence."
+    "text": "Algorithme\n\nInitialiser \\(n\\) nids avec solutions aléatoires \\(\\mathbf{x}_i\\).\nGénérer une nouvelle solution par vol de Lévy.\nChoisir un nid \\(j\\) aléatoirement.\nSi la nouvelle solution est meilleure, remplacer la solution du nid \\(j\\).\nAbandonner une fraction \\(p_a\\) des pires nids, créer de nouveaux nids aléatoirement.\nGarder la meilleure solution.\nRépéter jusqu’à convergence.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-importantes-2",
     "href": "recap.html#formules-mathématiques-importantes-2",
     "title": "Recherche Tabou",
     "section": "Formules mathématiques importantes",
-    "text": "Formules mathématiques importantes\n\nGénération par vol de Lévy\n\\[\n\\mathbf{x}_i^{\\text{new}} = \\mathbf{x}_i + \\alpha \\oplus \\text{Lévy}(\\lambda)\n\\]"
+    "text": "Formules mathématiques importantes\n\nGénération par vol de Lévy\n\\[\n\\mathbf{x}_i^{\\text{new}} = \\mathbf{x}_i + \\alpha \\oplus \\text{Lévy}(\\lambda)\n\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-7",
     "href": "recap.html#caractéristiques-7",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de recherche\n\nOptimisation continue\nAdaptable à d’autres types\n\n\n\nConvergence\n\nConvergence généralement rapide\nBonne exploration grâce aux vols de Lévy\n\n\n\nGuided parameters\n\n\\(p_a\\) : Probabilité d’abandon (typiquement 0.25)\n\\(\\alpha\\) : Échelle du pas (généralement 1)\n\\(\\lambda\\) : Paramètre d’échelle du vol de Lévy (typiquement 1.5)"
+    "text": "Caractéristiques\n\nEspace de recherche\n\nOptimisation continue\nAdaptable à d’autres types\n\n\n\nConvergence\n\nConvergence généralement rapide\nBonne exploration grâce aux vols de Lévy\n\n\n\nGuided parameters\n\n\\(p_a\\) : Probabilité d’abandon (typiquement 0.25)\n\\(\\alpha\\) : Échelle du pas (généralement 1)\n\\(\\lambda\\) : Paramètre d’échelle du vol de Lévy (typiquement 1.5)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-4",
     "href": "recap.html#informations-clés-4",
     "title": "Recherche Tabou",
     "section": "Informations clés",
-    "text": "Informations clés\n\nInspiré du parasitisme de couvée des coucous\nCombinaison de vols de Lévy (exploration) et remplacement des pires solutions (exploitation)\nChaque nid contient une solution\nLes “œufs” représentent de nouvelles solutions candidates\nMécanisme d’abandon évite les minima locaux\nSimple avec peu de paramètres\nEfficace pour problèmes multimodaux\nPeut être combiné avec d’autres opérateurs de recherche\n\n\n\n\n\n\n\nNoneFirefly Algorithm\n\n\n\n\n\nAlgorithme\n\nInitialiser population aléatoire\nPour chaque paire (i,j), si I_i &lt; I_j, déplacer i vers j\nMettre à jour intensités\nRépéter\n\nFormules \\[\n\\beta = \\beta_0 \\exp(-\\gamma r_{ij}^2)\n\\] \\[\n\\mathbf{x}_i = \\mathbf{x}_i + \\beta(\\mathbf{x}_j - \\mathbf{x}_i) + \\alpha\\boldsymbol{\\epsilon}\n\\]\nCaractéristiques\n\nEspace : Continu (extensions discrètes)\nConvergence : Bonne, équilibre via γ\nGuided parameters : β₀, γ, α\n\n\n\nCuckoo Search\nAlgorithme\n\nInitialiser n nids aléatoires\nGénérer nouvelle solution par Lévy flight\nRemplacer si meilleure\nAbandonner fraction pₐ des pires nids\nRépéter\n\nFormules \\[\n\\mathbf{x}_i^{\\text{new}} = \\mathbf{x}_i + \\alpha \\oplus \\text{Lévy}(\\lambda)\n\\]\nCaractéristiques\n\nEspace : Continu\nConvergence : Rapide, bonne exploration\nGuided parameters : pₐ, α, λ"
+    "text": "Informations clés\n\nInspiré du parasitisme de couvée des coucous\nCombinaison de vols de Lévy (exploration) et remplacement des pires solutions (exploitation)\nChaque nid contient une solution\nLes “œufs” représentent de nouvelles solutions candidates\nMécanisme d’abandon évite les minima locaux\nSimple avec peu de paramètres\nEfficace pour problèmes multimodaux\nPeut être combiné avec d’autres opérateurs de recherche\n\n\n\n\n\n\n\nNoneFirefly Algorithm\n\n\n\n\n\nAlgorithme\n\nInitialiser population aléatoire\nPour chaque paire (i,j), si I_i &lt; I_j, déplacer i vers j\nMettre à jour intensités\nRépéter\n\nFormules \\[\n\\beta = \\beta_0 \\exp(-\\gamma r_{ij}^2)\n\\] \\[\n\\mathbf{x}_i = \\mathbf{x}_i + \\beta(\\mathbf{x}_j - \\mathbf{x}_i) + \\alpha\\boldsymbol{\\epsilon}\n\\]\nCaractéristiques\n\nEspace : Continu (extensions discrètes)\nConvergence : Bonne, équilibre via γ\nGuided parameters : β₀, γ, α\n\n\n\nCuckoo Search\nAlgorithme\n\nInitialiser n nids aléatoires\nGénérer nouvelle solution par Lévy flight\nRemplacer si meilleure\nAbandonner fraction pₐ des pires nids\nRépéter\n\nFormules \\[\n\\mathbf{x}_i^{\\text{new}} = \\mathbf{x}_i + \\alpha \\oplus \\text{Lévy}(\\lambda)\n\\]\nCaractéristiques\n\nEspace : Continu\nConvergence : Rapide, bonne exploration\nGuided parameters : pₐ, α, λ",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-8",
     "href": "recap.html#algorithme-8",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nÉtapes Succintes\n\nInitialisation : génération aléatoire d’une population de \\(n\\) solutions candidates\nÉvaluation : calcul de la fitness pour chaque individu\nSélection : choix des parents basé sur leur fitness\nCroisement : recombination des parents pour produire une descendance\nMutation : modification aléatoire des individus\nRemplacement : formation de la nouvelle génération avec élitisme\nRépétition des étapes 2-6 jusqu’à critère d’arrêt"
+    "text": "Algorithme\n\nÉtapes Succintes\n\nInitialisation : génération aléatoire d’une population de \\(n\\) solutions candidates\nÉvaluation : calcul de la fitness pour chaque individu\nSélection : choix des parents basé sur leur fitness\nCroisement : recombination des parents pour produire une descendance\nMutation : modification aléatoire des individus\nRemplacement : formation de la nouvelle génération avec élitisme\nRépétition des étapes 2-6 jusqu’à critère d’arrêt",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-importantes-3",
     "href": "recap.html#formules-mathématiques-importantes-3",
     "title": "Recherche Tabou",
     "section": "Formules Mathématiques Importantes",
-    "text": "Formules Mathématiques Importantes\n\nSélection Proportionnelle (Roulette Wheel)\n\\[\np_i = \\frac{f_i}{\\sum_{j=1}^n f_j}\n\\] où \\(p_i\\) = probabilité de sélection de l’individu \\(i\\), \\(f_i\\) = sa fitness\n\n\nSélection par Rang Linéaire\n\\[\np_i = \\frac{1}{n} \\left[ \\beta - 2(\\beta - 1) \\frac{i-1}{n-1} \\right]\n\\] avec \\(\\beta \\in [1,2]\\) contrôlant la pression de sélection, \\(i\\) = rang après tri\n\n\nThéorème des Schémas (Holland)\n\\[\nM(t+1, S) \\geq \\frac{M(t, S)f(S, t)}{F(t)} \\left[ 1 - p_c \\frac{\\delta(S)}{m-1} - o(S)p_m \\right]\n\\]\n\n\\(M(t,S)\\) : nombre d’individus correspondant au schéma \\(S\\)\n\\(\\delta(S)\\) : longueur définissante du schéma\n\\(o(S)\\) : ordre du schéma (nombre de positions fixes)\n\n\n\nTemps de Prise de Contrôle (Takeover Time)\n\\[\n\\tau = \\frac{\\ln(n-1)}{\\alpha}\n\\] \\(\\tau\\) petit → sélection forte, \\(\\tau\\) grand → sélection faible"
+    "text": "Formules Mathématiques Importantes\n\nSélection Proportionnelle (Roulette Wheel)\n\\[\np_i = \\frac{f_i}{\\sum_{j=1}^n f_j}\n\\] où \\(p_i\\) = probabilité de sélection de l’individu \\(i\\), \\(f_i\\) = sa fitness\n\n\nSélection par Rang Linéaire\n\\[\np_i = \\frac{1}{n} \\left[ \\beta - 2(\\beta - 1) \\frac{i-1}{n-1} \\right]\n\\] avec \\(\\beta \\in [1,2]\\) contrôlant la pression de sélection, \\(i\\) = rang après tri\n\n\nThéorème des Schémas (Holland)\n\\[\nM(t+1, S) \\geq \\frac{M(t, S)f(S, t)}{F(t)} \\left[ 1 - p_c \\frac{\\delta(S)}{m-1} - o(S)p_m \\right]\n\\]\n\n\\(M(t,S)\\) : nombre d’individus correspondant au schéma \\(S\\)\n\\(\\delta(S)\\) : longueur définissante du schéma\n\\(o(S)\\) : ordre du schéma (nombre de positions fixes)\n\n\n\nTemps de Prise de Contrôle (Takeover Time)\n\\[\n\\tau = \\frac{\\ln(n-1)}{\\alpha}\n\\] \\(\\tau\\) petit → sélection forte, \\(\\tau\\) grand → sélection faible",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-8",
     "href": "recap.html#caractéristiques-8",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de Recherche\n\nAdapté à : espaces discrets, continus, mixtes, permutations\nReprésentations : binaire, réelle, permutation, arborescente (GP)\nFonction objectif : boîte noire, pas besoin de dérivées\n\n\n\nConvergence\n\nConvergence globale : évite les minima locaux grâce à la diversité\nDiminishing returns : amélioration rapide initiale, puis plateau\nProbabiliste : convergence en probabilité vers l’optimum global sous conditions\n\n\n\nGuided Parameters\n\nTaille population (\\(n\\)) : 20-200 (trade-off exploration/exploitation)\nProbabilité croisement (\\(p_c\\)) : 0.6-0.9 (recombinaison)\nProbabilité mutation (\\(p_m\\)) : 0.001-0.1 par gène (nouveauté)\nTaux élitisme : 1-10% (préservation meilleurs)\nPression sélection (\\(\\beta\\) ou \\(k\\)) : contrôle vitesse convergence\n\n\n\nExploration vs Exploitation\n\nSélection → exploitation (intensification)\nMutation → exploration (diversification)\nCroisement → exploration modérée\nÉquilibre critique contrôlé par \\(p_c\\), \\(p_m\\), \\(n\\)"
+    "text": "Caractéristiques\n\nEspace de Recherche\n\nAdapté à : espaces discrets, continus, mixtes, permutations\nReprésentations : binaire, réelle, permutation, arborescente (GP)\nFonction objectif : boîte noire, pas besoin de dérivées\n\n\n\nConvergence\n\nConvergence globale : évite les minima locaux grâce à la diversité\nDiminishing returns : amélioration rapide initiale, puis plateau\nProbabiliste : convergence en probabilité vers l’optimum global sous conditions\n\n\n\nGuided Parameters\n\nTaille population (\\(n\\)) : 20-200 (trade-off exploration/exploitation)\nProbabilité croisement (\\(p_c\\)) : 0.6-0.9 (recombinaison)\nProbabilité mutation (\\(p_m\\)) : 0.001-0.1 par gène (nouveauté)\nTaux élitisme : 1-10% (préservation meilleurs)\nPression sélection (\\(\\beta\\) ou \\(k\\)) : contrôle vitesse convergence\n\n\n\nExploration vs Exploitation\n\nSélection → exploitation (intensification)\nMutation → exploration (diversification)\nCroisement → exploration modérée\nÉquilibre critique contrôlé par \\(p_c\\), \\(p_m\\), \\(n\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-5",
     "href": "recap.html#informations-clés-5",
     "title": "Recherche Tabou",
     "section": "Informations Clés",
-    "text": "Informations Clés\n\nVariantes Principales\n\nSélection : proportionnelle, par rang, tournoi (\\(k=2\\) typique)\nCroisement : 1-point, 2-point, uniforme, spécifique au problème\nMutation : bit-flip, gaussienne, swap, insertion\n\n\n\nAvantages\n\nPas besoin d’information de gradient\nRobustesse aux bruits et discontinuités\nExploration globale efficace\nParallélisation naturelle\n\n\n\nLimitations\n\nNombreux paramètres à régler\nConvergence parfois lente en fin d’optimisation\nCoût calcul élevé pour fonctions objectif complexes\n\n\n\nBonnes Pratiques\n\nEncodage réel recommandé pour optimisation continue\nÉlitisme essentiel pour convergence monotone\nDiversité à surveiller pour éviter convergence prématurée\nParamètres adaptatifs possibles pour améliorer performances\n\n\n\nApplications Typiques\n\nOptimisation combinatoire (TSP, emploi du temps)\nOptimisation continue (ingénierie, calibration)\nApprentissage automatique (réglage hyperparamètres)\nConception (aérodynamique, circuits)\n\n\n\n\n\n\n\nNoneAlgorithmes Évolutionnaires\n\n\n\n\n\n\nAlgorithme\n\nInitialiser population aléatoire\nÉvaluer fitness de chaque individu\nSélectionner les parents (par roulette, rang ou tournoi)\nAppliquer croisement avec probabilité \\(p_c\\)\nAppliquer mutation avec probabilité \\(p_m\\)\nFormer nouvelle génération avec élitisme\nRépéter 2-6 jusqu’à critère d’arrêt\n\n\n\n\nFormules Mathématiques\n\nSélection proportionnelle\n\\[\np_i = \\frac{f_i}{\\sum_{j=1}^n f_j}\n\\]\n\n\nThéorème des schémas\n\\[\nM(t+1,S) \\geq \\frac{M(t,S)f(S,t)}{F(t)}\\left[1 - p_c\\frac{\\delta(S)}{m-1} - o(S)p_m\\right]\n\\]\n\n\nSélection par rang linéaire\n\\[\np_i = \\frac{1}{n}\\left[\\beta - 2(\\beta-1)\\frac{i-1}{n-1}\\right]\n\\]\n\n\n\n\nCaractéristiques\n\nEspace de recherche\n\nDiscret, continu, permutations\nEncodage : binaire, réel, permutation\nFonction boîte noire (pas de gradient)\n\n\n\nConvergence\n\nConvergence globale (évite minima locaux)\nDiminishing returns (plateau en fin)\nProbabiliste\n\n\n\nGuided Parameters\n\n\\(n\\) : taille population (20-200)\n\\(p_c\\) : probabilité croisement (0.6-0.9)\n\\(p_m\\) : probabilité mutation (0.001-0.1)\nÉlitisme : 1-10%\nPression sélection (\\(\\beta\\) ou \\(k\\) tournoi)"
+    "text": "Informations Clés\n\nVariantes Principales\n\nSélection : proportionnelle, par rang, tournoi (\\(k=2\\) typique)\nCroisement : 1-point, 2-point, uniforme, spécifique au problème\nMutation : bit-flip, gaussienne, swap, insertion\n\n\n\nAvantages\n\nPas besoin d’information de gradient\nRobustesse aux bruits et discontinuités\nExploration globale efficace\nParallélisation naturelle\n\n\n\nLimitations\n\nNombreux paramètres à régler\nConvergence parfois lente en fin d’optimisation\nCoût calcul élevé pour fonctions objectif complexes\n\n\n\nBonnes Pratiques\n\nEncodage réel recommandé pour optimisation continue\nÉlitisme essentiel pour convergence monotone\nDiversité à surveiller pour éviter convergence prématurée\nParamètres adaptatifs possibles pour améliorer performances\n\n\n\nApplications Typiques\n\nOptimisation combinatoire (TSP, emploi du temps)\nOptimisation continue (ingénierie, calibration)\nApprentissage automatique (réglage hyperparamètres)\nConception (aérodynamique, circuits)\n\n\n\n\n\n\n\nNoneAlgorithmes Évolutionnaires\n\n\n\n\n\n\nAlgorithme\n\nInitialiser population aléatoire\nÉvaluer fitness de chaque individu\nSélectionner les parents (par roulette, rang ou tournoi)\nAppliquer croisement avec probabilité \\(p_c\\)\nAppliquer mutation avec probabilité \\(p_m\\)\nFormer nouvelle génération avec élitisme\nRépéter 2-6 jusqu’à critère d’arrêt\n\n\n\n\nFormules Mathématiques\n\nSélection proportionnelle\n\\[\np_i = \\frac{f_i}{\\sum_{j=1}^n f_j}\n\\]\n\n\nThéorème des schémas\n\\[\nM(t+1,S) \\geq \\frac{M(t,S)f(S,t)}{F(t)}\\left[1 - p_c\\frac{\\delta(S)}{m-1} - o(S)p_m\\right]\n\\]\n\n\nSélection par rang linéaire\n\\[\np_i = \\frac{1}{n}\\left[\\beta - 2(\\beta-1)\\frac{i-1}{n-1}\\right]\n\\]\n\n\n\n\nCaractéristiques\n\nEspace de recherche\n\nDiscret, continu, permutations\nEncodage : binaire, réel, permutation\nFonction boîte noire (pas de gradient)\n\n\n\nConvergence\n\nConvergence globale (évite minima locaux)\nDiminishing returns (plateau en fin)\nProbabiliste\n\n\n\nGuided Parameters\n\n\\(n\\) : taille population (20-200)\n\\(p_c\\) : probabilité croisement (0.6-0.9)\n\\(p_m\\) : probabilité mutation (0.001-0.1)\nÉlitisme : 1-10%\nPression sélection (\\(\\beta\\) ou \\(k\\) tournoi)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-9",
     "href": "recap.html#algorithme-9",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nInitialiser population aléatoire\nÉvaluer fitness de chaque individu\nSélectionner les parents (par roulette, rang ou tournoi)\nAppliquer croisement avec probabilité \\(p_c\\)\nAppliquer mutation avec probabilité \\(p_m\\)\nFormer nouvelle génération avec élitisme\nRépéter 2-6 jusqu’à critère d’arrêt"
+    "text": "Algorithme\n\nInitialiser population aléatoire\nÉvaluer fitness de chaque individu\nSélectionner les parents (par roulette, rang ou tournoi)\nAppliquer croisement avec probabilité \\(p_c\\)\nAppliquer mutation avec probabilité \\(p_m\\)\nFormer nouvelle génération avec élitisme\nRépéter 2-6 jusqu’à critère d’arrêt",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques",
     "href": "recap.html#formules-mathématiques",
     "title": "Recherche Tabou",
     "section": "Formules Mathématiques",
-    "text": "Formules Mathématiques\n\nSélection proportionnelle\n\\[\np_i = \\frac{f_i}{\\sum_{j=1}^n f_j}\n\\]\n\n\nThéorème des schémas\n\\[\nM(t+1,S) \\geq \\frac{M(t,S)f(S,t)}{F(t)}\\left[1 - p_c\\frac{\\delta(S)}{m-1} - o(S)p_m\\right]\n\\]\n\n\nSélection par rang linéaire\n\\[\np_i = \\frac{1}{n}\\left[\\beta - 2(\\beta-1)\\frac{i-1}{n-1}\\right]\n\\]"
+    "text": "Formules Mathématiques\n\nSélection proportionnelle\n\\[\np_i = \\frac{f_i}{\\sum_{j=1}^n f_j}\n\\]\n\n\nThéorème des schémas\n\\[\nM(t+1,S) \\geq \\frac{M(t,S)f(S,t)}{F(t)}\\left[1 - p_c\\frac{\\delta(S)}{m-1} - o(S)p_m\\right]\n\\]\n\n\nSélection par rang linéaire\n\\[\np_i = \\frac{1}{n}\\left[\\beta - 2(\\beta-1)\\frac{i-1}{n-1}\\right]\n\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-9",
     "href": "recap.html#caractéristiques-9",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\n\nEspace de recherche\n\nDiscret, continu, permutations\nEncodage : binaire, réel, permutation\nFonction boîte noire (pas de gradient)\n\n\n\nConvergence\n\nConvergence globale (évite minima locaux)\nDiminishing returns (plateau en fin)\nProbabiliste\n\n\n\nGuided Parameters\n\n\\(n\\) : taille population (20-200)\n\\(p_c\\) : probabilité croisement (0.6-0.9)\n\\(p_m\\) : probabilité mutation (0.001-0.1)\nÉlitisme : 1-10%\nPression sélection (\\(\\beta\\) ou \\(k\\) tournoi)"
+    "text": "Caractéristiques\n\nEspace de recherche\n\nDiscret, continu, permutations\nEncodage : binaire, réel, permutation\nFonction boîte noire (pas de gradient)\n\n\n\nConvergence\n\nConvergence globale (évite minima locaux)\nDiminishing returns (plateau en fin)\nProbabiliste\n\n\n\nGuided Parameters\n\n\\(n\\) : taille population (20-200)\n\\(p_c\\) : probabilité croisement (0.6-0.9)\n\\(p_m\\) : probabilité mutation (0.001-0.1)\nÉlitisme : 1-10%\nPression sélection (\\(\\beta\\) ou \\(k\\) tournoi)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-10",
     "href": "recap.html#algorithme-10",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nInitialisation : Générer une population initiale de programmes aléatoires à partir des ensembles de fonctions \\(F\\) et de terminaux \\(T\\)\nÉvaluation : Calculer la fitness de chaque programme selon une métrique définie (ex: erreur quadratique)\nSélection : Choisir les programmes les plus performants pour la reproduction\nRecombinaison : Appliquer les opérateurs génétiques :\n\nCrossover : Échanger des sous-arbres entre deux programmes parents\nMutation : Remplacer un sous-arbre aléatoire par un nouveau\n\nRemplacement : Former une nouvelle génération à partir des descendants et/ou des parents\nTerminaison : Répéter jusqu’à satisfaction d’un critère (fitness, générations, stagnation)"
+    "text": "Algorithme\n\nInitialisation : Générer une population initiale de programmes aléatoires à partir des ensembles de fonctions \\(F\\) et de terminaux \\(T\\)\nÉvaluation : Calculer la fitness de chaque programme selon une métrique définie (ex: erreur quadratique)\nSélection : Choisir les programmes les plus performants pour la reproduction\nRecombinaison : Appliquer les opérateurs génétiques :\n\nCrossover : Échanger des sous-arbres entre deux programmes parents\nMutation : Remplacer un sous-arbre aléatoire par un nouveau\n\nRemplacement : Former une nouvelle génération à partir des descendants et/ou des parents\nTerminaison : Répéter jusqu’à satisfaction d’un critère (fitness, générations, stagnation)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-1",
     "href": "recap.html#formules-mathématiques-1",
     "title": "Recherche Tabou",
     "section": "Formules Mathématiques",
-    "text": "Formules Mathématiques\nFitness pour régression symbolique :\n\\[\nf(p) = \\sum_{i=1}^{k} |y_i - p(x_i)|\n\\]\noù \\(p\\) est le programme, \\((x_i, y_i)\\) sont les données d’entraînement.\nReprésentation arborescente :\nUn programme \\(p\\) représenté comme arbre, où :\n\nNœuds internes : fonctions de \\(F\\)\nFeuilles : terminaux de \\(T\\)"
+    "text": "Formules Mathématiques\nFitness pour régression symbolique :\n\\[\nf(p) = \\sum_{i=1}^{k} |y_i - p(x_i)|\n\\]\noù \\(p\\) est le programme, \\((x_i, y_i)\\) sont les données d’entraînement.\nReprésentation arborescente :\nUn programme \\(p\\) représenté comme arbre, où :\n\nNœuds internes : fonctions de \\(F\\)\nFeuilles : terminaux de \\(T\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-10",
     "href": "recap.html#caractéristiques-10",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\nEspace de recherche :\n\nToutes les compositions possibles de \\(F\\) et \\(T\\)\nPotentiellement infini et de dimension variable\nContraint par la propriété de clôture\n\nConvergence :\n\nConvergence probable vers des solutions sous-optimales\nSensible au surapprentissage (overfitting)\nNécessité de limiter la complexité (contrôle du “bloat”)\n\nGuided Parameters :\n\nFonction set (\\(F\\)) : Opérateurs autorisés (+, -, ×, ÷, fonctions booléennes, etc.)\nTerminal set (\\(T\\)) : Variables et constantes\nTaille population : 50-1000 individus\nProbabilité crossover : 80-95%\nProbabilité mutation : 5-20%\nMéthode sélection : Tournoi, roulette, rang\nLimite profondeur : 5-20 niveaux\nCritère arrêt : Générations (50-500) ou fitness cible"
+    "text": "Caractéristiques\nEspace de recherche :\n\nToutes les compositions possibles de \\(F\\) et \\(T\\)\nPotentiellement infini et de dimension variable\nContraint par la propriété de clôture\n\nConvergence :\n\nConvergence probable vers des solutions sous-optimales\nSensible au surapprentissage (overfitting)\nNécessité de limiter la complexité (contrôle du “bloat”)\n\nGuided Parameters :\n\nFonction set (\\(F\\)) : Opérateurs autorisés (+, -, ×, ÷, fonctions booléennes, etc.)\nTerminal set (\\(T\\)) : Variables et constantes\nTaille population : 50-1000 individus\nProbabilité crossover : 80-95%\nProbabilité mutation : 5-20%\nMéthode sélection : Tournoi, roulette, rang\nLimite profondeur : 5-20 niveaux\nCritère arrêt : Générations (50-500) ou fitness cible",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-6",
     "href": "recap.html#informations-clés-6",
     "title": "Recherche Tabou",
     "section": "Informations Clés",
-    "text": "Informations Clés\nAvantages :\n\nPas de forme fonctionnelle pré-définie\nSolutions interprétables (formules explicites)\nConstruction automatique de caractéristiques\nExploration non-linéaire naturelle\n\nDéfis :\n\nComplexité computationnelle élevée\nContrôle de la taille (bloat problem)\nRisque de surapprentissage\nDifficulté avec grands jeux de données\n\nApplications typiques :\n\nRégression symbolique\nClassification\nModélisation de comportements (robotique)\nDécouverte de lois scientifiques\n\nVariantes :\n\nGP arborescent : Représentation en arbre, opérateurs sur sous-arbres\nGP linéaire : Programmes séquentiels, stack-based\nGrammatical Evolution : Génération via grammaire formelle\n\n\n\n\n\n\n\nNoneGenetic Programming (GP)\n\n\n\n\n\n\nAlgorithme\n\nInitialiser population de programmes aléatoires via \\(F\\) et \\(T\\)\nÉvaluer chaque programme avec fonction fitness (ex: erreur absolue)\nSélectionner meilleurs individus (tournoi/roulette)\nAppliquer opérateurs :\n\nCrossover : échanger sous-arbres entre parents\nMutation : remplacer sous-arbre aléatoire\n\nRemplacer ancienne génération\nRépéter 2-5 jusqu’à critère d’arrêt\n\n\n\nFormules\nFitness régression :\n\\[f(p) = \\sum_{i=1}^{k} |y_i - p(x_i)|\\]\n\n\nCaractéristiques\nEspace : Composition infinie de \\(F\\) et \\(T\\) (arbres variables)\nConvergence : Vers optimum local, sensible au surapprentissage et bloat\nParamètres :\n\n\\(F\\) (fonctions), \\(T\\) (terminaux)\nTaille population (50-1000)\nProbabilités crossover (0.8-0.95) et mutation (0.05-0.2)\nMéthode sélection (tournoi)\nLimite profondeur (5-20)\nCritère arrêt (générations/stagnation)"
+    "text": "Informations Clés\nAvantages :\n\nPas de forme fonctionnelle pré-définie\nSolutions interprétables (formules explicites)\nConstruction automatique de caractéristiques\nExploration non-linéaire naturelle\n\nDéfis :\n\nComplexité computationnelle élevée\nContrôle de la taille (bloat problem)\nRisque de surapprentissage\nDifficulté avec grands jeux de données\n\nApplications typiques :\n\nRégression symbolique\nClassification\nModélisation de comportements (robotique)\nDécouverte de lois scientifiques\n\nVariantes :\n\nGP arborescent : Représentation en arbre, opérateurs sur sous-arbres\nGP linéaire : Programmes séquentiels, stack-based\nGrammatical Evolution : Génération via grammaire formelle\n\n\n\n\n\n\n\nNoneGenetic Programming (GP)\n\n\n\n\n\n\nAlgorithme\n\nInitialiser population de programmes aléatoires via \\(F\\) et \\(T\\)\nÉvaluer chaque programme avec fonction fitness (ex: erreur absolue)\nSélectionner meilleurs individus (tournoi/roulette)\nAppliquer opérateurs :\n\nCrossover : échanger sous-arbres entre parents\nMutation : remplacer sous-arbre aléatoire\n\nRemplacer ancienne génération\nRépéter 2-5 jusqu’à critère d’arrêt\n\n\n\nFormules\nFitness régression :\n\\[f(p) = \\sum_{i=1}^{k} |y_i - p(x_i)|\\]\n\n\nCaractéristiques\nEspace : Composition infinie de \\(F\\) et \\(T\\) (arbres variables)\nConvergence : Vers optimum local, sensible au surapprentissage et bloat\nParamètres :\n\n\\(F\\) (fonctions), \\(T\\) (terminaux)\nTaille population (50-1000)\nProbabilités crossover (0.8-0.95) et mutation (0.05-0.2)\nMéthode sélection (tournoi)\nLimite profondeur (5-20)\nCritère arrêt (générations/stagnation)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#algorithme-11",
     "href": "recap.html#algorithme-11",
     "title": "Recherche Tabou",
     "section": "Algorithme",
-    "text": "Algorithme\n\nInitialiser population de programmes aléatoires via \\(F\\) et \\(T\\)\nÉvaluer chaque programme avec fonction fitness (ex: erreur absolue)\nSélectionner meilleurs individus (tournoi/roulette)\nAppliquer opérateurs :\n\nCrossover : échanger sous-arbres entre parents\nMutation : remplacer sous-arbre aléatoire\n\nRemplacer ancienne génération\nRépéter 2-5 jusqu’à critère d’arrêt"
+    "text": "Algorithme\n\nInitialiser population de programmes aléatoires via \\(F\\) et \\(T\\)\nÉvaluer chaque programme avec fonction fitness (ex: erreur absolue)\nSélectionner meilleurs individus (tournoi/roulette)\nAppliquer opérateurs :\n\nCrossover : échanger sous-arbres entre parents\nMutation : remplacer sous-arbre aléatoire\n\nRemplacer ancienne génération\nRépéter 2-5 jusqu’à critère d’arrêt",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-2",
     "href": "recap.html#formules-2",
     "title": "Recherche Tabou",
     "section": "Formules",
-    "text": "Formules\nFitness régression :\n\\[f(p) = \\sum_{i=1}^{k} |y_i - p(x_i)|\\]"
+    "text": "Formules\nFitness régression :\n\\[f(p) = \\sum_{i=1}^{k} |y_i - p(x_i)|\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#caractéristiques-11",
     "href": "recap.html#caractéristiques-11",
     "title": "Recherche Tabou",
     "section": "Caractéristiques",
-    "text": "Caractéristiques\nEspace : Composition infinie de \\(F\\) et \\(T\\) (arbres variables)\nConvergence : Vers optimum local, sensible au surapprentissage et bloat\nParamètres :\n\n\\(F\\) (fonctions), \\(T\\) (terminaux)\nTaille population (50-1000)\nProbabilités crossover (0.8-0.95) et mutation (0.05-0.2)\nMéthode sélection (tournoi)\nLimite profondeur (5-20)\nCritère arrêt (générations/stagnation)"
+    "text": "Caractéristiques\nEspace : Composition infinie de \\(F\\) et \\(T\\) (arbres variables)\nConvergence : Vers optimum local, sensible au surapprentissage et bloat\nParamètres :\n\n\\(F\\) (fonctions), \\(T\\) (terminaux)\nTaille population (50-1000)\nProbabilités crossover (0.8-0.95) et mutation (0.05-0.2)\nMéthode sélection (tournoi)\nLimite profondeur (5-20)\nCritère arrêt (générations/stagnation)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#challenges",
     "href": "recap.html#challenges",
     "title": "Recherche Tabou",
     "section": "Challenges",
-    "text": "Challenges\n\nStochasticité et Variance : Les exécutions multiples donnent des résultats différents.\nAbsence de Métrique Universelle : Pas d’indicateur unique pour mesurer la performance.\nDépendance aux Paramètres : La performance est sensible aux guided parameters.\nDépendance au Problème : Une méthode performante sur un problème peut être inefficace sur un autre.\nThéorème “No Free Lunch” (NFL) : Aucun algorithme n’est supérieur à un autre sur l’ensemble de tous les problèmes."
+    "text": "Challenges\n\nStochasticité et Variance : Les exécutions multiples donnent des résultats différents.\nAbsence de Métrique Universelle : Pas d’indicateur unique pour mesurer la performance.\nDépendance aux Paramètres : La performance est sensible aux guided parameters.\nDépendance au Problème : Une méthode performante sur un problème peut être inefficace sur un autre.\nThéorème “No Free Lunch” (NFL) : Aucun algorithme n’est supérieur à un autre sur l’ensemble de tous les problèmes.",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#key-mathematical-formulas",
     "href": "recap.html#key-mathematical-formulas",
     "title": "Recherche Tabou",
     "section": "Key Mathematical Formulas",
-    "text": "Key Mathematical Formulas\n\n1. Mesure de l’Effort de Calcul (Proxy)\nPour un problème de taille \\(N\\), l’effort \\(T\\) (ex: nombre d’évaluations) peut suivre une loi de puissance : \\[T(N) = C \\times N^{\\alpha}\\] où \\(C\\) et \\(\\alpha\\) sont des constantes dépendant de l’algorithme et du problème.\n\n\n2. Taux de Succès (Probability of Success)\nProbabilité de trouver une solution dans une marge d’erreur \\(\\epsilon\\) sur $ $ runs : \\[P_{\\epsilon} = \\frac{\\text{Nombre de solutions avec erreur} \\leq \\epsilon}{\\mathcal{N}}\\]\n\n\n3. Théorème “No Free Lunch” (Formulation)\nPour deux algorithmes \\(A_1\\) et \\(A_2\\), sur l’ensemble \\(F\\) de toutes les fonctions discrètes possibles : \\[\\sum_{f \\in F} P(d_m | f, m, A_1) = \\sum_{f \\in F} P(d_m | f, m, A_2)\\] où \\(P(d_m | f, m, A)\\) est la probabilité que la séquence de \\(m\\) échantillons \\(d_m\\) générée par \\(A\\) contienne l’optimum de \\(f\\)."
+    "text": "Key Mathematical Formulas\n\n1. Mesure de l’Effort de Calcul (Proxy)\nPour un problème de taille \\(N\\), l’effort \\(T\\) (ex: nombre d’évaluations) peut suivre une loi de puissance : \\[T(N) = C \\times N^{\\alpha}\\] où \\(C\\) et \\(\\alpha\\) sont des constantes dépendant de l’algorithme et du problème.\n\n\n2. Taux de Succès (Probability of Success)\nProbabilité de trouver une solution dans une marge d’erreur \\(\\epsilon\\) sur $ $ runs : \\[P_{\\epsilon} = \\frac{\\text{Nombre de solutions avec erreur} \\leq \\epsilon}{\\mathcal{N}}\\]\n\n\n3. Théorème “No Free Lunch” (Formulation)\nPour deux algorithmes \\(A_1\\) et \\(A_2\\), sur l’ensemble \\(F\\) de toutes les fonctions discrètes possibles : \\[\\sum_{f \\in F} P(d_m | f, m, A_1) = \\sum_{f \\in F} P(d_m | f, m, A_2)\\] où \\(P(d_m | f, m, A)\\) est la probabilité que la séquence de \\(m\\) échantillons \\(d_m\\) générée par \\(A\\) contienne l’optimum de \\(f\\).",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#performance-evaluation",
     "href": "recap.html#performance-evaluation",
     "title": "Recherche Tabou",
     "section": "Performance Evaluation",
-    "text": "Performance Evaluation\n\nMétriques Principales\n\nEffort de Calcul : Temps machine ou nombre d’évaluations de la fonction objectif.\nQualité de la Solution : Erreur relative moyenne ou taux de succès \\(P_{\\epsilon}\\).\nÉvolutivité (Scalability) : Croissance de l’effort en fonction de la taille du problème \\(N\\).\n\n\n\nProtocole Expérimental\n\nLes résultats doivent être moyennés sur de nombreux runs (typiquement \\(\\mathcal{N} \\in [100, 1000]\\)).\nLes comparaisons doivent utiliser des tests statistiques (ex: Kolmogorov-Smirnov) pour valider la significativité.\nLes benchmarks sont essentiels (problèmes réels ou synthétiques comme les \\(NK\\)-landscapes)."
+    "text": "Performance Evaluation\n\nMétriques Principales\n\nEffort de Calcul : Temps machine ou nombre d’évaluations de la fonction objectif.\nQualité de la Solution : Erreur relative moyenne ou taux de succès \\(P_{\\epsilon}\\).\nÉvolutivité (Scalability) : Croissance de l’effort en fonction de la taille du problème \\(N\\).\n\n\n\nProtocole Expérimental\n\nLes résultats doivent être moyennés sur de nombreux runs (typiquement \\(\\mathcal{N} \\in [100, 1000]\\)).\nLes comparaisons doivent utiliser des tests statistiques (ex: Kolmogorov-Smirnov) pour valider la significativité.\nLes benchmarks sont essentiels (problèmes réels ou synthétiques comme les \\(NK\\)-landscapes).",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-7",
     "href": "recap.html#informations-clés-7",
     "title": "Recherche Tabou",
     "section": "Informations Clés",
-    "text": "Informations Clés\n\nNature de l’Analyse\nL’analyse de performance est empirique et statistique, non théorique, en raison du caractère stochastique des métaheuristiques.\n\n\nGuided Parameters Essentiels (Exemples)\nChaque métaheuristique a des paramètres critiques à régler :\n\nRecuit Simulé : Température initiale, calendrier de refroidissement.\nAlgorithme Génétique : Taille de population, taux de croisement/mutation.\nOptimisation par Essaims Particulaires (PSO) : Coefficients cognitif et social, poids d’inertie.\n\n\n\nConséquence Pratique du Théorème NFL\nIl n’existe pas de méthode universellement meilleure. Le choix et le réglage d’une métaheuristique doivent être adaptés à la classe de problème spécifique visée. La recherche d’une méthode “générale” est vaine.\n\n\n\n\n\n\nNonePerformance\n\n\n\n\n\n\nChallenges\n\nStochasticité → résultats variables\nPas de métrique universelle\nDépendant des paramètres\nDépendant du problème\n“No Free Lunch” : aucun algorithme n’est meilleur sur tous les problèmes\n\n\n\nFormules Clés\nEffort de calcul :\n\\[T(N) \\propto N^{\\alpha}\\]\nTaux de succès :\n\\[P_{\\epsilon} = \\frac{\\text{solutions dans } \\epsilon}{\\text{runs}}\\]\nThéorème NFL :\n\\[\\sum_{f} P(d_m | f, m, A_1) = \\sum_{f} P(d_m | f, m, A_2)\\]\n\n\nÉvaluation\nMétriques :\n\nEffort : temps ou évaluations\nQualité : erreur relative ou \\(P_{\\epsilon}\\)\nÉvolutivité : croissance avec \\(N\\)\n\nProtocole :\n\nMoyenne sur 100-1000 runs\nTests statistiques pour comparaison\nBenchmarks réels et synthétiques\n\n\n\nInformations Essentielles\n\nAnalyse empirique et statistique\nParamètres critiques à régler\nAucune méthode universelle\nAdapter l’algorithme au problème"
+    "text": "Informations Clés\n\nNature de l’Analyse\nL’analyse de performance est empirique et statistique, non théorique, en raison du caractère stochastique des métaheuristiques.\n\n\nGuided Parameters Essentiels (Exemples)\nChaque métaheuristique a des paramètres critiques à régler :\n\nRecuit Simulé : Température initiale, calendrier de refroidissement.\nAlgorithme Génétique : Taille de population, taux de croisement/mutation.\nOptimisation par Essaims Particulaires (PSO) : Coefficients cognitif et social, poids d’inertie.\n\n\n\nConséquence Pratique du Théorème NFL\nIl n’existe pas de méthode universellement meilleure. Le choix et le réglage d’une métaheuristique doivent être adaptés à la classe de problème spécifique visée. La recherche d’une méthode “générale” est vaine.\n\n\n\n\n\n\nNonePerformance\n\n\n\n\n\n\nChallenges\n\nStochasticité → résultats variables\nPas de métrique universelle\nDépendant des paramètres\nDépendant du problème\n“No Free Lunch” : aucun algorithme n’est meilleur sur tous les problèmes\n\n\n\nFormules Clés\nEffort de calcul :\n\\[T(N) \\propto N^{\\alpha}\\]\nTaux de succès :\n\\[P_{\\epsilon} = \\frac{\\text{solutions dans } \\epsilon}{\\text{runs}}\\]\nThéorème NFL :\n\\[\\sum_{f} P(d_m | f, m, A_1) = \\sum_{f} P(d_m | f, m, A_2)\\]\n\n\nÉvaluation\nMétriques :\n\nEffort : temps ou évaluations\nQualité : erreur relative ou \\(P_{\\epsilon}\\)\nÉvolutivité : croissance avec \\(N\\)\n\nProtocole :\n\nMoyenne sur 100-1000 runs\nTests statistiques pour comparaison\nBenchmarks réels et synthétiques\n\n\n\nInformations Essentielles\n\nAnalyse empirique et statistique\nParamètres critiques à régler\nAucune méthode universelle\nAdapter l’algorithme au problème",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#challenges-1",
     "href": "recap.html#challenges-1",
     "title": "Recherche Tabou",
     "section": "Challenges",
-    "text": "Challenges\n\nStochasticité → résultats variables\nPas de métrique universelle\nDépendant des paramètres\nDépendant du problème\n“No Free Lunch” : aucun algorithme n’est meilleur sur tous les problèmes"
+    "text": "Challenges\n\nStochasticité → résultats variables\nPas de métrique universelle\nDépendant des paramètres\nDépendant du problème\n“No Free Lunch” : aucun algorithme n’est meilleur sur tous les problèmes",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-clés-1",
     "href": "recap.html#formules-clés-1",
     "title": "Recherche Tabou",
     "section": "Formules Clés",
-    "text": "Formules Clés\nEffort de calcul :\n\\[T(N) \\propto N^{\\alpha}\\]\nTaux de succès :\n\\[P_{\\epsilon} = \\frac{\\text{solutions dans } \\epsilon}{\\text{runs}}\\]\nThéorème NFL :\n\\[\\sum_{f} P(d_m | f, m, A_1) = \\sum_{f} P(d_m | f, m, A_2)\\]"
+    "text": "Formules Clés\nEffort de calcul :\n\\[T(N) \\propto N^{\\alpha}\\]\nTaux de succès :\n\\[P_{\\epsilon} = \\frac{\\text{solutions dans } \\epsilon}{\\text{runs}}\\]\nThéorème NFL :\n\\[\\sum_{f} P(d_m | f, m, A_1) = \\sum_{f} P(d_m | f, m, A_2)\\]",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#évaluation",
     "href": "recap.html#évaluation",
     "title": "Recherche Tabou",
     "section": "Évaluation",
-    "text": "Évaluation\nMétriques :\n\nEffort : temps ou évaluations\nQualité : erreur relative ou \\(P_{\\epsilon}\\)\nÉvolutivité : croissance avec \\(N\\)\n\nProtocole :\n\nMoyenne sur 100-1000 runs\nTests statistiques pour comparaison\nBenchmarks réels et synthétiques"
+    "text": "Évaluation\nMétriques :\n\nEffort : temps ou évaluations\nQualité : erreur relative ou \\(P_{\\epsilon}\\)\nÉvolutivité : croissance avec \\(N\\)\n\nProtocole :\n\nMoyenne sur 100-1000 runs\nTests statistiques pour comparaison\nBenchmarks réels et synthétiques",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-essentielles",
     "href": "recap.html#informations-essentielles",
     "title": "Recherche Tabou",
     "section": "Informations Essentielles",
-    "text": "Informations Essentielles\n\nAnalyse empirique et statistique\nParamètres critiques à régler\nAucune méthode universelle\nAdapter l’algorithme au problème"
+    "text": "Informations Essentielles\n\nAnalyse empirique et statistique\nParamètres critiques à régler\nAucune méthode universelle\nAdapter l’algorithme au problème",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#challenges-2",
     "href": "recap.html#challenges-2",
     "title": "Recherche Tabou",
     "section": "Challenges",
-    "text": "Challenges\n\nTransition abrupte de complexité : passage de linéaire à exponentiel\nRaréfaction des solutions dans l’espace de recherche\nDépendance critique au paramètre de difficulté \\(\\alpha = M/N\\)\nComportement non monotone des métaheuristiques\nSeuils critiques différents selon l’algorithme utilisé"
+    "text": "Challenges\n\nTransition abrupte de complexité : passage de linéaire à exponentiel\nRaréfaction des solutions dans l’espace de recherche\nDépendance critique au paramètre de difficulté \\(\\alpha = M/N\\)\nComportement non monotone des métaheuristiques\nSeuils critiques différents selon l’algorithme utilisé",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-mathématiques-importantes-4",
     "href": "recap.html#formules-mathématiques-importantes-4",
     "title": "Recherche Tabou",
     "section": "Formules mathématiques importantes",
-    "text": "Formules mathématiques importantes\n\nDéfinition du problème\n\nÉnergie : \\(E = \\text{nombre de contraintes non satisfaites}\\)\nParamètre de contrôle : \\(\\alpha = \\frac{M}{N}\\)\n\n\n\nSeuils critiques\n\n2-XORSAT : \\(\\alpha_c = \\frac{1}{2}\\)\n3-XORSAT :\n\n\\(\\alpha_d = 0.8184\\) (début du clustering)\n\\(\\alpha_c = 0.9179\\) (transition de phase)\n\nRWSAT sur 3-XORSAT : \\(\\alpha_E = 0.33\\)\nBacktracking : \\(\\alpha_c = \\frac{2}{3}\\) (assignation aléatoire)\n\n\n\nComplexité algorithmique\n\nRégime linéaire : \\(\\langle T_{res}\\rangle = N \\cdot t_{res}\\)\nRégime exponentiel : \\(\\langle T_{res}\\rangle = \\exp(N \\cdot \\tau_{res})\\)"
+    "text": "Formules mathématiques importantes\n\nDéfinition du problème\n\nÉnergie : \\(E = \\text{nombre de contraintes non satisfaites}\\)\nParamètre de contrôle : \\(\\alpha = \\frac{M}{N}\\)\n\n\n\nSeuils critiques\n\n2-XORSAT : \\(\\alpha_c = \\frac{1}{2}\\)\n3-XORSAT :\n\n\\(\\alpha_d = 0.8184\\) (début du clustering)\n\\(\\alpha_c = 0.9179\\) (transition de phase)\n\nRWSAT sur 3-XORSAT : \\(\\alpha_E = 0.33\\)\nBacktracking : \\(\\alpha_c = \\frac{2}{3}\\) (assignation aléatoire)\n\n\n\nComplexité algorithmique\n\nRégime linéaire : \\(\\langle T_{res}\\rangle = N \\cdot t_{res}\\)\nRégime exponentiel : \\(\\langle T_{res}\\rangle = \\exp(N \\cdot \\tau_{res})\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#performance-evaluation-1",
     "href": "recap.html#performance-evaluation-1",
     "title": "Recherche Tabou",
     "section": "Performance evaluation",
-    "text": "Performance evaluation\n\nMétriques principales\n\nProbabilité de satisfaisabilité : \\(P_{SAT}(N, \\alpha)\\)\nTemps de résolution moyen : \\(\\langle T_{res}\\rangle\\)\nÉnergie moyenne : \\(e = E/M\\)\nValeur de plateau : \\(e_{\\mathrm{plateau}}\\)\n\n\n\nComportements observés\n\nRégime facile (\\(\\alpha &lt; \\alpha_E\\)) :\n\n\\(e_{\\mathrm{plateau}} = 0\\)\nComplexité linéaire en \\(N\\)\nConvergence rapide\n\nRégime difficile (\\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\)) :\n\n\\(e_{\\mathrm{plateau}} &gt; 0\\)\nComplexité exponentielle en \\(N\\)\nFluctuations autour d’un plateau\n\nRégime insoluble (\\(\\alpha &gt; \\alpha_c\\)) :\n\n\\(P_{SAT} \\to 0\\) pour \\(N \\to \\infty\\)\nAucune solution avec haute probabilité"
+    "text": "Performance evaluation\n\nMétriques principales\n\nProbabilité de satisfaisabilité : \\(P_{SAT}(N, \\alpha)\\)\nTemps de résolution moyen : \\(\\langle T_{res}\\rangle\\)\nÉnergie moyenne : \\(e = E/M\\)\nValeur de plateau : \\(e_{\\mathrm{plateau}}\\)\n\n\n\nComportements observés\n\nRégime facile (\\(\\alpha &lt; \\alpha_E\\)) :\n\n\\(e_{\\mathrm{plateau}} = 0\\)\nComplexité linéaire en \\(N\\)\nConvergence rapide\n\nRégime difficile (\\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\)) :\n\n\\(e_{\\mathrm{plateau}} &gt; 0\\)\nComplexité exponentielle en \\(N\\)\nFluctuations autour d’un plateau\n\nRégime insoluble (\\(\\alpha &gt; \\alpha_c\\)) :\n\n\\(P_{SAT} \\to 0\\) pour \\(N \\to \\infty\\)\nAucune solution avec haute probabilité",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-clés-8",
     "href": "recap.html#informations-clés-8",
     "title": "Recherche Tabou",
     "section": "Informations clés",
-    "text": "Informations clés\n\nStructure de l’espace des solutions\n\n\\(\\alpha &lt; \\alpha_d\\) : solutions uniformément distribuées\n\\(\\alpha_d \\leq \\alpha &lt; \\alpha_c\\) : solutions groupées en clusters\n\\(\\alpha &gt; \\alpha_c\\) : absence de solutions (haute probabilité)\n\n\n\nAlgorithmes et leurs caractéristiques\n\nGauss elimination\n\nComplexité : \\(\\mathcal{O}(N^3)\\) pour XORSAT\nToujours polynomial pour XORSAT\n\n\n\nRWSAT (Random Walk SAT)\n\nHeuristique locale\nTransition à \\(\\alpha_E = 0.33\\) pour 3-XORSAT\nSensible à l’initialisation aléatoire\n\n\n\nBacktracking\n\nExploration systématique en profondeur\nTransition à \\(\\alpha_c = 2/3\\) (version aléatoire)\nMeilleure avec heuristique de choix de variable (\\(\\alpha_c = 0.7507\\))\n\n\n\n\nImplications pratiques\n\nIdentification du régime : déterminer si \\(\\alpha\\) est inférieur ou supérieur au seuil critique\nChoix d’algorithme : adapter la méthode au régime de difficulté\nDimensionnement : relation entre \\(N\\), \\(M\\) et la difficulté attendue\nAttentes de performance : prévoir le temps de calcul en fonction de \\(\\alpha\\)\n\n\n\nGuide des paramètres\n\nContrôle principal : \\(\\alpha = M/N\\)\nSeuils à surveiller : \\(\\alpha_E\\), \\(\\alpha_d\\), \\(\\alpha_c\\)\nIndicateur de performance : \\(e = E/M\\)\nCritère d’arrêt : \\(E = 0\\) ou temps maximal\n\n\n\nRecommandations\n\nPour \\(\\alpha &lt; \\alpha_E\\) : méthodes simples suffisent (complexité linéaire)\nPour \\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\) : prévoir des méthodes robustes (complexité exponentielle)\nPour \\(\\alpha &gt; \\alpha_c\\) : problème probablement insoluble, considérer la relaxation des contraintes\n\n\n\n\n\n\n\nNoneTransitions de phase en optimisation\n\n\n\n\n\n\nChallenges\n\nComplexité passe brutalement de linéaire à exponentielle\nSolutions deviennent rares quand \\(\\alpha = M/N\\) augmente\nPerformances dépendent fortement du régime (\\(\\alpha\\))\n\n\n\nFormules clés\n\nParamètre : \\(\\alpha = M/N\\)\n2-XORSAT : \\(\\alpha_c = 0.5\\)\n3-XORSAT : \\(\\alpha_c = 0.9179\\)\nRWSAT : transition à \\(\\alpha_E = 0.33\\)\n\n\n\nPerformance\n\nMétriques\n\n\\(P_{SAT}\\) : probabilité de satisfaisabilité\n\\(\\langle T_{res}\\rangle\\) : temps moyen de résolution\n\\(e = E/M\\) : énergie normalisée\n\n\n\nRégimes\n\nLinéaire (\\(\\alpha &lt; \\alpha_E\\)) : \\(T \\sim N\\)\nExponentiel (\\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\)) : \\(T \\sim \\exp(N)\\)\nInsoluble (\\(\\alpha &gt; \\alpha_c\\)) : \\(P_{SAT} \\to 0\\)\n\n\n\n\nInformations essentielles\n\nSeuils critiques :\n\n2-XORSAT : 0.5\n3-XORSAT : 0.9179\nRWSAT : 0.33\nBacktracking : 0.667\n\nStructure solutions :\n\n\\(\\alpha &lt; 0.818\\) : solutions uniformes\n\\(\\alpha \\in [0.818, 0.918]\\) : solutions en clusters\n\\(\\alpha &gt; 0.918\\) : aucune solution\n\nRecommandations :\n\nMonitorer \\(\\alpha\\)\nChanger d’algorithme selon le régime\nAnticiper explosion exponentielle"
+    "text": "Informations clés\n\nStructure de l’espace des solutions\n\n\\(\\alpha &lt; \\alpha_d\\) : solutions uniformément distribuées\n\\(\\alpha_d \\leq \\alpha &lt; \\alpha_c\\) : solutions groupées en clusters\n\\(\\alpha &gt; \\alpha_c\\) : absence de solutions (haute probabilité)\n\n\n\nAlgorithmes et leurs caractéristiques\n\nGauss elimination\n\nComplexité : \\(\\mathcal{O}(N^3)\\) pour XORSAT\nToujours polynomial pour XORSAT\n\n\n\nRWSAT (Random Walk SAT)\n\nHeuristique locale\nTransition à \\(\\alpha_E = 0.33\\) pour 3-XORSAT\nSensible à l’initialisation aléatoire\n\n\n\nBacktracking\n\nExploration systématique en profondeur\nTransition à \\(\\alpha_c = 2/3\\) (version aléatoire)\nMeilleure avec heuristique de choix de variable (\\(\\alpha_c = 0.7507\\))\n\n\n\n\nImplications pratiques\n\nIdentification du régime : déterminer si \\(\\alpha\\) est inférieur ou supérieur au seuil critique\nChoix d’algorithme : adapter la méthode au régime de difficulté\nDimensionnement : relation entre \\(N\\), \\(M\\) et la difficulté attendue\nAttentes de performance : prévoir le temps de calcul en fonction de \\(\\alpha\\)\n\n\n\nGuide des paramètres\n\nContrôle principal : \\(\\alpha = M/N\\)\nSeuils à surveiller : \\(\\alpha_E\\), \\(\\alpha_d\\), \\(\\alpha_c\\)\nIndicateur de performance : \\(e = E/M\\)\nCritère d’arrêt : \\(E = 0\\) ou temps maximal\n\n\n\nRecommandations\n\nPour \\(\\alpha &lt; \\alpha_E\\) : méthodes simples suffisent (complexité linéaire)\nPour \\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\) : prévoir des méthodes robustes (complexité exponentielle)\nPour \\(\\alpha &gt; \\alpha_c\\) : problème probablement insoluble, considérer la relaxation des contraintes\n\n\n\n\n\n\n\nNoneTransitions de phase en optimisation\n\n\n\n\n\n\nChallenges\n\nComplexité passe brutalement de linéaire à exponentielle\nSolutions deviennent rares quand \\(\\alpha = M/N\\) augmente\nPerformances dépendent fortement du régime (\\(\\alpha\\))\n\n\n\nFormules clés\n\nParamètre : \\(\\alpha = M/N\\)\n2-XORSAT : \\(\\alpha_c = 0.5\\)\n3-XORSAT : \\(\\alpha_c = 0.9179\\)\nRWSAT : transition à \\(\\alpha_E = 0.33\\)\n\n\n\nPerformance\n\nMétriques\n\n\\(P_{SAT}\\) : probabilité de satisfaisabilité\n\\(\\langle T_{res}\\rangle\\) : temps moyen de résolution\n\\(e = E/M\\) : énergie normalisée\n\n\n\nRégimes\n\nLinéaire (\\(\\alpha &lt; \\alpha_E\\)) : \\(T \\sim N\\)\nExponentiel (\\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\)) : \\(T \\sim \\exp(N)\\)\nInsoluble (\\(\\alpha &gt; \\alpha_c\\)) : \\(P_{SAT} \\to 0\\)\n\n\n\n\nInformations essentielles\n\nSeuils critiques :\n\n2-XORSAT : 0.5\n3-XORSAT : 0.9179\nRWSAT : 0.33\nBacktracking : 0.667\n\nStructure solutions :\n\n\\(\\alpha &lt; 0.818\\) : solutions uniformes\n\\(\\alpha \\in [0.818, 0.918]\\) : solutions en clusters\n\\(\\alpha &gt; 0.918\\) : aucune solution\n\nRecommandations :\n\nMonitorer \\(\\alpha\\)\nChanger d’algorithme selon le régime\nAnticiper explosion exponentielle",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#challenges-3",
     "href": "recap.html#challenges-3",
     "title": "Recherche Tabou",
     "section": "Challenges",
-    "text": "Challenges\n\nComplexité passe brutalement de linéaire à exponentielle\nSolutions deviennent rares quand \\(\\alpha = M/N\\) augmente\nPerformances dépendent fortement du régime (\\(\\alpha\\))"
+    "text": "Challenges\n\nComplexité passe brutalement de linéaire à exponentielle\nSolutions deviennent rares quand \\(\\alpha = M/N\\) augmente\nPerformances dépendent fortement du régime (\\(\\alpha\\))",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#formules-clés-2",
     "href": "recap.html#formules-clés-2",
     "title": "Recherche Tabou",
     "section": "Formules clés",
-    "text": "Formules clés\n\nParamètre : \\(\\alpha = M/N\\)\n2-XORSAT : \\(\\alpha_c = 0.5\\)\n3-XORSAT : \\(\\alpha_c = 0.9179\\)\nRWSAT : transition à \\(\\alpha_E = 0.33\\)"
+    "text": "Formules clés\n\nParamètre : \\(\\alpha = M/N\\)\n2-XORSAT : \\(\\alpha_c = 0.5\\)\n3-XORSAT : \\(\\alpha_c = 0.9179\\)\nRWSAT : transition à \\(\\alpha_E = 0.33\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#performance-1",
     "href": "recap.html#performance-1",
     "title": "Recherche Tabou",
     "section": "Performance",
-    "text": "Performance\n\nMétriques\n\n\\(P_{SAT}\\) : probabilité de satisfaisabilité\n\\(\\langle T_{res}\\rangle\\) : temps moyen de résolution\n\\(e = E/M\\) : énergie normalisée\n\n\n\nRégimes\n\nLinéaire (\\(\\alpha &lt; \\alpha_E\\)) : \\(T \\sim N\\)\nExponentiel (\\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\)) : \\(T \\sim \\exp(N)\\)\nInsoluble (\\(\\alpha &gt; \\alpha_c\\)) : \\(P_{SAT} \\to 0\\)"
+    "text": "Performance\n\nMétriques\n\n\\(P_{SAT}\\) : probabilité de satisfaisabilité\n\\(\\langle T_{res}\\rangle\\) : temps moyen de résolution\n\\(e = E/M\\) : énergie normalisée\n\n\n\nRégimes\n\nLinéaire (\\(\\alpha &lt; \\alpha_E\\)) : \\(T \\sim N\\)\nExponentiel (\\(\\alpha_E \\leq \\alpha &lt; \\alpha_c\\)) : \\(T \\sim \\exp(N)\\)\nInsoluble (\\(\\alpha &gt; \\alpha_c\\)) : \\(P_{SAT} \\to 0\\)",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   },
   {
     "objectID": "recap.html#informations-essentielles-1",
     "href": "recap.html#informations-essentielles-1",
     "title": "Recherche Tabou",
     "section": "Informations essentielles",
-    "text": "Informations essentielles\n\nSeuils critiques :\n\n2-XORSAT : 0.5\n3-XORSAT : 0.9179\nRWSAT : 0.33\nBacktracking : 0.667\n\nStructure solutions :\n\n\\(\\alpha &lt; 0.818\\) : solutions uniformes\n\\(\\alpha \\in [0.818, 0.918]\\) : solutions en clusters\n\\(\\alpha &gt; 0.918\\) : aucune solution\n\nRecommandations :\n\nMonitorer \\(\\alpha\\)\nChanger d’algorithme selon le régime\nAnticiper explosion exponentielle"
+    "text": "Informations essentielles\n\nSeuils critiques :\n\n2-XORSAT : 0.5\n3-XORSAT : 0.9179\nRWSAT : 0.33\nBacktracking : 0.667\n\nStructure solutions :\n\n\\(\\alpha &lt; 0.818\\) : solutions uniformes\n\\(\\alpha \\in [0.818, 0.918]\\) : solutions en clusters\n\\(\\alpha &gt; 0.918\\) : aucune solution\n\nRecommandations :\n\nMonitorer \\(\\alpha\\)\nChanger d’algorithme selon le régime\nAnticiper explosion exponentielle",
+    "crumbs": [
+      "Résumés",
+      "Recherche Tabou"
+    ]
   }
 ]
