@@ -1,7 +1,7 @@
 project:
   type: website
-  title: "ISS"
-  output-dir: ../_site/fr
+  title: "Meta"
+  output-dir: ../_site
 
 website:
   # Language switching setup
@@ -10,14 +10,6 @@ website:
     # background: primary
     search: true
     # Right side for language selector
-    right:
-      - text: Langage
-        icon: globe
-        menu:
-          - text: "Anglais"
-            href: ../index.html
-          - text: "Français"
-            href: index.html
 
   sidebar:
     style: docked
@@ -34,5 +26,5 @@ format:
       light: flatly
       dark: darkly
     toc: true
-  pdf:
+  typst:
     toc: true
