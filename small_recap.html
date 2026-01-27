@@ -500,7 +500,6 @@ window.Quarto = {
 </ul></li>
 <li><strong>Retourner</strong> meilleure solution trouvée</li>
 </ol>
-<hr>
 </section>
 <section id="formules-clés" class="level2">
 <h2 class="anchored" data-anchor-id="formules-clés">Formules clés</h2>
@@ -517,7 +516,6 @@ f = \sum_{i,j} f_{ij} \cdot d_{r_i r_j}
 T_{i_s r} &gt; t \quad \text{et} \quad T_{i_r s} &gt; t
 \]</span></p>
 <p>où <span class="math inline">\(T\)</span> est la matrice tabou, <span class="math inline">\(t\)</span> l’itération actuelle.</p>
-<hr>
 </section>
 <section id="caractéristiques" class="level2">
 <h2 class="anchored" data-anchor-id="caractéristiques">Caractéristiques</h2>
@@ -525,7 +523,6 @@ T_{i_s r} &gt; t \quad \text{et} \quad T_{i_r s} &gt; t
 <p><strong>Convergence :</strong> Conditionnelle (si espace fini, voisinage symétrique, accessibilité), mais temps exponentiel possible.</p>
 <p><strong>Mémoire :</strong> Court terme (liste taboue FIFO/tenure <span class="math inline">\(k\)</span>) + long terme (fréquences des mouvements).</p>
 <p><strong>Aspiration :</strong> Outrepasser tabou si solution meilleure que toutes précédentes.</p>
-<hr>
 </section>
 <section id="paramètres-de-guidage" class="level2">
 <h2 class="anchored" data-anchor-id="paramètres-de-guidage">Paramètres de guidage</h2>
@@ -535,6 +532,7 @@ T_{i_s r} &gt; t \quad \text{et} \quad T_{i_r s} &gt; t
 <li><strong>Structure du voisinage</strong> : type et nombre de mouvements</li>
 <li><strong>Critère d’aspiration</strong> : condition pour ignorer tabou</li>
 </ul>
+<hr>
 </section>
 </section>
 <section id="recuit-simulé" class="level1">
@@ -580,6 +578,7 @@ T_{i_s r} &gt; t \quad \text{et} \quad T_{i_r s} &gt; t
 - Planning refroidissement (<span class="math inline">\(\alpha\)</span>, itérations/palier)<br>
 - Critère d’arrêt<br>
 - Mouvements élémentaires</p>
+<hr>
 </section>
 </section>
 <section id="aco" class="level1">
@@ -621,6 +620,7 @@ p_{ij} = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum [\tau_{il}]^\alpha [\e
 <li>ACS : + <span class="math inline">\(q_0\)</span> (seuil déterministe), <span class="math inline">\(\phi\)</span> (évaporation locale)</li>
 </ul>
 <p><strong>Valeurs typiques TSP :</strong> <span class="math inline">\(\alpha=1\)</span>, <span class="math inline">\(\beta=5\)</span>, <span class="math inline">\(\rho=0.5\)</span>, <span class="math inline">\(m=n\)</span>, <span class="math inline">\(Q=1\)</span></p>
+<hr>
 </section>
 </section>
 <section id="particle-swarm-optimization-pso" class="level1">
@@ -643,6 +643,7 @@ p_{ij} = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum [\tau_{il}]^\alpha [\e
 <li>Convergence : Rapide</li>
 <li>Guided parameters : ω, c₁, c₂</li>
 </ul>
+<hr>
 </section>
 <section id="firefly-algorithm" class="level1">
 <h1>Firefly Algorithm</h1>
@@ -664,7 +665,6 @@ p_{ij} = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum [\tau_{il}]^\alpha [\e
 <li>Convergence : Bonne, équilibre via γ</li>
 <li>Guided parameters : β₀, γ, α</li>
 </ul>
-<hr>
 </section>
 <section id="cuckoo-search" class="level1">
 <h1>Cuckoo Search</h1>
@@ -685,6 +685,7 @@ p_{ij} = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum [\tau_{il}]^\alpha [\e
 <li>Convergence : Rapide, bonne exploration</li>
 <li>Guided parameters : pₐ, α, λ</li>
 </ul>
+<hr>
 </section>
 <section id="algorithmes-évolutionnaires" class="level1">
 <h1>Algorithmes Évolutionnaires</h1>
@@ -699,7 +700,6 @@ p_{ij} = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum [\tau_{il}]^\alpha [\e
 <li>Former nouvelle génération avec élitisme</li>
 <li>Répéter 2-6 jusqu’à critère d’arrêt</li>
 </ol>
-<hr>
 </section>
 <section id="formules-mathématiques" class="level2">
 <h2 class="anchored" data-anchor-id="formules-mathématiques">Formules Mathématiques</h2>
@@ -720,7 +720,6 @@ M(t+1,S) \geq \frac{M(t,S)f(S,t)}{F(t)}\left[1 - p_c\frac{\delta(S)}{m-1} - o(S)
 <p><span class="math display">\[
 p_i = \frac{1}{n}\left[\beta - 2(\beta-1)\frac{i-1}{n-1}\right]
 \]</span></p>
-<hr>
 </section>
 </section>
 <section id="caractéristiques-3" class="level2">
@@ -750,6 +749,7 @@ p_i = \frac{1}{n}\left[\beta - 2(\beta-1)\frac{i-1}{n-1}\right]
 <li>Élitisme : 1-10%</li>
 <li>Pression sélection (<span class="math inline">\(\beta\)</span> ou <span class="math inline">\(k\)</span> tournoi)</li>
 </ul>
+<hr>
 </section>
 </section>
 </section>
@@ -788,6 +788,7 @@ p_i = \frac{1}{n}\left[\beta - 2(\beta-1)\frac{i-1}{n-1}\right]
 <li>Limite profondeur (5-20)</li>
 <li>Critère arrêt (générations/stagnation)</li>
 </ul>
+<hr>
 </section>
 </section>
 <section id="performance" class="level1">
@@ -834,6 +835,7 @@ p_i = \frac{1}{n}\left[\beta - 2(\beta-1)\frac{i-1}{n-1}\right]
 <li>Aucune méthode universelle</li>
 <li>Adapter l’algorithme au problème</li>
 </ul>
+<hr>
 </section>
 </section>
 <section id="transitions-de-phase-en-optimisation" class="level1">
