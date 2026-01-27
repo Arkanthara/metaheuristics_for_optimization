@@ -18,6 +18,8 @@ website:
     contents:
       - section: "Cours"
         contents: "ch*.qmd"
+      - section: "Résumés"
+        contents: "*recap*"
 
 
 format:
